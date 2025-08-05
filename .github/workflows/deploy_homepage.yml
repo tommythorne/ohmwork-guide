@@ -1,8 +1,12 @@
 name: Auto Deploy Homepage
 
+name: Auto Deploy Homepage
+
 on:
-  issue_comment:
-    types: [created]
+  push:
+    branches:
+      - main
+
 
 jobs:
   deploy:
