@@ -1,6 +1,6 @@
 name: Auto Deploy Homepage
 
-name: Auto Deploy Homepage
+
 
 on:
   push:
