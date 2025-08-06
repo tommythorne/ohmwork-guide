@@ -1,13 +1,16 @@
 // app/api/deploy/route.ts
-import { NextResponse } from 'next/server';
-
-export async function GET(req: Request) {
+import { NextResponse } from 'next/server'export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const secret = searchParams.get('secret');
 
-  if (secret !== process.env.DEPLOY_SECRET) {
-    return NextResponse.json({ message: 'Invalid secret' }, { status: 401 });
-  }
+  if (!secret) {
+  return NextResponse.json({ message: 'Missing secret' }, { status: 400 });
+}
+
+if (secret !== "c893d22e-c86c-4b01-9c36-d96011f9f36f") {
+  return NextResponse.json({ message: 'Invalid secret', received: secret }, { status: 401 });
+}
+
 
   const res = await fetch('https://api.github.com/repos/tommythorne/ohmwork-guide/dispatches', {
     method: 'POST',
