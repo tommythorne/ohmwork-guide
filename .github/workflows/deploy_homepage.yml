@@ -1,21 +1,25 @@
 name: Auto Deploy Homepage
 
 on:
-  issue_comment:
-    types: [created]
+  workflow_dispatch:
 
 jobs:
   deploy:
-    if: github.event.comment.body == 'deploy homepage'
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
       - name: Install dependencies
         run: npm install
 
-      - name: Build Next.js
+      - name: Build Next.js project
         run: npm run build
 
       - name: Deploy to Vercel
