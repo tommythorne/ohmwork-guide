@@ -1,27 +1,24 @@
+```tsx
 import React from "react";
-import Link from "next/link";
 
 export default function Page() {
   return (
-    <main className="min-h-screen flex items-center justify-center bg-black text-white p-6">
-      <div className="text-center max-w-3xl">
-        <h1 className="text-5xl md:text-7xl font-extrabold text-yellow-400 tracking-tight">
-          OhmWork
+    <main className="min-h-screen flex items-center justify-center bg-blue-600 text-white p-6">
+      <div className="max-w-3xl text-center">
+        <h1 className="text-4xl font-bold mb-4">
+          OhmWork — No BS Electrician&apos;s Guide
         </h1>
-
-        <div className="mt-6 space-y-2 text-lg md:text-2xl opacity-90">
-          <p>No BS Electrician&apos;s Guide</p>
-          <p>Learn the NEC fast</p>
-          <p>Pass your exam</p>
-        </div>
-
-        <Link
+        <p className="mb-6 text-lg">
+          Your straightforward resource for everything electrical.
+        </p>
+        <a
           href="/guide"
-          className="inline-block mt-10 px-8 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 font-semibold shadow-lg transition-all"
+          className="inline-block bg-white text-blue-600 font-semibold px-6 py-3 rounded hover:bg-gray-100 transition"
         >
-          Start Now
-        </Link>
+          Get Started
+        </a>
       </div>
     </main>
   );
 }
+```
