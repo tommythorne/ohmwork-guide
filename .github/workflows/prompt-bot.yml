@@ -1,13 +1,14 @@
 name: Prompt Bot
 
 on:
-  # manual run from Actions tab
+  # 1) Manual run from Actions tab (lets you type a prompt)
   workflow_dispatch:
     inputs:
       prompt:
-        description: "Prompt to send to the model"
-        required: true
-  # iOS Shortcut / external trigger
+        description: "Prompt to send to the model (optional)"
+        required: false
+
+  # 2) iOS Shortcuts / API trigger
   repository_dispatch:
     types: [chatgpt_task]
 
@@ -17,83 +18,77 @@ permissions:
 jobs:
   run-prompt:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Resolve prompt from event or manual input
-        id: p
+      - name: Set up Node.js (for safe JSON + file writing)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Decide where the prompt comes from: repository_dispatch > manual input > default
+      - id: resolve
+        name: Resolve prompt from event or manual input
         shell: bash
         run: |
           set -e
-          PROMPT="${{ github.event.client_payload.prompt }}"
-          if [ -z "$PROMPT" ]; then PROMPT="${{ inputs.prompt }}"; fi
-          if [ -z "$PROMPT" ]; then
-            echo "No prompt provided. Set inputs.prompt (manual) or client_payload.prompt (dispatch)."
-            exit 1
+          if [ -n "${{ github.event.client_payload.prompt }}" ]; then
+            PROMPT_SRC="${{ github.event.client_payload.prompt }}"
+          elif [ -n "${{ inputs.prompt }}" ]; then
+            PROMPT_SRC="${{ inputs.prompt }}"
+          else
+            PROMPT_SRC="Write a one-section homepage with a bold hero, subhead, and a single primary CTA button. Style it with Tailwind classes and export a React/Next.js page component (TypeScript, client component)."
           fi
-          echo "prompt<<EOF" >> $GITHUB_OUTPUT
-          echo "$PROMPT"      >> $GITHUB_OUTPUT
-          echo "EOF"          >> $GITHUB_OUTPUT
+
+          # Return the prompt via GITHUB_OUTPUT (handles newlines safely)
+          {
+            echo "prompt<<'EOF'"
+            echo "$PROMPT_SRC"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Build request.json for OpenAI
+        env:
+          PROMPT: ${{ steps.resolve.outputs.prompt }}
+        run: |
+          node -e "
+            const fs = require('fs');
+            const data = { model: 'gpt-4.1-mini', input: process.env.PROMPT };
+            fs.writeFileSync('request.json', JSON.stringify(data));
+          "
 
       - name: Call OpenAI (Responses API)
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          PROMPT: ${{ steps.p.outputs.prompt }}
-        shell: bash
         run: |
           set -e
-          echo "Prompt: $PROMPT"
-          RESP=$(curl -sS https://api.openai.com/v1/responses \
+          curl -sS https://api.openai.com/v1/responses \
             -H "Authorization: Bearer $OPENAI_API_KEY" \
             -H "Content-Type: application/json" \
-            -d "{\"model\":\"gpt-4.1-mini\",\"input\":\"${PROMPT//\"/\\\"}\"}")
-          echo "$RESP" > response.json
-          # quick preview in logs (non-fatal)
-          node -e 'try{const r=require("./response.json");console.log("Model output preview:", (r.output_text||((r.output||[])[0]?.content||[]).map(c=>c.text).join(" ")||"").slice(0,200));}catch(e){console.log("Preview unavailable") }'
+            -d @request.json > response.json
+
+          # Optional: show a tiny preview in logs
+          node -e "
+            const r = require('./response.json');
+            const t = r.output_text || (r.output?.[0]?.content?.[0]?.text) || '';
+            console.log('\n--- Model preview (first 400 chars) ---\n' + String(t).slice(0,400) + '\n--- end preview ---');
+          "
 
       - name: Write output to app/page.tsx
-        shell: bash
         run: |
           set -e
-          node -e '
-            const fs = require("fs");
-            const r  = require("./response.json");
-
-            let text = "";
-            if (typeof r.output_text === "string" && r.output_text.trim()) {
-              text = r.output_text;
-            } else if (Array.isArray(r.output)) {
-              const parts = [];
-              for (const item of r.output) {
-                if (item && Array.isArray(item.content)) {
-                  for (const c of item.content) {
-                    if (!c) continue;
-                    if (c.type === "output_text" || c.type === "text" || c.type === "input_text") {
-                      parts.push(c.text || c.content || "");
-                    }
-                  }
-                }
-              }
-              text = parts.join("\n").trim();
-            } else if (r.choices && r.choices[0]?.message?.content) {
-              text = r.choices[0].message.content;
-            }
-
-            // strip ``` fences if present
-            text = text.replace(/^```[a-zA-Z]*\\n?([\\s\\S]*?)\\n?```$/m, "$1").trim();
-
-            if (!text) {
-              console.error("No renderable text found. Full response follows:");
-              console.log(JSON.stringify(r, null, 2));
-              process.exit(1);
-            }
-
-            fs.writeFileSync("app/page.tsx", text);
-            console.log("Wrote app/page.tsx with", text.length, "chars");
-          '
+          node -e "
+            const fs = require('fs');
+            const r = require('./response.json');
+            const text = r.output_text || (r.output?.[0]?.content?.[0]?.text) || '';
+            if (!text) { console.error('No output_text found in response.json'); process.exit(1); }
+            fs.writeFileSync('app/page.tsx', text, 'utf8');
+            console.log('Wrote app/page.tsx with', text.length, 'chars');
+          "
 
       - name: Commit & push changes
         shell: bash
@@ -101,10 +96,12 @@ jobs:
           set -e
           git config user.name  "ai-bot"
           git config user.email "ai-bot@users.noreply.github.com"
-          git add app/page.tsx
-          if git diff --cached --quiet; then
+
+          if git diff --quiet; then
             echo "No changes to commit."
-          else
-            git commit -m "AI bot: update homepage"
-            git push
+            exit 0
           fi
+
+          git add app/page.tsx
+          git commit -m "AI bot: update homepage from prompt"
+          git push
