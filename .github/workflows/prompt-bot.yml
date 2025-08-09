@@ -1,17 +1,14 @@
 name: Prompt Bot
 
 on:
-  # Run from the Actions tab with a manual prompt
   workflow_dispatch:
     inputs:
       prompt:
         description: "Prompt to send to the model"
         required: true
         type: string
-  # Trigger from iOS Shortcuts POST /dispatches
   repository_dispatch:
     types: [chatgpt_task]
-  # Optional: auto-run on commits to main
   push:
     branches: [ main ]
     paths:
@@ -35,7 +32,6 @@ jobs:
         with:
           node-version: 20
 
-      # Collect the prompt from: repository_dispatch → workflow input → default
       - name: Resolve prompt (supports multiline)
         shell: bash
         run: |
@@ -68,10 +64,7 @@ jobs:
                 'Authorization': `Bearer ${apiKey}`,
                 'Content-Type': 'application/json'
               },
-              body: JSON.stringify({
-                model: 'gpt-4.1-mini',
-                input: p
-              })
+              body: JSON.stringify({ model: 'gpt-4.1-mini', input: p })
             });
             if (!resp.ok) {
               const txt = await resp.text();
@@ -83,13 +76,15 @@ jobs:
 
           (async () => {
             const text = await askOpenAI(prompt);
-            if (!text) { throw new Error("No output_text from model"); }
+            if (!text) throw new Error("No output_text from model");
 
-            // Make the model text safe to embed inside TSX via dangerouslySetInnerHTML
+            // Escape EVERYTHING that can break TSX/template strings
             const html = String(text)
               .replace(/&/g, '&amp;')
               .replace(/</g, '&lt;')
               .replace(/>/g, '&gt;')
+              .replace(/`/g, '\\`')       // NEW: escape backticks
+              .replace(/\$\{/g, '\\${')   // NEW: escape ${ interpolation
               .replace(/\r?\n/g, '<br/>');
 
             const tsx = `import React from "react";
