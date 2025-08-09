@@ -1,14 +1,11 @@
 name: AI Prompt Bot
 
 on:
-  # lets you run it manually from the Actions tab (good for testing)
   workflow_dispatch:
     inputs:
       prompt:
         description: "Prompt to send to ChatGPT"
         required: true
-
-  # triggered by your iOS Shortcut POST /dispatches
   repository_dispatch:
     types: [chatgpt_task]
 
@@ -24,16 +21,27 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      - name: Resolve prompt from event or manual input
+        id: p
+        run: |
+          set -e
+          if [ -n "${{ github.event.client_payload.prompt }}" ]; then
+            echo "prompt=${{ github.event.client_payload.prompt }}" >> $GITHUB_OUTPUT
+          else
+            echo "prompt=${{ inputs.prompt }}" >> $GITHUB_OUTPUT
+          fi
 
-      - name: Install bot deps
-        run: npm install --prefix ./.ai-bot
-
-      - name: Run AI Prompt Bot
+      - name: Call OpenAI (Responses API)
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          CHATGPT_PROMPT: ${{ github.event.client_payload.prompt || inputs.prompt }}
-        run: node ./.ai-bot/prompt-bot.mjs
+          PROMPT: ${{ steps.p.outputs.prompt }}
+        run: |
+          set -e
+          echo "Prompt: $PROMPT"
+          RESP=$(curl -sS https://api.openai.com/v1/responses \
+            -H "Authorization: Bearer $OPENAI_API_KEY" \
+            -H "Content-Type: application/json" \
+            -d "{\"model\":\"gpt-4.1-mini\",\"input\": \"$PROMPT\"}")
+          echo "$RESP" > response.json
+          # print text result
+          node -e "const r=require('./response.json'); console.log(r.output_text||JSON.stringify(r,null,2));"
