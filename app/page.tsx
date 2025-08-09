@@ -1,16 +1,41 @@
 // app/page.tsx
-import React from "react";
-
 export default function Page() {
   return (
-    <main style={{ minHeight: "100vh", display: "grid", placeItems: "center", background: "#0b0f19", color: "white" }}>
-      <div style={{ maxWidth: 720 }}>
-        <h1 style={{ fontSize: 48, fontWeight: 800, marginBottom: 12 }}>
-          Ohmwork — No BS Electrician’s Guide
+    <main
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "#0b1220",
+        color: "white",
+        padding: "4rem 1rem",
+      }}
+    >
+      <div style={{ maxWidth: 720, textAlign: "center" }}>
+        <h1 style={{ fontSize: "3rem", lineHeight: 1.1, margin: 0, color: "#facc15", fontWeight: 800 }}>
+          OhmWork
         </h1>
-        <p style={{ fontSize: 18, opacity: 0.9, lineHeight: 1.6 }}>
-          Your straightforward source for electrician tips, tricks, and best practices.
-        </p>
+        <div style={{ marginTop: 18, opacity: 0.95 }}>
+          <p style={{ margin: 0 }}>No BS Electrician’s Guide</p>
+          <p style={{ margin: 0 }}>Learn the NEC fast</p>
+          <p style={{ margin: 0 }}>Pass your exam</p>
+        </div>
+        <a
+          href="/guide"
+          style={{
+            display: "inline-block",
+            marginTop: 24,
+            padding: "12px 20px",
+            background: "#10b981",
+            color: "#0b1220",
+            borderRadius: 12,
+            fontWeight: 700,
+            textDecoration: "none",
+          }}
+        >
+          Start Now
+        </a>
       </div>
     </main>
   );
