@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       prompt:
-        description: "Prompt to send to the model (will overwrite app/page.tsx)"
+        description: "Prompt to send to the model"
         required: true
         type: string
   repository_dispatch:
@@ -19,105 +19,116 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Generate homepage with OpenAI (safe wrapper)
-        id: gen
-        uses: actions/github-script@v7
+      # 1) Resolve prompt from Shortcut (repository_dispatch) or manual input
+      - name: Resolve prompt from event or manual input
+        id: prompt
+        shell: bash
+        env:
+          MANUAL: ${{ github.event.inputs.prompt }}
+        run: |
+          set -e
+          if [ "${GITHUB_EVENT_NAME}" = "repository_dispatch" ]; then
+            # may be string or object; stringify safely
+            P='${{ toJSON(github.event.client_payload.prompt) }}'
+          else
+            P="${MANUAL}"
+          fi
+          echo "Prompt preview:"
+          echo "$P"
+          echo "prompt<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$P"         >> "$GITHUB_OUTPUT"
+          echo "EOF"        >> "$GITHUB_OUTPUT"
+
+      # 2) Build request for OpenAI Responses API
+      - name: Build request.json for OpenAI
+        shell: bash
+        env:
+          PROMPT: ${{ steps.prompt.outputs.prompt }}
+        run: |
+          cat > request.json <<'JSON'
+          {
+            "model": "gpt-4.1-mini",
+            "input": __PROMPT__
+          }
+          JSON
+          # inject the (possibly multiline) prompt safely
+          node -e "
+            const fs=require('fs');
+            const p=process.env.PROMPT ?? '';
+            const req=fs.readFileSync('request.json','utf8').replace('__PROMPT__', p);
+            fs.writeFileSync('request.json', req);
+          "
+
+      # 3) Call OpenAI
+      - name: Call OpenAI (Responses API)
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        with:
-          script: |
-            const fs = require('fs');
-
-            // 1) Get prompt (dispatch payload > manual input)
-            const payload = context.payload?.client_payload || {};
-            const prompt =
-              (payload.prompt && String(payload.prompt)) ||
-              core.getInput('prompt') ||
-              'Write plain text sections for an OhmWork homepage: headline, one-sentence subhead, and a single CTA label. No code, no markdown—just text.';
-
-            core.info('Using prompt: ' + prompt.slice(0, 140) + (prompt.length > 140 ? '…' : ''));
-
-            // 2) Call Responses API safely
-            const res = await fetch('https://api.openai.com/v1/responses', {
-              method: 'POST',
-              headers: {
-                'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                model: 'gpt-4.1-mini',
-                input: prompt
-              })
-            });
-
-            const data = await res.json();
-            core.info('OpenAI status: ' + res.status);
-            if (!res.ok) {
-              core.setFailed('OpenAI error: ' + JSON.stringify(data));
-              return;
-            }
-
-            const text =
-              data.output_text ||
-              (Array.isArray(data.output) && data.output[0]?.content?.[0]?.text) ||
-              '';
-
-            if (!text.trim()) {
-              core.setFailed('No output_text found in OpenAI response.');
-              return;
-            }
-
-            // 3) Escape model text to safe HTML (prevents TSX breakage)
-            const html = String(text)
-              .replace(/&/g, '&amp;')
-              .replace(/</g, '&lt;')
-              .replace(/>/g, '&gt;')
-              .replace(/\r?\n/g, '<br/>');
-
-            // 4) Wrap in a compile-safe Next.js page
-            const tsx = `// app/page.tsx (auto-generated)
-export default function Page() {
-  return (
-    <main
-      style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: '#0b1220',
-        color: 'white',
-        padding: '4rem 1rem'
-      }}
-    >
-      <div style={{ maxWidth: 720 }}>
-        <div style={{ fontSize: '3rem', fontWeight: 800, color: '#facc15', marginBottom: 16 }}>OhmWork</div>
-        <div className="prose prose-invert" dangerouslySetInnerHTML={{ __html: "${html}" }} />
-        <a href="/guide" style={{ display: 'inline-block', marginTop: 24, padding: '12px 20px', background: '#10b981', color: '#0b1220', borderRadius: 12, fontWeight: 700, textDecoration: 'none' }}>
-          Start Now
-        </a>
-      </div>
-    </main>
-  );
-}
-`;
-
-            fs.writeFileSync('app/page.tsx', tsx);
-            core.info('Wrote app/page.tsx (' + tsx.length + ' bytes)');
-
-      - name: Commit & push changes
         run: |
-          git config user.name "ai-bot"
+          set -e
+          curl -sS https://api.openai.com/v1/responses \
+            -H "Authorization: Bearer ${OPENAI_API_KEY}" \
+            -H "Content-Type: application/json" \
+            -d @request.json > response.json
+          node -e "const r=require('./response.json'); console.log('output_text length:', (r.output_text||'').length)"
+
+      # 4) Write output to app/page.tsx (TSX-safe)
+      - name: Write output to app/page.tsx
+        shell: bash
+        run: |
+          set -e
+          node - <<'NODE'
+          const fs = require('fs');
+          const r  = require('./response.json');
+          const text = (r.output_text || '').trim();
+          if (!text) { console.error('No output_text found in response.json'); process.exit(1); }
+
+          // Escape to safe HTML so TSX won't break
+          const html = String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\r?\n/g, '<br/>');
+
+          const tsx = `export default function Page() {
+            return (
+              <main style={{
+                minHeight: '100vh',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: '#0b1220',
+                color: 'white',
+                padding: '4rem 1rem'
+              }}>
+                <div style={{ maxWidth: 720 }}>
+                  <div dangerouslySetInnerHTML={{ __html: \`${html}\` }} />
+                </div>
+              </main>
+            );
+          }`;
+          fs.writeFileSync('app/page.tsx', tsx);
+          console.log('Wrote app/page.tsx');
+          NODE
+
+      # 5) Commit & push
+      - name: Commit & push changes
+        shell: bash
+        run: |
+          set -e
+          git config user.name  "ai-bot"
           git config user.email "ai-bot@users.noreply.github.com"
-          if git diff --quiet app/page.tsx; then
+          git add app/page.tsx
+          if git diff --cached --quiet; then
             echo "No changes to commit."
           else
-            git add app/page.tsx
             git commit -m "AI bot: update homepage"
             git push
           fi
