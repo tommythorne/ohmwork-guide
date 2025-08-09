@@ -1,14 +1,12 @@
 name: Prompt Bot
 
 on:
-  # Manual run from Actions tab
   workflow_dispatch:
     inputs:
       prompt:
-        description: "Prompt to send to the model"
+        description: "Prompt to send to the model (will overwrite app/page.tsx)"
         required: true
         type: string
-  # Optional: allow your iOS Shortcut to trigger it
   repository_dispatch:
     types: [chatgpt_task]
 
@@ -27,7 +25,7 @@ jobs:
         with:
           node-version: 20
 
-      - name: Generate homepage with OpenAI (no heredocs)
+      - name: Generate homepage with OpenAI (safe wrapper)
         id: gen
         uses: actions/github-script@v7
         env:
@@ -36,16 +34,16 @@ jobs:
           script: |
             const fs = require('fs');
 
-            // Pull prompt from iOS Shortcut payload first, else from manual input
+            // 1) Get prompt (dispatch payload > manual input)
             const payload = context.payload?.client_payload || {};
             const prompt =
-              payload.prompt ||
+              (payload.prompt && String(payload.prompt)) ||
               core.getInput('prompt') ||
-              'Write a minimal Next.js 14 TypeScript client component for app/page.tsx that renders a blue hero with the headline “OhmWork — No BS Electrician’s Guide”, a short subhead, and a primary button linking to /guide. Use Tailwind. Only `import React from "react"`. Export default function Page().';
+              'Write plain text sections for an OhmWork homepage: headline, one-sentence subhead, and a single CTA label. No code, no markdown—just text.';
 
-            core.info('Using prompt: ' + prompt.slice(0, 120) + (prompt.length > 120 ? '…' : ''));
+            core.info('Using prompt: ' + prompt.slice(0, 140) + (prompt.length > 140 ? '…' : ''));
 
-            // Call Responses API
+            // 2) Call Responses API safely
             const res = await fetch('https://api.openai.com/v1/responses', {
               method: 'POST',
               headers: {
@@ -60,7 +58,6 @@ jobs:
 
             const data = await res.json();
             core.info('OpenAI status: ' + res.status);
-
             if (!res.ok) {
               core.setFailed('OpenAI error: ' + JSON.stringify(data));
               return;
@@ -68,7 +65,7 @@ jobs:
 
             const text =
               data.output_text ||
-              (data.output && data.output[0]?.content?.[0]?.text) ||
+              (Array.isArray(data.output) && data.output[0]?.content?.[0]?.text) ||
               '';
 
             if (!text.trim()) {
@@ -76,18 +73,51 @@ jobs:
               return;
             }
 
-            // Write the page
-            fs.writeFileSync('app/page.tsx', text);
-            core.info('Wrote app/page.tsx (' + text.length + ' chars)');
+            // 3) Escape model text to safe HTML (prevents TSX breakage)
+            const html = String(text)
+              .replace(/&/g, '&amp;')
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')
+              .replace(/\r?\n/g, '<br/>');
+
+            // 4) Wrap in a compile-safe Next.js page
+            const tsx = `// app/page.tsx (auto-generated)
+export default function Page() {
+  return (
+    <main
+      style={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: '#0b1220',
+        color: 'white',
+        padding: '4rem 1rem'
+      }}
+    >
+      <div style={{ maxWidth: 720 }}>
+        <div style={{ fontSize: '3rem', fontWeight: 800, color: '#facc15', marginBottom: 16 }}>OhmWork</div>
+        <div className="prose prose-invert" dangerouslySetInnerHTML={{ __html: "${html}" }} />
+        <a href="/guide" style={{ display: 'inline-block', marginTop: 24, padding: '12px 20px', background: '#10b981', color: '#0b1220', borderRadius: 12, fontWeight: 700, textDecoration: 'none' }}>
+          Start Now
+        </a>
+      </div>
+    </main>
+  );
+}
+`;
+
+            fs.writeFileSync('app/page.tsx', tsx);
+            core.info('Wrote app/page.tsx (' + tsx.length + ' bytes)');
 
       - name: Commit & push changes
         run: |
           git config user.name "ai-bot"
           git config user.email "ai-bot@users.noreply.github.com"
-          git add app/page.tsx
-          if git diff --cached --quiet; then
+          if git diff --quiet app/page.tsx; then
             echo "No changes to commit."
           else
+            git add app/page.tsx
             git commit -m "AI bot: update homepage"
             git push
           fi

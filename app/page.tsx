@@ -1,24 +1,17 @@
-```tsx
+// app/page.tsx
 import React from "react";
 
 export default function Page() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-blue-600 text-white px-6">
-      <section className="max-w-xl text-center">
-        <h1 className="text-4xl font-bold mb-4">
-          OhmWork — No BS Electrician’s Guide
+    <main style={{ minHeight: "100vh", display: "grid", placeItems: "center", background: "#0b0f19", color: "white" }}>
+      <div style={{ maxWidth: 720 }}>
+        <h1 style={{ fontSize: 48, fontWeight: 800, marginBottom: 12 }}>
+          Ohmwork — No BS Electrician’s Guide
         </h1>
-        <p className="mb-8 text-lg">
-          Clear, practical advice for electricians who want results.
+        <p style={{ fontSize: 18, opacity: 0.9, lineHeight: 1.6 }}>
+          Your straightforward source for electrician tips, tricks, and best practices.
         </p>
-        <a
-          href="/guide"
-          className="inline-block rounded bg-white px-6 py-3 font-semibold text-blue-600 hover:bg-gray-100 transition"
-        >
-          Get Started
-        </a>
-      </section>
+      </div>
     </main>
   );
 }
-```
