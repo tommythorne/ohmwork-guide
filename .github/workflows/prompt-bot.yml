@@ -7,6 +7,7 @@ on:
       prompt:
         description: "Prompt to send to ChatGPT"
         required: true
+
   # triggered by your iOS Shortcut POST /dispatches
   repository_dispatch:
     types: [chatgpt_task]
@@ -20,6 +21,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -32,6 +35,5 @@ jobs:
       - name: Run AI Prompt Bot
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          # prefer Shortcut payload, fall back to manual input
           CHATGPT_PROMPT: ${{ github.event.client_payload.prompt || inputs.prompt }}
         run: node ./.ai-bot/prompt-bot.mjs
