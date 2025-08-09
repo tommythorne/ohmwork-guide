@@ -1,101 +1,112 @@
 name: Repo Doctor
 
 on:
-  issue_comment:
-    types: [created]
+  workflow_dispatch:
 
 permissions:
   contents: read
-  issues: write
 
 jobs:
   doctor:
-    if: contains(github.event.comment.body, '/doctor')
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Node 20
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Summarize basic repo state
+      - name: Summarize repo state
         run: |
-          {
-            echo "## Repo Doctor — Basic State"
-            echo
-            echo "### Root listing"
-            echo '```'
-            ls -la
-            echo '```'
-            echo
-            echo "### Key files presence"
-            for f in "app/page.tsx" "app/api/deploy/route.ts" "package.json" "next.config.*" "tsconfig.json"; do
-              if [ -f "$f" ]; then echo "✔ $f"; else echo "✖ $f (missing)"; fi
-            done
-          } >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Show dependencies (package.json)
-        run: |
-          echo "## package.json (dependencies)" >> "$GITHUB_STEP_SUMMARY"
-          echo '```json' >> "$GITHUB_STEP_SUMMARY"
-          if command -v jq >/dev/null 2>&1; then
-            jq . package.json >> "$GITHUB_STEP_SUMMARY" || cat package.json >> "$GITHUB_STEP_SUMMARY"
-          else
-            cat package.json >> "$GITHUB_STEP_SUMMARY"
-          fi
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Install deps
-        run: |
-          npm ci || npm install
-
-      - name: Try Next.js build
-        id: build
-        continue-on-error: true
-        run: |
-          set +e
-          npm run build 2>&1 | tee build.log
-          code=$?
-          echo "code=$code" >> $GITHUB_OUTPUT
-          echo "## Next.js build log" >> "$GITHUB_STEP_SUMMARY"
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
-          tail -n 400 build.log >> "$GITHUB_STEP_SUMMARY" || true
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
-          exit $code
-
-      - name: Check required secrets presence
-        run: |
-          echo "## Secrets presence" >> "$GITHUB_STEP_SUMMARY"
-          for s in VERCEL_TOKEN DEPLOY_SECRET GITHUB_TOKEN; do
-            if [ -n "${{ secrets[s] }}" ]; then
-              echo "✔ $s = SET" >> "$GITHUB_STEP_SUMMARY"
+          echo "## Repo state" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Workflows present" >> $GITHUB_STEP_SUMMARY
+          ls -la .github/workflows >> $GITHUB_STEP_SUMMARY || echo "(none)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Bot files present" >> $GITHUB_STEP_SUMMARY
+          for f in ".ai-bot/prompt-bot.mjs" ".ai-bot/package.json"; do
+            if [ -f "$f" ]; then
+              echo "✔ $f" >> $GITHUB_STEP_SUMMARY
             else
-              echo "✖ $s = MISSING" >> "$GITHUB_STEP_SUMMARY"
+              echo "✖ $f" >> $GITHUB_STEP_SUMMARY
             fi
           done
 
-      - name: Test /api/deploy endpoint with DEPLOY_SECRET
+      - name: Check required secrets presence
         env:
-          DEPLOY_SECRET: ${{ secrets.DEPLOY_SECRET }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          GH_COLLAB_TOKEN: ${{ secrets.GH_COLLAB_TOKEN }}
         run: |
-          echo "## /api/deploy test" >> "$GITHUB_STEP_SUMMARY"
-          if [ -z "$DEPLOY_SECRET" ]; then
-            echo "DEPLOY_SECRET missing; skipping endpoint test." >> "$GITHUB_STEP_SUMMARY"
-            exit 0
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Secrets presence" >> $GITHUB_STEP_SUMMARY
+          for s in OPENAI_API_KEY VERCEL_TOKEN GH_COLLAB_TOKEN; do
+            if [ -n "${!s}" ]; then
+              echo "✔ $s set" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "✖ $s missing" >> $GITHUB_STEP_SUMMARY
+              echo "::warning::$s secret is missing"
+            fi
+          done
+
+      - name: Check required variables presence
+        env:
+          DEFAULT_BASE_BRANCH: ${{ vars.DEFAULT_BASE_BRANCH }}
+          AI_MODEL: ${{ vars.AI_MODEL }}
+          VERCEL_PROJECT: ${{ vars.VERCEL_PROJECT }}
+        run: |
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Variables presence" >> $GITHUB_STEP_SUMMARY
+          for v in DEFAULT_BASE_BRANCH AI_MODEL VERCEL_PROJECT; do
+            if [ -n "${!v}" ]; then
+              echo "✔ $v=${!v}" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "✖ $v missing" >> $GITHUB_STEP_SUMMARY
+              echo "::warning::$v variable is missing"
+            fi
+          done
+
+      - name: Verify PAT can reach repo
+        run: |
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## PAT reachability" >> $GITHUB_STEP_SUMMARY
+          if git ls-remote https://x-access-token:${{ secrets.GH_COLLAB_TOKEN }}@github.com/${{ github.repository }}.git > /dev/null 2>&1; then
+            echo "✔ GH_COLLAB_TOKEN can access ${GITHUB_REPOSITORY}" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✖ GH_COLLAB_TOKEN cannot access repo (check scopes: repo, workflow)" >> $GITHUB_STEP_SUMMARY
+            exit 1
           fi
-          URL="https://ohmwork-guide.vercel.app/api/deploy?secret=$DEPLOY_SECRET"
-          echo "GET $URL" >> "$GITHUB_STEP_SUMMARY"
-          curl -sS -D headers.txt "$URL" -o body.txt || true
-          echo '### Response headers' >> "$GITHUB_STEP_SUMMARY"
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
-          cat headers.txt >> "$GITHUB_STEP_SUMMARY" || true
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
-          echo '### Body' >> "$GITHUB_STEP_SUMMARY"
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
-          cat body.txt >> "$GITHUB_STEP_SUMMARY" || true
-          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Verify OpenAI API reachable
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## OpenAI connectivity" >> $GITHUB_STEP_SUMMARY
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" https://api.openai.com/v1/models -H "Authorization: Bearer $OPENAI_API_KEY")
+          if [ "$CODE" = "200" ]; then
+            echo "✔ OpenAI API reachable (200)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✖ OpenAI API check failed (HTTP $CODE). Verify OPENAI_API_KEY." >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+
+      - name: Node & npm check (for bot)
+        run: |
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Node environment" >> $GITHUB_STEP_SUMMARY
+          echo "node: $(node -v)" >> $GITHUB_STEP_SUMMARY
+          echo "npm:  $(npm -v)" >> $GITHUB_STEP_SUMMARY
+          if [ -f ".ai-bot/package.json" ]; then
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### Installing bot deps (best-effort)" >> $GITHUB_STEP_SUMMARY
+            (cd .ai-bot && ( [ -f package-lock.json ] && npm ci || npm install )) >/dev/null 2>&1 || true
+            echo "✔ Bot deps install attempted" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Final hints
+        run: |
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## Next steps" >> $GITHUB_STEP_SUMMARY
+          echo "- If everything above is ✔, ensure your main bot workflow listens to issue comments (on: issue_comment) and try /prompt in an Issue." >> $GITHUB_STEP_SUMMARY
+          echo "- If nothing triggers on comment, replace prompt-bot.yml with the issue_comment version I provided." >> $GITHUB_STEP_SUMMARY
