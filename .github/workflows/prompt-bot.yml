@@ -1,16 +1,21 @@
 name: Prompt Bot
 
 on:
-  issue_comment:
-    types: [created]
+  # lets you click “Run workflow” in GitHub
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: "Prompt to send to the model"
+        required: true
+  # still supports your iOS Shortcut trigger
+  repository_dispatch:
+    types: [chatgpt_task]
 
 permissions:
   contents: write
-  issues: read
 
 jobs:
   run-prompt:
-    if: contains(github.event.comment.body, '/prompt')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
@@ -18,36 +23,64 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Set up Node (for tiny helper scripts)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Resolve prompt (manual input or client_payload)
+        id: prompt
+        shell: bash
+        run: |
+          P="${{ github.event.client_payload.prompt }}"
+          if [ -z "$P" ]; then
+            P="${{ github.event.inputs.prompt }}"
+          fi
+          # expose as output for later steps (multiline-safe)
+          {
+            echo 'PROMPT<<EOF'
+            echo "$P"
+            echo EOF
+          } >> "$GITHUB_OUTPUT"
+
       - name: Call OpenAI (Responses API)
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          PROMPT: ${{ github.event.comment.body }}
+          PROMPT: ${{ steps.prompt.outputs.PROMPT }}
+        shell: bash
         run: |
-          echo "Prompt: $PROMPT"
-          RESP=$(curl -s https://api.openai.com/v1/responses \
+          set -e
+          echo "Prompt:"
+          echo "----------------"
+          echo "$PROMPT"
+          echo "----------------"
+
+          # Build JSON with Node to avoid shell escaping issues
+          BODY=$(node -e 'const p=process.env.PROMPT; process.stdout.write(JSON.stringify({model:"gpt-4.1-mini", input:p}))')
+
+          RESP=$(curl -sS https://api.openai.com/v1/responses \
             -H "Authorization: Bearer $OPENAI_API_KEY" \
             -H "Content-Type: application/json" \
-            -d "{\"model\":\"gpt-4.1-mini\",\"input\":\"$PROMPT\"}")
+            -d "$BODY")
+
           echo "$RESP" > response.json
-          node -e "const r=require('./response.json'); console.log('\nModel output preview:\n', r.output_text)"
+
+          # quick preview to logs (won’t fail the job)
+          node -e 'try{const r=require("./response.json");console.log("\n--- Model output preview ---\n",(r.output_text||"").slice(0,400))}catch(e){console.log("No preview")}'
 
       - name: Write output to app/page.tsx
         shell: bash
         run: |
           set -e
-          const fs=require('fs');
-          const r=require('./response.json');
-          const text=r.output_text || (r.output && r.output[0] && r.output[0].content && r.output[0].content[0].text) || '';
-          if (!text) { console.error('No output_text found in response.json'); process.exit(1); }
-          fs.writeFileSync('app/page.tsx', text);
-          console.log(`Wrote app/page.tsx with ${text.length} chars`);
+          node -e 'const fs=require("fs");const r=require("./response.json");const t=(r&&r.output_text||"").trim(); if(!t){console.error("No output_text found in response.json"); process.exit(1)} fs.writeFileSync("app/page.tsx", t); console.log("Wrote app/page.tsx with", t.length, "chars");'
 
       - name: Commit & push changes
         shell: bash
         run: |
-          git config user.name "ai-bot"
+          set -e
+          git config user.name  "ai-bot"
           git config user.email "ai-bot@users.noreply.github.com"
-          git add app/page.tsx
+          git add app/page.tsx || true
           if git diff --cached --quiet; then
             echo "No changes to commit."
           else
