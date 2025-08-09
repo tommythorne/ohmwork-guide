@@ -27,7 +27,7 @@ jobs:
           node-version: 20
 
       - name: Install bot deps
-        run: npm ci --prefix ./.ai-bot
+        run: npm install --prefix ./.ai-bot
 
       - name: Run AI Prompt Bot
         env:
