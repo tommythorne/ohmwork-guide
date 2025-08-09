@@ -1,0 +1,28 @@
+name: Echo Dispatch
+
+on:
+  repository_dispatch:
+    types: [chatgpt_task]  # must match your Shortcut's event_type
+
+permissions:
+  contents: read
+
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show event basics
+        run: |
+          echo "event_name=${{ github.event_name }}"
+          echo "event.action=${{ github.event.action }}"   # often empty for repository_dispatch
+          echo "event_type (from Shortcut) = chatgpt_task"
+
+      - name: Dump full event JSON
+        run: |
+          echo '==== github.event JSON ===='
+          echo '${{ toJson(github.event) }}'
+
+      - name: Show client_payload fields
+        run: |
+          echo "mode:    ${{ github.event.client_payload.mode }}"
+          echo "prompt:  ${{ github.event.client_payload.prompt }}"

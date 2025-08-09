@@ -1,0 +1,11 @@
+{
+  "name": "ai-prompt-bot",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node prompt-bot.mjs"
+  },
+  "dependencies": {
+    "openai": "^4.52.0"
+  }
+}

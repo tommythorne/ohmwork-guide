@@ -1,58 +1,37 @@
-name: Prompt Bot — Ship from Chat
+name: AI Prompt Bot
 
 on:
+  # lets you run it manually from the Actions tab (good for testing)
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: "Prompt to send to ChatGPT"
+        required: true
+  # triggered by your iOS Shortcut POST /dispatches
   repository_dispatch:
     types: [chatgpt_task]
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
-  run:
+  run-prompt:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Setup Node
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: 20
 
       - name: Install bot deps
-        working-directory: ./.ai-bot
-        run: |
-          if [ -f package-lock.json ]; then
-            npm ci
-          else
-            npm install
-          fi
+        run: npm ci --prefix ./.ai-bot
 
-      - name: Run bot
-        id: bot
-        working-directory: ./.ai-bot
+      - name: Run AI Prompt Bot
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-          VERCEL_PROJECT: ${{ vars.VERCEL_PROJECT }}
-          GH_REPO_ROOT: ${{ github.workspace }}
-          DEFAULT_BASE_BRANCH: ${{ vars.DEFAULT_BASE_BRANCH }}
-          AI_MODEL: ${{ vars.AI_MODEL }}
-          PROMPT: ${{ github.event.client_payload.prompt }}
-          MODE: ${{ github.event.client_payload.mode }}
-        run: node prompt-bot.mjs
-
-      - name: Push to main (fast path)
-        run: |
-          git config user.name "prompt-bot"
-          git config user.email "prompt-bot@users.noreply.github.com"
-          if ! git diff --quiet; then
-            git add -A
-            git commit -m "chore: ship via prompt-bot"
-          else
-            echo "No file changes produced by bot."
-          fi
-          git push https://x-access-token:${{ secrets.GH_COLLAB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:${{ vars.DEFAULT_BASE_BRANCH }}
+          # prefer Shortcut payload, fall back to manual input
+          CHATGPT_PROMPT: ${{ github.event.client_payload.prompt || inputs.prompt }}
+        run: node ./.ai-bot/prompt-bot.mjs
