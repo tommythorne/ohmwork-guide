@@ -1,111 +1,33 @@
-// app/page.tsx
-"use client";
-import React, { useEffect, useState } from "react";
+import Link from "next/link";
 
-export default function Page() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const t = setTimeout(() => setVisible(true), 100);
-    return () => clearTimeout(t);
-  }, []);
-
-  // Only opacity/transform + delay here (no `transition` key)
-  const fadeProps = (delay: number) => ({
-    opacity: visible ? 1 : 0,
-    transform: visible ? "translateY(0)" : "translateY(-20px)",
-    transitionDelay: `${delay}s`,
-  });
-
-  const baseTransition =
-    "opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.68,-0.55,0.27,1.55)";
-
+export default function Home() {
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        background: "#0b1220",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        padding: "2rem",
-        fontFamily:
-          "'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif",
-        textAlign: "center",
-      }}
-    >
-      {/* Main heading */}
-      <h1
-        style={{
-          fontSize: "64px",
-          fontWeight: 900,
-          color: "#FFD300",
-          letterSpacing: "-0.02em",
-          marginBottom: "1rem",
-          transition: baseTransition,
-          ...fadeProps(0),
-        }}
-      >
-        OhmWork
-      </h1>
+    <main className="min-h-screen bg-black text-white flex items-center justify-center p-6">
+      <div className="w-full max-w-5xl text-center">
+        <h1 className="text-5xl md:text-7xl font-extrabold text-yellow-400">OhmWork</h1>
 
-      {/* 3-line subheader */}
-      <div
-        style={{
-          fontSize: "28px",
-          fontWeight: 800,
-          textTransform: "uppercase",
-          color: "#FFFFFF",
-          lineHeight: 1.4,
-          marginBottom: "2rem",
-        }}
-      >
-        <div style={{ transition: baseTransition, ...fadeProps(0.3) }}>
-          Learn the Code.
+        <div className="mt-6 space-y-1 text-xl md:text-2xl">
+          <p className="opacity-0 animate-[fadein_0.6s_forwards] [animation-delay:0.2s]">Learn the Code</p>
+          <p className="opacity-0 animate-[fadein_0.6s_forwards] [animation-delay:0.8s]">Pass the Test</p>
+          <p className="opacity-0 animate-[fadein_0.6s_forwards] [animation-delay:1.4s]">No BS</p>
         </div>
-        <div style={{ transition: baseTransition, ...fadeProps(0.6) }}>
-          Pass the Test.
-        </div>
-        <div style={{ transition: baseTransition, ...fadeProps(0.9) }}>
-          No BS.
+
+        <div className="mt-8">
+          <Link
+            href="/intro"
+            className="inline-block rounded-xl bg-green-500 hover:bg-green-600 text-white font-bold px-6 py-3 text-lg transition relative z-50"
+          >
+            Let’s Do This
+          </Link>
         </div>
       </div>
 
-      {/* Button */}
-      <a
-        href="#"
-        style={{
-          background: "#22c55e",
-          color: "#0b1220",
-          padding: "16px 32px",
-          borderRadius: "50px",
-          fontWeight: 900,
-          fontSize: "20px",
-          textDecoration: "none",
-          boxShadow: "0 8px 20px rgba(34, 197, 94, 0.5)",
-          position: "relative",
-          top: 0,
-          transition:
-            baseTransition +
-            ", top 0.2s ease-out, box-shadow 0.2s ease-out",
-          ...fadeProps(1.2),
-        }}
-        onMouseEnter={(e) => {
-          const el = e.currentTarget as HTMLAnchorElement;
-          el.style.top = "-3px";
-          el.style.boxShadow = "0 12px 25px rgba(34, 197, 94, 0.7)";
-          el.style.transform = "scale(1.05)";
-        }}
-        onMouseLeave={(e) => {
-          const el = e.currentTarget as HTMLAnchorElement;
-          el.style.top = "0";
-          el.style.boxShadow = "0 8px 20px rgba(34, 197, 94, 0.5)";
-          el.style.transform = "scale(1)";
-        }}
-      >
-        Let’s Do This
-      </a>
+      <style jsx global>{`
+        @keyframes fadein {
+          from { opacity: 0; transform: translateY(6px); }
+          to { opacity: 1; transform: none; }
+        }
+      `}</style>
     </main>
   );
 }
