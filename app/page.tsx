@@ -1,148 +1,122 @@
 // app/page.tsx
 'use client';
 
+import { motion, useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
-
-// Build the sparkles scene inline and disable SSR for three.js
-const SparkleBG = dynamic(
-  async () => {
-    const React = await import('react');
-    const { Canvas } = await import('@react-three/fiber');
-    const { Sparkles } = await import('@react-three/drei');
-
-    function Scene() {
-      return (
-        <>
-          {/* a dark, subtle vignette */}
-          <mesh>
-            <planeGeometry args={[100, 100]} />
-            <meshBasicMaterial color="#000" />
-          </mesh>
-          {/* sparkles layer */}
-          <Sparkles
-            count={180}
-            size={2.2}
-            speed={0.35}
-            scale={[30, 20, 10]}
-            color="#FACC15" // tailwind yellow-400
-            noise={1}
-          />
-          {/* second, cooler layer for depth */}
-          <Sparkles
-            count={120}
-            size={1.6}
-            speed={0.25}
-            scale={[30, 20, 10]}
-            color="#60A5FA" // tailwind blue-400
-            noise={1.2}
-          />
-        </>
-      );
-    }
-
-    return function SparkleBG() {
-      return (
-        <div className="pointer-events-none absolute inset-0 -z-10">
-          <Canvas camera={{ position: [0, 0, 9], fov: 50 }}>
-            <Scene />
-          </Canvas>
-        </div>
-      );
-    };
-  },
-  { ssr: false }
-);
 
 export default function Home() {
-  return (
-    <main className="relative min-h-screen overflow-hidden bg-black text-white">
-      {/* sparkles + gradient glows */}
-      <SparkleBG />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(70%_50%_at_50%_0%,rgba(250,204,21,.12),transparent_60%),radial-gradient(40%_30%_at_80%_80%,rgba(96,165,250,.10),transparent_60%)]" />
+  const prefersReduced = useReducedMotion();
 
-      <section className="mx-auto flex max-w-5xl flex-col items-center px-6 pt-28 pb-20 text-center sm:pt-36">
+  // Timings (seconds)
+  const t0 = 0;          // start
+  const tOhm = 0.15;     // OhmWork entrance duration
+  const gap = 0.25;      // delay between slam lines
+  const slamDur = 0.5;   // each slam length
+  const btnDelay = t0 + tOhm + gap * 3 + 0.2; // after all lines finish
+
+  return (
+    <main className="min-h-screen bg-black text-white grid place-items-center p-6">
+      <div className="text-center select-none">
+        {/* OHMWORK — dramatic entrance */}
         <motion.h1
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="text-5xl font-extrabold tracking-tight sm:text-7xl"
+          className="text-6xl sm:text-8xl font-extrabold tracking-tight text-yellow-400"
+          initial={
+            prefersReduced
+              ? { opacity: 1 }
+              : { opacity: 0, scale: 0.6, y: -40, filter: 'blur(6px)' }
+          }
+          animate={
+            prefersReduced
+              ? { opacity: 1 }
+              : { opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }
+          }
+          transition={{ delay: t0, duration: tOhm, ease: [0.16, 1, 0.3, 1] }}
         >
-          <span className="bg-gradient-to-r from-yellow-400 via-amber-300 to-yellow-500 bg-clip-text text-transparent drop-shadow-[0_8px_32px_rgba(250,204,21,.25)]">
-            OhmWork
-          </span>
+          OhmWork
         </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15, duration: 0.6, ease: 'easeOut' }}
-          className="mt-6 text-xl text-white/80 sm:text-2xl"
-        >
-          Learn the Code • Pass the Test • No BS
-        </motion.p>
+        {/* Slam lines */}
+        <div className="mt-5 space-y-2">
+          {['Learn the Code.', 'Pass the Exam.', 'No BS.'].map((line, i) => (
+            <motion.p
+              key={line}
+              className="text-2xl sm:text-3xl font-semibold"
+              initial={
+                prefersReduced
+                  ? { opacity: 1 }
+                  : {
+                      opacity: 0,
+                      y: -60,
+                      scale: 1.12,
+                      rotate: -2,
+                      filter: 'drop-shadow(0 0 0 rgba(0,0,0,0))',
+                    }
+              }
+              animate={
+                prefersReduced
+                  ? { opacity: 1 }
+                  : {
+                      opacity: [0, 1, 1],
+                      y: [-60, 8, 0],
+                      scale: [1.12, 0.98, 1],
+                      rotate: [-2, 1.5, 0],
+                      filter: [
+                        'drop-shadow(0 0 0 rgba(0,0,0,0))',
+                        'drop-shadow(0 12px 18px rgba(0,0,0,0.45))',
+                        'drop-shadow(0 6px 10px rgba(0,0,0,0.25))',
+                      ],
+                    }
+              }
+              transition={{
+                delay: t0 + tOhm + i * gap,
+                duration: slamDur,
+                times: [0, 0.55, 1],
+                ease: [0.2, 0.8, 0.2, 1],
+              }}
+            >
+              {line}
+            </motion.p>
+          ))}
+        </div>
 
+        {/* CTA button — jump in then bounce with glow */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.6, ease: 'easeOut' }}
-          className="mt-10 flex gap-4"
+          className="mt-10"
+          initial={
+            prefersReduced
+              ? { opacity: 1 }
+              : { opacity: 0, y: 30, scale: 0.9 }
+          }
+          animate={
+            prefersReduced
+              ? { opacity: 1 }
+              : {
+                  opacity: 1,
+                  y: [30, -14, 0, -6, 0],
+                  scale: [0.9, 1.04, 1, 1.02, 1],
+                  boxShadow: [
+                    '0 0 0 rgba(250, 204, 21, 0)',
+                    '0 0 32px rgba(250, 204, 21, 0.45)',
+                    '0 0 18px rgba(250, 204, 21, 0.28)',
+                    '0 0 26px rgba(250, 204, 21, 0.38)',
+                    '0 0 14px rgba(250, 204, 21, 0.2)',
+                  ],
+                }
+          }
+          transition={{
+            delay: btnDelay,
+            duration: 1.1,
+            ease: [0.16, 1, 0.3, 1],
+          }}
         >
           <Link
             href="/intro"
-            className="inline-flex items-center rounded-xl bg-yellow-400 px-6 py-3 font-semibold text-black shadow-[0_10px_30px_-10px_rgba(250,204,21,.6)] transition hover:scale-[1.03] hover:shadow-[0_14px_36px_-8px_rgba(250,204,21,.75)]"
+            className="inline-flex items-center rounded-xl bg-yellow-400 px-7 py-3 font-semibold text-black shadow-[0_8px_20px_rgba(250,204,21,0.3)] hover:shadow-[0_10px_26px_rgba(250,204,21,0.45)] hover:scale-[1.02] transition"
           >
             Let’s Do This
           </Link>
-
-          <a
-            href="#modules"
-            className="inline-flex items-center rounded-xl border border-white/20 px-6 py-3 font-semibold text-white/90 backdrop-blur transition hover:bg-white/5 hover:text-white"
-          >
-            See Modules
-          </a>
         </motion.div>
-
-        {/* quick module teaser grid */}
-        <motion.div
-          id="modules"
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ delay: 0.15, duration: 0.6 }}
-          className="mt-16 grid w-full grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4"
-        >
-          {Array.from({ length: 12 }).map((_, i) => (
-            <Link
-              key={i}
-              href={`/modules/module-${i + 1}`}
-              className="group rounded-lg border border-white/10 bg-white/[.02] p-4 text-left transition hover:border-yellow-400/60 hover:bg-white/[.04]"
-            >
-              <div className="text-sm uppercase tracking-wide text-white/60">
-                Module {i + 1}
-              </div>
-              <div className="mt-1 font-semibold text-white">
-                {[
-                  'Fundamentals',
-                  'Wiring Methods',
-                  'Branch Circuits',
-                  'Services',
-                  'Conductors & Ampacity',
-                  'Grounding & Bonding',
-                  'Boxes & Enclosures',
-                  'Motors / HVAC',
-                  'Special Occupancies',
-                  'Low Voltage',
-                  'Calculations',
-                  'Inspection & Safety',
-                ][i]}
-              </div>
-              <div className="mt-2 h-px w-full bg-gradient-to-r from-white/0 via-white/25 to-white/0 transition group-hover:from-yellow-300/0 group-hover:via-yellow-300/60 group-hover:to-yellow-300/0" />
-            </Link>
-          ))}
-        </motion.div>
-      </section>
+      </div>
     </main>
   );
 }
