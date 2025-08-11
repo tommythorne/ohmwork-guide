@@ -7,116 +7,128 @@ import Link from 'next/link';
 export default function Home() {
   const prefersReduced = useReducedMotion();
 
-  // Timings (seconds)
-  const t0 = 0;          // start
-  const tOhm = 0.15;     // OhmWork entrance duration
-  const gap = 0.25;      // delay between slam lines
-  const slamDur = 0.5;   // each slam length
-  const btnDelay = t0 + tOhm + gap * 3 + 0.2; // after all lines finish
+  // delays (s)
+  const dOhm = 0.0;   // "OhmWork" starts immediately
+  const d1 = 0.9;     // lines slam in one-by-one
+  const d2 = 1.7;
+  const d3 = 2.5;
+  const dBtn = 3.4;   // button bounce after slams
+
+  const slam = (delay: number) =>
+    prefersReduced
+      ? {
+          initial: { opacity: 0 },
+          animate: { opacity: 1, transition: { delay } },
+        }
+      : {
+          initial: { opacity: 0, y: -80, scaleY: 1.28, rotate: -1.5 },
+          animate: {
+            opacity: 1,
+            y: 0,
+            scaleY: 1,
+            rotate: 0,
+            transition: {
+              type: 'spring',
+              stiffness: 900,
+              damping: 28,
+              mass: 0.55,
+              delay,
+            },
+          },
+        };
+
+  const buttonBounce = prefersReduced
+    ? {
+        initial: { opacity: 0 },
+        animate: {
+          opacity: 1,
+          transition: { delay: dBtn, duration: 0.4 },
+        },
+      }
+    : {
+        initial: { opacity: 0, y: -50 },
+        animate: {
+          opacity: 1,
+          y: [ -50, 0, -18, 0, -8, 0 ],
+          transition: {
+            delay: dBtn,
+            duration: 1.4,
+            times: [0, 0.45, 0.65, 0.82, 0.92, 1],
+            ease: 'easeOut',
+          },
+        },
+      };
 
   return (
-    <main className="min-h-screen bg-black text-white grid place-items-center p-6">
-      <div className="text-center select-none">
-        {/* OHMWORK — dramatic entrance */}
+    <main className="min-h-screen bg-[#0b0b0b] text-white grid place-items-center overflow-hidden">
+      <div className="w-full max-w-[960px] px-6 text-center">
+        {/* OhmWork — dramatic professional entrance */}
         <motion.h1
-          className="text-6xl sm:text-8xl font-extrabold tracking-tight text-yellow-400"
           initial={
             prefersReduced
-              ? { opacity: 1 }
-              : { opacity: 0, scale: 0.6, y: -40, filter: 'blur(6px)' }
+              ? { opacity: 0 }
+              : { opacity: 0, y: 20, scale: 0.86, filter: 'blur(6px)' }
           }
           animate={
             prefersReduced
               ? { opacity: 1 }
-              : { opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }
+              : { opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }
           }
-          transition={{ delay: t0, duration: tOhm, ease: [0.16, 1, 0.3, 1] }}
+          transition={
+            prefersReduced
+              ? { delay: dOhm, duration: 0.6 }
+              : { delay: dOhm, duration: 0.9, ease: [0.16, 1, 0.3, 1] }
+          }
+          className="text-[64px] md:text-[96px] font-extrabold leading-[0.95] text-yellow-400 drop-shadow-[0_10px_26px_rgba(250,204,21,0.35)]"
         >
           OhmWork
         </motion.h1>
 
-        {/* Slam lines */}
-        <div className="mt-5 space-y-2">
-          {['Learn the Code.', 'Pass the Exam.', 'No BS.'].map((line, i) => (
-            <motion.p
-              key={line}
-              className="text-2xl sm:text-3xl font-semibold"
-              initial={
-                prefersReduced
-                  ? { opacity: 1 }
-                  : {
-                      opacity: 0,
-                      y: -60,
-                      scale: 1.12,
-                      rotate: -2,
-                      filter: 'drop-shadow(0 0 0 rgba(0,0,0,0))',
-                    }
-              }
-              animate={
-                prefersReduced
-                  ? { opacity: 1 }
-                  : {
-                      opacity: [0, 1, 1],
-                      y: [-60, 8, 0],
-                      scale: [1.12, 0.98, 1],
-                      rotate: [-2, 1.5, 0],
-                      filter: [
-                        'drop-shadow(0 0 0 rgba(0,0,0,0))',
-                        'drop-shadow(0 12px 18px rgba(0,0,0,0.45))',
-                        'drop-shadow(0 6px 10px rgba(0,0,0,0.25))',
-                      ],
-                    }
-              }
-              transition={{
-                delay: t0 + tOhm + i * gap,
-                duration: slamDur,
-                times: [0, 0.55, 1],
-                ease: [0.2, 0.8, 0.2, 1],
-              }}
-            >
-              {line}
-            </motion.p>
-          ))}
+        {/* Subheaders — slam in with longer spacing */}
+        <div className="mt-6 space-y-2 md:space-y-3 text-[22px] md:text-[28px] font-medium text-white/95">
+          <motion.p {...slam(d1)}>Learn the Code.</motion.p>
+          <motion.p {...slam(d2)}>Pass the Exam.</motion.p>
+          <motion.p {...slam(d3)}>No BS.</motion.p>
         </div>
 
-        {/* CTA button — jump in then bounce with glow */}
-        <motion.div
-          className="mt-10"
-          initial={
-            prefersReduced
-              ? { opacity: 1 }
-              : { opacity: 0, y: 30, scale: 0.9 }
-          }
-          animate={
-            prefersReduced
-              ? { opacity: 1 }
-              : {
-                  opacity: 1,
-                  y: [30, -14, 0, -6, 0],
-                  scale: [0.9, 1.04, 1, 1.02, 1],
-                  boxShadow: [
-                    '0 0 0 rgba(250, 204, 21, 0)',
-                    '0 0 32px rgba(250, 204, 21, 0.45)',
-                    '0 0 18px rgba(250, 204, 21, 0.28)',
-                    '0 0 26px rgba(250, 204, 21, 0.38)',
-                    '0 0 14px rgba(250, 204, 21, 0.2)',
-                  ],
-                }
-          }
-          transition={{
-            delay: btnDelay,
-            duration: 1.1,
-            ease: [0.16, 1, 0.3, 1],
-          }}
-        >
-          <Link
-            href="/intro"
-            className="inline-flex items-center rounded-xl bg-yellow-400 px-7 py-3 font-semibold text-black shadow-[0_8px_20px_rgba(250,204,21,0.3)] hover:shadow-[0_10px_26px_rgba(250,204,21,0.45)] hover:scale-[1.02] transition"
-          >
-            Let’s Do This
+        {/* CTA — toss & bounce, then settle, green button, no yellow outline */}
+        <motion.div className="mt-10" {...buttonBounce}>
+          <Link href="/intro" prefetch>
+            <button
+              className="select-none rounded-xl px-6 py-3 text-lg font-semibold
+                         bg-green-500 text-black shadow-lg shadow-green-500/25
+                         hover:bg-green-600 hover:shadow-green-500/35
+                         transition-transform duration-300 ease-out
+                         focus:outline-none focus:ring-0 active:scale-[0.98]"
+              onMouseEnter={(e) => {
+                const el = e.currentTarget as HTMLButtonElement;
+                el.style.boxShadow =
+                  '0 10px 24px rgba(34,197,94,0.35), 0 6px 12px rgba(34,197,94,0.18)';
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLButtonElement;
+                el.style.boxShadow =
+                  '0 10px 18px rgba(34,197,94,0.25)';
+              }}
+            >
+              Let’s Do This
+            </button>
           </Link>
         </motion.div>
       </div>
+
+      {/* Soft vignette + subtle grid backdrop */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 [background:radial-gradient(60%_50%_at_50%_35%,rgba(250,204,21,0.05),transparent_60%)]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.06]
+                   [background-image:linear-gradient(to_right,rgba(255,255,255,.8)_1px,transparent_1px),
+                                     linear-gradient(to_bottom,rgba(255,255,255,.8)_1px,transparent_1px)];
+                   [background-size:60px_60px]"
+      />
     </main>
   );
 }
