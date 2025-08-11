@@ -1,68 +1,55 @@
 // app/page.tsx
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
 import Link from 'next/link';
+import { motion, useReducedMotion, type Variants } from 'framer-motion';
+import type { ReactNode } from 'react';
+
+// Variants for the “slam” lines (TS-safe)
+const slamVariants: Variants = {
+  hidden: { opacity: 0, y: -80, scaleY: 1.28, rotate: -1.5 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scaleY: 1,
+    rotate: 0,
+    transition: {
+      type: 'spring',
+      stiffness: 900,
+      damping: 28,
+      mass: 0.55,
+    },
+  },
+};
+
+// Helper component for a slam line with delay & reduced-motion
+function SlamLine({ delay, children }: { delay: number; children: ReactNode }) {
+  const prefersReduced = useReducedMotion();
+  return prefersReduced ? (
+    <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay }}>
+      {children}
+    </motion.p>
+  ) : (
+    <motion.p initial="hidden" animate="show" variants={slamVariants} transition={{ delay }}>
+      {children}
+    </motion.p>
+  );
+}
 
 export default function Home() {
   const prefersReduced = useReducedMotion();
 
-  // delays (s)
-  const dOhm = 0.0;   // "OhmWork" starts immediately
-  const d1 = 0.9;     // lines slam in one-by-one
+  // timings (s)
+  const dOhm = 0.0;
+  const d1 = 0.9;
   const d2 = 1.7;
   const d3 = 2.5;
-  const dBtn = 3.4;   // button bounce after slams
-
-  const slam = (delay: number) =>
-    prefersReduced
-      ? {
-          initial: { opacity: 0 },
-          animate: { opacity: 1, transition: { delay } },
-        }
-      : {
-          initial: { opacity: 0, y: -80, scaleY: 1.28, rotate: -1.5 },
-          animate: {
-            opacity: 1,
-            y: 0,
-            scaleY: 1,
-            rotate: 0,
-            transition: {
-              type: 'spring',
-              stiffness: 900,
-              damping: 28,
-              mass: 0.55,
-              delay,
-            },
-          },
-        };
-
-  const buttonBounce = prefersReduced
-    ? {
-        initial: { opacity: 0 },
-        animate: {
-          opacity: 1,
-          transition: { delay: dBtn, duration: 0.4 },
-        },
-      }
-    : {
-        initial: { opacity: 0, y: -50 },
-        animate: {
-          opacity: 1,
-          y: [ -50, 0, -18, 0, -8, 0 ],
-          transition: {
-            delay: dBtn,
-            duration: 1.4,
-            times: [0, 0.45, 0.65, 0.82, 0.92, 1],
-            ease: 'easeOut',
-          },
-        },
-      };
+  const dBtn = 3.4;
 
   return (
     <main className="min-h-screen bg-[#0b0b0b] text-white grid place-items-center overflow-hidden">
       <div className="w-full max-w-[960px] px-6 text-center">
-        {/* OhmWork — dramatic professional entrance */}
+        {/* OhmWork — dramatic entrance */}
         <motion.h1
           initial={
             prefersReduced
@@ -84,15 +71,33 @@ export default function Home() {
           OhmWork
         </motion.h1>
 
-        {/* Subheaders — slam in with longer spacing */}
+        {/* Lines — slam with spacing */}
         <div className="mt-6 space-y-2 md:space-y-3 text-[22px] md:text-[28px] font-medium text-white/95">
-          <motion.p {...slam(d1)}>Learn the Code.</motion.p>
-          <motion.p {...slam(d2)}>Pass the Exam.</motion.p>
-          <motion.p {...slam(d3)}>No BS.</motion.p>
+          <SlamLine delay={d1}>Learn the Code.</SlamLine>
+          <SlamLine delay={d2}>Pass the Exam.</SlamLine>
+          <SlamLine delay={d3}>No BS.</SlamLine>
         </div>
 
-        {/* CTA — toss & bounce, then settle, green button, no yellow outline */}
-        <motion.div className="mt-10" {...buttonBounce}>
+        {/* CTA — toss & bounce, green, no outline */}
+        <motion.div
+          className="mt-10"
+          initial={prefersReduced ? { opacity: 0 } : { opacity: 0, y: -50 }}
+          animate={
+            prefersReduced
+              ? { opacity: 1 }
+              : {
+                  opacity: 1,
+                  y: [-50, 0, -18, 0, -8, 0],
+                  transition: {
+                    delay: dBtn,
+                    duration: 1.4,
+                    times: [0, 0.45, 0.65, 0.82, 0.92, 1],
+                    ease: 'easeOut',
+                  },
+                }
+          }
+          transition={prefersReduced ? { delay: dBtn, duration: 0.4 } : undefined}
+        >
           <Link href="/intro" prefetch>
             <button
               className="select-none rounded-xl px-6 py-3 text-lg font-semibold
@@ -107,8 +112,7 @@ export default function Home() {
               }}
               onMouseLeave={(e) => {
                 const el = e.currentTarget as HTMLButtonElement;
-                el.style.boxShadow =
-                  '0 10px 18px rgba(34,197,94,0.25)';
+                el.style.boxShadow = '0 10px 18px rgba(34,197,94,0.25)';
               }}
             >
               Let’s Do This
