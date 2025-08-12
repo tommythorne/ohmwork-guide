@@ -7,6 +7,7 @@ import Link from "next/link";
 const HL = ({ children }: { children: React.ReactNode }) => (
   <span className="font-extrabold underline decoration-yellow-400 underline-offset-4">{children}</span>
 );
+
 const Divider = () => (
   <div className="my-8 flex items-center gap-3">
     <svg width="28" height="28" viewBox="0 0 24 24" className="text-yellow-400">
@@ -266,7 +267,7 @@ export default function Ch1General() {
         <h2 className="text-2xl md:text-3xl font-bold">🛠️ Article 110 — General Requirements</h2>
         <div className="mt-3 space-y-3 text-white/90">
           <p>
-            — <HL>110.3(B)</HL): Install equipment per instructions. If you "wing it," you fail hard.
+            — <HL>110.3(B)</HL>: Install equipment per instructions. If you "wing it," you fail hard.
           </p>
           <p>
             — <HL>Working Space (110.26)</HL>: Clearances so you can work without headbutting a live bus.
