@@ -45,7 +45,7 @@ const heroVariants: Variants = {
 export default function IntroPage() {
   const chapters = [
     { 
-      id: '01', 
+      id: '1', 
       title: 'General Requirements', 
       href: '/modules/module-01-',
       color: 'from-slate-800 via-slate-700 to-slate-600',
