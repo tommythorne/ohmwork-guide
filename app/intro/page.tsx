@@ -1,190 +1,51 @@
-'use client';
-
 import Link from 'next/link';
-import { motion, type Variants } from 'framer-motion';
-
-// Animation variants
-const containerVariants: Variants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20, scale: 0.95 },
-  show: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      type: 'spring',
-      stiffness: 300,
-      damping: 24,
-    },
-  },
-};
-
-const heroVariants: Variants = {
-  hidden: { opacity: 0, y: 30, scale: 0.98 },
-  show: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 0.8,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-};
 
 export default function IntroPage() {
-  const chapters = [
-    { 
-      id: '01', 
-      title: 'General Requirements', 
-      href: '/modules/module-01',
-      color: 'from-slate-800 via-slate-700 to-slate-600',
-      borderColor: 'border-slate-500/30',
-      textColor: 'text-slate-200'
-    },
-    { 
-      id: '02', 
-      title: 'Wiring & Protection', 
-      href: '/modules/module-02',
-      color: 'from-blue-900 via-blue-800 to-blue-700',
-      borderColor: 'border-blue-500/30',
-      textColor: 'text-blue-200'
-    },
-    { 
-      id: '03', 
-      title: 'Wiring Methods', 
-      href: '/modules/module-03',
-      color: 'from-indigo-900 via-indigo-800 to-indigo-700',
-      borderColor: 'border-indigo-500/30',
-      textColor: 'text-indigo-200'
-    },
-    { 
-      id: '04', 
-      title: 'Equipment for General Use', 
-      href: '/modules/module-04',
-      color: 'from-purple-900 via-purple-800 to-purple-700',
-      borderColor: 'border-purple-500/30',
-      textColor: 'text-purple-200'
-    },
-    { 
-      id: '05', 
-      title: 'Special Occupancies', 
-      href: '/modules/module-05',
-      color: 'from-violet-900 via-violet-800 to-violet-700',
-      borderColor: 'border-violet-500/30',
-      textColor: 'text-violet-200'
-    },
-    { 
-      id: '06', 
-      title: 'Special Equipment', 
-      href: '/modules/module-06',
-      color: 'from-fuchsia-900 via-fuchsia-800 to-fuchsia-700',
-      borderColor: 'border-fuchsia-500/30',
-      textColor: 'text-fuchsia-200'
-    },
-    { 
-      id: '07', 
-      title: 'Special Conditions', 
-      href: '/modules/module-07',
-      color: 'from-pink-900 via-pink-800 to-pink-700',
-      borderColor: 'border-pink-500/30',
-      textColor: 'text-pink-200'
-    },
-    { 
-      id: '08', 
-      title: 'Communications Systems', 
-      href: '/modules/module-08',
-      color: 'from-rose-900 via-rose-800 to-rose-700',
-      borderColor: 'border-rose-500/30',
-      textColor: 'text-rose-200'
-    },
-    { 
-      id: '09', 
-      title: 'Tables', 
-      href: '/modules/module-09',
-      color: 'from-red-900 via-red-800 to-red-700',
-      borderColor: 'border-red-500/30',
-      textColor: 'text-red-200'
-    },
-    { 
-      id: '10', 
-      title: 'Annexes', 
-      href: '/modules/module-10',
-      color: 'from-orange-900 via-orange-800 to-orange-700',
-      borderColor: 'border-orange-500/30',
-      textColor: 'text-orange-200'
-    },
+  const modules = [
+    { id: '01', label: 'Module 01 — Fundamentals', href: '/modules/module-01-fundamentals' },
+    { id: '02', label: 'Module 02 — Wiring Methods', href: '/modules/module-02-wiring-methods' },
+    { id: '03', label: 'Module 03 — Branch Circuits', href: '/modules/module-03-branch-circuits' },
+    { id: '04', label: 'Module 04 — Services', href: '/modules/module-04-services' },
+    { id: '05', label: 'Module 05 — Conductors & Ampacity', href: '/modules/module-05-conductors-ampacity' },
+    { id: '06', label: 'Module 06 — Grounding & Bonding', href: '/modules/module-06-grounding-bonding' },
+    { id: '07', label: 'Module 07 — Boxes & Enclosures', href: '/modules/module-07-boxes-enclosures' },
+    { id: '08', label: 'Module 08 — Motors & HVAC', href: '/modules/module-08-motors-hvac' },
+    { id: '09', label: 'Module 09 — Special Occupancies', href: '/modules/module-09-special-occupancies' },
+    { id: '10', label: 'Module 10 — Low Voltage', href: '/modules/module-10-low-voltage' },
+    { id: '11', label: 'Module 11 — Calculations', href: '/modules/module-11-calculations' },
+    { id: '12', label: 'Module 12 — Inspection & Safety', href: '/modules/module-12-inspection-safety' },
   ];
 
   return (
-    <main className="min-h-screen bg-black text-white p-6 overflow-hidden">
-      <motion.div
-        className="mx-auto max-w-6xl"
-        variants={containerVariants}
-        initial="hidden"
-        animate="show"
-      >
-        {/* Hero Section */}
-        <motion.div
-          className="text-center mb-12"
-          variants={heroVariants}
-        >
-          <h1 className="text-4xl md:text-5xl font-bold text-yellow-400 mb-4">
-            Welcome to OhmWork
-          </h1>
-          <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto">
-            Master the National Electrical Code. Pick your chapter and dive in.
-          </p>
-        </motion.div>
+    <main className="min-h-screen bg-black text-white p-6">
+      <div className="mx-auto max-w-4xl">
+        <h1 className="text-4xl font-bold text-center">Welcome to OhmWork</h1>
+        <p className="mt-3 text-center opacity-90">
+          Pick a module to begin. (We'll rename these to NEC chapter names next.)
+        </p>
 
-        {/* Chapter Grid */}
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6"
-          variants={containerVariants}
-        >
-          {chapters.map((chapter, index) => (
-            <motion.div
-              key={chapter.id}
-              variants={itemVariants}
-              whileHover={{ scale: 1.02, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+        <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {modules.map((m) => (
+            <Link
+              key={m.id}
+              href={m.href}
+              className="block rounded-lg border border-white/15 p-5 hover:bg-white/5 transition"
             >
-              <Link href={chapter.href} className="block">
-                <div className={`bg-gradient-to-br ${chapter.color} border ${chapter.borderColor} rounded-xl p-6 h-full hover:scale-105 hover:shadow-2xl transition-all duration-300 group backdrop-blur-sm`}>
-                  <div className={`text-xl font-bold ${chapter.textColor} leading-tight`}>
-                    {chapter.title}
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
+              <div className="text-lg font-semibold">{m.label}</div>
+              <div className="mt-1 text-sm opacity-70">Tap to open</div>
+            </Link>
           ))}
-        </motion.div>
+        </div>
 
-        {/* Back Button */}
-        <motion.div
-          className="text-center mt-12"
-          variants={itemVariants}
-        >
+        <div className="mt-10 text-center">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 rounded-lg border border-white/20 px-6 py-3 hover:bg-white/5 hover:border-white/30 transition-all duration-300 group"
+            className="inline-block rounded-lg border border-white/15 px-4 py-2 hover:bg-white/5 transition"
           >
-            <span className="text-white/80 group-hover:text-white transition-colors">←</span>
-            <span className="text-white/80 group-hover:text-white transition-colors">Back to Home</span>
+            ← Back to Home
           </Link>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </main>
   );
 }
