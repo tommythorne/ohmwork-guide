@@ -47,7 +47,7 @@ export default function IntroPage() {
     { 
       id: '01', 
       title: 'General Requirements', 
-      href: '/modules/module-01-fundamentals',
+      href: '/modules/module-01-',
       color: 'from-slate-800 via-slate-700 to-slate-600',
       borderColor: 'border-slate-500/30',
       textColor: 'text-slate-200'
