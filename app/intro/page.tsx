@@ -47,71 +47,71 @@ export default function IntroPage() {
     { 
       id: '1', 
       title: 'General Requirements', 
-      href: '/modules/module-01-',
+      href: '/modules/module-1',
       color: 'from-slate-800 via-slate-700 to-slate-600',
       borderColor: 'border-slate-500/30',
       textColor: 'text-slate-200'
     },
     { 
-      id: '02', 
+      id: '2', 
       title: 'Wiring & Protection', 
-      href: '/modules/module-02-wiring-methods',
+      href: '/modules/module-2',
       color: 'from-blue-900 via-blue-800 to-blue-700',
       borderColor: 'border-blue-500/30',
       textColor: 'text-blue-200'
     },
     { 
-      id: '03', 
+      id: '3', 
       title: 'Wiring Methods', 
-      href: '/modules/module-03-branch-circuits',
+      href: '/modules/module-3',
       color: 'from-indigo-900 via-indigo-800 to-indigo-700',
       borderColor: 'border-indigo-500/30',
       textColor: 'text-indigo-200'
     },
     { 
-      id: '04', 
+      id: '4', 
       title: 'Equipment for General Use', 
-      href: '/modules/module-04-services',
+      href: '/modules/module-4',
       color: 'from-purple-900 via-purple-800 to-purple-700',
       borderColor: 'border-purple-500/30',
       textColor: 'text-purple-200'
     },
     { 
-      id: '05', 
+      id: '5', 
       title: 'Special Occupancies', 
-      href: '/modules/module-05-conductors-ampacity',
+      href: '/modules/module-5',
       color: 'from-violet-900 via-violet-800 to-violet-700',
       borderColor: 'border-violet-500/30',
       textColor: 'text-violet-200'
     },
     { 
-      id: '06', 
+      id: '6', 
       title: 'Special Equipment', 
-      href: '/modules/module-06-grounding-bonding',
+      href: '/modules/module-6',
       color: 'from-fuchsia-900 via-fuchsia-800 to-fuchsia-700',
       borderColor: 'border-fuchsia-500/30',
       textColor: 'text-fuchsia-200'
     },
     { 
-      id: '07', 
+      id: '7', 
       title: 'Special Conditions', 
-      href: '/modules/module-07-boxes-enclosures',
+      href: '/modules/module-7',
       color: 'from-pink-900 via-pink-800 to-pink-700',
       borderColor: 'border-pink-500/30',
       textColor: 'text-pink-200'
     },
     { 
-      id: '08', 
+      id: '8', 
       title: 'Communications Systems', 
-      href: '/modules/module-08-motors-hvac',
+      href: '/modules/module-8',
       color: 'from-rose-900 via-rose-800 to-rose-700',
       borderColor: 'border-rose-500/30',
       textColor: 'text-rose-200'
     },
     { 
-      id: '09', 
+      id: '9', 
       title: 'Tables', 
-      href: '/modules/module-09-special-occupancies',
+      href: '/modules/module-9',
       color: 'from-red-900 via-red-800 to-red-700',
       borderColor: 'border-red-500/30',
       textColor: 'text-red-200'
@@ -119,7 +119,7 @@ export default function IntroPage() {
     { 
       id: '10', 
       title: 'Annexes', 
-      href: '/modules/module-10-low-voltage',
+      href: '/modules/module-10',
       color: 'from-orange-900 via-orange-800 to-orange-700',
       borderColor: 'border-orange-500/30',
       textColor: 'text-orange-200'
