@@ -1,108 +1,67 @@
 'use client';
 
-import Link from 'next/link';
 import { motion } from 'framer-motion';
-import Sparkles from 'react-sparkle';
+import Link from 'next/link';
 
 export default function Home() {
+  const slam = (delay: number) => ({
+    initial: { opacity: 0, y: -120, scaleY: 0.8, rotate: -5 },
+    animate: {
+      opacity: 1,
+      y: 0,
+      scaleY: 1,
+      rotate: 0,
+      transition: {
+        type: 'spring',
+        stiffness: 220,
+        damping: 16,
+        delay
+      }
+    }
+  });
+
   return (
-    <main className="min-h-screen bg-black text-white grid place-items-center overflow-hidden">
-      <div className="w-full max-w-[960px] px-6 text-center">
-        {/* OhmWork — dramatic entrance with sparkles */}
-        <div className="relative">
-          <motion.h1
-            initial={{ opacity: 0, y: 20, scale: 0.86, rotate: -2 }}
-            animate={{ opacity: 1, y: 0, scale: 1, rotate: 0 }}
-            transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[64px] md:text-[96px] font-extrabold leading-[0.95] text-yellow-400 drop-shadow-[0_10px_26px_rgba(250,204,21,0.35)]"
-          >
-            OhmWork
-          </motion.h1>
-          <Sparkles
-            color="rgba(250, 204, 21, 0.6)"
-            count={20}
-            minSize={3}
-            maxSize={6}
-            fadeOutSpeed={30}
-            flicker={false}
-          />
-        </div>
+    <main className="min-h-screen flex flex-col items-center justify-center bg-black text-white text-center px-6">
+      {/* OhmWork dramatic entrance */}
+      <motion.h1
+        className="text-5xl md:text-7xl font-extrabold tracking-wide text-yellow-400 drop-shadow-lg"
+        initial={{ opacity: 0, scale: 0.4, rotate: -8 }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+          rotate: 0,
+          transition: { type: 'spring', stiffness: 160, damping: 14, delay: 0.2 }
+        }}
+      >
+        OhmWork
+      </motion.h1>
 
-        {/* Subheader slam text */}
-        <div className="mt-6 space-y-2 md:space-y-3 text-[22px] md:text-[28px] font-bold text-white">
-          <motion.p
-            initial={{ opacity: 0, y: -80, scaleY: 1.28, rotate: -1.5 }}
-            animate={{ opacity: 1, y: 0, scaleY: 1, rotate: 0 }}
-            transition={{
-              delay: 0.7,
-              type: 'spring',
-              stiffness: 900,
-              damping: 28,
-              mass: 0.55,
-            }}
-            className="text-white/95"
-          >
-            Learn the Code.
-          </motion.p>
-          
-          <motion.p
-            initial={{ opacity: 0, y: -80, scaleY: 1.28, rotate: -1.5 }}
-            animate={{ opacity: 1, y: 0, scaleY: 1, rotate: 0 }}
-            transition={{
-              delay: 1.4,
-              type: 'spring',
-              stiffness: 900,
-              damping: 28,
-              mass: 0.55,
-            }}
-            className="text-white/95"
-          >
-            Pass the Exam.
-          </motion.p>
-          
-          <motion.p
-            initial={{ opacity: 0, y: -80, scaleY: 1.28, rotate: -1.5 }}
-            animate={{ opacity: 1, y: 0, scaleY: 1, rotate: 0 }}
-            transition={{
-              delay: 2.1,
-              type: 'spring',
-              stiffness: 900,
-              damping: 28,
-              mass: 0.55,
-            }}
-            className="text-white/95"
-          >
-            No BS.
-          </motion.p>
-        </div>
-
-        {/* Let's Do This button */}
-        <motion.div
-          className="mt-10"
-          initial={{ opacity: 0, y: -50 }}
-          animate={{
-            opacity: 1,
-            y: [-50, 0, -18, 0, -8, 0],
-          }}
-          transition={{
-            delay: 2.8,
-            duration: 1.4,
-            times: [0, 0.45, 0.65, 0.82, 0.92, 1],
-            ease: 'easeOut',
-          }}
-        >
-          <Link href="/intro">
-            <button className="select-none rounded-xl px-6 py-3 text-lg font-bold
-                             bg-green-500 text-black shadow-lg shadow-green-500/25
-                             hover:bg-green-600 hover:shadow-green-500/35
-                             transition-all duration-300 ease-out
-                             focus:outline-none focus:ring-2 focus:ring-green-400
-                             active:scale-[0.98] animate-pulse">
-              Let's Do This
-            </button>
-          </Link>
-        </motion.div>
+      {/* Subheaders with longer slam delay */}
+      <div className="mt-8 space-y-3 text-xl md:text-3xl font-semibold text-white/90">
+        <motion.p {...slam(1)}>Learn the Code.</motion.p>
+        <motion.p {...slam(1.4)}>Pass the Exam.</motion.p>
+        <motion.p {...slam(1.8)}>No BS.</motion.p>
       </div>
+
+      {/* Button with bounce effect */}
+      <motion.div
+        initial={{ opacity: 0, y: 120, scale: 0.8 }}
+        animate={{
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          transition: { type: 'spring', stiffness: 200, damping: 8, delay: 2.4 }
+        }}
+        whileHover={{ scale: 1.05 }}
+        className="mt-12"
+      >
+        <Link
+          href="/intro"
+          className="px-8 py-4 text-lg font-bold bg-green-500 text-black rounded-full shadow-lg hover:bg-green-400 transition-all"
+        >
+          Let’s Do This
+        </Link>
+      </motion.div>
     </main>
   );
 }
