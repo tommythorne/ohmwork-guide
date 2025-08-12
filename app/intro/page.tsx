@@ -44,16 +44,86 @@ const heroVariants: Variants = {
 
 export default function IntroPage() {
   const chapters = [
-    { id: '01', title: 'Chapter 1', subtitle: 'General Requirements', href: '/modules/module-01' },
-    { id: '02', title: 'Chapter 2', subtitle: 'Wiring & Protection', href: '/modules/module-02' },
-    { id: '03', title: 'Chapter 3', subtitle: 'Wiring Methods', href: '/modules/module-03' },
-    { id: '04', title: 'Chapter 4', subtitle: 'Equipment for General Use', href: '/modules/module-04' },
-    { id: '05', title: 'Chapter 5', subtitle: 'Special Occupancies', href: '/modules/module-05' },
-    { id: '06', title: 'Chapter 6', subtitle: 'Special Equipment', href: '/modules/module-06' },
-    { id: '07', title: 'Chapter 7', subtitle: 'Special Conditions', href: '/modules/module-07' },
-    { id: '08', title: 'Chapter 8', subtitle: 'Communications Systems', href: '/modules/module-08' },
-    { id: '09', title: 'Chapter 9', subtitle: 'Tables', href: '/modules/module-09' },
-    { id: '10', title: 'Chapter 10', subtitle: 'Annexes', href: '/modules/module-10' },
+    { 
+      id: '01', 
+      title: 'General Requirements', 
+      href: '/modules/module-01',
+      color: 'from-slate-800 via-slate-700 to-slate-600',
+      borderColor: 'border-slate-500/30',
+      textColor: 'text-slate-200'
+    },
+    { 
+      id: '02', 
+      title: 'Wiring & Protection', 
+      href: '/modules/module-02',
+      color: 'from-blue-900 via-blue-800 to-blue-700',
+      borderColor: 'border-blue-500/30',
+      textColor: 'text-blue-200'
+    },
+    { 
+      id: '03', 
+      title: 'Wiring Methods', 
+      href: '/modules/module-03',
+      color: 'from-indigo-900 via-indigo-800 to-indigo-700',
+      borderColor: 'border-indigo-500/30',
+      textColor: 'text-indigo-200'
+    },
+    { 
+      id: '04', 
+      title: 'Equipment for General Use', 
+      href: '/modules/module-04',
+      color: 'from-purple-900 via-purple-800 to-purple-700',
+      borderColor: 'border-purple-500/30',
+      textColor: 'text-purple-200'
+    },
+    { 
+      id: '05', 
+      title: 'Special Occupancies', 
+      href: '/modules/module-05',
+      color: 'from-violet-900 via-violet-800 to-violet-700',
+      borderColor: 'border-violet-500/30',
+      textColor: 'text-violet-200'
+    },
+    { 
+      id: '06', 
+      title: 'Special Equipment', 
+      href: '/modules/module-06',
+      color: 'from-fuchsia-900 via-fuchsia-800 to-fuchsia-700',
+      borderColor: 'border-fuchsia-500/30',
+      textColor: 'text-fuchsia-200'
+    },
+    { 
+      id: '07', 
+      title: 'Special Conditions', 
+      href: '/modules/module-07',
+      color: 'from-pink-900 via-pink-800 to-pink-700',
+      borderColor: 'border-pink-500/30',
+      textColor: 'text-pink-200'
+    },
+    { 
+      id: '08', 
+      title: 'Communications Systems', 
+      href: '/modules/module-08',
+      color: 'from-rose-900 via-rose-800 to-rose-700',
+      borderColor: 'border-rose-500/30',
+      textColor: 'text-rose-200'
+    },
+    { 
+      id: '09', 
+      title: 'Tables', 
+      href: '/modules/module-09',
+      color: 'from-red-900 via-red-800 to-red-700',
+      borderColor: 'border-red-500/30',
+      textColor: 'text-red-200'
+    },
+    { 
+      id: '10', 
+      title: 'Annexes', 
+      href: '/modules/module-10',
+      color: 'from-orange-900 via-orange-800 to-orange-700',
+      borderColor: 'border-orange-500/30',
+      textColor: 'text-orange-200'
+    },
   ];
 
   return (
@@ -91,15 +161,9 @@ export default function IntroPage() {
               transition={{ type: 'spring', stiffness: 400, damping: 25 }}
             >
               <Link href={chapter.href} className="block">
-                <div className="bg-white/5 border border-white/10 rounded-xl p-6 h-full hover:bg-white/10 hover:border-yellow-400/30 transition-all duration-300 group">
-                  <div className="text-2xl font-bold text-yellow-400 mb-2">
+                <div className={`bg-gradient-to-br ${chapter.color} border ${chapter.borderColor} rounded-xl p-6 h-full hover:scale-105 hover:shadow-2xl transition-all duration-300 group backdrop-blur-sm`}>
+                  <div className={`text-xl font-bold ${chapter.textColor} leading-tight`}>
                     {chapter.title}
-                  </div>
-                  <div className="text-sm text-white/70 leading-relaxed">
-                    {chapter.subtitle}
-                  </div>
-                  <div className="mt-4 text-xs text-green-400/80 font-medium group-hover:text-green-400 transition-colors">
-                    Start Learning →
                   </div>
                 </div>
               </Link>
