@@ -202,9 +202,6 @@ const quiz: Q[] = [
     answer: "B",
     why: "NEC 220.55: The demand factor for electric ranges in dwelling units is 40% for the first 10 kW, plus 5% for each additional kW.",
   },
-    answer: "B",
-    why: "NEC 220.55: The demand factor for electric ranges in dwelling units is 40% for the first 10 kW, plus 5% for each additional kW.",
-  },
   {
     id: 13,
     stem: "Article 215 covers:",
@@ -217,6 +214,31 @@ const quiz: Q[] = [
     answer: "B",
     why: "Article 215 covers feeders. This includes conductor sizing, overcurrent protection, and installation requirements for feeder circuits.",
   },
+  {
+    id: 14,
+    stem: "The minimum conductor size for a 100-amp feeder is:",
+    choices: [
+      { key: "A", text: "#8 AWG copper" },
+      { key: "B", text: "#6 AWG copper" },
+      { key: "C", text: "#4 AWG copper" },
+      { key: "D", text: "#2 AWG copper" },
+    ],
+    answer: "A",
+    why: "Table 310.16: For 100 amperes, the minimum copper conductor size is #8 AWG at 75°C, or #6 AWG at 60°C.",
+  },
+  {
+    id: 15,
+    stem: "The purpose of a neutral conductor is to:",
+    choices: [
+      { key: "A", text: "Carry only fault current" },
+      { key: "B", text: "Carry the unbalanced load current" },
+      { key: "C", text: "Provide grounding only" },
+      { key: "D", text: "Increase system voltage" },
+    ],
+    answer: "B",
+    why: "The neutral conductor carries the unbalanced load current in a multiwire circuit. It's not intended to carry fault current.",
+  },
+];
   {
     id: 14,
     stem: "The minimum conductor size for a 100-amp feeder is:",
