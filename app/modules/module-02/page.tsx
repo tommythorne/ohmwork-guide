@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -10,7 +10,7 @@ const HL = ({ children }: { children: React.ReactNode }) => (
 );
 
 const WarningBox = ({ children }: { children: React.ReactNode }) => (
-  <div className="rounded-xl border border-red-500/40 bg-red-500/10 p-4 my-4">
+  <div className="rounded-xl border border-red-500/40 bg-red-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
       <span className="text-red-400 text-xl">⚠️</span>
       <span className="font-bold text-red-400">EXAM TRAP</span>
@@ -20,9 +20,9 @@ const WarningBox = ({ children }: { children: React.ReactNode }) => (
 );
 
 const RuleBox = ({ children }: { children: React.ReactNode }) => (
-  <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 my-4">
+  <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-yellow-400 text-xl">⚡️</span>
+      <span className="text-yellow-400 text-xl">⚡</span>
       <span className="font-bold text-yellow-400">RULE OF THUMB</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -30,7 +30,7 @@ const RuleBox = ({ children }: { children: React.ReactNode }) => (
 );
 
 const HorrorStory = ({ children }: { children: React.ReactNode }) => (
-  <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 p-4 my-4">
+  <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
       <span className="text-orange-400 text-xl">��</span>
       <span className="font-bold text-orange-400">JOBSITE HORROR STORY</span>
@@ -40,7 +40,7 @@ const HorrorStory = ({ children }: { children: React.ReactNode }) => (
 );
 
 const CodeBox = ({ children }: { children: React.ReactNode }) => (
-  <div className="rounded-xl border border-blue-500/40 bg-blue-500/10 p-4 my-4">
+  <div className="rounded-xl border border-blue-500/40 bg-blue-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
       <span className="text-blue-400 text-xl">��</span>
       <span className="font-bold text-blue-400">NEC REFERENCE</span>
@@ -242,6 +242,11 @@ const quiz: Q[] = [
 
 export default function Ch2WiringProtection() {
   const [open, setOpen] = useState<Record<number, boolean>>({});
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   const toggle = (id: number) =>
     setOpen((s) => ({ ...s, [id]: !s[id] }));
@@ -249,7 +254,7 @@ export default function Ch2WiringProtection() {
   return (
     <main className="min-h-screen bg-black text-white px-4 py-6 md:px-8 md:py-12">
       {/* Top Bar */}
-      <div className="mx-auto max-w-5xl flex items-center justify-between gap-4 mb-6">
+      <div className={`mx-auto max-w-5xl flex items-center justify-between gap-4 mb-6 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
         <Link href="/intro" className="text-white/70 hover:text-white transition flex items-center gap-2">
           <span className="text-xl">←</span>
           <span className="hidden sm:inline">Back to TOC</span>
@@ -261,7 +266,7 @@ export default function Ch2WiringProtection() {
       </div>
 
       {/* Hero Section */}
-      <div className="mx-auto max-w-5xl text-center mb-8">
+      <div className={`mx-auto max-w-5xl text-center mb-8 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-yellow-400 drop-shadow-lg mb-4">
           Chapter 2 — Wiring & Protection
         </h1>
@@ -277,12 +282,12 @@ export default function Ch2WiringProtection() {
         </div>
       </div>
 
-      <hr className="border-white/10 my-8" />
+      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
-      {/* ⚡️ Article 210 — Branch Circuits */}
-      <section className="mx-auto max-w-5xl mb-12">
+      {/* ⚡ Article 210 — Branch Circuits */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡️</span>
+          <span className="text-4xl">⚡</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 210 — Branch Circuits
           </h2>
@@ -316,14 +321,14 @@ export default function Ch2WiringProtection() {
 
         {/* Enhanced Article 210 details */}
         <div className="mt-8 grid md:grid-cols-2 gap-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h3 className="font-bold text-yellow-400 text-lg mb-3">210.11 — Branch Circuits Required</h3>
             <p className="text-white/85 leading-relaxed">
               <HL>General lighting</HL> circuits for illumination, <HL>small appliance</HL> circuits for kitchen 
               and dining areas, <HL>laundry</HL> circuits for washing equipment, and <HL>individual</HL> circuits for specific loads.
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h3 className="font-bold text-yellow-400 text-lg mb-3">210.12 — Arc-Fault Circuit-Interrupter Protection</h3>
             <p className="text-white/85 leading-relaxed">
               <HL>AFCI protection</HL> is required for most dwelling unit branch circuits. This prevents fires 
@@ -359,10 +364,10 @@ export default function Ch2WiringProtection() {
         </CodeBox>
       </section>
 
-      <hr className="border-white/10 my-8" />
+      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
-      {/* �� Article 220 — Branch Circuit, Feeder, and Service Load Calculations */}
-      <section className="mx-auto max-w-5xl mb-12">
+      {/* 🔢 Article 220 — Branch Circuit, Feeder, and Service Load Calculations */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl">��</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
@@ -401,14 +406,14 @@ export default function Ch2WiringProtection() {
         </RuleBox>
 
         <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h3 className="font-bold text-yellow-400 text-lg mb-3">220.12 — General Lighting Loads</h3>
             <p className="text-white/85 leading-relaxed">
               <HL>Dwelling units</HL> use 3 VA per square foot. <HL>Commercial</HL> uses 3.5 VA per square foot. 
               <HL>Industrial</HL> uses 2 VA per square foot. Know your occupancy types.
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h3 className="font-bold text-yellow-400 text-lg mb-3">220.55 — Electric Ranges</h3>
             <p className="text-white/85 leading-relaxed">
               <HL>40% demand factor</HL> for the first 10 kW, plus <HL>5% for each additional kW</HL>. 
@@ -421,7 +426,7 @@ export default function Ch2WiringProtection() {
         <div className="mt-8 space-y-6">
           <h3 className="text-xl font-bold text-yellow-400">Load Calculation Examples</h3>
           
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025]">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h4 className="font-bold text-white mb-3">Dwelling Unit Example</h4>
             <p className="text-white/85 text-sm leading-relaxed mb-3">
               <strong>General Lighting:</strong> 2,000 sq ft × 3 VA = 6,000 VA<br/>
@@ -437,14 +442,14 @@ export default function Ch2WiringProtection() {
 
           <h3 className="text-xl font-bold text-yellow-400">Demand Factors</h3>
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025]">
+            <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
               <h4 className="font-bold text-white mb-2">Electric Ranges</h4>
               <p className="text-white/85 text-sm leading-relaxed">
                 First 10 kW: <HL>40%</HL><br/>
                 Each additional kW: <HL>5%</HL>
               </p>
             </div>
-            <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025]">
+            <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
               <h4 className="font-bold text-white mb-2">Clothes Dryers</h4>
               <p className="text-white/85 text-sm leading-relaxed">
                 First 4 kW: <HL>100%</HL><br/>
@@ -460,12 +465,12 @@ export default function Ch2WiringProtection() {
         </CodeBox>
       </section>
 
-      <hr className="border-white/10 my-8" />
+      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-800 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
-      {/* �� Article 215 — Feeders */}
-      <section className="mx-auto max-w-5xl mb-12">
+      {/* 🏗️ Article 215 — Feeders */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-900 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <span className="text-4xl">🏗️</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 215 — Feeders
           </h2>
@@ -492,14 +497,14 @@ export default function Ch2WiringProtection() {
         </RuleBox>
 
         <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h3 className="font-bold text-yellow-400 text-lg mb-3">215.2 — Minimum Rating and Size</h3>
             <p className="text-white/85 leading-relaxed">
               <HL>Feeders must be sized</HL> to carry the calculated load. This includes continuous loads 
               and noncontinuous loads. Don't guess—calculate properly.
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h3 className="font-bold text-yellow-400 text-lg mb-3">215.3 — Overcurrent Protection</h3>
             <p className="text-white/85 leading-relaxed">
               <HL>Overcurrent protection</HL> must be sized to protect the feeder conductors. The protection 
@@ -518,7 +523,7 @@ export default function Ch2WiringProtection() {
         <div className="mt-8 space-y-6">
           <h3 className="text-xl font-bold text-yellow-400">Feeder Sizing Examples</h3>
           
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025]">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h4 className="font-bold text-white mb-3">Subpanel Feeder Example</h4>
             <p className="text-white/85 text-sm leading-relaxed mb-3">
               <strong>Calculated Load:</strong> 8,000 VA<br/>
@@ -534,12 +539,12 @@ export default function Ch2WiringProtection() {
         </div>
       </section>
 
-      <hr className="border-white/10 my-8" />
+      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
-      {/* 🏗️ Article 225 — Outside Branch Circuits and Feeders */}
-      <section className="mx-auto max-w-5xl mb-12">
+      {/* 🔌 Article 225 — Outside Branch Circuits and Feeders */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">🏗️</span>
+          <span className="text-4xl">��</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 225 — Outside Branch Circuits and Feeders
           </h2>
@@ -566,14 +571,14 @@ export default function Ch2WiringProtection() {
         </WarningBox>
 
         <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h3 className="font-bold text-yellow-400 text-lg mb-3">225.6 — Conductor Types</h3>
             <p className="text-white/85 leading-relaxed">
               <HL>Conductors must be suitable</HL> for outdoor use. This includes weather-resistant insulation, 
               UV protection, and resistance to physical damage. Use the right materials.
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h3 className="font-bold text-yellow-400 text-lg mb-3">225.18 — Clearances</h3>
             <p className="text-white/85 leading-relaxed">
               <HL>Clearances must be maintained</HL> from buildings, structures, and other conductors. These 
@@ -586,7 +591,7 @@ export default function Ch2WiringProtection() {
         <div className="mt-8 mb-6">
           <h3 className="text-xl font-bold text-yellow-400 mb-4">Clearance Requirements (225.18)</h3>
           <div className="grid md:grid-cols-3 gap-4">
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.03] hover:bg-white/[0.05] transition">
+            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-300 hover:scale-105">
               <div className="text-center mb-3">
                 <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
                   <span className="text-blue-400 text-xl font-bold">0-150V</span>
@@ -597,7 +602,7 @@ export default function Ch2WiringProtection() {
                 <HL>3 feet minimum</HL> from buildings and structures
               </p>
             </div>
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.03] hover:bg-white/[0.05] transition">
+            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-300 hover:scale-105">
               <div className="text-center mb-3">
                 <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
                   <span className="text-green-400 text-xl font-bold">151-600V</span>
@@ -608,7 +613,7 @@ export default function Ch2WiringProtection() {
                 <HL>4 feet minimum</HL> from buildings and structures
               </p>
             </div>
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.03] hover:bg-white/[0.05] transition">
+            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-300 hover:scale-105">
               <div className="text-center mb-3">
                 <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
                   <span className="text-purple-400 text-xl font-bold">601V+</span>
@@ -629,12 +634,12 @@ export default function Ch2WiringProtection() {
         </HorrorStory>
       </section>
 
-      <hr className="border-white/10 my-8" />
+      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-1200 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
-      {/* �� Article 230 — Services */}
-      <section className="mx-auto max-w-5xl mb-12">
+      {/* ⚡ Article 230 — Services */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <span className="text-4xl">⚡</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 230 — Services
           </h2>
@@ -661,14 +666,14 @@ export default function Ch2WiringProtection() {
         </RuleBox>
 
         <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h3 className="font-bold text-yellow-400 text-lg mb-3">230.79 — Rating of Service Equipment</h3>
             <p className="text-white/85 leading-relaxed">
               <HL>Service equipment must be rated</HL> for the calculated load. This includes the main disconnect, 
               overcurrent protection, and conductors. Don't guess—calculate properly.
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h3 className="font-bold text-yellow-400 text-lg mb-3">230.24 — Clearances</h3>
             <p className="text-white/85 leading-relaxed">
               <HL>Overhead service conductors</HL> must maintain clearances from buildings, structures, and 
@@ -682,7 +687,7 @@ export default function Ch2WiringProtection() {
           <h3 className="text-xl font-bold text-yellow-400">Service Requirements</h3>
           
           <div className="grid md:grid-cols-2 gap-6">
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.025]">
+            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
               <h4 className="font-bold text-white mb-2">Minimum Service Rating</h4>
               <p className="text-white/85 text-sm leading-relaxed">
                 <strong>Dwelling Units:</strong> <HL>100 amperes</HL><br/>
@@ -690,7 +695,7 @@ export default function Ch2WiringProtection() {
                 <strong>Industrial:</strong> Based on calculated load
               </p>
             </div>
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.025]">
+            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
               <h4 className="font-bold text-white mb-2">Service Disconnect</h4>
               <p className="text-white/85 text-sm leading-relaxed">
                 <strong>Location:</strong> Readily accessible<br/>
@@ -713,12 +718,12 @@ export default function Ch2WiringProtection() {
         </CodeBox>
       </section>
 
-      <hr className="border-white/10 my-8" />
+      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-1400 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
-      {/* ⚡ Article 240 — Overcurrent Protection */}
-      <section className="mx-auto max-w-5xl mb-12">
+      {/* ⚠️ Article 240 — Overcurrent Protection */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <span className="text-4xl">⚠️</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 240 — Overcurrent Protection
           </h2>
@@ -745,19 +750,19 @@ export default function Ch2WiringProtection() {
         </WarningBox>
 
         <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h3 className="font-bold text-yellow-400 text-lg mb-3">240.4 — Protection of Conductors</h3>
             <p className="text-white/85 leading-relaxed">
               <HL>Conductors must be protected</HL> by overcurrent devices sized to protect the conductors. 
               The protection rating must not exceed the conductor ampacity.
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
+                    <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h3 className="font-bold text-yellow-400 text-lg mb-3">240.6 — Standard Ampere Ratings</h3>
             <p className="text-white/85 leading-relaxed">
-              <HL>Standard ratings</HL> include 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 110, 
-              125, 150, 175, 200, 225, 250, 300, 350, 400, 450, 500, 600, 700, 800, 1000, 1200, 1600, 2000, 
-              2500, 3000, 4000, 5000, and 6000 amperes.
+              <HL>Standard ratings</HL> include 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 
+              110, 125, 150, 175, 200, 225, 250, 300, 350, 400, 450, 500, 600, 700, 800, 1000, 1200, 
+              1600, 2000, 2500, 3000, 4000, 5000, and 6000 amperes.
             </p>
           </div>
         </div>
@@ -766,271 +771,169 @@ export default function Ch2WiringProtection() {
         <div className="mt-8 space-y-6">
           <h3 className="text-xl font-bold text-yellow-400">Overcurrent Protection Examples</h3>
           
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025]">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h4 className="font-bold text-white mb-3">Conductor Protection Example</h4>
             <p className="text-white/85 text-sm leading-relaxed mb-3">
               <strong>Conductor:</strong> #12 AWG copper<br/>
               <strong>Ampacity:</strong> 20A at 75°C<br/>
               <strong>Protection:</strong> 20A breaker or fuse<br/>
-              <strong>Note:</strong> Cannot use 25A protection
+              <strong>Note:</strong> Can use 20A protection for 20A conductor
             </p>
             <p className="text-white/90 text-sm">
-              The overcurrent device must protect the conductor, not exceed its ampacity.
+              The protection rating must not exceed the conductor ampacity. This prevents overheating.
             </p>
           </div>
 
           <h3 className="text-xl font-bold text-yellow-400">Next Higher Standard Rating</h3>
           <p className="text-white/90 leading-relaxed">
-            <HL>240.4(B)</HL> allows the next higher standard rating when the calculated load doesn't correspond 
-            to a standard rating. This prevents nuisance tripping while maintaining protection.
+            <HL>240.4(B)</HL> allows using the next higher standard rating when the calculated load doesn't 
+            correspond to a standard rating. This is commonly used for motor loads and other specific applications.
           </p>
-
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025]">
+          
+          <div className="grid md:grid-cols-2 gap-4 mb-6">
+            <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
               <h4 className="font-bold text-white mb-2">Example 1</h4>
-              <p className="text-white/85 text-sm leading-relaxed">
-                <strong>Calculated Load:</strong> 18A<br/>
-                <strong>Standard Rating:</strong> 20A<br/>
-                <strong>Result:</strong> Use 20A protection
-              </p>
-            </div>
-            <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025]">
-              <h4 className="font-bold text-white mb-2">Example 2</h4>
               <p className="text-white/85 text-sm leading-relaxed">
                 <strong>Calculated Load:</strong> 22A<br/>
                 <strong>Standard Rating:</strong> 25A<br/>
                 <strong>Result:</strong> Use 25A protection
               </p>
             </div>
+            <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+              <h4 className="font-bold text-white mb-2">Example 2</h4>
+              <p className="text-white/85 text-sm leading-relaxed">
+                <strong>Calculated Load:</strong> 18A<br/>
+                <strong>Standard Rating:</strong> 20A<br/>
+                <strong>Result:</strong> Use 20A protection
+              </p>
+            </div>
           </div>
         </div>
-                <HorrorStory>
-          <strong>True Story:</strong> Electrician used a 30A breaker to protect #14 AWG conductors because 
-          "the load was only 25A." When the conductors overheated and started a fire, the inspector failed 
-          the entire job. <HL>240.4</HL> requires protection sized for conductors, not loads.
+
+        <HorrorStory>
+          <strong>True Story:</strong> Electrician used a 30A breaker to protect #14 AWG conductors rated 
+          for 15A. When the circuit was loaded to 25A, the conductors overheated and started a fire. 
+          <HL>240.4</HL> is clear—protect conductors properly.
         </HorrorStory>
 
         <CodeBox>
-          <strong>NEC 240.4:</strong> "Conductors, other than flexible cords, flexible cables, and fixture wires, 
-          shall be protected against overcurrent in accordance with their ampacities as specified in 310.15."
+          <strong>NEC 240.4:</strong> "Conductors, other than flexible cords, flexible cables, and fixture 
+          wires, shall be protected against overcurrent in accordance with their ampacities specified in 310.15."
         </CodeBox>
       </section>
 
-      <hr className="border-white/10 my-8" />
+      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-1600 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
-      {/* ⚠️ Hazards & Exam Traps (Comprehensive) */}
-      <section className="mx-auto max-w-5xl mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚠️</span>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Hazards & Exam Traps (Comprehensive)
-          </h2>
-        </div>
+      {/* 🧠 Quick Reference */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-400 mb-6">
+          🧠 Quick Reference
+        </h2>
         
-        <div className="space-y-4 text-white/90 leading-relaxed mb-6">
-          <p>
-            — <HL>Load calculations</HL> are heavily tested. Know your demand factors and how to apply them.
-          </p>
-          <p>
-            — <HL>Branch circuit requirements</HL> vary by occupancy type. Don't mix them up.
-          </p>
-          <p>
-            — <HL>Overcurrent protection</HL> must protect conductors, not loads.
-          </p>
-          <p>
-            — <HL>Service sizing</HL> must be based on calculated loads, not estimated needs.
-          </p>
-          <p>
-            — <HL>Outdoor clearances</HL> vary by voltage level. Check the tables.
-          </p>
-          <p>
-            — <HL>Feeder sizing</HL> must account for continuous and noncontinuous loads.
-          </p>
-          <p>
-            — <HL>Demand factors</HL> reduce the calculated load. Don't forget to apply them.
-          </p>
-          <p>
-            — <HL>Conductor ampacity</HL> must be considered for temperature and installation conditions.
-          </p>
-          <p>
-            — <HL>Service equipment</HL> must be rated for the calculated load.
-          </p>
-          <p>
-            — <HL>Clearance requirements</HL> prevent contact and ensure safe operation.
-          </p>
-        </div>
-
-        {/* Common exam mistakes */}
-        <div className="rounded-xl border border-red-500/40 p-6 bg-red-500/10">
-          <h3 className="font-bold text-red-400 text-lg mb-4 flex items-center gap-2">
-            <span></span>
-            Common Exam Mistakes
-          </h3>
-          <div className="space-y-2 text-white/90">
-            <p>• Forgetting to apply demand factors in load calculations</p>
-            <p>• Mixing up branch circuit requirements for different occupancy types</p>
-            <p>• Sizing overcurrent protection for loads instead of conductors</p>
-            <p>• Undersizing services based on estimated needs</p>
-            <p>• Ignoring outdoor clearance requirements</p>
-            <p>• Forgetting to account for continuous loads</p>
-            <p>• Not considering conductor ampacity derating factors</p>
-            <p>• Ignoring service equipment rating requirements</p>
-            <p>• Mixing up clearance requirements for different voltage levels</p>
-            <p>• Forgetting to coordinate overcurrent protection</p>
-          </div>
-        </div>
-
-        {/* Additional hazard warnings */}
-        <div className="mt-6 space-y-4">
-          <WarningBox>
-            <strong>LOAD CALCULATION ERRORS:</strong> Many electricians fail load calculations because they 
-            forget demand factors or add loads that won't operate simultaneously. Use the Code tables properly.
-          </WarningBox>
-
-          <WarningBox>
-            <strong>OVERCURRENT PROTECTION:</strong> Protection must be sized for conductors, not loads. 
-            Don't exceed conductor ampacity with overcurrent devices.
-          </WarningBox>
-
-          <WarningBox>
-            <strong>SERVICE SIZING:</strong> Services must be sized for the calculated load, not estimated needs. 
-            Undersized services are dangerous and expensive to upgrade.
-          </WarningBox>
-        </div>
-      </section>
-
-      <hr className="border-white/10 my-8" />
-
-      {/* �� Quick Reference (Massively Enhanced) */}
-      <section className="mx-auto max-w-5xl mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl"></span>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Quick Reference (Comprehensive)
-          </h2>
-        </div>
-        
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h3 className="font-bold text-yellow-400 text-lg mb-3">Where Stuff Lives</h3>
             <p className="text-white/85 leading-relaxed">
-              — Article 210: Branch circuits<br />
-              — Article 220: Load calculations<br />
-              — Article 215: Feeders<br />
-              — Article 225: Outdoor wiring<br />
-              — Article 230: Services<br />
-              — Article 240: Overcurrent protection<br />
-              — Article 250: Grounding and bonding
+              — <HL>Article 210:</HL> Branch circuits<br/>
+              — <HL>Article 220:</HL> Load calculations<br/>
+              — <HL>Article 215:</HL> Feeders<br/>
+              — <HL>Article 225:</HL> Outdoor wiring<br/>
+              — <HL>Article 230:</HL> Services<br/>
+              — <HL>Article 240:</HL> Overcurrent protection
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h3 className="font-bold text-yellow-400 text-lg mb-3">Fast Rules</h3>
             <p className="text-white/85 leading-relaxed">
-              — <HL>Calculate loads</HL> properly<br />
-              — <HL>Size conductors</HL> for the load<br />
-              — <HL>Protect conductors</HL> with overcurrent devices<br />
-              — <HL>Use demand factors</HL> where applicable<br />
-              — <HL>Maintain clearances</HL> for safety<br />
-              — <HL>Size services</HL> for calculated loads
+              — <HL>Size conductors</HL> for the load<br/>
+              — <HL>Protect conductors</HL> with proper OCP<br/>
+              — <HL>Use demand factors</HL> in calculations<br/>
+              — <HL>Maintain clearances</HL> for safety<br/>
+              — <HL>Follow manufacturer</HL> instructions
             </p>
           </div>
         </div>
 
-        {/* Additional quick reference */}
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Load Calculation Rules</h3>
-            <p className="text-white/85 leading-relaxed">
-              <HL>General Lighting:</HL> 3 VA/sq ft (dwelling)<br />
-              <HL>Small Appliances:</HL> 2 circuits × 1,500 VA<br />
-              <HL>Electric Ranges:</HL> 40% demand factor<br />
-              <HL>Clothes Dryers:</HL> 100% first 4 kW
+        <div className="mt-6 grid md:grid-cols-3 gap-4">
+          <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+            <h4 className="font-bold text-white mb-2">Load Calculations</h4>
+            <p className="text-white/85 text-sm leading-relaxed">
+              <strong>General Lighting:</strong> 3 VA/sq ft<br/>
+              <strong>Small Appliances:</strong> 2 × 1500 VA<br/>
+              <strong>Electric Range:</strong> 40% + 5%/kW
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Clearance Requirements</h3>
-            <p className="text-white/85 leading-relaxed">
-              0-150V: <HL>3 feet</HL> minimum<br />
-              151-600V: <HL>4 feet</HL> minimum<br />
-              601V+: <HL>5 feet</HL> minimum<br />
-              <span className="text-sm text-white/60">*From buildings and structures</span>
+          <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+            <h4 className="font-bold text-white mb-2">Clearances</h4>
+            <p className="text-white/85 text-sm leading-relaxed">
+              <strong>0-150V:</strong> 3 feet<br/>
+              <strong>151-600V:</strong> 4 feet<br/>
+              <strong>601V+:</strong> 5 feet
             </p>
           </div>
-        </div>
-
-        {/* New quick reference sections */}
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Branch Circuit Rules</h3>
-            <p className="text-white/85 leading-relaxed">
-              — <HL>General lighting</HL> circuits required<br />
-              — <HL>Small appliance</HL> circuits for kitchen<br />
-              — <HL>Laundry</HL> circuits required<br />
-              — <HL>Individual</HL> circuits for specific loads
-            </p>
-          </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Service Requirements</h3>
-            <p className="text-white/85 leading-relaxed">
-              — <HL>Minimum 100A</HL> for dwellings<br />
-              — <HL>Sized for calculated load</HL><br />
-              — <HL>Readily accessible</HL> disconnect<br />
-              — <HL>Proper overcurrent protection</HL>
+          <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+            <h4 className="font-bold text-white mb-2">Service Ratings</h4>
+            <p className="text-white/85 text-sm leading-relaxed">
+              <strong>Dwelling:</strong> 100A minimum<br/>
+              <strong>Commercial:</strong> Calculated load<br/>
+              <strong>Industrial:</strong> Calculated load
             </p>
           </div>
         </div>
       </section>
 
-      <hr className="border-white/10 my-8" />
+      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-1800 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
-      {/* �� Enhanced Quiz (15 Questions) */}
-      <section className="mx-auto max-w-5xl mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl"></span>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            15‑Question Check
-          </h2>
-        </div>
-        
-        <p className="text-lg text-white/80 mb-6 text-center">
+      {/* 📝 Quiz */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1900 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-400 mb-4">
+          �� 15‑Question Check
+        </h2>
+        <p className="text-white/80 mb-6 text-lg">
           Tap "Check Answer." Learn why. Move on. Don't overthink.
         </p>
-
+        
         <div className="space-y-6">
           {quiz.map((q) => (
-            <div key={q.id} className="rounded-xl border border-white/10 bg-white/[0.02] p-6 hover:bg-white/[0.03] transition">
+            <div
+              key={q.id}
+              className="rounded-xl border border-white/10 bg-white/[0.02] p-6 hover:bg-white/[0.03] transition-all duration-300 hover:scale-[1.02]"
+            >
               <div className="text-white font-semibold text-lg mb-4">
                 {q.id}. {q.stem}
               </div>
+              
               <div className="grid sm:grid-cols-2 gap-3 mb-4">
                 {q.choices.map((c) => (
                   <label
                     key={c.key}
-                    className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-white/90 hover:border-yellow-400/40 transition cursor-pointer"
+                    className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-white/90 hover:border-yellow-400/40 hover:bg-white/[0.05] transition-all duration-200 cursor-pointer group"
                   >
                     <input
                       type="radio"
                       name={`q-${q.id}`}
                       onChange={() => {}}
-                      className="accent-yellow-400"
+                      className="accent-yellow-400 w-4 h-4"
                     />
-                    <span className="font-mono text-yellow-300 font-bold">{c.key}</span>
+                    <span className="font-mono text-yellow-300 font-bold text-lg group-hover:text-yellow-200 transition-colors">
+                      {c.key}
+                    </span>
                     <span className="leading-relaxed">{c.text}</span>
                   </label>
                 ))}
               </div>
-
+              
               <button
                 onClick={() => toggle(q.id)}
-                className="inline-flex items-center justify-center rounded-lg bg-green-500 text-black font-bold px-6 py-3 hover:bg-green-400 transition hover:scale-105"
+                className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-green-500 to-green-600 text-black font-bold px-6 py-3 hover:from-green-400 hover:to-green-500 transition-all duration-200 transform hover:scale-105 hover:shadow-lg"
               >
                 Check Answer
               </button>
-
+              
               {open[q.id] && (
-                <div className="mt-4 rounded-lg border border-green-400/30 bg-green-400/10 p-4">
+                <div className="mt-4 rounded-lg border border-green-400/30 bg-green-400/10 p-4 animate-fade-in">
                   <div className="font-mono text-sm mb-2">
-                    Correct: <span className="text-green-400 font-bold">{q.answer}</span>
+                    Correct: <span className="text-green-400 font-bold text-lg">{q.answer}</span>
                   </div>
                   <div className="text-white/90 leading-relaxed">{q.why}</div>
                 </div>
@@ -1040,27 +943,41 @@ export default function Ch2WiringProtection() {
         </div>
       </section>
 
-      <hr className="border-white/10 my-8" />
+      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-2000 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
-      {/* Footer nav */}
-      <div className="mx-auto max-w-5xl flex items-center justify-between mt-8 mb-12">
-        <Link href="/intro" className="text-white/70 hover:text-white transition flex items-center gap-2">
-          <span className="text-xl">←</span>
-          <span className="hidden sm:inline">Back to TOC</span>
+      {/* Footer Navigation */}
+      <div className={`mx-auto max-w-5xl flex items-center justify-between mt-8 transition-all duration-1000 delay-2100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+        <Link
+          href="/intro"
+          className="text-white/70 hover:text-white transition flex items-center gap-2 group"
+        >
+          <span className="text-xl group-hover:-translate-x-1 transition-transform">←</span>
+          <span>Back to TOC</span>
         </Link>
-        <Link href="/modules/module-03" className="text-white/70 hover:text-white transition flex items-center gap-2">
-          <span className="hidden sm:inline">Next: Ch 3 — Wiring Methods</span>
-          <span className="text-xl">→</span>
-        </Link>
-      </div>
-
-      {/* Progress indicator */}
-      <div className="mx-auto max-w-5xl text-center mb-8">
-        <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full text-sm">
-          <span className="text-white/80">Chapter 2 Complete</span>
-          <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+        
+        <div className="flex items-center gap-4">
+          <Link
+            href="/modules/module-01"
+            className="text-white/70 hover:text-white transition flex items-center gap-2 group"
+          >
+            <span>← Ch 1</span>
+            <span className="text-xl group-hover:-translate-x-1 transition-transform">←</span>
+          </Link>
+          
+          <div className="w-px h-6 bg-white/20"></div>
+          
+          <Link
+            href="/modules/module-03"
+            className="text-white/70 hover:text-white transition flex items-center gap-2 group"
+          >
+            <span>Ch 3 →</span>
+            <span className="text-xl group-hover:translate-x-1 transition-transform">→</span>
+          </Link>
         </div>
       </div>
+
+      {/* Bottom Spacer */}
+      <div className="h-12"></div>
     </main>
   );
 }
