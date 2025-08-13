@@ -45,73 +45,73 @@ const heroVariants: Variants = {
 export default function IntroPage() {
   const chapters = [
     { 
-      id: '1', 
+      id: '01', 
       title: 'General Requirements', 
-      href: '/modules/module-1',
+      href: '/modules/module-01',
       color: 'from-slate-800 via-slate-700 to-slate-600',
       borderColor: 'border-slate-500/30',
       textColor: 'text-slate-200'
     },
     { 
-      id: '2', 
+      id: '02', 
       title: 'Wiring & Protection', 
-      href: '/modules/module-2',
+      href: '/modules/module-02',
       color: 'from-blue-900 via-blue-800 to-blue-700',
       borderColor: 'border-blue-500/30',
       textColor: 'text-blue-200'
     },
     { 
-      id: '3', 
+      id: '03', 
       title: 'Wiring Methods', 
-      href: '/modules/module-3',
+      href: '/modules/module-03',
       color: 'from-indigo-900 via-indigo-800 to-indigo-700',
       borderColor: 'border-indigo-500/30',
       textColor: 'text-indigo-200'
     },
     { 
-      id: '4', 
+      id: '04', 
       title: 'Equipment for General Use', 
-      href: '/modules/module-4',
+      href: '/modules/module-04',
       color: 'from-purple-900 via-purple-800 to-purple-700',
       borderColor: 'border-purple-500/30',
       textColor: 'text-purple-200'
     },
     { 
-      id: '5', 
+      id: '05', 
       title: 'Special Occupancies', 
-      href: '/modules/module-5',
+      href: '/modules/module-05',
       color: 'from-violet-900 via-violet-800 to-violet-700',
       borderColor: 'border-violet-500/30',
       textColor: 'text-violet-200'
     },
     { 
-      id: '6', 
+      id: '06', 
       title: 'Special Equipment', 
-      href: '/modules/module-6',
+      href: '/modules/module-06',
       color: 'from-fuchsia-900 via-fuchsia-800 to-fuchsia-700',
       borderColor: 'border-fuchsia-500/30',
       textColor: 'text-fuchsia-200'
     },
     { 
-      id: '7', 
+      id: '07', 
       title: 'Special Conditions', 
-      href: '/modules/module-7',
+      href: '/modules/module-07',
       color: 'from-pink-900 via-pink-800 to-pink-700',
       borderColor: 'border-pink-500/30',
       textColor: 'text-pink-200'
     },
     { 
-      id: '8', 
+      id: '08', 
       title: 'Communications Systems', 
-      href: '/modules/module-8',
+      href: '/modules/module-08',
       color: 'from-rose-900 via-rose-800 to-rose-700',
       borderColor: 'border-rose-500/30',
       textColor: 'text-rose-200'
     },
     { 
-      id: '9', 
+      id: '09', 
       title: 'Tables', 
-      href: '/modules/module-9',
+      href: '/modules/module-09',
       color: 'from-red-900 via-red-800 to-red-700',
       borderColor: 'border-red-500/30',
       textColor: 'text-red-200'
