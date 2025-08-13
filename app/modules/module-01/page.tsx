@@ -170,6 +170,34 @@ const quiz: Q[] = [
     why:
       "OCP details/coordination are addressed later (e.g., Chapters 2 & 4+). Chapter 1 covers purpose, scope, definitions, general requirements.",
   },
+  {
+    id: 11,
+    stem:
+      "Equipment grounding conductors must be:",
+    choices: [
+      { key: "A", text: "The same size as circuit conductors" },
+      { key: "B", text: "Properly sized per Table 250.122" },
+      { key: "C", text: "Always #12 AWG minimum" },
+      { key: "D", text: "The same color as neutral conductors" },
+    ],
+    answer: "B",
+    why:
+      "NEC 250.122 — EGC sizing follows Table 250.122 based on OCP device rating, not conductor size.",
+  },
+  {
+    id: 12,
+    stem:
+      "Working space depth requirements vary by:",
+    choices: [
+      { key: "A", text: "Equipment voltage and access type" },
+      { key: "B", text: "Room temperature only" },
+      { key: "C", text: "Contractor preference" },
+      { key: "D", text: "Building height" },
+    ],
+    answer: "A",
+    why:
+      "NEC 110.26(A)(1) — Working space depth depends on voltage and whether access is from one side or both sides.",
+  },
 ];
 
 export default function Ch1General() {
@@ -221,6 +249,30 @@ export default function Ch1General() {
           <p>
             — Utility stuff? Mostly <HL>outside</HL> NEC scope. Your work? Squarely inside.
           </p>
+          <p>
+            — <HL>90.1(D)</HL>: The Code is <span className="italic">not</span> a training manual. You're expected to know your craft.
+          </p>
+          <p>
+            — <HL>90.1(E)</HL>: The NEC is <span className="italic">not</span> a product standard. UL, CSA, and others handle that.
+          </p>
+        </div>
+
+        {/* Enhanced Article 90 details */}
+        <div className="mt-6 grid md:grid-cols-2 gap-4">
+          <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025]">
+            <h3 className="font-bold text-yellow-400">90.1(A) — Purpose</h3>
+            <p className="text-white/85 mt-1">
+              <HL>Practical safeguarding</HL> means reasonable protection, not bulletproof systems. The Code prevents 
+              the most common hazards that cause injury or property damage.
+            </p>
+          </div>
+          <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025]">
+            <h3 className="font-bold text-yellow-400">90.1(B) — Scope</h3>
+            <p className="text-white/85 mt-1">
+              Covers <HL>electrical conductors and equipment</HL> installed in or on buildings, structures, and premises. 
+              Does NOT cover utility distribution, ships, aircraft, or automotive.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -257,6 +309,34 @@ export default function Ch1General() {
               Evaluated by a qualified lab, and must be installed <HL>per listing and labeling</HL> (110.3(B)).
             </p>
           </div>
+          <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025]">
+            <h3 className="font-bold text-yellow-400">Approved</h3>
+            <p className="text-white/85 mt-1">
+              <HL>Acceptable to the AHJ</HL>. This is subjective and varies by jurisdiction. When in doubt, ask.
+            </p>
+          </div>
+          <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025]">
+            <h3 className="font-bold text-yellow-400">Identified</h3>
+            <p className="text-white/85 mt-1">
+              <HL>Suitable for the specific purpose</HL>. Equipment must be identified for its intended use.
+            </p>
+          </div>
+        </div>
+
+        {/* Additional critical definitions */}
+        <div className="mt-6 space-y-3 text-white/90">
+          <p>
+            — <HL>Accessible (as applied to equipment)</HL>: Capable of being reached without removing obstacles or using portable ladders.
+          </p>
+          <p>
+            — <HL>Accessible (as applied to wiring methods)</HL>: Capable of being removed or exposed without damaging the building structure.
+          </p>
+          <p>
+            — <HL>Concealed</HL>: Rendered inaccessible by the structure or finish of the building.
+          </p>
+          <p>
+            — <HL>Exposed</HL>: Not concealed, as applied to wiring methods.
+          </p>
         </div>
       </section>
 
@@ -279,6 +359,37 @@ export default function Ch1General() {
           <p>
             — <HL>Guarding, Marking, and Accessibility</HL>: If someone can touch it, it better be safe and labeled.
           </p>
+          <p>
+            — <HL>110.14(A)</HL>: Terminations must be identified for the conductor material and insulation type.
+          </p>
+          <p>
+            — <HL>110.14(B)</HL>: Temperature limitations of conductors must be considered for terminations.
+          </p>
+        </div>
+
+        {/* Enhanced working space details */}
+        <div className="mt-6 space-y-4">
+          <h3 className="text-xl font-bold text-yellow-400">Working Space Requirements (110.26)</h3>
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="rounded-xl border border-white/10 p-4 bg-white/[0.03]">
+              <h4 className="font-bold text-white">Width</h4>
+              <p className="text-white/85 mt-1">
+                <HL>30 inches minimum</HL> or the width of the equipment, whichever is greater.
+              </p>
+            </div>
+            <div className="rounded-xl border border-white/10 p-4 bg-white/[0.03]">
+              <h4 className="font-bold text-white">Depth</h4>
+              <p className="text-white/85 mt-1">
+                <HL>3 feet minimum</HL> for 0-150V, <HL>4 feet for 151-600V</HL>, <HL>5 feet for 601V+</HL>.
+              </p>
+            </div>
+            <div className="rounded-xl border border-white/10 p-4 bg-white/[0.03]">
+              <h4 className="font-bold text-white">Height</h4>
+              <p className="text-white/85 mt-1">
+                <HL>6.5 feet minimum</HL> or the height of the equipment, whichever is greater.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Tiny visual card row */}
@@ -312,9 +423,48 @@ export default function Ch1General() {
 
       <Divider />
 
-      {/* �� Hazards & Exam Traps */}
+      {/* 🔌 Article 200 — Use and Identification of Grounded Conductors */}
       <section className="mx-auto max-w-5xl">
-        <h2 className="text-2xl md:text-3xl font-bold">�� Hazards & Exam Traps</h2>
+        <h2 className="text-2xl md:text-3xl font-bold">🔌 Article 200 — Use and Identification of Grounded Conductors</h2>
+        <div className="mt-3 space-y-3 text-white/90">
+          <p>
+            — <HL>200.6</HL>: Grounded conductors must be identified by white or gray insulation, or by three continuous white stripes.
+          </p>
+          <p>
+            — <HL>200.7</HL>: Use of insulation that is white or gray for other than grounded conductors is prohibited.
+          </p>
+          <p>
+            — <HL>200.9</HL>: Polarity of connections must be observed. Don't reverse hot and neutral.
+          </p>
+          <p>
+            — <HL>200.10</HL>: Identification of terminals. Grounded conductor terminals must be identified.
+          </p>
+        </div>
+
+        {/* Grounded conductor identification details */}
+        <div className="mt-6 grid md:grid-cols-2 gap-4">
+          <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025]">
+            <h3 className="font-bold text-yellow-400">200.6 — Identification</h3>
+            <p className="text-white/85 mt-1">
+              <HL>White or gray</HL> insulation, or <HL>three continuous white stripes</HL> on other than green insulation. 
+              This prevents confusion and ensures proper connections.
+            </p>
+          </div>
+          <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025]">
+            <h3 className="font-bold text-yellow-400">200.7 — Prohibited Use</h3>
+            <p className="text-white/85 mt-1">
+              <HL>White or gray insulation</HL> cannot be used for ungrounded conductors. This prevents 
+              misidentification and potential hazards.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <Divider />
+
+      {/* ⚠️ Hazards & Exam Traps */}
+      <section className="mx-auto max-w-5xl">
+        <h2 className="text-2xl md:text-3xl font-bold">⚠️ Hazards & Exam Traps</h2>
         <div className="mt-3 space-y-3 text-white/90">
           <p>
             — <HL>Definitions</HL> are bait. "Grounded vs. Grounding," "Bonding vs. Grounding"—they'll play word games.
@@ -328,12 +478,33 @@ export default function Ch1General() {
           <p>
             — <HL>NEC ≠ design manual</HL>. You'll be tested on minimums, not best‑in‑class.
           </p>
+          <p>
+            — <HL>Article 200</HL> identification rules: white/gray conductors must be grounded conductors.
+          </p>
+          <p>
+            — <HL>Working space access</HL>: equipment must be accessible for operation and maintenance.
+          </p>
+          <p>
+            — <HL>Temperature ratings</HL>: conductor insulation must match termination temperature ratings.
+          </p>
+        </div>
+
+        {/* Common exam mistakes */}
+        <div className="mt-6 rounded-xl border border-yellow-400/30 p-4 bg-yellow-400/10">
+          <h3 className="font-bold text-yellow-400">🚨 Common Exam Mistakes</h3>
+          <div className="mt-2 space-y-2 text-white/90">
+            <p>• Confusing "grounded" vs "grounding" conductors</p>
+            <p>• Forgetting working space requirements vary by voltage</p>
+            <p>• Ignoring manufacturer instructions (110.3(B))</p>
+            <p>• Mixing up accessibility requirements for equipment vs wiring</p>
+            <p>• Forgetting temperature limitations for terminations</p>
+          </div>
         </div>
       </section>
 
       <Divider />
 
-      {/* 🧠 Quick Reference (tiny) */}
+      {/* 🧠 Quick Reference (enhanced) */}
       <section className="mx-auto max-w-5xl">
         <h2 className="text-2xl md:text-3xl font-bold">�� Quick Reference</h2>
         <div className="mt-3 grid md:grid-cols-2 gap-4">
@@ -342,7 +513,8 @@ export default function Ch1General() {
             <p className="text-white/85 mt-1">
               — Article 90: Why/How the NEC works<br />
               — Article 100: Definitions<br />
-              — Article 110: General installation rules
+              — Article 110: General installation rules<br />
+              — Article 200: Grounded conductor identification
             </p>
           </div>
           <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025]">
@@ -350,7 +522,28 @@ export default function Ch1General() {
             <p className="text-white/85 mt-1">
               — Follow <HL>listing & labeling</HL><br />
               — Keep <HL>working space</HL> clear<br />
-              — Respect <HL>AHJ</HL> interpretations
+              — Respect <HL>AHJ</HL> interpretations<br />
+              — Identify <HL>grounded conductors</HL> properly
+            </p>
+          </div>
+        </div>
+
+        {/* Additional quick reference */}
+        <div className="mt-4 grid md:grid-cols-2 gap-4">
+          <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025]">
+            <h3 className="font-bold text-yellow-400">Working Space Depths</h3>
+            <p className="text-white/85 mt-1">
+              0-150V: <HL>3 feet</HL><br />
+              151-600V: <HL>4 feet</HL><br />
+              601V+: <HL>5 feet</HL>
+            </p>
+          </div>
+          <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025]">
+            <h3 className="font-bold text-yellow-400">Critical Definitions</h3>
+            <p className="text-white/85 mt-1">
+              <HL>Grounded</HL>: Intentionally connected to earth<br />
+              <HL>Grounding</HL>: Equipment connected to ground<br />
+              <HL>Bonding</HL>: Metallic parts connected together
             </p>
           </div>
         </div>
@@ -358,9 +551,9 @@ export default function Ch1General() {
 
       <Divider />
 
-      {/* 📝 Quiz */}
+      {/* �� Enhanced Quiz */}
       <section className="mx-auto max-w-5xl">
-        <h2 className="text-2xl md:text-3xl font-bold">📝 10‑Question Check</h2>
+        <h2 className="text-2xl md:text-3xl font-bold">📝 12‑Question Check</h2>
         <p className="text-white/80 mt-2">
           Tap "Check Answer." Learn why. Move on. Don't overthink.
         </p>
@@ -416,7 +609,7 @@ export default function Ch1General() {
         <Link href="/intro" className="text-white/70 hover:text-white transition">
           ← Back to TOC
         </Link>
-        <Link href="/modules/module-2" className="text-white/70 hover:text-white transition">
+        <Link href="/modules/module-02" className="text-white/70 hover:text-white transition">
           Next: Ch 2 — Wiring & Protection →
         </Link>
       </div>
