@@ -361,7 +361,7 @@ export default function Ch2WiringProtection() {
 
       <hr className="border-white/10 my-8" />
 
-      {/* 🔢 Article 220 — Branch Circuit, Feeder, and Service Load Calculations */}
+      {/* �� Article 220 — Branch Circuit, Feeder, and Service Load Calculations */}
       <section className="mx-auto max-w-5xl mb-12">
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl">��</span>
@@ -631,7 +631,7 @@ export default function Ch2WiringProtection() {
 
       <hr className="border-white/10 my-8" />
 
-      {/* 🔌 Article 230 — Services */}
+      {/* �� Article 230 — Services */}
       <section className="mx-auto max-w-5xl mb-12">
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl">��</span>
@@ -901,7 +901,7 @@ export default function Ch2WiringProtection() {
 
       <hr className="border-white/10 my-8" />
 
-      {/* 🧠 Quick Reference (Massively Enhanced) */}
+      {/* �� Quick Reference (Massively Enhanced) */}
       <section className="mx-auto max-w-5xl mb-12">
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl"></span>
@@ -983,7 +983,7 @@ export default function Ch2WiringProtection() {
 
       <hr className="border-white/10 my-8" />
 
-      {/* 📝 Enhanced Quiz (15 Questions) */}
+      {/* �� Enhanced Quiz (15 Questions) */}
       <section className="mx-auto max-w-5xl mb-12">
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl"></span>
