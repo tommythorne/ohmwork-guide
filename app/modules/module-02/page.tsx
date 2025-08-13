@@ -239,31 +239,6 @@ const quiz: Q[] = [
     why: "The neutral conductor carries the unbalanced load current in a multiwire circuit. It's not intended to carry fault current.",
   },
 ];
-  {
-    id: 14,
-    stem: "The minimum conductor size for a 100-amp feeder is:",
-    choices: [
-      { key: "A", text: "#8 AWG copper" },
-      { key: "B", text: "#6 AWG copper" },
-      { key: "C", text: "#4 AWG copper" },
-      { key: "D", text: "#2 AWG copper" },
-    ],
-    answer: "A",
-    why: "Table 310.16: For 100 amperes, the minimum copper conductor size is #8 AWG at 75°C, or #6 AWG at 60°C.",
-  },
-  {
-    id: 15,
-    stem: "The purpose of a neutral conductor is to:",
-    choices: [
-      { key: "A", text: "Carry only fault current" },
-      { key: "B", text: "Carry the unbalanced load current" },
-      { key: "C", text: "Provide grounding only" },
-      { key: "D", text: "Increase system voltage" },
-    ],
-    answer: "B",
-    why: "The neutral conductor carries the unbalanced load current in a multiwire circuit. It's not intended to carry fault current.",
-  },
-];
 
 export default function Ch2WiringProtection() {
   const [open, setOpen] = useState<Record<number, boolean>>({});
@@ -558,7 +533,8 @@ export default function Ch2WiringProtection() {
           </div>
         </div>
       </section>
-            <hr className="border-white/10 my-8" />
+
+      <hr className="border-white/10 my-8" />
 
       {/* 🏗️ Article 225 — Outside Branch Circuits and Feeders */}
       <section className="mx-auto max-w-5xl mb-12">
@@ -828,8 +804,7 @@ export default function Ch2WiringProtection() {
             </div>
           </div>
         </div>
-
-        <HorrorStory>
+                <HorrorStory>
           <strong>True Story:</strong> Electrician used a 30A breaker to protect #14 AWG conductors because 
           "the load was only 25A." When the conductors overheated and started a fire, the inspector failed 
           the entire job. <HL>240.4</HL> requires protection sized for conductors, not loads.
