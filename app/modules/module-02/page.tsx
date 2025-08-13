@@ -49,6 +49,43 @@ const CodeBox = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
+const DataTable = ({ title, headers, rows }: { title: string; headers: string[]; rows: string[][] }) => (
+  <div className="rounded-xl border border-white/10 bg-white/[0.025] p-6 my-6 hover:bg-white/[0.035] transition-all duration-300">
+    <h4 className="font-bold text-yellow-400 text-lg mb-4">{title}</h4>
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="border-b border-white/20">
+            {headers.map((header, i) => (
+              <th key={i} className="text-left py-3 px-4 text-white/80 font-semibold">
+                {header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, i) => (
+            <tr key={i} className="border-b border-white/10 hover:bg-white/[0.02] transition-colors">
+              {row.map((cell, j) => (
+                <td key={j} className="py-3 px-4 text-white/90">
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+);
+
+const ChartBox = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div className="rounded-xl border border-white/10 bg-white/[0.025] p-6 my-6 hover:bg-white/[0.035] transition-all duration-300">
+    <h4 className="font-bold text-yellow-400 text-lg mb-4">{title}</h4>
+    {children}
+  </div>
+);
+
 type Q = {
   id: number;
   stem: string;
@@ -308,6 +345,31 @@ export default function Ch2WiringProtection() {
           </p>
         </div>
 
+        {/* Branch Circuit Diagram */}
+        <div className="my-8 rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:bg-white/[0.035] transition-all duration-300">
+          <h3 className="font-bold text-yellow-400 text-lg mb-4">Branch Circuit Structure</h3>
+          <div className="grid md:grid-cols-3 gap-4 items-center">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                <span className="text-blue-400 text-2xl">⚡</span>
+              </div>
+              <p className="text-white/80 text-sm">Service Panel</p>
+            </div>
+            <div className="text-center">
+              <div className="w-8 h-1 bg-yellow-400 mx-auto mb-2"></div>
+              <div className="w-8 h-1 bg-yellow-400 mx-auto mb-2"></div>
+              <div className="w-8 h-1 bg-yellow-400 mx-auto"></div>
+              <p className="text-white/80 text-sm">Feeder</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                <span className="text-green-400 text-2xl">🔌</span>
+              </div>
+              <p className="text-white/80 text-sm">Branch Circuit</p>
+            </div>
+          </div>
+        </div>
+
         <RuleBox>
           <strong>Branch Circuit Rule:</strong> Every outlet must be on a branch circuit. Every branch circuit must 
           have overcurrent protection. Every overcurrent device must protect its conductors. This is the foundation.
@@ -336,6 +398,19 @@ export default function Ch2WiringProtection() {
             </p>
           </div>
         </div>
+
+        {/* Branch Circuit Types Table */}
+        <DataTable
+          title="Branch Circuit Types & Requirements"
+          headers={["Circuit Type", "Purpose", "Minimum Rating", "Special Requirements"]}
+          rows={[
+            ["General Lighting", "Illumination", "15A", "AFCI protection required"],
+            ["Small Appliance", "Kitchen/Dining", "20A", "2 circuits minimum"],
+            ["Laundry", "Washing equipment", "20A", "Dedicated circuit"],
+            ["Bathroom", "Bathroom receptacles", "20A", "GFCI protection required"],
+            ["Individual", "Specific equipment", "As required", "Based on load"]
+          ]}
+        />
 
         {/* Additional Article 210 sections */}
         <div className="mt-8 space-y-6">
@@ -380,6 +455,46 @@ export default function Ch2WiringProtection() {
           and you'll have undersized systems that can't handle the load or oversized systems that waste money.
         </p>
 
+        {/* Load Calculation Flowchart */}
+        <div className="my-8 rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:bg-white/[0.035] transition-all duration-300">
+          <h3 className="font-bold text-yellow-400 text-lg mb-4">Load Calculation Process</h3>
+          <div className="grid md:grid-cols-4 gap-4 text-center">
+            <div className="space-y-2">
+              <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto">
+                <span className="text-blue-400 text-xl">1</span>
+              </div>
+              <p className="text-white/80 text-sm">Calculate<br/>Actual Loads</p>
+            </div>
+            <div className="flex items-center justify-center">
+              <div className="w-8 h-1 bg-yellow-400"></div>
+            </div>
+            <div className="space-y-2">
+              <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mx-auto">
+                <span className="text-green-400 text-xl">2</span>
+              </div>
+              <p className="text-white/80 text-sm">Apply<br/>Demand Factors</p>
+            </div>
+            <div className="flex items-center justify-center">
+              <div className="w-8 h-1 bg-yellow-400"></div>
+            </div>
+            <div className="space-y-2">
+              <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto">
+                <span className="text-purple-400 text-xl">3</span>
+              </div>
+              <p className="text-white/80 text-sm">Size<br/>Conductors</p>
+            </div>
+            <div className="flex items-center justify-center">
+              <div className="w-8 h-1 bg-yellow-400"></div>
+            </div>
+            <div className="space-y-2">
+              <div className="w-12 h-12 bg-orange-500/20 rounded-full flex items-center justify-center mx-auto">
+                <span className="text-orange-400 text-xl">4</span>
+              </div>
+              <p className="text-white/80 text-sm">Select<br/>Protection</p>
+            </div>
+          </div>
+        </div>
+
         <WarningBox>
           <strong>EXAM TRAP:</strong> Load calculations are heavily tested. Know your demand factors, 
           diversity factors, and how to apply them. The test loves to give you scenarios and ask for the correct calculation.
@@ -422,39 +537,94 @@ export default function Ch2WiringProtection() {
           </div>
         </div>
 
+        {/* Load Calculation Examples Table */}
+        <DataTable
+          title="Load Calculation Examples by Occupancy Type"
+          headers={["Occupancy Type", "General Lighting (VA/sq ft)", "Small Appliance Circuits", "Notes"]}
+          rows={[
+            ["Dwelling Unit", "3.0", "2 × 1500 VA", "Most common on exam"],
+            ["Commercial", "3.5", "As required", "Higher density loads"],
+            ["Industrial", "2.0", "As required", "Lower lighting density"],
+            ["School", "3.0", "As required", "Similar to dwelling"],
+            ["Office", "3.5", "As required", "High receptacle density"]
+          ]}
+        />
+
         {/* Load calculation examples */}
         <div className="mt-8 space-y-6">
           <h3 className="text-xl font-bold text-yellow-400">Load Calculation Examples</h3>
           
           <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h4 className="font-bold text-white mb-3">Dwelling Unit Example</h4>
-            <p className="text-white/85 text-sm leading-relaxed mb-3">
-              <strong>General Lighting:</strong> 2,000 sq ft × 3 VA = 6,000 VA<br/>
-              <strong>Small Appliances:</strong> 2 circuits × 1,500 VA = 3,000 VA<br/>
-              <strong>Laundry:</strong> 1 circuit × 1,500 VA = 1,500 VA<br/>
-              <strong>Electric Range:</strong> 12 kW × 40% = 4,800 VA<br/>
-              <strong>Total:</strong> 15,300 VA ÷ 240V = 63.75A
-            </p>
-            <p className="text-white/90 text-sm">
-              This dwelling would require a minimum 100-amp service (next standard size up).
-            </p>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <h5 className="font-bold text-yellow-400 mb-2">Calculations</h5>
+                <div className="space-y-2 text-sm text-white/85">
+                  <div className="flex justify-between">
+                    <span>General Lighting:</span>
+                    <span>2,000 sq ft × 3 VA = 6,000 VA</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Small Appliances:</span>
+                    <span>2 circuits × 1,500 VA = 3,000 VA</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Laundry:</span>
+                    <span>1 circuit × 1,500 VA = 1,500 VA</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Electric Range:</span>
+                    <span>12 kW × 40% = 4,800 VA</span>
+                  </div>
+                  <hr className="border-white/20" />
+                  <div className="flex justify-between font-bold">
+                    <span>Total:</span>
+                    <span>15,300 VA</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Current:</span>
+                    <span>15,300 ÷ 240V = 63.75A</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h5 className="font-bold text-yellow-400 mb-2">Result</h5>
+                <div className="bg-green-500/20 border border-green-500/40 rounded-lg p-4">
+                  <p className="text-white/90 text-sm leading-relaxed">
+                    This dwelling would require a <HL>minimum 100-amp service</HL> (next standard size up from 63.75A).
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
 
           <h3 className="text-xl font-bold text-yellow-400">Demand Factors</h3>
           <div className="grid md:grid-cols-2 gap-4">
             <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
               <h4 className="font-bold text-white mb-2">Electric Ranges</h4>
-              <p className="text-white/85 text-sm leading-relaxed">
-                First 10 kW: <HL>40%</HL><br/>
-                Each additional kW: <HL>5%</HL>
-              </p>
+              <div className="space-y-2 text-sm text-white/85">
+                <div className="flex justify-between">
+                  <span>First 10 kW:</span>
+                  <span className="text-yellow-400 font-bold">40%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Each additional kW:</span>
+                  <span className="text-yellow-400 font-bold">5%</span>
+                </div>
+              </div>
             </div>
             <div className="rounded-xl border border-white/10 p-4 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
               <h4 className="font-bold text-white mb-2">Clothes Dryers</h4>
-              <p className="text-white/85 text-sm leading-relaxed">
-                First 4 kW: <HL>100%</HL><br/>
-                Each additional kW: <HL>25%</HL>
-              </p>
+              <div className="space-y-2 text-sm text-white/85">
+                <div className="flex justify-between">
+                  <span>First 4 kW:</span>
+                  <span className="text-yellow-400 font-bold">100%</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Each additional kW:</span>
+                  <span className="text-yellow-400 font-bold">25%</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -491,6 +661,37 @@ export default function Ch2WiringProtection() {
           </p>
         </div>
 
+        {/* Feeder System Diagram */}
+        <div className="my-8 rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:bg-white/[0.035] transition-all duration-300">
+          <h3 className="font-bold text-yellow-400 text-lg mb-4">Feeder System Architecture</h3>
+          <div className="grid md:grid-cols-4 gap-4 items-center">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                <span className="text-blue-400 text-2xl">⚡</span>
+              </div>
+              <p className="text-white/80 text-sm">Service</p>
+            </div>
+            <div className="text-center">
+              <div className="w-8 h-1 bg-yellow-400 mx-auto mb-2"></div>
+              <div className="w-8 h-1 bg-yellow-400 mx-auto mb-2"></div>
+              <div className="w-8 h-1 bg-yellow-400 mx-auto"></div>
+              <p className="text-white/80 text-sm">Feeder</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                <span className="text-green-400 text-2xl">🔌</span>
+              </div>
+              <p className="text-white/80 text-sm">Subpanel</p>
+            </div>
+            <div className="text-center">
+              <div className="w-8 h-1 bg-purple-400 mx-auto mb-2"></div>
+              <div className="w-8 h-1 bg-purple-400 mx-auto mb-2"></div>
+              <div className="w-8 h-1 bg-purple-400 mx-auto"></div>
+              <p className="text-white/80 text-sm">Branch Circuits</p>
+            </div>
+          </div>
+        </div>
+
         <RuleBox>
           <strong>Feeder Rule:</strong> Feeders must be sized for the calculated load, not just the sum of 
           branch circuit ratings. Use your load calculations from Article 220.
@@ -525,109 +726,79 @@ export default function Ch2WiringProtection() {
           
           <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h4 className="font-bold text-white mb-3">Subpanel Feeder Example</h4>
-            <p className="text-white/85 text-sm leading-relaxed mb-3">
-              <strong>Calculated Load:</strong> 8,000 VA<br/>
-              <strong>Voltage:</strong> 240V<br/>
-              <strong>Current:</strong> 8,000 ÷ 240 = 33.33A<br/>
-              <strong>Conductor Size:</strong> #8 AWG copper (40A at 75°C)<br/>
-              <strong>Overcurrent Protection:</strong> 40A breaker
-            </p>
-            <p className="text-white/90 text-sm">
-              Always size conductors for the calculated load, then size protection for the conductors.
-            </p>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <h5 className="font-bold text-yellow-400 mb-2">Calculations</h5>
+                <div className="space-y-2 text-sm text-white/85">
+                  <div className="flex justify-between">
+                    <span>Calculated Load:</span>
+                    <span>8,000 VA</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Voltage:</span>
+                    <span>240V</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Current:</span>
+                    <span>8,000 ÷ 240 = 33.33A</span>
+                  </div>
+                  <hr className="border-white/20" />
+                  <div className="flex justify-between font-bold">
+                    <span>Conductor Size:</span>
+                    <span>#8 AWG copper (40A at 75°C)</span>
+                  </div>
+                  <div className="flex justify-between font-bold">
+                    <span>Overcurrent Protection:</span>
+                    <span>40A breaker</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h5 className="font-bold text-yellow-400 mb-2">Key Points</h5>
+                <div className="space-y-2 text-sm text-white/85">
+                  <div className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>Size conductors for calculated load</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>Size protection for conductors</span>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <span className="text-green-400">✓</span>
+                    <span>Use standard ampere ratings</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
+        {/* Conductor Sizing Chart */}
+        <DataTable
+          title="Common Feeder Conductor Sizes & Ampacities"
+          headers={["Load (Amperes)", "Copper Conductor", "Aluminum Conductor", "Standard OCP"]}
+          rows={[
+            ["30A", "#10 AWG", "#8 AWG", "30A"],
+            ["40A", "#8 AWG", "#6 AWG", "40A"],
+            ["50A", "#6 AWG", "#4 AWG", "50A"],
+            ["60A", "#6 AWG", "#4 AWG", "60A"],
+            ["70A", "#4 AWG", "#3 AWG", "70A"],
+            ["80A", "#3 AWG", "#2 AWG", "80A"],
+            ["90A", "#2 AWG", "#1 AWG", "90A"],
+            ["100A", "#1 AWG", "#1/0 AWG", "100A"]
+          ]}
+        />
       </section>
 
       <hr className={`border-white/10 my-8 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
+      
       {/* 🔌 Article 225 — Outside Branch Circuits and Feeders */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 225 — Outside Branch Circuits and Feeders
-          </h2>
-        </div>
-        
-        <div className="space-y-4 text-white/90 leading-relaxed mb-6">
-          <p>
-            Outdoor wiring has <HL>unique challenges</HL>: weather, physical damage, clearances, and accessibility. 
-            Article 225 covers the special requirements for outdoor electrical installations.
-          </p>
-          <p>
-            <HL>225.6</HL> requires conductors to be suitable for outdoor use. Don't use indoor cable outside—it'll 
-            deteriorate quickly and become a safety hazard.
-          </p>
-          <p>
-            <HL>225.18</HL> requires clearances from buildings, structures, and other conductors. These clearances 
-            prevent contact and ensure safe operation.
-          </p>
-        </div>
-
-        <WarningBox>
-          <strong>EXAM TRAP:</strong> Outdoor clearances are heavily tested. Know your voltage levels and 
-          corresponding clearance requirements. Don't mix them up.
-        </WarningBox>
-
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">225.6 — Conductor Types</h3>
-            <p className="text-white/85 leading-relaxed">
-              <HL>Conductors must be suitable</HL> for outdoor use. This includes weather-resistant insulation, 
-              UV protection, and resistance to physical damage. Use the right materials.
-            </p>
-          </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">225.18 — Clearances</h3>
-            <p className="text-white/85 leading-relaxed">
-              <HL>Clearances must be maintained</HL> from buildings, structures, and other conductors. These 
-              clearances prevent contact and ensure safe operation.
-            </p>
-          </div>
-        </div>
-
-        {/* Clearance requirements */}
-        <div className="mt-8 mb-6">
-          <h3 className="text-xl font-bold text-yellow-400 mb-4">Clearance Requirements (225.18)</h3>
-          <div className="grid md:grid-cols-3 gap-4">
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-300 hover:scale-105">
-              <div className="text-center mb-3">
-                <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
-                  <span className="text-blue-400 text-xl font-bold">0-150V</span>
-                </div>
-              </div>
-              <h4 className="font-bold text-white text-center mb-2">Low Voltage</h4>
-              <p className="text-white/85 text-center text-sm leading-relaxed">
-                <HL>3 feet minimum</HL> from buildings and structures
-              </p>
-            </div>
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-300 hover:scale-105">
-              <div className="text-center mb-3">
-                <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
-                  <span className="text-green-400 text-xl font-bold">151-600V</span>
-                </div>
-              </div>
-              <h4 className="font-bold text-white text-center mb-2">Medium Voltage</h4>
-              <p className="text-white/85 text-center text-sm leading-relaxed">
-                <HL>4 feet minimum</HL> from buildings and structures
-              </p>
-            </div>
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-300 hover:scale-105">
-              <div className="text-center mb-3">
-                <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
-                  <span className="text-purple-400 text-xl font-bold">601V+</span>
-                </div>
-              </div>
-              <h4 className="font-bold text-white text-center mb-2">High Voltage</h4>
-              <p className="text-white/85 text-center text-sm leading-relaxed">
-                <HL>5 feet minimum</HL> from buildings and structures
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <HorrorStory>
+          <span class
+                  <HorrorStory>
           <strong>True Story:</strong> Electrician used indoor cable for outdoor lighting. After six months, 
           the insulation cracked from UV exposure, causing a short circuit and starting a fire. 
           <HL>225.6</HL> exists for a reason—use outdoor-rated materials.
@@ -757,7 +928,7 @@ export default function Ch2WiringProtection() {
               The protection rating must not exceed the conductor ampacity.
             </p>
           </div>
-                    <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
             <h3 className="font-bold text-yellow-400 text-lg mb-3">240.6 — Standard Ampere Ratings</h3>
             <p className="text-white/85 leading-relaxed">
               <HL>Standard ratings</HL> include 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 
