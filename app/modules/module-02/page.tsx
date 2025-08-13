@@ -32,7 +32,7 @@ const RuleBox = ({ children }: { children: React.ReactNode }) => (
 const HorrorStory = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-orange-400 text-xl">��</span>
+      <span className="text-orange-400 text-xl"></span>
       <span className="font-bold text-orange-400">JOBSITE HORROR STORY</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -42,7 +42,7 @@ const HorrorStory = ({ children }: { children: React.ReactNode }) => (
 const CodeBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-blue-500/40 bg-blue-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-blue-400 text-xl">��</span>
+      <span className="text-blue-400 text-xl"></span>
       <span className="font-bold text-blue-400">NEC REFERENCE</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -79,7 +79,7 @@ const DataTable = ({ title, headers, rows }: { title: string; headers: string[];
   </div>
 );
 
-const ChartBox = ({ title, children }: { title: string; children: React.ReactNode }) => (
+const ChartBox = ({ title, children }: { children: React.ReactNode; title: string }) => (
   <div className="rounded-xl border border-white/10 bg-white/[0.025] p-6 my-6 hover:bg-white/[0.035] transition-all duration-300">
     <h4 className="font-bold text-yellow-400 text-lg mb-4">{title}</h4>
     {children}
@@ -441,7 +441,7 @@ export default function Ch2WiringProtection() {
 
       <hr className={`border-white/10 my-8 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
-      {/* 🔢 Article 220 — Branch Circuit, Feeder, and Service Load Calculations */}
+            {/* 🔢 Article 220 — Branch Circuit, Feeder, and Service Load Calculations */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl">��</span>
@@ -792,13 +792,140 @@ export default function Ch2WiringProtection() {
       </section>
 
       <hr className={`border-white/10 my-8 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
-
-      
-      {/* 🔌 Article 225 — Outside Branch Circuits and Feeders */}
+            {/* 🔌 Article 225 — Outside Branch Circuits and Feeders */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span class
-                  <HorrorStory>
+          <span className="text-4xl"></span>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
+            Article 225 — Outside Branch Circuits and Feeders
+          </h2>
+        </div>
+        
+        <div className="space-y-4 text-white/90 leading-relaxed mb-6">
+          <p>
+            Outdoor wiring has <HL>unique challenges</HL>: weather, physical damage, clearances, and accessibility. 
+            Article 225 covers the special requirements for outdoor electrical installations.
+          </p>
+          <p>
+            <HL>225.6</HL> requires conductors to be suitable for outdoor use. Don't use indoor cable outside—it'll 
+            deteriorate quickly and become a safety hazard.
+          </p>
+          <p>
+            <HL>225.18</HL> requires clearances from buildings, structures, and other conductors. These clearances 
+            prevent contact and ensure safe operation.
+          </p>
+        </div>
+
+        {/* Outdoor Wiring Challenges Diagram */}
+        <div className="my-8 rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:bg-white/[0.035] transition-all duration-300">
+          <h3 className="font-bold text-yellow-400 text-lg mb-4">Outdoor Wiring Challenges</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-red-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-red-400 text-sm">🌧️</span>
+                </div>
+                <span className="text-white/85 text-sm">Weather exposure</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-orange-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-orange-400 text-sm">🌞</span>
+                </div>
+                <span className="text-white/85 text-sm">UV radiation</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-yellow-400 text-sm">🌡️</span>
+                </div>
+                <span className="text-white/85 text-sm">Temperature extremes</span>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-blue-400 text-sm">🌳</span>
+                </div>
+                <span className="text-white/85 text-sm">Physical damage</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-purple-400 text-sm">🏗️</span>
+                </div>
+                <span className="text-white/85 text-sm">Clearance requirements</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-green-400 text-sm">🔧</span>
+                </div>
+                <span className="text-white/85 text-sm">Accessibility</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <WarningBox>
+          <strong>EXAM TRAP:</strong> Outdoor clearances are heavily tested. Know your voltage levels and 
+          corresponding clearance requirements. Don't mix them up.
+        </WarningBox>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-6">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+            <h3 className="font-bold text-yellow-400 text-lg mb-3">225.6 — Conductor Types</h3>
+            <p className="text-white/85 leading-relaxed">
+              <HL>Conductors must be suitable</HL> for outdoor use. This includes weather-resistant insulation, 
+              UV protection, and resistance to physical damage. Use the right materials.
+            </p>
+          </div>
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+            <h3 className="font-bold text-yellow-400 text-lg mb-3">225.18 — Clearances</h3>
+            <p className="text-white/85 leading-relaxed">
+              <HL>Clearances must be maintained</HL> from buildings, structures, and other conductors. These 
+              clearances prevent contact and ensure safe operation.
+            </p>
+          </div>
+        </div>
+
+        {/* Clearance requirements */}
+        <div className="mt-8 mb-6">
+          <h3 className="text-xl font-bold text-yellow-400 mb-4">Clearance Requirements (225.18)</h3>
+          <div className="grid md:grid-cols-3 gap-4">
+            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-300 hover:scale-105">
+              <div className="text-center mb-3">
+                <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <span className="text-blue-400 text-xl font-bold">0-150V</span>
+                </div>
+              </div>
+              <h4 className="font-bold text-white text-center mb-2">Low Voltage</h4>
+              <p className="text-white/85 text-center text-sm leading-relaxed">
+                <HL>3 feet minimum</HL> from buildings and structures
+              </p>
+            </div>
+            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-300 hover:scale-105">
+              <div className="text-center mb-3">
+                <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <span className="text-green-400 text-xl font-bold">151-600V</span>
+                </div>
+              </div>
+              <h4 className="font-bold text-white text-center mb-2">Medium Voltage</h4>
+              <p className="text-white/85 text-center text-sm leading-relaxed">
+                <HL>4 feet minimum</HL> from buildings and structures
+              </p>
+            </div>
+            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.03] hover:bg-white/[0.05] transition-all duration-300 hover:scale-105">
+              <div className="text-center mb-3">
+                <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                  <span className="text-purple-400 text-xl font-bold">601V+</span>
+                </div>
+              </div>
+              <h4 className="font-bold text-white text-center mb-2">High Voltage</h4>
+              <p className="text-white/85 text-center text-sm leading-relaxed">
+                <HL>5 feet minimum</HL> from buildings and structures
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <HorrorStory>
           <strong>True Story:</strong> Electrician used indoor cable for outdoor lighting. After six months, 
           the insulation cracked from UV exposure, causing a short circuit and starting a fire. 
           <HL>225.6</HL> exists for a reason—use outdoor-rated materials.
@@ -1058,7 +1185,7 @@ export default function Ch2WiringProtection() {
       {/* 📝 Quiz */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1900 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-400 mb-4">
-          �� 15‑Question Check
+          15‑Question Check
         </h2>
         <p className="text-white/80 mb-6 text-lg">
           Tap "Check Answer." Learn why. Move on. Don't overthink.
