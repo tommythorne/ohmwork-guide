@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -10,7 +10,7 @@ const HL = ({ children }: { children: React.ReactNode }) => (
 );
 
 const WarningBox = ({ children }: { children: React.ReactNode }) => (
-  <div className="rounded-xl border border-red-500/40 bg-red-500/10 p-4 my-4">
+  <div className="rounded-xl border border-red-500/40 bg-red-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
       <span className="text-red-400 text-xl">⚠️</span>
       <span className="font-bold text-red-400">EXAM TRAP</span>
@@ -20,9 +20,9 @@ const WarningBox = ({ children }: { children: React.ReactNode }) => (
 );
 
 const RuleBox = ({ children }: { children: React.ReactNode }) => (
-  <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 my-4">
+  <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-yellow-400 text-xl">⚡️</span>
+      <span className="text-yellow-400 text-xl">⚡</span>
       <span className="font-bold text-yellow-400">RULE OF THUMB</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -30,9 +30,9 @@ const RuleBox = ({ children }: { children: React.ReactNode }) => (
 );
 
 const HorrorStory = ({ children }: { children: React.ReactNode }) => (
-  <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 p-4 my-4">
+  <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-orange-400 text-xl">��</span>
+      <span className="text-orange-400 text-xl"></span>
       <span className="font-bold text-orange-400">JOBSITE HORROR STORY</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -40,12 +40,49 @@ const HorrorStory = ({ children }: { children: React.ReactNode }) => (
 );
 
 const CodeBox = ({ children }: { children: React.ReactNode }) => (
-  <div className="rounded-xl border border-blue-500/40 bg-blue-500/10 p-4 my-4">
+  <div className="rounded-xl border border-blue-500/40 bg-blue-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-blue-400 text-xl">��</span>
+      <span className="text-blue-400 text-xl"></span>
       <span className="font-bold text-blue-400">NEC REFERENCE</span>
     </div>
     <div className="text-white/90">{children}</div>
+  </div>
+);
+
+const DataTable = ({ title, headers, rows }: { title: string; headers: string[]; rows: string[][] }) => (
+  <div className="rounded-xl border border-white/10 bg-white/[0.025] p-6 my-6 hover:bg-white/[0.035] transition-all duration-300">
+    <h4 className="font-bold text-yellow-400 text-lg mb-4">{title}</h4>
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="border-b border-white/20">
+            {headers.map((header, i) => (
+              <th key={i} className="text-left py-3 px-4 text-white/80 font-semibold">
+                {header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row, i) => (
+            <tr key={i} className="border-b border-white/10 hover:bg-white/[0.02] transition-colors">
+              {row.map((cell, j) => (
+                <td key={j} className="py-3 px-4 text-white/90">
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+);
+
+const ChartBox = ({ title, children }: { children: React.ReactNode; title: string }) => (
+  <div className="rounded-xl border border-white/10 bg-white/[0.025] p-6 my-6 hover:bg-white/[0.035] transition-all duration-300">
+    <h4 className="font-bold text-yellow-400 text-lg mb-4">{title}</h4>
+    {children}
   </div>
 );
 
@@ -80,7 +117,7 @@ const quiz: Q[] = [
       { key: "D", text: "Annex D" },
     ],
     answer: "B",
-    why: "Article 100 — Definitions. Learn these cold; the exam loves definition traps.",
+    why: "Article 100 — Definitions. Learn them cold; the exam loves definition traps.",
   },
   {
     id: 3,
@@ -116,7 +153,7 @@ const quiz: Q[] = [
       { key: "D", text: "Labeling can be ignored if AHJ says nothing" },
     ],
     answer: "B",
-    why: "NEC 110.3(B) — Install and use equipment per listing and labeling. The AHJ will expect it.",
+    why: "NEC 110.3(B) — Install equipment per instructions. If you 'wing it,' you fail hard.",
   },
   {
     id: 6,
@@ -180,68 +217,73 @@ const quiz: Q[] = [
   },
   {
     id: 11,
-    stem: "Equipment grounding conductors must be:",
+    stem: "Equipment grounding conductors (EGC) are primarily intended to:",
     choices: [
-      { key: "A", text: "The same size as circuit conductors" },
-      { key: "B", text: "Properly sized per Table 250.122" },
-      { key: "C", text: "Always #12 AWG minimum" },
-      { key: "D", text: "The same color as neutral conductors" },
+      { key: "A", text: "Carry normal load current" },
+      { key: "B", text: "Provide a low-impedance path for fault current" },
+      { key: "C", text: "Reduce voltage drop" },
+      { key: "D", text: "Improve power factor" },
     ],
     answer: "B",
-    why: "NEC 250.122 — EGC sizing follows Table 250.122 based on OCP device rating, not conductor size.",
+    why: "EGCs provide a low-impedance path for fault current to return to the source, enabling overcurrent protection to operate quickly.",
   },
   {
     id: 12,
-    stem: "Working space depth requirements vary by:",
+    stem: "The term 'Bonding' refers to:",
     choices: [
-      { key: "A", text: "Equipment voltage and access type" },
-      { key: "B", text: "Room temperature only" },
-      { key: "C", text: "Contractor preference" },
-      { key: "D", text: "Building height" },
+      { key: "A", text: "Connecting to earth" },
+      { key: "B", text: "Connecting metallic parts to establish electrical continuity" },
+      { key: "C", text: "Connecting to the neutral" },
+      { key: "D", text: "Connecting to the utility" },
     ],
-    answer: "A",
-    why: "NEC 110.26(A)(1) — Working space depth depends on voltage and whether access is from one side or both sides.",
+    answer: "B",
+    why: "Bonding connects metallic parts to establish electrical continuity and conductivity. It's about controlling potential differences.",
   },
   {
     id: 13,
-    stem: "The term 'Approved' means:",
+    stem: "A 'Listed' product means:",
     choices: [
-      { key: "A", text: "Listed by UL" },
-      { key: "B", text: "Acceptable to the AHJ" },
-      { key: "C", text: "Manufacturer recommended" },
-      { key: "D", text: "Cheapest option available" },
+      { key: "A", text: "It's expensive" },
+      { key: "B", text: "It's been evaluated by a qualified testing laboratory" },
+      { key: "C", text: "It's made in the USA" },
+      { key: "D", text: "It's recommended by electricians" },
     ],
     answer: "B",
-    why: "NEC definition: 'Approved' means acceptable to the authority having jurisdiction. This is subjective and varies by location.",
+    why: "Listed means evaluated by a qualified testing laboratory and found suitable for a specific purpose.",
   },
   {
     id: 14,
-    stem: "Equipment must be 'Identified' for its intended use. This means:",
+    stem: "Working space clearances are measured from:",
     choices: [
-      { key: "A", text: "It has a serial number" },
-      { key: "B", text: "It's suitable for the specific purpose" },
-      { key: "C", text: "It's made in the USA" },
-      { key: "D", text: "It's the most expensive option" },
+      { key: "A", text: "The front of the equipment" },
+      { key: "B", text: "Live parts or equipment likely to be examined/adjusted" },
+      { key: "C", text: "The nearest wall" },
+      { key: "D", text: "The floor" },
     ],
     answer: "B",
-    why: "NEC definition: 'Identified' means suitable for the specific purpose, use, and environment in which it is installed.",
+    why: "NEC 110.26(A)(1) — Working space is measured from live parts or equipment likely to be examined/adjusted while energized.",
   },
   {
     id: 15,
-    stem: "Working space access requirements ensure:",
+    stem: "The NEC is updated every:",
     choices: [
-      { key: "A", text: "Equipment can be reached for operation and maintenance" },
-      { key: "B", text: "Tools can be stored nearby" },
-      { key: "C", text: "Inspectors can easily see the equipment" },
-      { key: "D", text: "The room looks organized" },
+      { key: "A", text: "Year" },
+      { key: "B", text: "3 years" },
+      { key: "C", text: "5 years" },
+      { key: "D", text: "10 years" },
     ],
-    answer: "A",
-    why: "NEC 110.26(A)(2) — Equipment must be accessible for operation and maintenance without requiring portable ladders or removal of obstacles.",
+    answer: "B",
+    why: "The NEC is updated every 3 years (2017, 2020, 2023, etc.). Always check which version your jurisdiction uses.",
   },
 ];
 
 export default function Ch1General() {
   const [open, setOpen] = useState<Record<number, boolean>>({});
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   const toggle = (id: number) =>
     setOpen((s) => ({ ...s, [id]: !s[id] }));
@@ -249,7 +291,7 @@ export default function Ch1General() {
   return (
     <main className="min-h-screen bg-black text-white px-4 py-6 md:px-8 md:py-12">
       {/* Top Bar */}
-      <div className="mx-auto max-w-5xl flex items-center justify-between gap-4 mb-6">
+      <div className={`mx-auto max-w-5xl flex items-center justify-between gap-4 mb-6 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
         <Link href="/intro" className="text-white/70 hover:text-white transition flex items-center gap-2">
           <span className="text-xl">←</span>
           <span className="hidden sm:inline">Back to TOC</span>
@@ -261,13 +303,13 @@ export default function Ch1General() {
       </div>
 
       {/* Hero Section */}
-      <div className="mx-auto max-w-5xl text-center mb-8">
+      <div className={`mx-auto max-w-5xl text-center mb-8 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-yellow-400 drop-shadow-lg mb-4">
           Chapter 1 — General
         </h1>
         <p className="text-lg md:text-xl text-white/85 max-w-3xl mx-auto leading-relaxed">
-          <HL>Foundation of the Code</HL>: purpose, scope, definitions, and the general rules that keep the
-          jobsite from turning into a fireworks show. You nail this, the rest of the book gets easier.
+          <HL>Foundation of the Code</HL>: purpose, scope, definitions, and the general rules that keep the jobsite 
+          from turning into a fireworks show. You nail this, the rest of the book gets easier.
         </p>
         <div className="mt-4 flex justify-center">
           <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full text-sm">
@@ -277,12 +319,12 @@ export default function Ch1General() {
         </div>
       </div>
 
-      <hr className="border-white/10 my-8" />
+      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
-      {/* ⚡️ Article 90 — Purpose, Scope, How the NEC Works */}
-      <section className="mx-auto max-w-5xl mb-12">
+      {/* ⚡ Article 90 — Purpose, Scope, How the NEC Works */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡️</span>
+          <span className="text-4xl">⚡</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 90 — Purpose, Scope, How This Beast Operates
           </h2>
@@ -290,87 +332,83 @@ export default function Ch1General() {
         
         <div className="space-y-4 text-white/90 leading-relaxed">
           <p>
-            The NEC's mission isn't "perfect systems." It's <HL>practical safeguarding</HL> of people and
-            property (<span className="italic text-yellow-400">90.1(A)</span>). Translation: minimize hazard. Period.
+            — The NEC's mission isn't "perfect systems." It's <HL>practical safeguarding</HL> of people and property 
+            (<span className="italic">90.1(A)</span>). Translation: minimize hazard. Period.
           </p>
           <p>
-            The Code is <HL>not a design manual</HL> (<span className="italic text-yellow-400">90.1(B)</span>). You still follow
-            <HL> manufacturer instructions</HL>, standards, and good sense. The NEC sets the safety floor.
+            — The Code is <HL>not a design manual</HL> (<span className="italic">90.1(B)</span>). You still follow 
+            <HL>manufacturer instructions</HL>, standards, and good sense. The NEC sets the safety floor.
           </p>
           <p>
-            <HL>Enforcement</HL> belongs to the <HL>AHJ</HL> (Authority Having Jurisdiction). They interpret, you comply.
+            — <HL>Enforcement</HL> belongs to the <HL>AHJ</HL> (Authority Having Jurisdiction). They interpret, you comply.
           </p>
           <p>
-            Utility stuff? Mostly <HL>outside</HL> NEC scope. Your work? Squarely inside.
+            — Utility stuff? Mostly <HL>outside</HL> NEC scope. Your work? Squarely inside.
           </p>
-          <p>
-            <HL>90.1(D)</HL>: The Code is <span className="italic">not</span> a training manual. You're expected to know your craft.
-          </p>
-          <p>
-            <HL>90.1(E)</HL>: The NEC is <span className="italic">not</span> a product standard. UL, CSA, and others handle that.
-          </p>
+        </div>
+
+        {/* NEC Structure Diagram */}
+        <div className="my-8 rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:bg-white/[0.035] transition-all duration-300">
+          <h3 className="font-bold text-yellow-400 text-lg mb-4">NEC Structure & Organization</h3>
+          <div className="grid md:grid-cols-3 gap-4 items-center">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                <span className="text-blue-400 text-2xl">📋</span>
+              </div>
+              <p className="text-white/80 text-sm">Chapters 1-9</p>
+              <p className="text-white/60 text-xs">Core Requirements</p>
+            </div>
+            <div className="text-center">
+              <div className="w-8 h-1 bg-yellow-400 mx-auto mb-2"></div>
+              <div className="w-8 h-1 bg-yellow-400 mx-auto mb-2"></div>
+              <div className="w-8 h-1 bg-yellow-400 mx-auto"></div>
+              <p className="text-white/80 text-sm">Articles</p>
+              <p className="text-white/60 text-xs">Specific Topics</p>
+            </div>
+            <div className="text-center">
+              <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
+                <span className="text-green-400 text-2xl">📊</span>
+              </div>
+              <p className="text-white/80 text-sm">Tables & Annexes</p>
+              <p className="text-white/60 text-xs">Reference Data</p>
+            </div>
+          </div>
         </div>
 
         <RuleBox>
-          <strong>90.1(A):</strong> The NEC exists to prevent people from getting fried and buildings from burning down. 
-          It's not about perfect systems—it's about preventing the most common ways electricity kills people.
+          <strong>NEC Foundation Rule:</strong> The Code sets minimum safety requirements. It's not about 
+          perfect systems—it's about preventing fires, shocks, and explosions. Safety first, always.
         </RuleBox>
 
         <HorrorStory>
-          <strong>True Story:</strong> Electrician ignored manufacturer instructions on a panel, "winged it" with the terminations. 
-          Three months later, loose connections caused arcing, melted the bus, and started a fire. 
-          <HL>110.3(B)</HL> exists for a reason—follow the damn instructions.
+          <strong>True Story:</strong> Electrician ignored NEC requirements because "it's just residential." 
+          When a child touched an ungrounded appliance during a fault, they received a severe shock. 
+          <HL>90.1(A)</HL> exists for a reason—safety isn't optional.
         </HorrorStory>
 
-        {/* Enhanced Article 90 details */}
-        <div className="mt-8 grid md:grid-cols-2 gap-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">90.1(A) — Purpose</h3>
-            <p className="text-white/85 leading-relaxed">
-              <HL>Practical safeguarding</HL> means reasonable protection, not bulletproof systems. The Code prevents 
-              the most common hazards that cause injury or property damage. Think "don't kill people" not "perfect performance."
-            </p>
-          </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">90.1(B) — Scope</h3>
-            <p className="text-white/85 leading-relaxed">
-              Covers <HL>electrical conductors and equipment</HL> installed in or on buildings, structures, and premises. 
-              Does NOT cover utility distribution, ships, aircraft, or automotive. Your jurisdiction, your rules.
-            </p>
-          </div>
-        </div>
-
-        {/* Additional Article 90 sections */}
-        <div className="mt-8 space-y-6">
-          <h3 className="text-xl font-bold text-yellow-400">90.1(C) — Intended Use</h3>
-          <p className="text-white/90 leading-relaxed">
-            The NEC is intended for use by those who design, install, and inspect electrical systems. This includes 
-            electricians, engineers, inspectors, and contractors. It's not written for homeowners or DIY enthusiasts.
-          </p>
-          
-          <h3 className="text-xl font-bold text-yellow-400">90.1(D) — Training</h3>
-          <p className="text-white/90 leading-relaxed">
-            The Code assumes you know your trade. It doesn't teach you how to wire a receptacle or install a panel. 
-            You're expected to have the basic skills—the NEC just tells you the safety rules.
-          </p>
-
-          <h3 className="text-xl font-bold text-yellow-400">90.1(E) — Product Standards</h3>
-          <p className="text-white/90 leading-relaxed">
-            The NEC doesn't test products. That's what UL, CSA, ETL, and other testing laboratories do. The NEC 
-            just says "use listed equipment" and leaves the testing to the experts.
-          </p>
-        </div>
+        {/* NEC Purpose Table */}
+        <DataTable
+          title="NEC Purpose & Scope Summary"
+          headers={["Aspect", "What It Is", "What It's NOT"]}
+          rows={[
+            ["Purpose", "Practical safeguarding of persons and property", "Perfect electrical systems"],
+            ["Scope", "Electrical installations and equipment", "Utility distribution systems"],
+            ["Intent", "Minimum safety requirements", "Design manual or instruction book"],
+            ["Enforcement", "By Authority Having Jurisdiction (AHJ)", "Automatic or universal"],
+            ["Updates", "Every 3 years", "Static or unchanging"]
+          ]}
+        />
 
         <CodeBox>
-          <strong>NEC 90.1(A):</strong> "The purpose of this Code is the practical safeguarding of persons and property 
-          from hazards arising from the use of electricity."
+          <strong>NEC 90.1(A):</strong> "The purpose of this Code is the practical safeguarding of persons and 
+          property from hazards arising from the use of electricity."
         </CodeBox>
       </section>
 
-      <hr className="border-white/10 my-8" />
+      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
       {/* 🔧 Article 100 — Definitions */}
-      <section className="mx-auto max-w-5xl mb-12">
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl">��</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
@@ -380,141 +418,102 @@ export default function Ch1General() {
         
         <p className="text-lg text-white/90 mb-6 leading-relaxed">
           The exam weaponizes definitions. Learn these like your job depends on it—because it does. 
-          They'll play word games and trap you with subtle differences.
+          The difference between "grounded" and "grounding" can mean the difference between passing and failing.
         </p>
 
+        {/* Key Definitions Visual */}
+        <div className="my-8 rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:bg-white/[0.035] transition-all duration-300">
+          <h3 className="font-bold text-yellow-400 text-lg mb-4">Critical Definitions You Must Know</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center mt-1">
+                  <span className="text-blue-400 text-sm">⚡</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-white">Grounded Conductor</h4>
+                  <p className="text-white/85 text-sm">A system conductor that is intentionally grounded. Often the neutral.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center mt-1">
+                  <span className="text-green-400 text-sm">🔌</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-white">Equipment Grounding Conductor (EGC)</h4>
+                  <p className="text-white/85 text-sm">The conductor that bonds equipment to ground. Carries fault current.</p>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center mt-1">
+                  <span className="text-yellow-400 text-sm">🔗</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-white">Bonding</h4>
+                  <p className="text-white/85 text-sm">Connecting metallic parts to establish electrical continuity.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center mt-1">
+                  <span className="text-purple-400 text-sm">🏷️</span>
+                </div>
+                <div>
+                  <h4 className="font-bold text-white">Listed & Labeled</h4>
+                  <p className="text-white/85 text-sm">Evaluated by a qualified lab, must be installed per instructions.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <WarningBox>
-          <strong>EXAM TRAP:</strong> The test loves to mix up "Grounded" vs "Grounding" vs "Bonding." 
-          They sound similar but mean completely different things. Don't fall for it.
+          <strong>EXAM TRAP:</strong> Definitions are heavily tested. The exam loves to play word games with 
+          "grounded vs. grounding," "bonding vs. grounding," and similar terms. Know the difference cold.
         </WarningBox>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Grounded Conductor</h3>
+        <div className="grid md:grid-cols-2 gap-6 mb-6">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+            <h3 className="font-bold text-yellow-400 text-lg mb-3">Grounded vs. Grounding</h3>
             <p className="text-white/85 leading-relaxed">
-              A system conductor that is <HL>intentionally grounded</HL>. Often the neutral. Don't treat it like harmless—it can still kill you.
+              <HL>Grounded:</HL> A conductor that is intentionally connected to earth or ground.<br/><br/>
+              <HL>Grounding:</HL> The process of connecting to earth or ground. This is the action, not the conductor.
             </p>
-            <div className="mt-3 text-sm text-white/60">
-              <strong>Think:</strong> The white wire that goes back to the transformer
-            </div>
           </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Equipment Grounding Conductor (EGC)</h3>
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+            <h3 className="font-bold text-yellow-400 text-lg mb-3">Bonding vs. Grounding</h3>
             <p className="text-white/85 leading-relaxed">
-              The conductor that <HL>bonds equipment</HL> to ground. Carries <span className="italic text-yellow-400">fault</span> current. Saves lives.
+              <HL>Bonding:</HL> Connecting metallic parts to establish electrical continuity.<br/><br/>
+              <HL>Grounding:</HL> Connecting to earth or ground. Bonding is about continuity, grounding is about earth connection.
             </p>
-            <div className="mt-3 text-sm text-white/60">
-              <strong>Think:</strong> The green/bare wire that prevents shocks
-            </div>
-          </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Bonding</h3>
-            <p className="text-white/85 leading-relaxed">
-              <HL>Connecting metallic parts</HL> to establish electrical continuity and conductivity. You're controlling potential.
-            </p>
-            <div className="mt-3 text-sm text-white/60">
-              <strong>Think:</strong> Making sure all metal parts are at the same voltage
-            </div>
-          </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Listed & Labeled</h3>
-            <p className="text-white/85 leading-relaxed">
-              Evaluated by a qualified lab, and must be installed <HL>per listing and labeling</HL> (110.3(B)).
-            </p>
-            <div className="mt-3 text-sm text-white/60">
-              <strong>Think:</strong> UL tested and approved for specific use
-            </div>
           </div>
         </div>
 
-        {/* Additional critical definitions */}
-        <div className="space-y-4 text-white/90 leading-relaxed mb-6">
-          <p>
-            — <HL>Accessible (as applied to equipment)</HL>: Capable of being reached without removing obstacles or using portable ladders.
-          </p>
-          <p>
-            — <HL>Accessible (as applied to wiring methods)</HL>: Capable of being removed or exposed without damaging the building structure.
-          </p>
-          <p>
-            — <HL>Concealed</HL>: Rendered inaccessible by the structure or finish of the building.
-          </p>
-          <p>
-            — <HL>Exposed</HL>: Not concealed, as applied to wiring methods.
-          </p>
-        </div>
-
-        {/* Expanded definitions section */}
-        <div className="mt-8 space-y-6">
-          <h3 className="text-xl font-bold text-yellow-400">More Critical Definitions</h3>
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.025]">
-              <h4 className="font-bold text-white mb-2">Approved</h4>
-              <p className="text-white/85 text-sm leading-relaxed">
-                <HL>Acceptable to the AHJ</HL>. This is subjective and varies by jurisdiction. When in doubt, ask.
-              </p>
-            </div>
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.025]">
-              <h4 className="font-bold text-white mb-2">Identified</h4>
-              <p className="text-white/85 text-sm leading-relaxed">
-                <HL>Suitable for the specific purpose</HL>. Equipment must be identified for its intended use.
-              </p>
-            </div>
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.025]">
-              <h4 className="font-bold text-white mb-2">Readily Accessible</h4>
-              <p className="text-white/85 text-sm leading-relaxed">
-                <HL>Capable of being reached quickly</HL> for operation, renewal, or inspections without requiring 
-                those to whom ready access is requisite to climb over or remove obstacles.
-              </p>
-            </div>
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.025]">
-              <h4 className="font-bold text-white mb-2">Service Equipment</h4>
-              <p className="text-white/85 text-sm leading-relaxed">
-                The <HL>necessary equipment</HL>, usually consisting of a circuit breaker or switch and fuses, 
-                and their accessories, connected to the load end of service conductors.
-              </p>
-            </div>
-          </div>
-
-          <h3 className="text-xl font-bold text-yellow-400">Voltage Definitions</h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.025]">
-              <h4 className="font-bold text-white mb-2">Low Voltage</h4>
-              <p className="text-white/85 text-sm leading-relaxed">
-                <HL>1000 volts or less</HL>. This covers most residential and commercial work.
-              </p>
-            </div>
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.025]">
-              <h4 className="font-bold text-white mb-2">Medium Voltage</h4>
-              <p className="text-white/85 text-sm leading-relaxed">
-                <HL>1001 to 35,000 volts</HL>. Industrial and utility applications.
-              </p>
-            </div>
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.025]">
-              <h4 className="font-bold text-white mb-2">High Voltage</h4>
-              <p className="text-white/85 text-sm leading-relaxed">
-                <HL>35,001 volts and above</HL>. Transmission and distribution systems.
-              </p>
-            </div>
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.025]">
-              <h4 className="font-bold text-white mb-2">Extra-Low Voltage</h4>
-              <p className="text-white/85 text-sm leading-relaxed">
-                <HL>30 volts or less</HL>. Control circuits, doorbells, thermostats.
-              </p>
-            </div>
-          </div>
-        </div>
+        {/* Definitions Table */}
+        <DataTable
+          title="Essential NEC Definitions"
+          headers={["Term", "Definition", "Key Point"]}
+          rows={[
+            ["Grounded Conductor", "System conductor intentionally grounded", "Often the neutral wire"],
+            ["Equipment Grounding Conductor", "Conductor that bonds equipment to ground", "Carries fault current"],
+            ["Bonding", "Connecting metallic parts for continuity", "Not necessarily to ground"],
+            ["Listed", "Evaluated by qualified testing laboratory", "Must install per instructions"],
+            ["AHJ", "Authority Having Jurisdiction", "They interpret and enforce the Code"],
+            ["Working Space", "Space for safe operation and maintenance", "Measured from live parts"]
+          ]}
+        />
 
         <CodeBox>
-          <strong>NEC 100:</strong> "Definitions are essential to the proper application of this Code. The definitions 
-          in this article shall apply wherever the terms are used throughout this Code."
+          <strong>NEC 100:</strong> "Definitions in Article 100 apply throughout the Code. These definitions 
+          are essential for understanding the requirements that follow."
         </CodeBox>
       </section>
 
-      <hr className="border-white/10 my-8" />
+      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-800 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
-      {/* 🛠️ Article 110 — General Requirements */}
-      <section className="mx-auto max-w-5xl mb-12">
+            {/* 🛠️ Article 110 — General Requirements */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-900 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl">🛠️</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
@@ -524,152 +523,118 @@ export default function Ch1General() {
         
         <div className="space-y-4 text-white/90 leading-relaxed mb-6">
           <p>
-            — <HL>110.3(B)</HL>: Install equipment per instructions. If you "wing it," you fail hard.
+            Article 110 is the <HL>foundation</HL> of electrical installation requirements. It covers working space, 
+            equipment installation, and the basic rules that apply to everything else in the Code.
           </p>
           <p>
-            — <HL>Working Space (110.26)</HL>: Clearances so you can work without headbutting a live bus.
-            Think width, depth, height, and <HL>access</HL>. Panels aren't coat racks.
+            <HL>110.3(B)</HL> requires equipment to be installed per its listing and labeling. Don't wing it—follow 
+            the instructions or fail the inspection.
           </p>
           <p>
-            — <HL>Terminations</HL>: Use conductors and lugs that match ratings (copper/aluminum, temperature).
+            <HL>110.26</HL> covers working space requirements. This isn't about convenience—it's about safety 
+            during operation and maintenance.
           </p>
-          <p>
-            — <HL>Guarding, Marking, and Accessibility</HL>: If someone can touch it, it better be safe and labeled.
-          </p>
-          <p>
-            — <HL>110.14(A)</HL>: Terminations must be identified for the conductor material and insulation type.
-          </p>
-          <p>
-            — <HL>110.14(B)</HL>: Temperature limitations of conductors must be considered for terminations.
-          </p>
+        </div>
+
+        {/* Working Space Diagram */}
+        <div className="my-8 rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:bg-white/[0.035] transition-all duration-300">
+          <h3 className="font-bold text-yellow-400 text-lg mb-4">Working Space Requirements (110.26)</h3>
+          <div className="grid md:grid-cols-3 gap-4 text-center">
+            <div className="space-y-2">
+              <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto">
+                <span className="text-blue-400 text-xl">📏</span>
+              </div>
+              <h4 className="font-bold text-white text-sm">Width</h4>
+              <p className="text-white/80 text-xs">30 inches minimum</p>
+            </div>
+            <div className="space-y-2">
+              <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto">
+                <span className="text-green-400 text-xl">📐</span>
+              </div>
+              <h4 className="font-bold text-white text-sm">Depth</h4>
+              <p className="text-white/80 text-xs">Based on voltage</p>
+            </div>
+            <div className="space-y-2">
+              <div className="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto">
+                <span className="text-yellow-400 text-xl">📏</span>
+              </div>
+              <h4 className="font-bold text-white text-sm">Height</h4>
+              <p className="text-white/80 text-xs">6.5 feet minimum</p>
+            </div>
+          </div>
         </div>
 
         <RuleBox>
-          <strong>110.3(B):</strong> This is your golden rule. If the manufacturer says "install it this way," 
-          you install it that way. The AHJ will fail you if you don't. No exceptions.
+          <strong>Working Space Rule:</strong> Working space must be clear, accessible, and properly dimensioned. 
+          Don't use it for storage—it's for safe operation and maintenance.
         </RuleBox>
 
+        <div className="grid md:grid-cols-2 gap-6 mb-6">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+            <h3 className="font-bold text-yellow-400 text-lg mb-3">110.3(B) — Installation & Use</h3>
+            <p className="text-white/85 leading-relaxed">
+              <HL>Equipment must be installed</HL> and used in accordance with its listing and labeling. 
+              This includes following manufacturer instructions and not exceeding ratings.
+            </p>
+          </div>
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+            <h3 className="font-bold text-yellow-400 text-lg mb-3">110.26 — Working Space</h3>
+            <p className="text-white/85 leading-relaxed">
+              <HL>Working space must be provided</HL> for safe operation and maintenance. Clearances are 
+              based on voltage and equipment type.
+            </p>
+          </div>
+        </div>
+
+        {/* Working Space Table */}
+        <DataTable
+          title="Working Space Depth Requirements by Voltage"
+          headers={["Voltage", "Depth Required", "Notes"]}
+          rows={[
+            ["0-150V", "3 feet", "Most residential and light commercial"],
+            ["151-600V", "4 feet", "Commercial and industrial systems"],
+            ["601-2500V", "5 feet", "Medium voltage equipment"],
+            ["2501V+", "6 feet", "High voltage installations"]
+          ]}
+        />
+
         <HorrorStory>
-          <strong>True Story:</strong> Electrician used aluminum lugs for copper conductors because "they looked the same." 
-          Three months later, the dissimilar metals caused corrosion, loose connections, and a panel fire. 
-          <HL>110.14(A)</HL> exists for a reason—match your materials properly.
+          <strong>True Story:</strong> Electrician ignored working space requirements and installed a panel 
+          too close to a wall. During maintenance, the electrician couldn't safely work on the energized 
+          equipment and received a severe shock. <HL>110.26</HL> exists for safety, not convenience.
         </HorrorStory>
 
-        {/* Enhanced working space details */}
-        <div className="mt-8 mb-6">
-          <h3 className="text-xl font-bold text-yellow-400 mb-4">Working Space Requirements (110.26)</h3>
-          <div className="grid md:grid-cols-3 gap-4">
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.03] hover:bg-white/[0.05] transition">
-              <div className="text-center mb-3">
-                <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
-                  <span className="text-blue-400 text-xl font-bold">W</span>
-                </div>
-              </div>
-              <h4 className="font-bold text-white text-center mb-2">Width</h4>
-              <p className="text-white/85 text-center text-sm leading-relaxed">
-                <HL>30 inches minimum</HL> or the width of the equipment, whichever is greater.
-              </p>
-            </div>
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.03] hover:bg-white/[0.05] transition">
-              <div className="text-center mb-3">
-                <div className="w-12 h-12 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
-                  <span className="text-green-400 text-xl font-bold">D</span>
-                </div>
-              </div>
-              <h4 className="font-bold text-white text-center mb-2">Depth</h4>
-              <p className="text-white/85 text-center text-sm leading-relaxed">
-                <HL>3 feet minimum</HL> for 0-150V<br/>
-                <HL>4 feet for 151-600V</HL><br/>
-                <HL>5 feet for 601V+</HL>
-              </p>
-            </div>
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.03] hover:bg-white/[0.05] transition">
-              <div className="text-center mb-3">
-                <div className="w-12 h-12 bg-purple-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
-                  <span className="text-purple-400 text-xl font-bold">H</span>
-                </div>
-              </div>
-              <h4 className="font-bold text-white text-center mb-2">Height</h4>
-              <p className="text-white/85 text-center text-sm leading-relaxed">
-                <HL>6.5 feet minimum</HL> or the height of the equipment, whichever is greater.
-              </p>
-            </div>
-          </div>
+        {/* Additional Article 110 sections */}
+        <div className="mt-8 space-y-6">
+          <h3 className="text-xl font-bold text-yellow-400">110.14 — Electrical Connections</h3>
+          <p className="text-white/90 leading-relaxed">
+            Terminations must be made with conductors and lugs that match ratings. Don't mix copper and 
+            aluminum without proper methods. This prevents overheating and fires.
+          </p>
+          
+          <h3 className="text-xl font-bold text-yellow-400">110.15 — Marking</h3>
+          <p className="text-white/90 leading-relaxed">
+            Equipment must be marked with voltage, current, wattage, and other ratings. Clear marking 
+            prevents misapplication and ensures proper operation.
+          </p>
+
+          <h3 className="text-xl font-bold text-yellow-400">110.16 — Arc-Flash Hazard Warning</h3>
+          <p className="text-white/90 leading-relaxed">
+            Equipment that requires arc-flash hazard warning must be marked. This is about worker safety 
+            and proper PPE selection.
+          </p>
         </div>
 
-        {/* Working space access requirements */}
-        <div className="mt-8 mb-6">
-          <h3 className="text-xl font-bold text-yellow-400 mb-4">Working Space Access (110.26(A)(2))</h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.025]">
-              <h4 className="font-bold text-white mb-2">Required Access</h4>
-              <p className="text-white/85 text-sm leading-relaxed">
-                Equipment must be accessible for <HL>operation and maintenance</HL> without requiring portable ladders 
-                or removal of obstacles. This means you can reach it safely during normal operation.
-              </p>
-            </div>
-            <div className="rounded-xl border border-white/10 p-5 bg-white/[0.025]">
-              <h4 className="font-bold text-white mb-2">Prohibited Access</h4>
-              <p className="text-white/85 text-sm leading-relaxed">
-                Equipment cannot be installed behind <HL>locked doors</HL> or require <HL>special tools</HL> to access 
-                unless specifically permitted by the Code.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Terminations and temperature ratings */}
-        <div className="mt-8 mb-6">
-          <h3 className="text-xl font-bold text-yellow-400 mb-4">Terminations and Temperature Ratings (110.14)</h3>
-          <div className="space-y-4 text-white/90 leading-relaxed">
-            <p>
-              <HL>110.14(A):</HL> Terminations must be identified for the conductor material (copper or aluminum) 
-              and insulation type. Don't mix and match—it's a recipe for disaster.
-            </p>
-            <p>
-              <HL>110.14(B):</HL> Temperature limitations of conductors must be considered for terminations. 
-              If you're using 90°C wire, make sure your terminations can handle it.
-            </p>
-            <p>
-              <HL>110.14(C):</HL> Conductors must be spliced or terminated with listed devices. No wire nuts 
-              on high-voltage circuits, no aluminum on copper-only lugs.
-            </p>
-          </div>
-        </div>
-
-        {/* Visual card row */}
-        <div className="grid md:grid-cols-3 gap-4">
-          <div className="rounded-xl border border-white/10 p-5 bg-white/[0.03] hover:bg-white/[0.05] transition">
-            <div className="text-center mb-3">
-              <span className="text-3xl">🏷️</span>
-            </div>
-            <p className="text-white/85 text-center leading-relaxed">
-              <HL>Label it</HL> so the next human doesn't guess at 2AM.
-            </p>
-          </div>
-          <div className="rounded-xl border border-white/10 p-5 bg-white/[0.03] hover:bg-white/[0.05] transition">
-            <div className="text-center mb-3">
-              <span className="text-3xl">��</span>
-            </div>
-            <p className="text-white/85 text-center leading-relaxed">
-              <HL>Working space</HL> — not storage. Keep it clear.
-            </p>
-          </div>
-          <div className="rounded-xl border border-white/10 p-5 bg-white/[0.03] hover:bg-white/[0.05] transition">
-            <div className="text-center mb-3">
-              <span className="text-3xl">✅</span>
-            </div>
-            <p className="text-white/85 text-center leading-relaxed">
-              <HL>Use listed gear</HL> per its instructions. No hero builds.
-            </p>
-          </div>
-        </div>
+        <CodeBox>
+          <strong>NEC 110.26(A)(1):</strong> "Working space shall be provided and maintained about all 
+          electrical equipment to permit ready and safe operation and maintenance of such equipment."
+        </CodeBox>
       </section>
 
-      <hr className="border-white/10 my-8" />
+      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
       {/* 🔌 Article 200 — Use and Identification of Grounded Conductors */}
-      <section className="mx-auto max-w-5xl mb-12">
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl">��</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
@@ -679,517 +644,456 @@ export default function Ch1General() {
         
         <div className="space-y-4 text-white/90 leading-relaxed mb-6">
           <p>
-            — <HL>200.6</HL>: Grounded conductors must be identified by white or gray insulation, or by three continuous white stripes.
+            Article 200 covers the <HL>identification and use</HL> of grounded conductors (usually the neutral). 
+            Proper identification prevents miswiring and ensures system safety.
           </p>
           <p>
-            — <HL>200.7</HL>: Use of insulation that is white or gray for other than grounded conductors is prohibited.
+            <HL>200.6</HL> requires grounded conductors to be identified with white or gray insulation, 
+            or by three continuous white stripes on other than green insulation.
           </p>
           <p>
-            — <HL>200.9</HL>: Polarity of connections must be observed. Don't reverse hot and neutral.
-          </p>
-          <p>
-            — <HL>200.10</HL>: Identification of terminals. Grounded conductor terminals must be identified.
+            <HL>200.7</HL> prohibits using white or gray insulation for ungrounded conductors. This 
+            prevents confusion and miswiring.
           </p>
         </div>
 
+        {/* Conductor Identification Visual */}
+        <div className="my-8 rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:bg-white/[0.035] transition-all duration-300">
+          <h3 className="font-bold text-yellow-400 text-lg mb-4">Conductor Identification Requirements</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-white rounded-full border-2 border-gray-300"></div>
+                <div>
+                  <h4 className="font-bold text-white text-sm">Grounded Conductor (Neutral)</h4>
+                  <p className="text-white/80 text-xs">White or gray insulation</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-black rounded-full border-2 border-gray-300"></div>
+                <div>
+                  <h4 className="font-bold text-white text-sm">Ungrounded Conductor (Hot)</h4>
+                  <p className="text-white/80 text-xs">Any color except white, gray, or green</p>
+                </div>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-green-600 rounded-full border-2 border-gray-300"></div>
+                <div>
+                  <h4 className="font-bold text-white text-sm">Equipment Grounding Conductor</h4>
+                  <p className="text-white/80 text-xs">Green or bare copper</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-blue-600 rounded-full border-2 border-gray-300"></div>
+                <div>
+                  <h4 className="font-bold text-white text-sm">Identified Conductor</h4>
+                  <p className="text-white/80 text-xs">White with colored stripe</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <WarningBox>
-          <strong>EXAM TRAP:</strong> The test loves to ask about conductor identification. Remember: 
-          <HL>white/gray = grounded conductor</HL>. Always. No exceptions.
+          <strong>EXAM TRAP:</strong> Conductor identification is heavily tested. Know that white/gray 
+          can only be used for grounded conductors, and that three white stripes are acceptable identification.
         </WarningBox>
 
-        {/* Grounded conductor identification details */}
         <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">200.6 — Identification</h3>
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+            <h3 className="font-bold text-yellow-400 text-lg mb-3">200.6 — Means of Identifying</h3>
             <p className="text-white/85 leading-relaxed">
-              <HL>White or gray</HL> insulation, or <HL>three continuous white stripes</HL> on other than green insulation. 
-              This prevents confusion and ensures proper connections.
+              <HL>Grounded conductors must be identified</HL> with white or gray insulation, or with three 
+              continuous white stripes on other than green insulation.
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">200.7 — Prohibited Use</h3>
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+            <h3 className="font-bold text-yellow-400 text-lg mb-3">200.7 — Use of Insulation</h3>
             <p className="text-white/85 leading-relaxed">
               <HL>White or gray insulation</HL> cannot be used for ungrounded conductors. This prevents 
-              misidentification and potential hazards.
+              confusion and ensures proper system operation.
             </p>
           </div>
         </div>
 
-        {/* Additional Article 200 sections */}
-        <div className="mt-8 space-y-6">
-          <h3 className="text-xl font-bold text-yellow-400">200.9 — Polarity of Connections</h3>
-          <p className="text-white/90 leading-relaxed">
-            Polarity must be observed. This means the grounded conductor (neutral) must be connected to the 
-            grounded side of the system, and the ungrounded conductor (hot) must be connected to the ungrounded side. 
-            Reversing them can cause equipment damage and safety hazards.
-          </p>
-
-          <h3 className="text-xl font-bold text-yellow-400">200.10 — Identification of Terminals</h3>
-          <p className="text-white/90 leading-relaxed">
-            Terminals for grounded conductors must be identified. This is usually done with a white or silver 
-            finish, or by marking them with "W" or "N" for neutral. Don't guess—look for the identification.
-          </p>
-
-          <h3 className="text-xl font-bold text-yellow-400">200.11 — Connection to Terminals</h3>
-          <p className="text-white/90 leading-relaxed">
-            Conductors must be connected to the correct terminals. This seems obvious, but it's a common 
-            mistake that can cause serious problems. Double-check your connections.
-          </p>
-        </div>
+        {/* Conductor Identification Table */}
+        <DataTable
+          title="Conductor Identification Summary"
+          headers={["Conductor Type", "Identification", "Prohibited Colors"]}
+          rows={[
+            ["Grounded (Neutral)", "White or gray", "None"],
+            ["Ungrounded (Hot)", "Any color except white, gray, green", "White, gray, green"],
+            ["Equipment Grounding", "Green or bare copper", "White, gray"],
+            ["Identified", "White with colored stripe", "Solid white or gray"]
+          ]}
+        />
 
         <CodeBox>
-          <strong>NEC 200.6:</strong> "An insulated conductor that is intended to be used as a grounded conductor 
-          shall have a continuous outer finish that is either white or gray or has three continuous white stripes."
+          <strong>NEC 200.6:</strong> "The grounded conductor of a branch circuit shall be identified by a 
+          continuous white or natural gray color."
         </CodeBox>
       </section>
 
-      <hr className="border-white/10 my-8" />
+      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-1200 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
-      {/* 🏗️ Article 250 — Grounding and Bonding (Introduction) */}
-      <section className="mx-auto max-w-5xl mb-12">
+      {/* ⚡ Article 250 — Grounding and Bonding (Introduction) */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">🏗️</span>
+          <span className="text-4xl">⚡</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 250 — Grounding and Bonding (Chapter 1 Introduction)
+            Article 250 — Grounding and Bonding (Introduction)
           </h2>
         </div>
         
-        <p className="text-lg text-white/90 mb-6 leading-relaxed">
-          While Article 250 is primarily in Chapter 2, Chapter 1 introduces the fundamental concepts. 
-          Understanding these basics is crucial for the exam and real-world applications.
-        </p>
-
         <div className="space-y-4 text-white/90 leading-relaxed mb-6">
           <p>
-            — <HL>Grounding</HL>: Connecting to earth or a conductive body that extends the ground connection.
+            Article 250 is the <HL>most important</HL> article in the NEC. Grounding and bonding prevent 
+            fires, protect equipment, and save lives. Get this wrong and everything else fails.
           </p>
           <p>
-            — <HL>Bonding</HL>: Connecting metallic parts to establish electrical continuity and conductivity.
+            <HL>250.4</HL> explains the purpose of grounding and bonding. It's not about convenience—it's 
+            about safety and proper system operation.
           </p>
           <p>
-            — <HL>Equipment Grounding Conductor (EGC)</HL>: The conductor that bonds equipment to ground.
+            <HL>250.6</HL> covers objectionable current. Grounding should not create problems—it should 
+            solve them.
           </p>
-          <p>
-            — <HL>Grounding Electrode Conductor (GEC)</HL>: The conductor that connects the grounding electrode to the service.
-          </p>
+        </div>
+
+        {/* Grounding System Diagram */}
+        <div className="my-8 rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:bg-white/[0.035] transition-all duration-300">
+          <h3 className="font-bold text-yellow-400 text-lg mb-4">Basic Grounding System</h3>
+          <div className="grid md:grid-cols-3 gap-4 text-center">
+            <div className="space-y-2">
+              <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto">
+                <span className="text-blue-400 text-2xl">🏠</span>
+              </div>
+              <p className="text-white/80 text-sm">Service Equipment</p>
+              <p className="text-white/60 text-xs">Main bonding jumper</p>
+            </div>
+            <div className="text-center">
+              <div className="w-8 h-1 bg-yellow-400 mx-auto mb-2"></div>
+              <div className="w-8 h-1 bg-yellow-400 mx-auto mb-2"></div>
+              <div className="w-8 h-1 bg-yellow-400 mx-auto"></div>
+              <p className="text-white/80 text-sm">Grounding Electrode</p>
+              <p className="text-white/60 text-xs">Earth connection</p>
+            </div>
+            <div className="space-y-2">
+              <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto">
+                <span className="text-green-400 text-2xl">🔌</span>
+              </div>
+              <p className="text-white/80 text-sm">Equipment</p>
+              <p className="text-white/60 text-xs">Bonded to ground</p>
+            </div>
+          </div>
         </div>
 
         <RuleBox>
-          <strong>Grounding vs Bonding:</strong> Grounding connects to earth, bonding connects metal parts together. 
-          They work together but are different concepts. Don't confuse them on the exam.
+          <strong>Grounding Rule:</strong> Every electrical system must have a grounding electrode system. 
+          Every piece of equipment must be bonded to ground. This is not optional—it's essential for safety.
         </RuleBox>
 
         <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Grounding</h3>
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+            <h3 className="font-bold text-yellow-400 text-lg mb-3">250.4 — Purpose of Grounding</h3>
             <p className="text-white/85 leading-relaxed">
-              <HL>Connecting to earth</HL> or a conductive body that extends the ground connection. This provides 
-              a reference point and helps dissipate fault current.
+              <HL>Grounding provides a path</HL> for fault current to return to the source, enabling 
+              overcurrent protection to operate quickly and safely.
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Bonding</h3>
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+            <h3 className="font-bold text-yellow-400 text-lg mb-3">250.6 — Objectionable Current</h3>
             <p className="text-white/85 leading-relaxed">
-              <HL>Connecting metallic parts</HL> together to establish electrical continuity. This ensures all 
-              metal parts are at the same potential and prevents shock hazards.
-            </p>
-          </div>
-        </div>
-
-                <HorrorStory>
-          <strong>True Story:</strong> Electrician didn't bond the metal conduit to the panel. When a fault occurred, 
-          the conduit became energized and shocked a maintenance worker. The $50 bonding jumper could have prevented 
-          a $50,000 lawsuit. <HL>Bonding saves lives and money.</HL>
-        </HorrorStory>
-
-        <div className="mt-8 space-y-6">
-          <h3 className="text-xl font-bold text-yellow-400">Grounding vs Bonding Clarification</h3>
-          <p className="text-white/90 leading-relaxed">
-            <HL>Grounding</HL> provides a path to earth for fault current and establishes a reference point. 
-            <HL>Bonding</HL> ensures all metal parts are at the same potential to prevent shock hazards. 
-            You need both for a safe system.
-          </p>
-
-          <h3 className="text-xl font-bold text-yellow-400">Equipment Grounding Conductor (EGC)</h3>
-          <p className="text-white/90 leading-relaxed">
-            The EGC provides a low-impedance path for fault current back to the source. This allows overcurrent 
-            protection devices to operate quickly and clear the fault. Without proper EGC sizing, faults can 
-            persist and cause fires.
-          </p>
-
-          <h3 className="text-xl font-bold text-yellow-400">Grounding Electrode Conductor (GEC)</h3>
-          <p className="text-white/90 leading-relaxed">
-            The GEC connects the service equipment to the grounding electrode system. This establishes the 
-            connection to earth and provides the reference point for the entire electrical system.
-          </p>
-        </div>
-
-        <CodeBox>
-          <strong>NEC 250.4(A)(1):</strong> "Electrical systems that are grounded shall be connected to earth 
-          in a manner that will limit the voltage imposed by lightning, line surges, or unintentional contact 
-          with higher-voltage lines."
-        </CodeBox>
-      </section>
-
-      <hr className="border-white/10 my-8" />
-
-      {/* 🔒 Article 300 — Wiring Methods (Introduction) */}
-      <section className="mx-auto max-w-5xl mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 300 — Wiring Methods (Chapter 1 Introduction)
-          </h2>
-        </div>
-        
-        <p className="text-lg text-white/90 mb-6 leading-relaxed">
-          Article 300 introduces the fundamental principles that govern all wiring methods. While the specific 
-          methods are detailed in later articles, understanding these basics is essential.
-        </p>
-
-        <div className="space-y-4 text-white/90 leading-relaxed mb-6">
-          <p>
-            — <HL>300.3</HL>: Conductors of the same circuit must be installed in the same raceway, cable, or enclosure.
-          </p>
-          <p>
-            — <HL>300.4</HL>: Protection against physical damage must be provided where conductors are subject to damage.
-          </p>
-          <p>
-            — <HL>300.5</HL>: Underground installations must be protected against damage and corrosion.
-          </p>
-          <p>
-            — <HL>300.6</HL>: Protection against corrosion must be provided for equipment and raceways.
-          </p>
-        </div>
-
-        <RuleBox>
-          <strong>300.3 - Same Circuit Rule:</strong> All conductors of the same circuit must be in the same raceway. 
-          This prevents inductive heating and ensures proper circuit operation. Don't split them up.
-        </RuleBox>
-
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">300.3 — Conductors in Raceways</h3>
-            <p className="text-white/85 leading-relaxed">
-              <HL>All conductors of the same circuit</HL> must be installed in the same raceway, cable, or enclosure. 
-              This includes hot, neutral, and equipment grounding conductors.
-            </p>
-          </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">300.4 — Protection Against Physical Damage</h3>
-            <p className="text-white/85 leading-relaxed">
-              Conductors must be protected where they are subject to damage. This includes protection from 
-              impact, abrasion, and other physical hazards.
+              <HL>Grounding should not create</HL> objectionable current. If it does, the installation 
+              method must be corrected.
             </p>
           </div>
         </div>
+
+        {/* Grounding Purpose Table */}
+        <DataTable
+          title="Purpose of Grounding and Bonding"
+          headers={["Purpose", "What It Does", "Why It's Important"]}
+          rows={[
+            ["Fault Current Path", "Provides low-impedance return path", "Enables OCP to operate quickly"],
+            ["Equipment Protection", "Prevents damage from voltage surges", "Protects expensive equipment"],
+            ["Personnel Safety", "Prevents shock hazards", "Saves lives and prevents injury"],
+            ["System Stability", "Maintains proper voltage levels", "Ensures reliable operation"],
+            ["Lightning Protection", "Provides path for lightning current", "Prevents fires and damage"]
+          ]}
+        />
 
         <HorrorStory>
-          <strong>True Story:</strong> Electrician ran hot and neutral in separate conduits to "avoid interference." 
-          The inductive heating caused the conduits to get so hot they melted the insulation. The inspector 
-          failed it immediately. <HL>300.3 exists for a reason.</HL>
+          <strong>True Story:</strong> Electrician skipped grounding because "it's just a small addition." 
+          When a fault occurred, the current had no safe path to return, causing equipment damage and 
+          creating a shock hazard. <HL>250.4</HL> exists for a reason—grounding saves lives.
         </HorrorStory>
 
-        <div className="mt-8 space-y-6">
-          <h3 className="text-xl font-bold text-yellow-400">Underground Installations (300.5)</h3>
-          <p className="text-white/90 leading-relaxed">
-            Underground wiring must be protected against damage and corrosion. This includes proper burial depth, 
-            protection from physical damage, and corrosion-resistant materials. Don't skimp on underground work.
-          </p>
-
-          <h3 className="text-xl font-bold text-yellow-400">Corrosion Protection (300.6)</h3>
-          <p className="text-white/90 leading-relaxed">
-            Equipment and raceways must be protected against corrosion. This is especially important in 
-            wet locations, outdoor installations, and corrosive environments. Use appropriate materials.
-          </p>
-        </div>
+        <CodeBox>
+          <strong>NEC 250.4(A)(1):</strong> "Electrical systems that are grounded shall be connected to 
+          earth in a manner that will limit the voltage imposed by lightning, line surges, or unintentional 
+          contact with higher-voltage lines."
+        </CodeBox>
       </section>
 
-      <hr className="border-white/10 my-8" />
+      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-1400 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
-      {/* 📏 Article 310 — Conductors for General Wiring (Introduction) */}
-      <section className="mx-auto max-w-5xl mb-12">
+      {/* 🔧 Article 300 — Wiring Methods (Introduction) */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl">��</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 310 — Conductors for General Wiring (Chapter 1 Introduction)
+            Article 300 — Wiring Methods (Introduction)
           </h2>
         </div>
         
-        <p className="text-lg text-white/90 mb-6 leading-relaxed">
-          Article 310 covers the basic requirements for conductors used in general wiring applications. 
-          Understanding conductor types, insulation, and ampacity is fundamental to electrical work.
-        </p>
-
         <div className="space-y-4 text-white/90 leading-relaxed mb-6">
           <p>
-            — <HL>310.1</HL>: This article covers conductors for general wiring applications.
+            Article 300 covers <HL>general requirements</HL> for wiring methods. This includes how conductors 
+            are installed, protected, and supported throughout the electrical system.
           </p>
           <p>
-            — <HL>310.2</HL>: Conductors must be insulated unless specifically permitted to be bare.
+            <HL>300.3</HL> requires conductors of the same circuit to be in the same raceway, cable, or 
+            enclosure. This prevents inductive heating and ensures proper operation.
           </p>
           <p>
-            — <HL>310.3</HL>: Stranded conductors must be used where flexibility is required.
+            <HL>300.4</HL> covers protection against physical damage. Conductors must be protected where 
+            they're subject to damage.
+          </p>
+        </div>
+
+        {/* Wiring Methods Visual */}
+        <div className="my-8 rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:bg-white/[0.035] transition-all duration-300">
+          <h3 className="font-bold text-yellow-400 text-lg mb-4">Common Wiring Methods</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-blue-400 text-sm">📦</span>
+                </div>
+                <span className="text-white/85 text-sm">Raceways (EMT, IMC, RMC)</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-green-400 text-sm">🔌</span>
+                </div>
+                <span className="text-white/85 text-sm">Cable Assemblies (NM, MC, AC)</span>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-yellow-400 text-sm">📏</span>
+                </div>
+                <span className="text-white/85 text-sm">Support & Protection</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-purple-400 text-sm">🔒</span>
+                </div>
+                <span className="text-white/85 text-sm">Terminations & Connections</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <RuleBox>
+          <strong>Wiring Method Rule:</strong> All conductors of the same circuit must be in the same 
+          raceway or cable. This prevents inductive heating and ensures proper system operation.
+        </RuleBox>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-6">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+            <h3 className="font-bold text-yellow-400 text-lg mb-3">300.3 — Conductors</h3>
+            <p className="text-white/85 leading-relaxed">
+              <HL>Conductors of the same circuit</HL> must be in the same raceway, cable, or enclosure. 
+              This includes hot, neutral, and grounding conductors.
+            </p>
+          </div>
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+            <h3 className="font-bold text-yellow-400 text-lg mb-3">300.4 — Protection</h3>
+            <p className="text-white/85 leading-relaxed">
+              <HL>Conductors must be protected</HL> where they're subject to physical damage. This includes 
+              protection from nails, screws, and other hazards.
+            </p>
+          </div>
+        </div>
+
+        {/* Wiring Methods Table */}
+        <DataTable
+          title="Wiring Method Requirements"
+          headers={["Requirement", "What It Means", "Why It's Important"]}
+          rows={[
+            ["Same Raceway", "All circuit conductors together", "Prevents inductive heating"],
+            ["Physical Protection", "Protect from damage", "Prevents shorts and fires"],
+            ["Proper Support", "Adequate support and fastening", "Prevents damage and sagging"],
+            ["Correct Terminations", "Proper connections", "Prevents overheating and fires"],
+            ["Environmental Protection", "Protect from moisture, chemicals", "Ensures long-term reliability"]
+          ]}
+        />
+
+        <CodeBox>
+          <strong>NEC 300.3(A):</strong> "All conductors of the same circuit and, where used, the grounded 
+          conductor and all equipment grounding conductors and bonding conductors shall be contained within 
+          the same raceway, auxiliary gutter, cable tray, cablebus assembly, trench, cable, or cord."
+        </CodeBox>
+      </section>
+
+      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-1600 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
+
+      {/* 📊 Article 310 — Conductors for General Wiring (Introduction) */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="flex items-center gap-3 mb-6">
+          <span className="text-4xl">��</span>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
+            Article 310 — Conductors for General Wiring (Introduction)
+          </h2>
+        </div>
+        
+        <div className="space-y-4 text-white/90 leading-relaxed mb-6">
+          <p>
+            Article 310 covers <HL>conductor types and ratings</HL>. This includes ampacity tables, temperature 
+            ratings, and the selection of conductors for specific applications.
           </p>
           <p>
-            — <HL>310.4</HL>: Conductors must be identified for their intended use.
+            <HL>310.15</HL> provides ampacity tables for conductors. These tables determine how much current 
+            a conductor can safely carry.
           </p>
+          <p>
+            <HL>310.104</HL> covers conductor insulation types. Different insulation types have different 
+            temperature ratings and applications.
+          </p>
+        </div>
+
+        {/* Conductor Types Visual */}
+        <div className="my-8 rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:bg-white/[0.035] transition-all duration-300">
+          <h3 className="font-bold text-yellow-400 text-lg mb-4">Common Conductor Types</h3>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-orange-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-orange-400 text-sm">🔶</span>
+                </div>
+                <span className="text-white/85 text-sm">THHN/THWN-2</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-blue-400 text-sm">🔵</span>
+                </div>
+                <span className="text-white/85 text-sm">XHHW-2</span>
+              </div>
+            </div>
+            <div className="space-y-3">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-green-400 text-sm">🟢</span>
+                </div>
+                <span className="text-white/85 text-sm">RHW-2</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center">
+                  <span className="text-purple-400 text-sm">🟣</span>
+                </div>
+                <span className="text-white/85 text-sm">USE-2</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <WarningBox>
-          <strong>EXAM TRAP:</strong> The test loves to ask about conductor insulation types and temperature ratings. 
-          Know your 60°C, 75°C, and 90°C ratings and where they can be used.
+          <strong>EXAM TRAP:</strong> Conductor ampacity is heavily tested. Know your temperature ratings, 
+          ambient temperature corrections, and how to use the ampacity tables properly.
         </WarningBox>
 
         <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Conductor Insulation</h3>
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+            <h3 className="font-bold text-yellow-400 text-lg mb-3">310.15 — Ampacity Tables</h3>
             <p className="text-white/85 leading-relaxed">
-              <HL>All conductors must be insulated</HL> unless specifically permitted to be bare. This includes 
-              equipment grounding conductors, which are often bare but must be properly sized.
+              <HL>Ampacity tables determine</HL> how much current a conductor can safely carry. These 
+              values are based on insulation type and temperature rating.
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Stranded vs Solid</h3>
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+            <h3 className="font-bold text-yellow-400 text-lg mb-3">310.104 — Conductor Insulation</h3>
             <p className="text-white/85 leading-relaxed">
-              <HL>Stranded conductors</HL> must be used where flexibility is required. This includes 
-              service entrance conductors, large conductors, and conductors subject to vibration.
+              <HL>Different insulation types</HL> have different temperature ratings and applications. 
+              Choose the right type for your environment.
             </p>
           </div>
         </div>
 
-        <div className="mt-8 space-y-6">
-          <h3 className="text-xl font-bold text-yellow-400">Temperature Ratings</h3>
-          <p className="text-white/90 leading-relaxed">
-            Conductors have different temperature ratings (60°C, 75°C, 90°C). The actual ampacity is limited 
-            by the lowest temperature rating in the circuit. This includes terminations, insulation, and equipment.
-          </p>
+        {/* Conductor Ampacity Table */}
+        <DataTable
+          title="Common Conductor Ampacities (75°C, Copper)"
+          headers={["Size", "Ampacity", "Common Use", "Notes"]}
+          rows={[
+            ["#14 AWG", "20A", "15A circuits", "Residential lighting"],
+            ["#12 AWG", "25A", "20A circuits", "Kitchen receptacles"],
+            ["#10 AWG", "35A", "30A circuits", "Dryer circuits"],
+            ["#8 AWG", "50A", "40A circuits", "Range circuits"],
+            ["#6 AWG", "65A", "50A circuits", "Subpanel feeders"],
+            ["#4 AWG", "85A", "60A circuits", "Service conductors"]
+          ]}
+        />
 
-          <h3 className="text-xl font-bold text-yellow-400">Conductor Identification</h3>
-          <p className="text-white/90 leading-relaxed">
-            Conductors must be identified for their intended use. This includes proper color coding, 
-            marking, and labeling. Don't guess—identify properly.
-          </p>
-        </div>
+        <RuleBox>
+          <strong>Conductor Selection Rule:</strong> Always size conductors for the load and protect them 
+          with appropriate overcurrent protection. Don't undersize conductors—they'll overheat and cause fires.
+        </RuleBox>
+
+        <CodeBox>
+          <strong>NEC 310.15(A)(1):</strong> "Ampacities for conductors rated 0 to 2000 volts shall be 
+          as specified in the ampacity tables of 310.15(B) through 310.15(G)."
+        </CodeBox>
       </section>
 
-      <hr className="border-white/10 my-8" />
+      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-1800 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
 
-      {/* ⚠️ Hazards & Exam Traps (Expanded) */}
-      <section className="mx-auto max-w-5xl mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚠️</span>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Hazards & Exam Traps (Comprehensive)
-          </h2>
-        </div>
-        
-        <div className="space-y-4 text-white/90 leading-relaxed mb-6">
-          <p>
-            — <HL>Definitions</HL> are bait. "Grounded vs. Grounding," "Bonding vs. Grounding"—they'll play word games.
-          </p>
-          <p>
-            — <HL>Working space</HL> clearances: don't mix up depth categories or voltage thresholds.
-          </p>
-          <p>
-            — <HL>110.3(B)</HL> is a favorite: listing/labeling is not a suggestion.
-          </p>
-          <p>
-            — <HL>NEC ≠ design manual</HL>. You'll be tested on minimums, not best‑in‑class.
-          </p>
-          <p>
-            — <HL>Article 200</HL> identification rules: white/gray conductors must be grounded conductors.
-          </p>
-          <p>
-            — <HL>Working space access</HL>: equipment must be accessible for operation and maintenance.
-          </p>
-          <p>
-            — <HL>Temperature ratings</HL>: conductor insulation must match termination temperature ratings.
-          </p>
-          <p>
-            — <HL>300.3</HL>: All conductors of the same circuit must be in the same raceway.
-          </p>
-          <p>
-            — <HL>Conductor identification</HL>: Proper color coding and marking is mandatory.
-          </p>
-          <p>
-            — <HL>Corrosion protection</HL>: Equipment must be protected in corrosive environments.
-          </p>
-        </div>
-
-        {/* Common exam mistakes */}
-        <div className="rounded-xl border border-red-500/40 p-6 bg-red-500/10">
-          <h3 className="font-bold text-red-400 text-lg mb-4 flex items-center gap-2">
-            <span>��</span>
-            Common Exam Mistakes
-          </h3>
-          <div className="space-y-2 text-white/90">
-            <p>• Confusing "grounded" vs "grounding" conductors</p>
-            <p>• Forgetting working space requirements vary by voltage</p>
-            <p>• Ignoring manufacturer instructions (110.3(B))</p>
-            <p>• Mixing up accessibility requirements for equipment vs wiring</p>
-            <p>• Forgetting temperature limitations for terminations</p>
-            <p>• Not understanding Article 200 identification rules</p>
-            <p>• Splitting conductors of the same circuit into different raceways</p>
-            <p>• Ignoring corrosion protection requirements</p>
-            <p>• Not considering conductor temperature ratings</p>
-            <p>• Forgetting to bond metal raceways and enclosures</p>
-          </div>
-        </div>
-
-        {/* Additional hazard warnings */}
-        <div className="mt-6 space-y-4">
-          <WarningBox>
-            <strong>VOLTAGE MISMATCH:</strong> Don't assume working space requirements are the same for all voltages. 
-            Higher voltages require more clearance. Check the Code tables.
-          </WarningBox>
-
-          <WarningBox>
-            <strong>MATERIAL MISMATCH:</strong> Mixing copper and aluminum without proper terminations is a recipe 
-            for disaster. Use listed devices and follow manufacturer instructions.
-          </WarningBox>
-
-          <WarningBox>
-            <strong>ACCESSIBILITY:</strong> Equipment must be accessible for operation and maintenance. Don't bury 
-            panels behind walls or install equipment in inaccessible locations.
-          </WarningBox>
-        </div>
-      </section>
-
-      <hr className="border-white/10 my-8" />
-
-      {/* 🧠 Quick Reference (Massively Enhanced) */}
-      <section className="mx-auto max-w-5xl mb-12">
+            {/* 📝 Quiz */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl">��</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Quick Reference (Comprehensive)
+            15-Question Check
           </h2>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Where Stuff Lives</h3>
-            <p className="text-white/85 leading-relaxed">
-              — Article 90: Why/How the NEC works<br />
-              — Article 100: Definitions<br />
-              — Article 110: General installation rules<br />
-              — Article 200: Grounded conductor identification<br />
-              — Article 250: Grounding and bonding basics<br />
-              — Article 300: Wiring method principles<br />
-              — Article 310: Conductor requirements
-            </p>
-          </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Fast Rules</h3>
-            <p className="text-white/85 leading-relaxed">
-              — Follow <HL>listing & labeling</HL><br />
-              — Keep <HL>working space</HL> clear<br />
-              — Respect <HL>AHJ</HL> interpretations<br />
-              — Identify <HL>grounded conductors</HL> properly<br />
-              — Bond <HL>metal parts</HL> together<br />
-              — Keep <HL>same circuit conductors</HL> together
-            </p>
-          </div>
-        </div>
-
-        {/* Additional quick reference */}
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Working Space Depths</h3>
-            <p className="text-white/85 leading-relaxed">
-              0-150V: <HL>3 feet</HL><br />
-              151-600V: <HL>4 feet</HL><br />
-              601V+: <HL>5 feet</HL><br />
-              <span className="text-sm text-white/60">*Varies by access type</span>
-            </p>
-          </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Critical Definitions</h3>
-            <p className="text-white/85 leading-relaxed">
-              <HL>Grounded</HL>: Intentionally connected to earth<br />
-              <HL>Grounding</HL>: Equipment connected to ground<br />
-              <HL>Bonding</HL>: Metallic parts connected together<br />
-              <HL>Listed</HL>: Evaluated by qualified lab
-            </p>
-          </div>
-        </div>
-
-        {/* New quick reference sections */}
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Conductor Rules</h3>
-            <p className="text-white/85 leading-relaxed">
-              — <HL>Same circuit</HL> in same raceway<br />
-              — <HL>Proper insulation</HL> required<br />
-              — <HL>Temperature ratings</HL> matter<br />
-              — <HL>Material compatibility</HL> essential
-            </p>
-          </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Installation Requirements</h3>
-            <p className="text-white/85 leading-relaxed">
-              — <HL>Physical protection</HL> where needed<br />
-              — <HL>Corrosion protection</HL> in harsh environments<br />
-              — <HL>Proper identification</HL> mandatory<br />
-              — <HL>Accessibility</HL> for maintenance
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <hr className="border-white/10 my-8" />
-
-      {/* 📝 Enhanced Quiz (15 Questions) */}
-      <section className="mx-auto max-w-5xl mb-12">
-        <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            15‑Question Check
-          </h2>
-        </div>
-        
-        <p className="text-lg text-white/80 mb-6 text-center">
+        <p className="text-white/80 mb-6">
           Tap "Check Answer." Learn why. Move on. Don't overthink.
         </p>
-
+        
         <div className="space-y-6">
           {quiz.map((q) => (
-            <div key={q.id} className="rounded-xl border border-white/10 bg-white/[0.02] p-6 hover:bg-white/[0.03] transition">
+            <div key={q.id} className="rounded-xl border border-white/10 bg-white/[0.02] p-6 hover:bg-white/[0.04] transition-all duration-300">
               <div className="text-white font-semibold text-lg mb-4">
                 {q.id}. {q.stem}
               </div>
+              
               <div className="grid sm:grid-cols-2 gap-3 mb-4">
                 {q.choices.map((c) => (
-                  <label
-                    key={c.key}
-                    className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-white/90 hover:border-yellow-400/40 transition cursor-pointer"
-                  >
-                    <input
-                      type="radio"
-                      name={`q-${q.id}`}
-                      onChange={() => {}}
-                      className="accent-yellow-400"
-                    />
+                  <label key={c.key} className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-white/90 hover:border-yellow-400/40 hover:bg-white/[0.06] transition-all duration-200 cursor-pointer">
+                    <input type="radio" name={`q-${q.id}`} onChange={() => {}} className="accent-yellow-400" />
                     <span className="font-mono text-yellow-300 font-bold">{c.key}</span>
-                    <span className="leading-relaxed">{c.text}</span>
+                    <span>{c.text}</span>
                   </label>
                 ))}
               </div>
-
-              <button
-                onClick={() => toggle(q.id)}
-                className="inline-flex items-center justify-center rounded-lg bg-green-500 text-black font-bold px-6 py-3 hover:bg-green-400 transition hover:scale-105"
+              
+              <button 
+                onClick={() => toggle(q.id)} 
+                className="inline-flex items-center justify-center rounded-lg bg-green-500 text-black font-bold px-6 py-3 hover:bg-green-400 hover:scale-105 transition-all duration-200"
               >
                 Check Answer
               </button>
-
+              
               {open[q.id] && (
-                <div className="mt-4 rounded-lg border border-green-400/30 bg-green-400/10 p-4">
+                <div className="mt-4 rounded-lg border border-green-400/30 bg-green-400/10 p-4 animate-fade-in">
                   <div className="font-mono text-sm mb-2">
                     Correct: <span className="text-green-400 font-bold">{q.answer}</span>
                   </div>
-                  <div className="text-white/90 leading-relaxed">{q.why}</div>
+                  <div className="text-white/90">{q.why}</div>
                 </div>
               )}
             </div>
@@ -1197,27 +1101,27 @@ export default function Ch1General() {
         </div>
       </section>
 
-      <hr className="border-white/10 my-8" />
-
-      {/* Footer nav */}
-      <div className="mx-auto max-w-5xl flex items-center justify-between mt-8 mb-12">
-        <Link href="/intro" className="text-white/70 hover:text-white transition flex items-center gap-2">
-          <span className="text-xl">←</span>
-          <span className="hidden sm:inline">Back to TOC</span>
+      {/* Footer Navigation */}
+      <div className={`mx-auto max-w-5xl flex items-center justify-between mt-12 transition-all duration-1000 delay-1400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <Link 
+          href="/intro" 
+          className="text-white/70 hover:text-white transition-colors duration-200 flex items-center gap-2 group"
+        >
+          <span className="group-hover:-translate-x-1 transition-transform duration-200">←</span>
+          <span>Back to TOC</span>
         </Link>
-        <Link href="/modules/module-02" className="text-white/70 hover:text-white transition flex items-center gap-2">
-          <span className="hidden sm:inline">Next: Ch 2 — Wiring & Protection</span>
-          <span className="text-xl">→</span>
+        
+        <Link 
+          href="/modules/module-02" 
+          className="text-white/70 hover:text-white transition-colors duration-200 flex items-center gap-2 group"
+        >
+          <span>Next: Ch 2 — Wiring & Protection</span>
+          <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
         </Link>
       </div>
 
-      {/* Progress indicator */}
-      <div className="mx-auto max-w-5xl text-center mb-8">
-        <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full text-sm">
-          <span className="text-white/80">Chapter 1 Complete</span>
-          <span className="w-2 h-2 bg-green-400 rounded-full"></span>
-        </div>
-      </div>
+      {/* Bottom Spacer */}
+      <div className="h-12" />
     </main>
   );
 }
