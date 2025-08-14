@@ -22,7 +22,7 @@ const WarningBox = ({ children }: { children: React.ReactNode }) => (
 const RuleBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-yellow-400 text-xl">��</span>
+      <span className="text-yellow-400 text-xl"></span>
       <span className="font-bold text-yellow-400">RULE OF THUMB</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -32,7 +32,7 @@ const RuleBox = ({ children }: { children: React.ReactNode }) => (
 const HorrorStory = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-orange-400 text-xl">��</span>
+      <span className="text-orange-400 text-xl"></span>
       <span className="font-bold text-orange-400">JOBSITE HORROR STORY</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -42,7 +42,7 @@ const HorrorStory = ({ children }: { children: React.ReactNode }) => (
 const CodeBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-blue-500/40 bg-blue-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-blue-400 text-xl">��</span>
+      <span className="text-blue-400 text-xl"></span>
       <span className="font-bold text-blue-400">NEC REFERENCE</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -281,7 +281,7 @@ export default function Ch1General() {
           {/* Background Image */}
           <div className="absolute inset-0 opacity-20">
             <Image
-              src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+              src="https://source.unsplash.com/1600x900/?electrician,safety,ppe,lockout-tagout,panel"
               alt="Electrical safety overview"
               fill
               className="object-cover"
@@ -327,7 +327,7 @@ export default function Ch1General() {
         </div>
       </div>
 
-            {/* ⚡ Article 90 — Purpose, Scope, How the NEC Works */}
+      {/* ⚡ Article 90 — Purpose, Scope, How the NEC Works */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl">⚡</span>
@@ -359,8 +359,8 @@ export default function Ch1General() {
           <div className="space-y-4">
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
-                alt="NEC Code Book"
+                src="https://source.unsplash.com/800x600/?nec,codebook,electrical,standards"
+                alt="NEC codebook and standards reference"
                 width={400}
                 height={300}
                 className="w-full h-48 object-cover rounded-lg"
@@ -372,8 +372,8 @@ export default function Ch1General() {
             
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
-                alt="Electrical Safety Equipment"
+                src="https://source.unsplash.com/800x600/?electrical,safety,gloves,insulated,tools"
+                alt="Insulated tools and PPE for electrical work"
                 width={400}
                 height={300}
                 className="w-full h-48 object-cover rounded-lg"
@@ -400,7 +400,7 @@ export default function Ch1General() {
         </CodeBox>
       </section>
 
-      {/* Visual Divider */}
+            {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
@@ -412,7 +412,7 @@ export default function Ch1General() {
       {/* 🔧 Article 100 — Definitions */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <span className="text-4xl"></span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 100 — Definitions
           </h2>
@@ -428,7 +428,7 @@ export default function Ch1General() {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <Image
-                  src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                  src="https://source.unsplash.com/600x600/?neutral,conductor,electrical,wiring"
                   alt="Grounded Conductor"
                   width={120}
                   height={120}
@@ -448,7 +448,7 @@ export default function Ch1General() {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <Image
-                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                  src="https://source.unsplash.com/600x600/?ground,egc,bonding,green-wire"
                   alt="Equipment Grounding Conductor"
                   width={120}
                   height={120}
@@ -468,7 +468,7 @@ export default function Ch1General() {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <Image
-                  src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                  src="https://source.unsplash.com/600x600/?bonding,grounding-jumper,equipment-bond"
                   alt="Bonding Connection"
                   width={120}
                   height={120}
@@ -488,7 +488,7 @@ export default function Ch1General() {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <Image
-                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                  src="https://source.unsplash.com/600x600/?ul,listed,label,compliance,sticker"
                   alt="Listed Equipment"
                   width={120}
                   height={120}
@@ -544,8 +544,17 @@ export default function Ch1General() {
         </WarningBox>
       </section>
 
-            {/* 🛠️ Article 110 — General Requirements */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      {/* Visual Divider */}
+      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
+        <div className="flex items-center gap-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+        </div>
+      </div>
+
+      {/* 🛠️ Article 110 — General Requirements */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl">🛠️</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
@@ -575,7 +584,7 @@ export default function Ch1General() {
           <div className="space-y-4">
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                src="https://source.unsplash.com/800x600/?electrical,panel,working-space,clearance"
                 alt="Working Space Clearance"
                 width={400}
                 height={300}
@@ -588,8 +597,8 @@ export default function Ch1General() {
             
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
-                alt="Panel Installation"
+                src="https://source.unsplash.com/800x600/?breaker-panel,installation,wire-management"
+                alt="Proper Panel Installation"
                 width={400}
                 height={300}
                 className="w-full h-48 object-cover rounded-lg"
@@ -628,7 +637,7 @@ export default function Ch1General() {
           <div className="rounded-xl border border-white/10 p-4 bg-white/[0.03] hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
             <div className="text-center">
               <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-yellow-400/30 transition-colors">
-                <span className="text-2xl">✅</span>
+                <span className="text-3xl">✅</span>
               </div>
               <p className="text-white/85 text-sm">
                 <HL>Use listed gear</HL> per its instructions. No hero builds.
@@ -646,7 +655,7 @@ export default function Ch1General() {
       </section>
 
       {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-800 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
+      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-900 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
           <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
@@ -655,7 +664,7 @@ export default function Ch1General() {
       </div>
 
       {/* ⚡ Article 200 — Use and Identification of Grounded Conductors */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-900 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl">⚡</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
@@ -683,7 +692,7 @@ export default function Ch1General() {
           <div className="space-y-4">
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                src="https://source.unsplash.com/800x600/?wire,identification,white,gray,striped"
                 alt="Conductor Identification"
                 width={400}
                 height={300}
@@ -696,8 +705,8 @@ export default function Ch1General() {
             
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
-                alt="Color Coding"
+                src="https://source.unsplash.com/800x600/?wire,colors,terminal,labels"
+                alt="Color Coding Standards"
                 width={400}
                 height={300}
                 className="w-full h-48 object-cover rounded-lg"
@@ -717,7 +726,7 @@ export default function Ch1General() {
       </section>
 
       {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
+      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1100 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
           <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
@@ -726,9 +735,9 @@ export default function Ch1General() {
       </div>
 
       {/* 🔌 Article 250 — Grounding and Bonding (Introduction) */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <span className="text-4xl"></span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 250 — Grounding and Bonding (Introduction)
           </h2>
@@ -754,8 +763,8 @@ export default function Ch1General() {
           <div className="space-y-4">
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
-                alt="Grounding System"
+                src="https://source.unsplash.com/800x600/?ground-rod,grounding-electrode,clamp"
+                alt="Grounding System Overview"
                 width={400}
                 height={300}
                 className="w-full h-48 object-cover rounded-lg"
@@ -767,8 +776,8 @@ export default function Ch1General() {
             
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
-                alt="Bonding Jumper"
+                src="https://source.unsplash.com/800x600/?bonding-jumper,enclosure,bonding-screw"
+                alt="Bonding Jumper Installation"
                 width={400}
                 height={300}
                 className="w-full h-48 object-cover rounded-lg"
@@ -796,7 +805,7 @@ export default function Ch1General() {
       </section>
 
       {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1200 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
+      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1300 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
           <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
@@ -805,9 +814,9 @@ export default function Ch1General() {
       </div>
 
       {/* 📐 Article 300 — Wiring Methods (Introduction) */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <span className="text-4xl"></span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 300 — Wiring Methods (Introduction)
           </h2>
@@ -833,8 +842,8 @@ export default function Ch1General() {
           <div className="space-y-4">
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
-                alt="Cable Installation"
+                src="https://source.unsplash.com/800x600/?nm-cable,romex,staples,cable-routing"
+                alt="Proper Cable Installation"
                 width={400}
                 height={300}
                 className="w-full h-48 object-cover rounded-lg"
@@ -846,8 +855,8 @@ export default function Ch1General() {
             
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
-                alt="Conduit Work"
+                src="https://source.unsplash.com/800x600/?conduit,emt,bender,conduit-run"
+                alt="Conduit Installation"
                 width={400}
                 height={300}
                 className="w-full h-48 object-cover rounded-lg"
@@ -866,8 +875,8 @@ export default function Ch1General() {
         </WarningBox>
       </section>
 
-      {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1400 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
+            {/* Visual Divider */}
+      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1500 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
           <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
@@ -876,9 +885,9 @@ export default function Ch1General() {
       </div>
 
       {/* 🔌 Article 310 — Conductors for General Wiring (Introduction) */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <span className="text-4xl"></span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 310 — Conductors for General Wiring (Introduction)
           </h2>
@@ -902,8 +911,8 @@ export default function Ch1General() {
           <div className="space-y-4">
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
-                alt="Wire Types"
+                src="https://source.unsplash.com/800x600/?copper,wire,awg,spool"
+                alt="Wire Types & Sizes"
                 width={400}
                 height={300}
                 className="w-full h-48 object-cover rounded-lg"
@@ -915,7 +924,7 @@ export default function Ch1General() {
             
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                src="https://source.unsplash.com/800x600/?pulling-wire,cable-tray,conduit-pull"
                 alt="Conductor Installation"
                 width={400}
                 height={300}
@@ -962,7 +971,7 @@ export default function Ch1General() {
       </section>
 
       {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1600 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
+      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1700 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
           <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
@@ -971,7 +980,7 @@ export default function Ch1General() {
       </div>
 
       {/* Hazards & Exam Traps */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl">⚠️</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
@@ -1010,7 +1019,7 @@ export default function Ch1General() {
       </section>
 
       {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1800 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
+      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1900 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
           <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
@@ -1019,9 +1028,9 @@ export default function Ch1General() {
       </div>
 
       {/* 🧠 Quick Reference */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1900 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <span className="text-4xl"></span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Quick Reference
           </h2>
@@ -1094,10 +1103,19 @@ export default function Ch1General() {
         </ChartBox>
       </section>
 
-            {/* 📝 Quiz */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      {/* Visual Divider */}
+      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-2100 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
+        <div className="flex items-center gap-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+          <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+        </div>
+      </div>
+
+      {/* 📝 Quiz */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <span className="text-4xl"></span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             15-Question Check
           </h2>
@@ -1144,17 +1162,8 @@ export default function Ch1General() {
         </div>
       </section>
 
-      {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-2100 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
-        <div className="flex items-center gap-4">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-          <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-        </div>
-      </div>
-
       {/* Footer Navigation */}
-      <div className={`mx-auto max-w-5xl flex items-center justify-between mt-12 transition-all duration-1000 delay-2200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <div className={`mx-auto max-w-5xl flex items-center justify-between mt-12 transition-all duration-1000 delay-2300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <Link 
           href="/intro" 
           className="text-white/70 hover:text-white transition-colors duration-200 flex items-center gap-2 group"
