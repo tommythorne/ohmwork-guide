@@ -22,7 +22,7 @@ const WarningBox = ({ children }: { children: React.ReactNode }) => (
 const RuleBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-yellow-400 text-xl">⚡</span>
+      <span className="text-yellow-400 text-xl">��</span>
       <span className="font-bold text-yellow-400">RULE OF THUMB</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -32,7 +32,7 @@ const RuleBox = ({ children }: { children: React.ReactNode }) => (
 const HorrorStory = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-orange-400 text-xl"></span>
+      <span className="text-orange-400 text-xl">��</span>
       <span className="font-bold text-orange-400">JOBSITE HORROR STORY</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -42,50 +42,26 @@ const HorrorStory = ({ children }: { children: React.ReactNode }) => (
 const CodeBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-blue-500/40 bg-blue-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-blue-400 text-xl"></span>
+      <span className="text-blue-400 text-xl">��</span>
       <span className="font-bold text-blue-400">NEC REFERENCE</span>
     </div>
     <div className="text-white/90">{children}</div>
   </div>
 );
 
-const DataTable = ({ title, headers, rows }: { title: string; headers: string[]; rows: string[][] }) => (
-  <div className="rounded-xl border border-white/10 bg-white/[0.025] p-6 my-6 hover:bg-white/[0.035] transition-all duration-300">
-    <h4 className="font-bold text-yellow-400 text-lg mb-4">{title}</h4>
-    <div className="overflow-x-auto">
-      <table className="w-full text-sm">
-        <thead>
-          <tr className="border-b border-white/20">
-            {headers.map((header, i) => (
-              <th key={i} className="text-left py-3 px-4 text-white/80 font-semibold">
-                {header}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((row, i) => (
-            <tr key={i} className="border-b border-white/10 hover:bg-white/[0.02] transition-colors">
-              {row.map((cell, j) => (
-                <td key={j} className="py-3 px-4 text-white/90">
-                  {cell}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  </div>
-);
-
-const ChartBox = ({ title, children }: { children: React.ReactNode; title: string }) => (
-  <div className="rounded-xl border border-white/10 bg-white/[0.025] p-6 my-6 hover:bg-white/[0.035] transition-all duration-300">
-    <h4 className="font-bold text-yellow-400 text-lg mb-4">{title}</h4>
+const DataTable = ({ children }: { children: React.ReactNode }) => (
+  <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 my-6 overflow-x-auto">
     {children}
   </div>
 );
 
+const ChartBox = ({ children }: { children: React.ReactNode }) => (
+  <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 my-6">
+    {children}
+  </div>
+);
+
+// Quiz type definition
 type Q = {
   id: number;
   stem: string;
@@ -94,6 +70,7 @@ type Q = {
   why: string;
 };
 
+// Quiz data
 const quiz: Q[] = [
   {
     id: 1,
@@ -153,7 +130,7 @@ const quiz: Q[] = [
       { key: "D", text: "Labeling can be ignored if AHJ says nothing" },
     ],
     answer: "B",
-    why: "NEC 110.3(B) — Install equipment per instructions. If you 'wing it,' you fail hard.",
+    why: "NEC 110.3(B) — Install and use equipment per listing and labeling. The AHJ will expect it.",
   },
   {
     id: 6,
@@ -217,112 +194,141 @@ const quiz: Q[] = [
   },
   {
     id: 11,
-    stem: "Equipment grounding conductors (EGC) are primarily intended to:",
+    stem: "Equipment grounding conductors (EGCs) primarily serve to:",
     choices: [
-      { key: "A", text: "Carry normal load current" },
+      { key: "A", text: "Carry normal operating current" },
       { key: "B", text: "Provide a low-impedance path for fault current" },
       { key: "C", text: "Reduce voltage drop" },
       { key: "D", text: "Improve power factor" },
     ],
     answer: "B",
-    why: "EGCs provide a low-impedance path for fault current to return to the source, enabling overcurrent protection to operate quickly.",
+    why: "EGCs provide a low-impedance path for fault current, enabling overcurrent devices to operate quickly and safely.",
   },
   {
     id: 12,
-    stem: "The term 'Bonding' refers to:",
+    stem: "The term 'bonding' in the NEC refers to:",
     choices: [
       { key: "A", text: "Connecting to earth" },
-      { key: "B", text: "Connecting metallic parts to establish electrical continuity" },
-      { key: "C", text: "Connecting to the neutral" },
-      { key: "D", text: "Connecting to the utility" },
+      { key: "B", text: "Connecting metallic parts for electrical continuity" },
+      { key: "C", text: "Connecting to the neutral conductor" },
+      { key: "D", text: "Connecting to the utility transformer" },
     ],
     answer: "B",
-    why: "Bonding connects metallic parts to establish electrical continuity and conductivity. It's about controlling potential differences.",
+    why: "Bonding connects metallic parts to establish electrical continuity and conductivity, not necessarily to earth.",
   },
   {
     id: 13,
-    stem: "A 'Listed' product means:",
+    stem: "Working space requirements (110.26) apply to:",
     choices: [
-      { key: "A", text: "It's expensive" },
-      { key: "B", text: "It's been evaluated by a qualified testing laboratory" },
-      { key: "C", text: "It's made in the USA" },
-      { key: "D", text: "It's recommended by electricians" },
+      { key: "A", text: "All electrical equipment" },
+      { key: "B", text: "Only equipment likely to require examination, adjustment, servicing, or maintenance" },
+      { key: "C", text: "Only equipment over 600V" },
+      { key: "D", text: "Only residential equipment" },
     ],
     answer: "B",
-    why: "Listed means evaluated by a qualified testing laboratory and found suitable for a specific purpose.",
+    why: "110.26 applies to equipment likely to require examination, adjustment, servicing, or maintenance while energized.",
   },
   {
     id: 14,
-    stem: "Working space clearances are measured from:",
+    stem: "Listed equipment must be:",
     choices: [
-      { key: "A", text: "The front of the equipment" },
-      { key: "B", text: "Live parts or equipment likely to be examined/adjusted" },
-      { key: "C", text: "The nearest wall" },
-      { key: "D", text: "The floor" },
+      { key: "A", text: "Installed per manufacturer instructions" },
+      { key: "B", text: "Installed per NEC requirements only" },
+      { key: "C", text: "Installed per AHJ preference" },
+      { key: "D", text: "Installed per local custom" },
     ],
-    answer: "B",
-    why: "NEC 110.26(A)(1) — Working space is measured from live parts or equipment likely to be examined/adjusted while energized.",
+    answer: "A",
+    why: "110.3(B) requires listed equipment to be installed per manufacturer instructions and listing requirements.",
   },
   {
     id: 15,
-    stem: "The NEC is updated every:",
+    stem: "The NEC's scope includes:",
     choices: [
-      { key: "A", text: "Year" },
-      { key: "B", text: "3 years" },
-      { key: "C", text: "5 years" },
-      { key: "D", text: "10 years" },
+      { key: "A", text: "Utility generation and transmission" },
+      { key: "B", text: "Premises wiring and equipment" },
+      { key: "C", text: "Railway systems" },
+      { key: "D", text: "All of the above" },
     ],
     answer: "B",
-    why: "The NEC is updated every 3 years (2017, 2020, 2023, etc.). Always check which version your jurisdiction uses.",
+    why: "The NEC covers premises wiring and equipment, not utility generation/transmission or railway systems.",
   },
 ];
 
 export default function Ch1General() {
   const [open, setOpen] = useState<Record<number, boolean>>({});
   const [isVisible, setIsVisible] = useState(false);
+  
+  const toggle = (id: number) => setOpen((s) => ({ ...s, [id]: !s[id] }));
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
-  const toggle = (id: number) =>
-    setOpen((s) => ({ ...s, [id]: !s[id] }));
-
   return (
-    <main className="min-h-screen bg-black text-white px-4 py-6 md:px-8 md:py-12">
+    <main className="min-h-screen bg-black text-white px-5 py-8 md:px-8 md:py-12">
       {/* Top Bar */}
-      <div className={`mx-auto max-w-5xl flex items-center justify-between gap-4 mb-6 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-        <Link href="/intro" className="text-white/70 hover:text-white transition flex items-center gap-2">
-          <span className="text-xl">←</span>
-          <span className="hidden sm:inline">Back to TOC</span>
+      <div className={`mx-auto max-w-5xl flex items-center justify-between gap-4 transition-all duration-1000 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <Link href="/intro" className="text-white/70 hover:text-white transition-colors duration-200 flex items-center gap-2 group">
+          <span className="group-hover:-translate-x-1 transition-transform duration-200">←</span>
+          <span>Back to TOC</span>
         </Link>
-        <div className="flex items-center gap-3">
-          <span className="text-yellow-400 font-semibold text-sm md:text-base">NEC 2017</span>
-          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-        </div>
+        <span className="text-yellow-400 font-semibold">NEC 2017</span>
       </div>
 
-      {/* Hero Section */}
-      <div className={`mx-auto max-w-5xl text-center mb-8 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-yellow-400 drop-shadow-lg mb-4">
-          Chapter 1 — General
-        </h1>
-        <p className="text-lg md:text-xl text-white/85 max-w-3xl mx-auto leading-relaxed">
-          <HL>Foundation of the Code</HL>: purpose, scope, definitions, and the general rules that keep the jobsite 
-          from turning into a fireworks show. You nail this, the rest of the book gets easier.
-        </p>
-        <div className="mt-4 flex justify-center">
-          <div className="inline-flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full text-sm">
-            <span className="w-2 h-2 bg-green-400 rounded-full"></span>
-            <span className="text-white/80">Chapter 1 of 9</span>
+      {/* Hero Section with Stunning Visual */}
+      <div className={`mx-auto max-w-5xl mt-8 md:mt-12 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 p-8 md:p-12">
+          {/* Background Image */}
+          <div className="absolute inset-0 opacity-20">
+            <Image
+              src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+              alt="Electrical safety overview"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+          
+          {/* Content */}
+          <div className="relative z-10">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-yellow-400 mb-6">
+              Chapter 1 — General
+            </h1>
+            <p className="text-xl md:text-2xl text-white/90 leading-relaxed max-w-4xl">
+              <HL>Foundation of the Code</HL>: purpose, scope, definitions, and the general rules that keep the jobsite from turning into a fireworks show. 
+              You nail this, the rest of the book gets easier.
+            </p>
+            
+            {/* Quick Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+              <div className="text-center p-4 bg-white/[0.05] rounded-xl border border-white/10">
+                <div className="text-3xl font-bold text-yellow-400">5</div>
+                <div className="text-white/80">Major Articles</div>
+              </div>
+              <div className="text-center p-4 bg-white/[0.05] rounded-xl border border-white/10">
+                <div className="text-3xl font-bold text-green-400">15</div>
+                <div className="text-white/80">Quiz Questions</div>
+              </div>
+              <div className="text-center p-4 bg-white/[0.05] rounded-xl border border-white/10">
+                <div className="text-3xl font-bold text-blue-400">35+</div>
+                <div className="text-white/80">Visual Examples</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
+      {/* Visual Divider */}
+      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
+        <div className="flex items-center gap-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+          <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+        </div>
+      </div>
 
-      {/* ⚡ Article 90 — Purpose, Scope, How the NEC Works */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            {/* ⚡ Article 90 — Purpose, Scope, How the NEC Works */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl">⚡</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
@@ -330,85 +336,81 @@ export default function Ch1General() {
           </h2>
         </div>
         
-        <div className="space-y-4 text-white/90 leading-relaxed">
-          <p>
-            — The NEC's mission isn't "perfect systems." It's <HL>practical safeguarding</HL> of people and property 
-            (<span className="italic">90.1(A)</span>). Translation: minimize hazard. Period.
-          </p>
-          <p>
-            — The Code is <HL>not a design manual</HL> (<span className="italic">90.1(B)</span>). You still follow 
-            <HL>manufacturer instructions</HL>, standards, and good sense. The NEC sets the safety floor.
-          </p>
-          <p>
-            — <HL>Enforcement</HL> belongs to the <HL>AHJ</HL> (Authority Having Jurisdiction). They interpret, you comply.
-          </p>
-          <p>
-            — Utility stuff? Mostly <HL>outside</HL> NEC scope. Your work? Squarely inside.
-          </p>
-        </div>
-
-        {/* NEC Structure Diagram */}
-        <div className="my-8 rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:bg-white/[0.035] transition-all duration-300">
-          <h3 className="font-bold text-yellow-400 text-lg mb-4">NEC Structure & Organization</h3>
-          <div className="grid md:grid-cols-3 gap-4 items-center">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
-                <span className="text-blue-400 text-2xl">📋</span>
+        <div className="grid lg:grid-cols-2 gap-8 mb-8">
+          {/* Left Column - Text Content */}
+          <div className="space-y-4 text-white/90 leading-relaxed">
+            <p>
+              — The NEC's mission isn't "perfect systems." It's <HL>practical safeguarding</HL> of people and property (<span className="italic">90.1(A)</span>). 
+              Translation: minimize hazard. Period.
+            </p>
+            <p>
+              — The Code is <HL>not a design manual</HL> (<span className="italic">90.1(B)</span>). You still follow <HL>manufacturer instructions</HL>, 
+              standards, and good sense. The NEC sets the safety floor.
+            </p>
+            <p>
+              — <HL>Enforcement</HL> belongs to the <HL>AHJ</HL> (Authority Having Jurisdiction). They interpret, you comply.
+            </p>
+            <p>
+              — Utility stuff? Mostly <HL>outside</HL> NEC scope. Your work? Squarely inside.
+            </p>
+          </div>
+          
+          {/* Right Column - Visual Examples */}
+          <div className="space-y-4">
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+              <Image
+                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
+                alt="NEC Code Book"
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <p className="text-white text-sm font-semibold">The NEC: Your Safety Bible</p>
               </div>
-              <p className="text-white/80 text-sm">Chapters 1-9</p>
-              <p className="text-white/60 text-xs">Core Requirements</p>
             </div>
-            <div className="text-center">
-              <div className="w-8 h-1 bg-yellow-400 mx-auto mb-2"></div>
-              <div className="w-8 h-1 bg-yellow-400 mx-auto mb-2"></div>
-              <div className="w-8 h-1 bg-yellow-400 mx-auto"></div>
-              <p className="text-white/80 text-sm">Articles</p>
-              <p className="text-white/60 text-xs">Specific Topics</p>
-            </div>
-            <div className="text-center">
-              <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-2">
-                <span className="text-green-400 text-2xl">📊</span>
+            
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+              <Image
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                alt="Electrical Safety Equipment"
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <p className="text-white text-sm font-semibold">Safety First: Always</p>
               </div>
-              <p className="text-white/80 text-sm">Tables & Annexes</p>
-              <p className="text-white/60 text-xs">Reference Data</p>
             </div>
           </div>
         </div>
 
-        <RuleBox>
-          <strong>NEC Foundation Rule:</strong> The Code sets minimum safety requirements. It's not about 
-          perfect systems—it's about preventing fires, shocks, and explosions. Safety first, always.
-        </RuleBox>
-
-        <HorrorStory>
-          <strong>True Story:</strong> Electrician ignored NEC requirements because "it's just residential." 
-          When a child touched an ungrounded appliance during a fault, they received a severe shock. 
-          <HL>90.1(A)</HL> exists for a reason—safety isn't optional.
-        </HorrorStory>
-
-        {/* NEC Purpose Table */}
-        <DataTable
-          title="NEC Purpose & Scope Summary"
-          headers={["Aspect", "What It Is", "What It's NOT"]}
-          rows={[
-            ["Purpose", "Practical safeguarding of persons and property", "Perfect electrical systems"],
-            ["Scope", "Electrical installations and equipment", "Utility distribution systems"],
-            ["Intent", "Minimum safety requirements", "Design manual or instruction book"],
-            ["Enforcement", "By Authority Having Jurisdiction (AHJ)", "Automatic or universal"],
-            ["Updates", "Every 3 years", "Static or unchanging"]
-          ]}
-        />
-
+        {/* Interactive Code Reference */}
         <CodeBox>
-          <strong>NEC 90.1(A):</strong> "The purpose of this Code is the practical safeguarding of persons and 
-          property from hazards arising from the use of electricity."
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="font-bold text-blue-400 mb-2">90.1(A) — Purpose</h4>
+              <p className="text-sm">Practical safeguarding of persons and property from hazards arising from electricity.</p>
+            </div>
+            <div>
+              <h4 className="font-bold text-blue-400 mb-2">90.1(B) — Scope</h4>
+              <p className="text-sm">Not intended as a design specification or instruction manual for untrained persons.</p>
+            </div>
+          </div>
         </CodeBox>
       </section>
 
-      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
+      {/* Visual Divider */}
+      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
+        <div className="flex items-center gap-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+        </div>
+      </div>
 
       {/* 🔧 Article 100 — Definitions */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl">��</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
@@ -416,104 +418,134 @@ export default function Ch1General() {
           </h2>
         </div>
         
-        <p className="text-lg text-white/90 mb-6 leading-relaxed">
-          The exam weaponizes definitions. Learn these like your job depends on it—because it does. 
-          The difference between "grounded" and "grounding" can mean the difference between passing and failing.
+        <p className="text-lg text-white/90 mb-8 leading-relaxed">
+          The exam weaponizes definitions. Learn these like your job depends on it—because it does.
         </p>
 
-        {/* Key Definitions Visual */}
-        <div className="my-8 rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:bg-white/[0.035] transition-all duration-300">
-          <h3 className="font-bold text-yellow-400 text-lg mb-4">Critical Definitions You Must Know</h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center mt-1">
-                  <span className="text-blue-400 text-sm">⚡</span>
-                </div>
-                <div>
-                  <h4 className="font-bold text-white">Grounded Conductor</h4>
-                  <p className="text-white/85 text-sm">A system conductor that is intentionally grounded. Often the neutral.</p>
-                </div>
+        {/* Definition Cards with Images */}
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+          <div className="group relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105">
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0">
+                <Image
+                  src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                  alt="Grounded Conductor"
+                  width={120}
+                  height={120}
+                  className="w-24 h-24 object-cover rounded-lg"
+                />
               </div>
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center mt-1">
-                  <span className="text-green-400 text-sm">🔌</span>
-                </div>
-                <div>
-                  <h4 className="font-bold text-white">Equipment Grounding Conductor (EGC)</h4>
-                  <p className="text-white/85 text-sm">The conductor that bonds equipment to ground. Carries fault current.</p>
-                </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-yellow-400 text-lg mb-2">Grounded Conductor</h3>
+                <p className="text-white/85 leading-relaxed">
+                  A system conductor that is <HL>intentionally grounded</HL>. Often the neutral. Don't treat it like harmless.
+                </p>
               </div>
             </div>
-            <div className="space-y-4">
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center mt-1">
-                  <span className="text-yellow-400 text-sm">🔗</span>
-                </div>
-                <div>
-                  <h4 className="font-bold text-white">Bonding</h4>
-                  <p className="text-white/85 text-sm">Connecting metallic parts to establish electrical continuity.</p>
-                </div>
+          </div>
+
+          <div className="group relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105">
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0">
+                <Image
+                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                  alt="Equipment Grounding Conductor"
+                  width={120}
+                  height={120}
+                  className="w-24 h-24 object-cover rounded-lg"
+                />
               </div>
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center mt-1">
-                  <span className="text-purple-400 text-sm">🏷️</span>
-                </div>
-                <div>
-                  <h4 className="font-bold text-white">Listed & Labeled</h4>
-                  <p className="text-white/85 text-sm">Evaluated by a qualified lab, must be installed per instructions.</p>
-                </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-yellow-400 text-lg mb-2">Equipment Grounding Conductor (EGC)</h3>
+                <p className="text-white/85 leading-relaxed">
+                  The conductor that <HL>bonds equipment</HL> to ground. Carries <span className="italic">fault</span> current. Saves lives.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="group relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105">
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0">
+                <Image
+                  src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                  alt="Bonding Connection"
+                  width={120}
+                  height={120}
+                  className="w-24 h-24 object-cover rounded-lg"
+                />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-yellow-400 text-lg mb-2">Bonding</h3>
+                <p className="text-white/85 leading-relaxed">
+                  <HL>Connecting metallic parts</HL> to establish electrical continuity and conductivity. You're controlling potential.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="group relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105">
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0">
+                <Image
+                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                  alt="Listed Equipment"
+                  width={120}
+                  height={120}
+                  className="w-24 h-24 object-cover rounded-lg"
+                />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-yellow-400 text-lg mb-2">Listed & Labeled</h3>
+                <p className="text-white/85 leading-relaxed">
+                  Evaluated by a qualified lab, and must be installed <HL>per listing and labeling</HL> (110.3(B)).
+                </p>
               </div>
             </div>
           </div>
         </div>
 
+        {/* Definition Comparison Table */}
+        <DataTable>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-white/20">
+                  <th className="text-left p-3 text-yellow-400 font-bold">Term</th>
+                  <th className="text-left p-3 text-yellow-400 font-bold">Definition</th>
+                  <th className="text-left p-3 text-yellow-400 font-bold">Key Point</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/10">
+                <tr className="hover:bg-white/[0.02] transition-colors">
+                  <td className="p-3 font-semibold">Grounded</td>
+                  <td className="p-3">Connected to earth</td>
+                  <td className="p-3 text-green-400">Safety reference</td>
+                </tr>
+                <tr className="hover:bg-white/[0.02] transition-colors">
+                  <td className="p-3 font-semibold">Grounding</td>
+                  <td className="p-3">The act of connecting to earth</td>
+                  <td className="p-3 text-green-400">Process</td>
+                </tr>
+                <tr className="hover:bg-white/[0.02] transition-colors">
+                  <td className="p-3 font-semibold">Bonding</td>
+                  <td className="p-3">Connecting for continuity</td>
+                  <td className="p-3 text-green-400">Not necessarily to earth</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </DataTable>
+
+        {/* Warning Box */}
         <WarningBox>
-          <strong>EXAM TRAP:</strong> Definitions are heavily tested. The exam loves to play word games with 
-          "grounded vs. grounding," "bonding vs. grounding," and similar terms. Know the difference cold.
+          <strong>EXAM TRAP:</strong> The exam loves to confuse "Grounded" vs "Grounding" vs "Bonding." 
+          <HL>Grounded</HL> = connected to earth. <HL>Grounding</HL> = the process. <HL>Bonding</HL> = connecting for continuity.
         </WarningBox>
-
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Grounded vs. Grounding</h3>
-            <p className="text-white/85 leading-relaxed">
-              <HL>Grounded:</HL> A conductor that is intentionally connected to earth or ground.<br/><br/>
-              <HL>Grounding:</HL> The process of connecting to earth or ground. This is the action, not the conductor.
-            </p>
-          </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">Bonding vs. Grounding</h3>
-            <p className="text-white/85 leading-relaxed">
-              <HL>Bonding:</HL> Connecting metallic parts to establish electrical continuity.<br/><br/>
-              <HL>Grounding:</HL> Connecting to earth or ground. Bonding is about continuity, grounding is about earth connection.
-            </p>
-          </div>
-        </div>
-
-        {/* Definitions Table */}
-        <DataTable
-          title="Essential NEC Definitions"
-          headers={["Term", "Definition", "Key Point"]}
-          rows={[
-            ["Grounded Conductor", "System conductor intentionally grounded", "Often the neutral wire"],
-            ["Equipment Grounding Conductor", "Conductor that bonds equipment to ground", "Carries fault current"],
-            ["Bonding", "Connecting metallic parts for continuity", "Not necessarily to ground"],
-            ["Listed", "Evaluated by qualified testing laboratory", "Must install per instructions"],
-            ["AHJ", "Authority Having Jurisdiction", "They interpret and enforce the Code"],
-            ["Working Space", "Space for safe operation and maintenance", "Measured from live parts"]
-          ]}
-        />
-
-        <CodeBox>
-          <strong>NEC 100:</strong> "Definitions in Article 100 apply throughout the Code. These definitions 
-          are essential for understanding the requirements that follow."
-        </CodeBox>
       </section>
 
-      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-800 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
-
             {/* 🛠️ Article 110 — General Requirements */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-900 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl">🛠️</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
@@ -521,327 +553,259 @@ export default function Ch1General() {
           </h2>
         </div>
         
-        <div className="space-y-4 text-white/90 leading-relaxed mb-6">
-          <p>
-            Article 110 is the <HL>foundation</HL> of electrical installation requirements. It covers working space, 
-            equipment installation, and the basic rules that apply to everything else in the Code.
-          </p>
-          <p>
-            <HL>110.3(B)</HL> requires equipment to be installed per its listing and labeling. Don't wing it—follow 
-            the instructions or fail the inspection.
-          </p>
-          <p>
-            <HL>110.26</HL> covers working space requirements. This isn't about convenience—it's about safety 
-            during operation and maintenance.
-          </p>
-        </div>
-
-        {/* Working Space Diagram */}
-        <div className="my-8 rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:bg-white/[0.035] transition-all duration-300">
-          <h3 className="font-bold text-yellow-400 text-lg mb-4">Working Space Requirements (110.26)</h3>
-          <div className="grid md:grid-cols-3 gap-4 text-center">
-            <div className="space-y-2">
-              <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto">
-                <span className="text-blue-400 text-xl">📏</span>
-              </div>
-              <h4 className="font-bold text-white text-sm">Width</h4>
-              <p className="text-white/80 text-xs">30 inches minimum</p>
-            </div>
-            <div className="space-y-2">
-              <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto">
-                <span className="text-green-400 text-xl">📐</span>
-              </div>
-              <h4 className="font-bold text-white text-sm">Depth</h4>
-              <p className="text-white/80 text-xs">Based on voltage</p>
-            </div>
-            <div className="space-y-2">
-              <div className="w-16 h-16 bg-yellow-500/20 rounded-full flex items-center justify-center mx-auto">
-                <span className="text-yellow-400 text-xl">📏</span>
-              </div>
-              <h4 className="font-bold text-white text-sm">Height</h4>
-              <p className="text-white/80 text-xs">6.5 feet minimum</p>
-            </div>
-          </div>
-        </div>
-
-        <RuleBox>
-          <strong>Working Space Rule:</strong> Working space must be clear, accessible, and properly dimensioned. 
-          Don't use it for storage—it's for safe operation and maintenance.
-        </RuleBox>
-
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">110.3(B) — Installation & Use</h3>
-            <p className="text-white/85 leading-relaxed">
-              <HL>Equipment must be installed</HL> and used in accordance with its listing and labeling. 
-              This includes following manufacturer instructions and not exceeding ratings.
+        <div className="grid lg:grid-cols-2 gap-8 mb-8">
+          {/* Left Column - Text Content */}
+          <div className="space-y-4 text-white/90 leading-relaxed">
+            <p>
+              — <HL>110.3(B)</HL>: Install equipment per instructions. If you "wing it," you fail hard.
+            </p>
+            <p>
+              — <HL>Working Space (110.26)</HL>: Clearances so you can work without headbutting a live bus. 
+              Think width, depth, height, and <HL>access</HL>. Panels aren't coat racks.
+            </p>
+            <p>
+              — <HL>Terminations</HL>: Use conductors and lugs that match ratings (copper/aluminum, temperature).
+            </p>
+            <p>
+              — <HL>Guarding, Marking, and Accessibility</HL>: If someone can touch it, it better be safe and labeled.
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">110.26 — Working Space</h3>
-            <p className="text-white/85 leading-relaxed">
-              <HL>Working space must be provided</HL> for safe operation and maintenance. Clearances are 
-              based on voltage and equipment type.
-            </p>
-          </div>
-        </div>
-
-        {/* Working Space Table */}
-        <DataTable
-          title="Working Space Depth Requirements by Voltage"
-          headers={["Voltage", "Depth Required", "Notes"]}
-          rows={[
-            ["0-150V", "3 feet", "Most residential and light commercial"],
-            ["151-600V", "4 feet", "Commercial and industrial systems"],
-            ["601-2500V", "5 feet", "Medium voltage equipment"],
-            ["2501V+", "6 feet", "High voltage installations"]
-          ]}
-        />
-
-        <HorrorStory>
-          <strong>True Story:</strong> Electrician ignored working space requirements and installed a panel 
-          too close to a wall. During maintenance, the electrician couldn't safely work on the energized 
-          equipment and received a severe shock. <HL>110.26</HL> exists for safety, not convenience.
-        </HorrorStory>
-
-        {/* Additional Article 110 sections */}
-        <div className="mt-8 space-y-6">
-          <h3 className="text-xl font-bold text-yellow-400">110.14 — Electrical Connections</h3>
-          <p className="text-white/90 leading-relaxed">
-            Terminations must be made with conductors and lugs that match ratings. Don't mix copper and 
-            aluminum without proper methods. This prevents overheating and fires.
-          </p>
           
-          <h3 className="text-xl font-bold text-yellow-400">110.15 — Marking</h3>
-          <p className="text-white/90 leading-relaxed">
-            Equipment must be marked with voltage, current, wattage, and other ratings. Clear marking 
-            prevents misapplication and ensures proper operation.
-          </p>
-
-          <h3 className="text-xl font-bold text-yellow-400">110.16 — Arc-Flash Hazard Warning</h3>
-          <p className="text-white/90 leading-relaxed">
-            Equipment that requires arc-flash hazard warning must be marked. This is about worker safety 
-            and proper PPE selection.
-          </p>
+          {/* Right Column - Visual Examples */}
+          <div className="space-y-4">
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+              <Image
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                alt="Working Space Clearance"
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <p className="text-white text-sm font-semibold">Working Space: Keep It Clear</p>
+              </div>
+            </div>
+            
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+              <Image
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                alt="Panel Installation"
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <p className="text-white text-sm font-semibold">Proper Panel Installation</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <CodeBox>
-          <strong>NEC 110.26(A)(1):</strong> "Working space shall be provided and maintained about all 
-          electrical equipment to permit ready and safe operation and maintenance of such equipment."
-        </CodeBox>
+        {/* Interactive Visual Cards */}
+        <div className="grid md:grid-cols-3 gap-4 mb-6">
+          <div className="rounded-xl border border-white/10 p-4 bg-white/[0.03] hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-yellow-400/30 transition-colors">
+                <span className="text-2xl">🏷️</span>
+              </div>
+              <p className="text-white/85 text-sm">
+                <HL>Label it</HL> so the next human doesn't guess at 2AM.
+              </p>
+            </div>
+          </div>
+          
+          <div className="rounded-xl border border-white/10 p-4 bg-white/[0.03] hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-yellow-400/30 transition-colors">
+                <span className="text-2xl">📏</span>
+              </div>
+              <p className="text-white/85 text-sm">
+                <HL>Working space</HL> — not storage. Keep it clear.
+              </p>
+            </div>
+          </div>
+          
+          <div className="rounded-xl border border-white/10 p-4 bg-white/[0.03] hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
+            <div className="text-center">
+              <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-yellow-400/30 transition-colors">
+                <span className="text-2xl">✅</span>
+              </div>
+              <p className="text-white/85 text-sm">
+                <HL>Use listed gear</HL> per its instructions. No hero builds.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Horror Story */}
+        <HorrorStory>
+          <strong>True Story:</strong> Electrician ignored working space requirements and installed a panel too close to a wall. 
+          During maintenance, he couldn't safely access the panel and had to shut down the entire building. 
+          <HL>110.26</HL> exists for a reason—respect the working space.
+        </HorrorStory>
       </section>
 
-      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
+      {/* Visual Divider */}
+      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-800 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
+        <div className="flex items-center gap-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+        </div>
+      </div>
 
-      {/* 🔌 Article 200 — Use and Identification of Grounded Conductors */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      {/* ⚡ Article 200 — Use and Identification of Grounded Conductors */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-900 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <span className="text-4xl">⚡</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 200 — Use and Identification of Grounded Conductors
           </h2>
         </div>
         
-        <div className="space-y-4 text-white/90 leading-relaxed mb-6">
-          <p>
-            Article 200 covers the <HL>identification and use</HL> of grounded conductors (usually the neutral). 
-            Proper identification prevents miswiring and ensures system safety.
-          </p>
-          <p>
-            <HL>200.6</HL> requires grounded conductors to be identified with white or gray insulation, 
-            or by three continuous white stripes on other than green insulation.
-          </p>
-          <p>
-            <HL>200.7</HL> prohibits using white or gray insulation for ungrounded conductors. This 
-            prevents confusion and miswiring.
-          </p>
-        </div>
-
-        {/* Conductor Identification Visual */}
-        <div className="my-8 rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:bg-white/[0.035] transition-all duration-300">
-          <h3 className="font-bold text-yellow-400 text-lg mb-4">Conductor Identification Requirements</h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-white rounded-full border-2 border-gray-300"></div>
-                <div>
-                  <h4 className="font-bold text-white text-sm">Grounded Conductor (Neutral)</h4>
-                  <p className="text-white/80 text-xs">White or gray insulation</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-black rounded-full border-2 border-gray-300"></div>
-                <div>
-                  <h4 className="font-bold text-white text-sm">Ungrounded Conductor (Hot)</h4>
-                  <p className="text-white/80 text-xs">Any color except white, gray, or green</p>
-                </div>
+        <div className="grid lg:grid-cols-2 gap-8 mb-8">
+          {/* Left Column - Text Content */}
+          <div className="space-y-4 text-white/90 leading-relaxed">
+            <p>
+              — <HL>200.6</HL>: Grounded conductors must be <HL>identified</HL> by white or gray insulation, 
+              or by three continuous white stripes on other than green insulation.
+            </p>
+            <p>
+              — <HL>200.7</HL>: White or gray insulation can only be used for grounded conductors. 
+              Don't repurpose it for ungrounded conductors.
+            </p>
+            <p>
+              — <HL>200.9</HL>: Means of identification must be <HL>permanent</HL> and <HL>durable</HL>.
+            </p>
+          </div>
+          
+          {/* Right Column - Visual Examples */}
+          <div className="space-y-4">
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+              <Image
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                alt="Conductor Identification"
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <p className="text-white text-sm font-semibold">Proper Conductor Identification</p>
               </div>
             </div>
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-green-600 rounded-full border-2 border-gray-300"></div>
-                <div>
-                  <h4 className="font-bold text-white text-sm">Equipment Grounding Conductor</h4>
-                  <p className="text-white/80 text-xs">Green or bare copper</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-blue-600 rounded-full border-2 border-gray-300"></div>
-                <div>
-                  <h4 className="font-bold text-white text-sm">Identified Conductor</h4>
-                  <p className="text-white/80 text-xs">White with colored stripe</p>
-                </div>
+            
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+              <Image
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                alt="Color Coding"
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <p className="text-white text-sm font-semibold">Color Coding Standards</p>
               </div>
             </div>
           </div>
         </div>
 
-        <WarningBox>
-          <strong>EXAM TRAP:</strong> Conductor identification is heavily tested. Know that white/gray 
-          can only be used for grounded conductors, and that three white stripes are acceptable identification.
-        </WarningBox>
-
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">200.6 — Means of Identifying</h3>
-            <p className="text-white/85 leading-relaxed">
-              <HL>Grounded conductors must be identified</HL> with white or gray insulation, or with three 
-              continuous white stripes on other than green insulation.
-            </p>
-          </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">200.7 — Use of Insulation</h3>
-            <p className="text-white/85 leading-relaxed">
-              <HL>White or gray insulation</HL> cannot be used for ungrounded conductors. This prevents 
-              confusion and ensures proper system operation.
-            </p>
-          </div>
-        </div>
-
-        {/* Conductor Identification Table */}
-        <DataTable
-          title="Conductor Identification Summary"
-          headers={["Conductor Type", "Identification", "Prohibited Colors"]}
-          rows={[
-            ["Grounded (Neutral)", "White or gray", "None"],
-            ["Ungrounded (Hot)", "Any color except white, gray, green", "White, gray, green"],
-            ["Equipment Grounding", "Green or bare copper", "White, gray"],
-            ["Identified", "White with colored stripe", "Solid white or gray"]
-          ]}
-        />
-
-        <CodeBox>
-          <strong>NEC 200.6:</strong> "The grounded conductor of a branch circuit shall be identified by a 
-          continuous white or natural gray color."
-        </CodeBox>
+        {/* Rule Box */}
+        <RuleBox>
+          <strong>RULE OF THUMB:</strong> White = Neutral = Grounded. Gray = Neutral = Grounded. 
+          Green = Equipment Ground = Never Current-Carrying. Keep these straight or fail the exam.
+        </RuleBox>
       </section>
 
-      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-1200 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
+      {/* Visual Divider */}
+      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
+        <div className="flex items-center gap-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+        </div>
+      </div>
 
-      {/* ⚡ Article 250 — Grounding and Bonding (Introduction) */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      {/* 🔌 Article 250 — Grounding and Bonding (Introduction) */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <span className="text-4xl">��</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 250 — Grounding and Bonding (Introduction)
           </h2>
         </div>
         
-        <div className="space-y-4 text-white/90 leading-relaxed mb-6">
-          <p>
-            Article 250 is the <HL>most important</HL> article in the NEC. Grounding and bonding prevent 
-            fires, protect equipment, and save lives. Get this wrong and everything else fails.
-          </p>
-          <p>
-            <HL>250.4</HL> explains the purpose of grounding and bonding. It's not about convenience—it's 
-            about safety and proper system operation.
-          </p>
-          <p>
-            <HL>250.6</HL> covers objectionable current. Grounding should not create problems—it should 
-            solve them.
-          </p>
-        </div>
-
-        {/* Grounding System Diagram */}
-        <div className="my-8 rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:bg-white/[0.035] transition-all duration-300">
-          <h3 className="font-bold text-yellow-400 text-lg mb-4">Basic Grounding System</h3>
-          <div className="grid md:grid-cols-3 gap-4 text-center">
-            <div className="space-y-2">
-              <div className="w-16 h-16 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto">
-                <span className="text-blue-400 text-2xl">🏠</span>
-              </div>
-              <p className="text-white/80 text-sm">Service Equipment</p>
-              <p className="text-white/60 text-xs">Main bonding jumper</p>
-            </div>
-            <div className="text-center">
-              <div className="w-8 h-1 bg-yellow-400 mx-auto mb-2"></div>
-              <div className="w-8 h-1 bg-yellow-400 mx-auto mb-2"></div>
-              <div className="w-8 h-1 bg-yellow-400 mx-auto"></div>
-              <p className="text-white/80 text-sm">Grounding Electrode</p>
-              <p className="text-white/60 text-xs">Earth connection</p>
-            </div>
-            <div className="space-y-2">
-              <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto">
-                <span className="text-green-400 text-2xl">🔌</span>
-              </div>
-              <p className="text-white/80 text-sm">Equipment</p>
-              <p className="text-white/60 text-xs">Bonded to ground</p>
-            </div>
-          </div>
-        </div>
-
-        <RuleBox>
-          <strong>Grounding Rule:</strong> Every electrical system must have a grounding electrode system. 
-          Every piece of equipment must be bonded to ground. This is not optional—it's essential for safety.
-        </RuleBox>
-
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">250.4 — Purpose of Grounding</h3>
-            <p className="text-white/85 leading-relaxed">
-              <HL>Grounding provides a path</HL> for fault current to return to the source, enabling 
-              overcurrent protection to operate quickly and safely.
+        <div className="grid lg:grid-cols-2 gap-8 mb-8">
+          {/* Left Column - Text Content */}
+          <div className="space-y-4 text-white/90 leading-relaxed">
+            <p>
+              — <HL>250.4(A)</HL>: Grounding provides a <HL>low-impedance path</HL> for fault current, 
+              enabling overcurrent devices to operate.
+            </p>
+            <p>
+              — <HL>250.4(B)</HL>: Bonding ensures <HL>electrical continuity</HL> and conductivity 
+              between conductive parts.
+            </p>
+            <p>
+              — <HL>250.6</HL>: Objectionable current over grounding conductors must be <HL>eliminated</HL>.
             </p>
           </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">250.6 — Objectionable Current</h3>
-            <p className="text-white/85 leading-relaxed">
-              <HL>Grounding should not create</HL> objectionable current. If it does, the installation 
-              method must be corrected.
-            </p>
+          
+          {/* Right Column - Visual Examples */}
+          <div className="space-y-4">
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+              <Image
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                alt="Grounding System"
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <p className="text-white text-sm font-semibold">Grounding System Overview</p>
+              </div>
+            </div>
+            
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+              <Image
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                alt="Bonding Jumper"
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <p className="text-white text-sm font-semibold">Bonding Jumper Installation</p>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Grounding Purpose Table */}
-        <DataTable
-          title="Purpose of Grounding and Bonding"
-          headers={["Purpose", "What It Does", "Why It's Important"]}
-          rows={[
-            ["Fault Current Path", "Provides low-impedance return path", "Enables OCP to operate quickly"],
-            ["Equipment Protection", "Prevents damage from voltage surges", "Protects expensive equipment"],
-            ["Personnel Safety", "Prevents shock hazards", "Saves lives and prevents injury"],
-            ["System Stability", "Maintains proper voltage levels", "Ensures reliable operation"],
-            ["Lightning Protection", "Provides path for lightning current", "Prevents fires and damage"]
-          ]}
-        />
-
-        <HorrorStory>
-          <strong>True Story:</strong> Electrician skipped grounding because "it's just a small addition." 
-          When a fault occurred, the current had no safe path to return, causing equipment damage and 
-          creating a shock hazard. <HL>250.4</HL> exists for a reason—grounding saves lives.
-        </HorrorStory>
-
+        {/* Code Box */}
         <CodeBox>
-          <strong>NEC 250.4(A)(1):</strong> "Electrical systems that are grounded shall be connected to 
-          earth in a manner that will limit the voltage imposed by lightning, line surges, or unintentional 
-          contact with higher-voltage lines."
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="font-bold text-blue-400 mb-2">250.4(A)(1) — System Grounding</h4>
+              <p className="text-sm">Electrical systems that are grounded shall be connected to earth in a manner that will limit the voltage imposed by lightning, line surges, or unintentional contact with higher-voltage lines.</p>
+            </div>
+            <div>
+              <h4 className="font-bold text-blue-400 mb-2">250.4(A)(2) — Equipment Grounding</h4>
+              <p className="text-sm">Normally non-current-carrying conductive materials enclosing electrical conductors or equipment shall be connected to earth to limit the voltage to ground on these materials.</p>
+            </div>
+          </div>
         </CodeBox>
       </section>
 
-      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-1400 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
+      {/* Visual Divider */}
+      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1200 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
+        <div className="flex items-center gap-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+        </div>
+      </div>
 
-      {/* 🔧 Article 300 — Wiring Methods (Introduction) */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      {/* 📐 Article 300 — Wiring Methods (Introduction) */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl">��</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
@@ -849,102 +813,70 @@ export default function Ch1General() {
           </h2>
         </div>
         
-        <div className="space-y-4 text-white/90 leading-relaxed mb-6">
-          <p>
-            Article 300 covers <HL>general requirements</HL> for wiring methods. This includes how conductors 
-            are installed, protected, and supported throughout the electrical system.
-          </p>
-          <p>
-            <HL>300.3</HL> requires conductors of the same circuit to be in the same raceway, cable, or 
-            enclosure. This prevents inductive heating and ensures proper operation.
-          </p>
-          <p>
-            <HL>300.4</HL> covers protection against physical damage. Conductors must be protected where 
-            they're subject to damage.
-          </p>
-        </div>
-
-        {/* Wiring Methods Visual */}
-        <div className="my-8 rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:bg-white/[0.035] transition-all duration-300">
-          <h3 className="font-bold text-yellow-400 text-lg mb-4">Common Wiring Methods</h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center">
-                  <span className="text-blue-400 text-sm">📦</span>
-                </div>
-                <span className="text-white/85 text-sm">Raceways (EMT, IMC, RMC)</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center">
-                  <span className="text-green-400 text-sm">🔌</span>
-                </div>
-                <span className="text-white/85 text-sm">Cable Assemblies (NM, MC, AC)</span>
+        <div className="grid lg:grid-cols-2 gap-8 mb-8">
+          {/* Left Column - Text Content */}
+          <div className="space-y-4 text-white/90 leading-relaxed">
+            <p>
+              — <HL>300.3</HL>: Conductors of the same circuit must be in the <HL>same raceway</HL>, 
+              cable, or enclosure.
+            </p>
+            <p>
+              — <HL>300.4</HL>: Protection against physical damage is <HL>required</HL> where conductors 
+              are subject to damage.
+            </p>
+            <p>
+              — <HL>300.5</HL>: Underground installations must have proper <HL>cover</HL> and protection.
+            </p>
+          </div>
+          
+          {/* Right Column - Visual Examples */}
+          <div className="space-y-4">
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+              <Image
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                alt="Cable Installation"
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <p className="text-white text-sm font-semibold">Proper Cable Installation</p>
               </div>
             </div>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-yellow-500/20 rounded-full flex items-center justify-center">
-                  <span className="text-yellow-400 text-sm">📏</span>
-                </div>
-                <span className="text-white/85 text-sm">Support & Protection</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center">
-                  <span className="text-purple-400 text-sm">🔒</span>
-                </div>
-                <span className="text-white/85 text-sm">Terminations & Connections</span>
+            
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+              <Image
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                alt="Conduit Work"
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <p className="text-white text-sm font-semibold">Conduit Installation</p>
               </div>
             </div>
           </div>
         </div>
 
-        <RuleBox>
-          <strong>Wiring Method Rule:</strong> All conductors of the same circuit must be in the same 
-          raceway or cable. This prevents inductive heating and ensures proper system operation.
-        </RuleBox>
-
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">300.3 — Conductors</h3>
-            <p className="text-white/85 leading-relaxed">
-              <HL>Conductors of the same circuit</HL> must be in the same raceway, cable, or enclosure. 
-              This includes hot, neutral, and grounding conductors.
-            </p>
-          </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">300.4 — Protection</h3>
-            <p className="text-white/85 leading-relaxed">
-              <HL>Conductors must be protected</HL> where they're subject to physical damage. This includes 
-              protection from nails, screws, and other hazards.
-            </p>
-          </div>
-        </div>
-
-        {/* Wiring Methods Table */}
-        <DataTable
-          title="Wiring Method Requirements"
-          headers={["Requirement", "What It Means", "Why It's Important"]}
-          rows={[
-            ["Same Raceway", "All circuit conductors together", "Prevents inductive heating"],
-            ["Physical Protection", "Protect from damage", "Prevents shorts and fires"],
-            ["Proper Support", "Adequate support and fastening", "Prevents damage and sagging"],
-            ["Correct Terminations", "Proper connections", "Prevents overheating and fires"],
-            ["Environmental Protection", "Protect from moisture, chemicals", "Ensures long-term reliability"]
-          ]}
-        />
-
-        <CodeBox>
-          <strong>NEC 300.3(A):</strong> "All conductors of the same circuit and, where used, the grounded 
-          conductor and all equipment grounding conductors and bonding conductors shall be contained within 
-          the same raceway, auxiliary gutter, cable tray, cablebus assembly, trench, cable, or cord."
-        </CodeBox>
+        {/* Warning Box */}
+        <WarningBox>
+          <strong>EXAM TRAP:</strong> The exam loves to test on <HL>300.3</HL> — conductors of the same circuit 
+          must be in the same raceway. Don't separate them or you'll fail.
+        </WarningBox>
       </section>
 
-      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-1600 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
+      {/* Visual Divider */}
+      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1400 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
+        <div className="flex items-center gap-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+        </div>
+      </div>
 
-      {/* 📊 Article 310 — Conductors for General Wiring (Introduction) */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      {/* 🔌 Article 310 — Conductors for General Wiring (Introduction) */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl">��</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
@@ -952,107 +884,218 @@ export default function Ch1General() {
           </h2>
         </div>
         
-        <div className="space-y-4 text-white/90 leading-relaxed mb-6">
-          <p>
-            Article 310 covers <HL>conductor types and ratings</HL>. This includes ampacity tables, temperature 
-            ratings, and the selection of conductors for specific applications.
-          </p>
-          <p>
-            <HL>310.15</HL> provides ampacity tables for conductors. These tables determine how much current 
-            a conductor can safely carry.
-          </p>
-          <p>
-            <HL>310.104</HL> covers conductor insulation types. Different insulation types have different 
-            temperature ratings and applications.
-          </p>
-        </div>
-
-        {/* Conductor Types Visual */}
-        <div className="my-8 rounded-xl border border-white/10 bg-white/[0.025] p-6 hover:bg-white/[0.035] transition-all duration-300">
-          <h3 className="font-bold text-yellow-400 text-lg mb-4">Common Conductor Types</h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-orange-500/20 rounded-full flex items-center justify-center">
-                  <span className="text-orange-400 text-sm">🔶</span>
-                </div>
-                <span className="text-white/85 text-sm">THHN/THWN-2</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center">
-                  <span className="text-blue-400 text-sm">🔵</span>
-                </div>
-                <span className="text-white/85 text-sm">XHHW-2</span>
+        <div className="grid lg:grid-cols-2 gap-8 mb-8">
+          {/* Left Column - Text Content */}
+          <div className="space-y-4 text-white/90 leading-relaxed">
+            <p>
+              — <HL>310.10</HL>: Conductors must be <HL>suitable</HL> for the location and conditions of use.
+            </p>
+            <p>
+              — <HL>310.15</HL>: Ampacity tables determine the <HL>current-carrying capacity</HL> of conductors.
+            </p>
+            <p>
+              — <HL>310.16</HL>: Temperature ratings affect <HL>ampacity</HL> and installation methods.
+            </p>
+          </div>
+          
+          {/* Right Column - Visual Examples */}
+          <div className="space-y-4">
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+              <Image
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                alt="Wire Types"
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <p className="text-white text-sm font-semibold">Wire Types & Sizes</p>
               </div>
             </div>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-green-500/20 rounded-full flex items-center justify-center">
-                  <span className="text-green-400 text-sm">🟢</span>
-                </div>
-                <span className="text-white/85 text-sm">RHW-2</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-purple-500/20 rounded-full flex items-center justify-center">
-                  <span className="text-purple-400 text-sm">🟣</span>
-                </div>
-                <span className="text-white/85 text-sm">USE-2</span>
+            
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+              <Image
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                alt="Conductor Installation"
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <p className="text-white text-sm font-semibold">Conductor Installation</p>
               </div>
             </div>
           </div>
         </div>
 
-        <WarningBox>
-          <strong>EXAM TRAP:</strong> Conductor ampacity is heavily tested. Know your temperature ratings, 
-          ambient temperature corrections, and how to use the ampacity tables properly.
-        </WarningBox>
-
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">310.15 — Ampacity Tables</h3>
-            <p className="text-white/85 leading-relaxed">
-              <HL>Ampacity tables determine</HL> how much current a conductor can safely carry. These 
-              values are based on insulation type and temperature rating.
-            </p>
+        {/* Data Table */}
+        <DataTable>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-white/20">
+                  <th className="text-left p-3 text-yellow-400 font-bold">Temperature Rating</th>
+                  <th className="text-left p-3 text-yellow-400 font-bold">Common Use</th>
+                  <th className="text-left p-3 text-yellow-400 font-bold">Key Consideration</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/10">
+                <tr className="hover:bg-white/[0.02] transition-colors">
+                  <td className="p-3 font-semibold">60°C</td>
+                  <td className="p-3">Older installations</td>
+                  <td className="p-3 text-green-400">Lower ampacity</td>
+                </tr>
+                <tr className="hover:bg-white/[0.02] transition-colors">
+                  <td className="p-3 font-semibold">75°C</td>
+                  <td className="p-3">Most common</td>
+                  <td className="p-3 text-green-400">Standard rating</td>
+                </tr>
+                <tr className="hover:bg-white/[0.02] transition-colors">
+                  <td className="p-3 font-semibold">90°C</td>
+                  <td className="p-3">High-temp applications</td>
+                  <td className="p-3 text-green-400">Higher ampacity</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
-          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
-            <h3 className="font-bold text-yellow-400 text-lg mb-3">310.104 — Conductor Insulation</h3>
-            <p className="text-white/85 leading-relaxed">
-              <HL>Different insulation types</HL> have different temperature ratings and applications. 
-              Choose the right type for your environment.
-            </p>
-          </div>
-        </div>
-
-        {/* Conductor Ampacity Table */}
-        <DataTable
-          title="Common Conductor Ampacities (75°C, Copper)"
-          headers={["Size", "Ampacity", "Common Use", "Notes"]}
-          rows={[
-            ["#14 AWG", "20A", "15A circuits", "Residential lighting"],
-            ["#12 AWG", "25A", "20A circuits", "Kitchen receptacles"],
-            ["#10 AWG", "35A", "30A circuits", "Dryer circuits"],
-            ["#8 AWG", "50A", "40A circuits", "Range circuits"],
-            ["#6 AWG", "65A", "50A circuits", "Subpanel feeders"],
-            ["#4 AWG", "85A", "60A circuits", "Service conductors"]
-          ]}
-        />
-
-        <RuleBox>
-          <strong>Conductor Selection Rule:</strong> Always size conductors for the load and protect them 
-          with appropriate overcurrent protection. Don't undersize conductors—they'll overheat and cause fires.
-        </RuleBox>
-
-        <CodeBox>
-          <strong>NEC 310.15(A)(1):</strong> "Ampacities for conductors rated 0 to 2000 volts shall be 
-          as specified in the ampacity tables of 310.15(B) through 310.15(G)."
-        </CodeBox>
+        </DataTable>
       </section>
 
-      <hr className={`border-white/10 my-8 transition-all duration-1000 delay-1800 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`} />
+      {/* Visual Divider */}
+      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1600 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
+        <div className="flex items-center gap-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+        </div>
+      </div>
+
+      {/* Hazards & Exam Traps */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="flex items-center gap-3 mb-6">
+          <span className="text-4xl">⚠️</span>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
+            Hazards & Exam Traps
+          </h2>
+        </div>
+        
+        <div className="grid md:grid-cols-2 gap-6 mb-6">
+          <div className="space-y-3 text-white/90">
+            <p>— <HL>Definitions</HL> are bait. "Grounded vs. Grounding," "Bonding vs. Grounding"—they'll play word games.</p>
+            <p>— <HL>Working space</HL> clearances: don't mix up depth categories or voltage thresholds.</p>
+            <p>— <HL>110.3(B)</HL> is a favorite: listing/labeling is not a suggestion.</p>
+          </div>
+          <div className="space-y-3 text-white/90">
+            <p>— <HL>NEC ≠ design manual</HL>. You'll be tested on minimums, not best‑in‑class.</p>
+            <p>— <HL>Article 200</HL> identification rules: white/gray = grounded conductors only.</p>
+            <p>— <HL>Temperature ratings</HL> affect ampacity calculations significantly.</p>
+          </div>
+        </div>
+
+        {/* Visual Warning Grid */}
+        <div className="grid md:grid-cols-3 gap-4">
+          <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-4 text-center">
+            <div className="text-3xl mb-2">🚨</div>
+            <p className="text-white/90 text-sm">Definitions are exam traps</p>
+          </div>
+          <div className="rounded-xl border border-orange-500/30 bg-orange-500/10 p-4 text-center">
+            <div className="text-3xl mb-2">⚡</div>
+            <p className="text-white/90 text-sm">Working space requirements</p>
+          </div>
+          <div className="rounded-xl border border-yellow-500/30 bg-yellow-500/10 p-4 text-center">
+            <div className="text-3xl mb-2">📋</div>
+            <p className="text-white/90 text-sm">Listing & labeling rules</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Visual Divider */}
+      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1800 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
+        <div className="flex items-center gap-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+        </div>
+      </div>
+
+      {/* 🧠 Quick Reference */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1900 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="flex items-center gap-3 mb-6">
+          <span className="text-4xl">��</span>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
+            Quick Reference
+          </h2>
+        </div>
+        
+        <div className="grid md:grid-cols-2 gap-6 mb-6">
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+            <h3 className="font-bold text-yellow-400 text-lg mb-3">Where Stuff Lives</h3>
+            <div className="space-y-2 text-white/85">
+              <p>— Article 90: Why/How the NEC works</p>
+              <p>— Article 100: Definitions</p>
+              <p>— Article 110: General installation rules</p>
+              <p>— Article 200: Conductor identification</p>
+              <p>— Article 250: Grounding & bonding intro</p>
+              <p>— Article 300: Wiring methods intro</p>
+              <p>— Article 310: Conductors intro</p>
+            </div>
+          </div>
+          
+          <div className="rounded-xl border border-white/10 p-6 bg-white/[0.025] hover:bg-white/[0.035] transition-all duration-300 hover:scale-105">
+            <h3 className="font-bold text-yellow-400 text-lg mb-3">Fast Rules</h3>
+            <div className="space-y-2 text-white/85">
+              <p>— Follow <HL>listing & labeling</HL></p>
+              <p>— Keep <HL>working space</HL> clear</p>
+              <p>— Respect <HL>AHJ</HL> interpretations</p>
+              <p>— White/gray = <HL>grounded conductors</HL></p>
+              <p>— Green = <HL>equipment ground</HL></p>
+              <p>— <HL>Temperature ratings</HL> matter</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Visual Reference Chart */}
+        <ChartBox>
+          <div className="text-center mb-4">
+            <h4 className="font-bold text-white text-lg mb-2">Chapter 1 Structure</h4>
+            <p className="text-white/70 text-sm">Visual overview of how the articles connect</p>
+          </div>
+          
+          <div className="grid grid-cols-7 gap-2 text-xs">
+            <div className="text-center p-2 bg-yellow-400/20 rounded border border-yellow-400/30">
+              <div className="font-bold text-yellow-400">90</div>
+              <div className="text-white/70">Purpose</div>
+            </div>
+            <div className="text-center p-2 bg-blue-400/20 rounded border border-blue-400/30">
+              <div className="font-bold text-blue-400">100</div>
+              <div className="text-white/70">Definitions</div>
+            </div>
+            <div className="text-center p-2 bg-green-400/20 rounded border border-green-400/30">
+              <div className="font-bold text-green-400">110</div>
+              <div className="text-white/70">Requirements</div>
+            </div>
+            <div className="text-center p-2 bg-purple-400/20 rounded border border-purple-400/30">
+              <div className="font-bold text-purple-400">200</div>
+              <div className="text-white/70">Identification</div>
+            </div>
+            <div className="text-center p-2 bg-orange-400/20 rounded border border-orange-400/30">
+              <div className="font-bold text-orange-400">250</div>
+              <div className="text-white/70">Grounding</div>
+            </div>
+            <div className="text-center p-2 bg-red-400/20 rounded border border-red-400/30">
+              <div className="font-bold text-red-400">300</div>
+              <div className="text-white/70">Wiring</div>
+            </div>
+            <div className="text-center p-2 bg-indigo-400/20 rounded border border-indigo-400/30">
+              <div className="font-bold text-indigo-400">310</div>
+              <div className="text-white/70">Conductors</div>
+            </div>
+          </div>
+        </ChartBox>
+      </section>
 
             {/* 📝 Quiz */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
           <span className="text-4xl">��</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
@@ -1060,32 +1103,32 @@ export default function Ch1General() {
           </h2>
         </div>
         
-        <p className="text-white/80 mb-6">
+        <p className="text-white/80 mb-6 text-lg">
           Tap "Check Answer." Learn why. Move on. Don't overthink.
         </p>
         
         <div className="space-y-6">
           {quiz.map((q) => (
-            <div key={q.id} className="rounded-xl border border-white/10 bg-white/[0.02] p-6 hover:bg-white/[0.04] transition-all duration-300">
+            <div key={q.id} className="rounded-xl border border-white/10 bg-white/[0.02] p-6 hover:bg-white/[0.04] transition-all duration-300 group">
               <div className="text-white font-semibold text-lg mb-4">
                 {q.id}. {q.stem}
               </div>
               
               <div className="grid sm:grid-cols-2 gap-3 mb-4">
                 {q.choices.map((c) => (
-                  <label key={c.key} className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-white/90 hover:border-yellow-400/40 hover:bg-white/[0.06] transition-all duration-200 cursor-pointer">
+                  <label key={c.key} className="flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-white/90 hover:border-yellow-400/40 hover:bg-white/[0.06] transition-all duration-200 cursor-pointer group/choice">
                     <input type="radio" name={`q-${q.id}`} onChange={() => {}} className="accent-yellow-400" />
                     <span className="font-mono text-yellow-300 font-bold">{c.key}</span>
-                    <span>{c.text}</span>
+                    <span className="group-hover/choice:text-white transition-colors">{c.text}</span>
                   </label>
                 ))}
               </div>
               
               <button 
                 onClick={() => toggle(q.id)} 
-                className="inline-flex items-center justify-center rounded-lg bg-green-500 text-black font-bold px-6 py-3 hover:bg-green-400 hover:scale-105 transition-all duration-200"
+                className="inline-flex items-center justify-center rounded-lg bg-green-500 text-black font-bold px-6 py-3 hover:bg-green-400 hover:scale-105 transition-all duration-200 group/button"
               >
-                Check Answer
+                <span className="group-hover/button:scale-110 transition-transform">Check Answer</span>
               </button>
               
               {open[q.id] && (
@@ -1101,8 +1144,17 @@ export default function Ch1General() {
         </div>
       </section>
 
+      {/* Visual Divider */}
+      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-2100 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
+        <div className="flex items-center gap-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+          <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+        </div>
+      </div>
+
       {/* Footer Navigation */}
-      <div className={`mx-auto max-w-5xl flex items-center justify-between mt-12 transition-all duration-1000 delay-1400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <div className={`mx-auto max-w-5xl flex items-center justify-between mt-12 transition-all duration-1000 delay-2200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <Link 
           href="/intro" 
           className="text-white/70 hover:text-white transition-colors duration-200 flex items-center gap-2 group"
