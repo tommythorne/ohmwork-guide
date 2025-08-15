@@ -22,7 +22,7 @@ const WarningBox = ({ children }: { children: React.ReactNode }) => (
 const RuleBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-yellow-400 text-xl"></span>
+      <span className="text-yellow-400 text-xl">��</span>
       <span className="font-bold text-yellow-400">RULE OF THUMB</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -32,7 +32,7 @@ const RuleBox = ({ children }: { children: React.ReactNode }) => (
 const HorrorStory = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-orange-400 text-xl"></span>
+      <span className="text-orange-400 text-xl">��</span>
       <span className="font-bold text-orange-400">JOBSITE HORROR STORY</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -42,7 +42,7 @@ const HorrorStory = ({ children }: { children: React.ReactNode }) => (
 const CodeBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-blue-500/40 bg-blue-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-blue-400 text-xl"></span>
+      <span className="text-blue-400 text-xl">��</span>
       <span className="font-bold text-blue-400">NEC REFERENCE</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -278,11 +278,11 @@ export default function Ch1General() {
       {/* Hero Section with Stunning Visual */}
       <div className={`mx-auto max-w-5xl mt-8 md:mt-12 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 p-8 md:p-12">
-          {/* Background Image - IMAGE 1: Electrical Safety Overview */}
+          {/* Background Image - IMAGE 1: NEC Code Book */}
           <div className="absolute inset-0 opacity-20">
             <Image
-              src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
-              alt="Electrical safety overview with PPE and safety equipment"
+              src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
+              alt="NEC codebook and electrical standards documentation"
               fill
               className="object-cover"
               priority
@@ -310,7 +310,7 @@ export default function Ch1General() {
                 <div className="text-white/80">Quiz Questions</div>
               </div>
               <div className="text-center p-4 bg-white/[0.05] rounded-xl border border-white/10">
-                <div className="text-3xl font-bold text-blue-400">18</div>
+                <div className="text-3xl font-bold text-blue-400">27</div>
                 <div className="text-white/80">Visual Examples</div>
               </div>
             </div>
@@ -357,21 +357,7 @@ export default function Ch1General() {
           
           {/* Right Column - Visual Examples */}
           <div className="space-y-4">
-            {/* IMAGE 2: NEC Code Book */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
-              <Image
-                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
-                alt="NEC codebook and electrical standards documentation"
-                width={400}
-                height={300}
-                className="w-full h-48 object-cover rounded-lg"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">The NEC: Your Safety Bible</p>
-              </div>
-            </div>
-            
-            {/* IMAGE 3: Electrical Safety Equipment */}
+            {/* IMAGE 2: Electrical Safety Equipment */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
                 src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
@@ -382,6 +368,20 @@ export default function Ch1General() {
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
                 <p className="text-white text-sm font-semibold">Safety First: Always</p>
+              </div>
+            </div>
+            
+            {/* IMAGE 3: Electrical Standards Documentation */}
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+              <Image
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                alt="Electrical safety standards and compliance documentation"
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <p className="text-white text-sm font-semibold">Standards & Compliance</p>
               </div>
             </div>
           </div>
@@ -414,7 +414,7 @@ export default function Ch1General() {
       {/* 🔧 Article 100 — Definitions */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl"></span>
+          <span className="text-4xl">��</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 100 — Definitions
           </h2>
@@ -431,8 +431,8 @@ export default function Ch1General() {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <Image
-                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
-                  alt="Grounded conductor (neutral wire) identification"
+                  src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64"
+                  alt="Grounded conductor (neutral wire) identification and color coding"
                   width={120}
                   height={120}
                   className="w-24 h-24 object-cover rounded-lg"
@@ -452,8 +452,8 @@ export default function Ch1General() {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <Image
-                  src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
-                  alt="Equipment grounding conductor and green wire"
+                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                  alt="Equipment grounding conductor and green wire identification"
                   width={120}
                   height={120}
                   className="w-24 h-24 object-cover rounded-lg"
@@ -473,7 +473,7 @@ export default function Ch1General() {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <Image
-                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                  src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
                   alt="Bonding jumper and equipment bonding connection"
                   width={120}
                   height={120}
@@ -494,8 +494,8 @@ export default function Ch1General() {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <Image
-                  src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
-                  alt="UL listed equipment with compliance labels"
+                  src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
+                  alt="UL listed equipment with compliance labels and certification"
                   width={120}
                   height={120}
                   className="w-24 h-24 object-cover rounded-lg"
@@ -591,8 +591,8 @@ export default function Ch1General() {
             {/* IMAGE 8: Working Space Clearance */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
-                alt="Electrical panel with proper working space clearance"
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64"
+                alt="Electrical panel with proper working space clearance and clear access"
                 width={400}
                 height={300}
                 className="w-full h-48 object-cover rounded-lg"
@@ -605,8 +605,8 @@ export default function Ch1General() {
             {/* IMAGE 9: Panel Installation */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
-                alt="Professional breaker panel installation with wire management"
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                alt="Professional breaker panel installation with proper wire management"
                 width={400}
                 height={300}
                 className="w-full h-48 object-cover rounded-lg"
@@ -703,7 +703,7 @@ export default function Ch1General() {
             {/* IMAGE 10: Wire Color Identification */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
                 alt="Color-coded electrical wires showing white neutral and colored hot wires"
                 width={400}
                 height={300}
@@ -717,7 +717,7 @@ export default function Ch1General() {
             {/* IMAGE 11: Conductor Identification */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
                 alt="Properly identified conductors with labels and color coding"
                 width={400}
                 height={300}
@@ -819,8 +819,8 @@ export default function Ch1General() {
             {/* IMAGE 12: Branch Circuit Panel */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
-                alt="Residential electrical panel with branch circuit breakers"
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64"
+                alt="Residential electrical panel with branch circuit breakers and proper labeling"
                 width={400}
                 height={300}
                 className="w-full h-48 object-cover rounded-lg"
@@ -833,7 +833,7 @@ export default function Ch1General() {
             {/* IMAGE 13: AFCI Protection */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
                 alt="AFCI circuit breaker with test button and indicator light"
                 width={400}
                 height={300}
@@ -926,8 +926,8 @@ export default function Ch1General() {
             {/* IMAGE 14: Feeder Installation */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
-                alt="Main feeder conductors and service entrance equipment"
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                alt="Main feeder conductors and service entrance equipment installation"
                 width={400}
                 height={300}
                 className="w-full h-48 object-cover rounded-lg"
@@ -940,8 +940,8 @@ export default function Ch1General() {
             {/* IMAGE 15: Feeder Protection */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
-                alt="Feeder overcurrent protection devices and disconnects"
+                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
+                alt="Feeder overcurrent protection devices and main disconnect switches"
                 width={400}
                 height={300}
                 className="w-full h-48 object-cover rounded-lg"
@@ -992,7 +992,7 @@ export default function Ch1General() {
       {/* 🔌 Article 225 — Outside Branch Circuits and Feeders */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <span className="text-4xl"></span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 225 — Outside Branch Circuits and Feeders
           </h2>
@@ -1020,8 +1020,8 @@ export default function Ch1General() {
             {/* IMAGE 16: Outdoor Wiring Installation */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
-                alt="Outdoor electrical wiring with proper weatherproof enclosures"
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64"
+                alt="Outdoor electrical wiring with proper weatherproof enclosures and outdoor-rated materials"
                 width={400}
                 height={300}
                 className="w-full h-48 object-cover rounded-lg"
@@ -1034,7 +1034,7 @@ export default function Ch1General() {
             {/* IMAGE 17: Clearance Requirements */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
                 alt="Proper clearance maintained between electrical conductors and building structures"
                 width={400}
                 height={300}
@@ -1095,8 +1095,8 @@ export default function Ch1General() {
             {/* IMAGE 18: Service Entrance */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
-                alt="Main service entrance with meter and disconnect switch"
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                alt="Main service entrance with meter and disconnect switch installation"
                 width={400}
                 height={300}
                 className="w-full h-48 object-cover rounded-lg"
@@ -1109,7 +1109,7 @@ export default function Ch1General() {
             {/* IMAGE 19: Service Disconnect */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
                 alt="Main service disconnect switch with proper labeling and accessibility"
                 width={400}
                 height={300}
@@ -1165,10 +1165,10 @@ export default function Ch1General() {
         </div>
       </div>
 
-      {/* �� Article 240 — Overcurrent Protection */}
+      {/* Article 240 — Overcurrent Protection */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <span className="text-4xl"></span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 240 — Overcurrent Protection
           </h2>
@@ -1196,8 +1196,8 @@ export default function Ch1General() {
             {/* IMAGE 20: Overcurrent Protection */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
-                alt="Circuit breakers and fuses providing overcurrent protection"
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64"
+                alt="Circuit breakers and fuses providing overcurrent protection in electrical panel"
                 width={400}
                 height={300}
                 className="w-full h-48 object-cover rounded-lg"
@@ -1210,7 +1210,7 @@ export default function Ch1General() {
             {/* IMAGE 21: Protection Coordination */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
                 alt="Proper coordination of overcurrent protection devices in electrical system"
                 width={400}
                 height={300}
@@ -1289,7 +1289,7 @@ export default function Ch1General() {
             {/* IMAGE 22: Grounding System */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
                 alt="Complete grounding system with ground rods and bonding conductors"
                 width={400}
                 height={300}
@@ -1303,7 +1303,7 @@ export default function Ch1General() {
             {/* IMAGE 23: Bonding Connections */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
                 alt="Proper bonding connections between metallic parts and equipment"
                 width={400}
                 height={300}
@@ -1368,7 +1368,7 @@ export default function Ch1General() {
       {/* 🔌 Article 300 — Wiring Methods */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <span className="text-4xl"></span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 300 — Wiring Methods
           </h2>
@@ -1396,7 +1396,7 @@ export default function Ch1General() {
             {/* IMAGE 24: Raceway Installation */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64"
                 alt="Proper raceway installation with secure fastening and support"
                 width={400}
                 height={300}
@@ -1410,7 +1410,7 @@ export default function Ch1General() {
             {/* IMAGE 25: Underground Protection */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
                 alt="Underground electrical installation with proper protection and burial depth"
                 width={400}
                 height={300}
@@ -1497,7 +1497,7 @@ export default function Ch1General() {
             {/* IMAGE 26: Conductor Ampacity */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
                 alt="Conductor ampacity tables and temperature rating considerations"
                 width={400}
                 height={300}
@@ -1511,7 +1511,7 @@ export default function Ch1General() {
             {/* IMAGE 27: Parallel Conductors */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
                 alt="Parallel conductor installation with proper sizing and termination"
                 width={400}
                 height={300}
@@ -1659,7 +1659,7 @@ export default function Ch1General() {
           
           <div className="bg-white/[0.03] rounded-xl border border-white/20 p-6 text-center">
             <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">��</span>
+              <span className="text-2xl"></span>
             </div>
             <h3 className="font-bold text-white mb-2">Definitions</h3>
             <p className="text-white/80 text-sm">
@@ -1689,7 +1689,7 @@ export default function Ch1General() {
           
           <div className="bg-white/[0.03] rounded-xl border border-white/20 p-6 text-center">
             <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">��</span>
+              <span className="text-2xl"></span>
             </div>
             <h3 className="font-bold text-white mb-2">Circuit Basics</h3>
             <p className="text-white/80 text-sm">
