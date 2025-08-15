@@ -281,7 +281,7 @@ export default function Ch1General() {
           {/* Background Image - IMAGE 1: NEC Code Book */}
           <div className="absolute inset-0 opacity-20">
             <Image
-              src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
+              src="/images/module-01/high-voltage.svg"
               alt="NEC codebook and electrical standards documentation"
               fill
               className="object-cover"
@@ -360,7 +360,7 @@ export default function Ch1General() {
             {/* IMAGE 2: Electrical Safety Equipment */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                src="/images/module-01/hero-panel.jpg"
                 alt="Insulated tools and PPE for electrical work"
                 width={400}
                 height={300}
@@ -374,7 +374,7 @@ export default function Ch1General() {
             {/* IMAGE 3: Electrical Standards Documentation */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                src="/images/module-01/danger-high-voltage.svg"
                 alt="Electrical safety standards and compliance documentation"
                 width={400}
                 height={300}
@@ -452,7 +452,7 @@ export default function Ch1General() {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <Image
-                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                  src="/images/module-01/danger-high-voltage.svg"
                   alt="Equipment grounding conductor and green wire identification"
                   width={120}
                   height={120}
@@ -473,7 +473,7 @@ export default function Ch1General() {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <Image
-                  src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                  src="/images/module-01/hero-panel.jpg"
                   alt="Bonding jumper and equipment bonding connection"
                   width={120}
                   height={120}
@@ -494,7 +494,7 @@ export default function Ch1General() {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <Image
-                  src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
+                  src="/images/module-01/high-voltage.svg"
                   alt="UL listed equipment with compliance labels and certification"
                   width={120}
                   height={120}
@@ -605,7 +605,7 @@ export default function Ch1General() {
             {/* IMAGE 9: Panel Installation */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                src="/images/module-01/danger-high-voltage.svg"
                 alt="Professional breaker panel installation with proper wire management"
                 width={400}
                 height={300}
@@ -703,7 +703,7 @@ export default function Ch1General() {
             {/* IMAGE 10: Wire Color Identification */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                src="/images/module-01/hero-panel.jpg"
                 alt="Color-coded electrical wires showing white neutral and colored hot wires"
                 width={400}
                 height={300}
@@ -717,7 +717,7 @@ export default function Ch1General() {
             {/* IMAGE 11: Conductor Identification */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
+                src="/images/module-01/high-voltage.svg"
                 alt="Properly identified conductors with labels and color coding"
                 width={400}
                 height={300}
@@ -833,7 +833,7 @@ export default function Ch1General() {
             {/* IMAGE 13: AFCI Protection */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                src="/images/module-01/danger-high-voltage.svg"
                 alt="AFCI circuit breaker with test button and indicator light"
                 width={400}
                 height={300}
@@ -926,7 +926,7 @@ export default function Ch1General() {
             {/* IMAGE 14: Feeder Installation */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                src="/images/module-01/hero-panel.jpg"
                 alt="Main feeder conductors and service entrance equipment installation"
                 width={400}
                 height={300}
@@ -940,7 +940,7 @@ export default function Ch1General() {
             {/* IMAGE 15: Feeder Protection */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
+                src="/images/module-01/high-voltage.svg"
                 alt="Feeder overcurrent protection devices and main disconnect switches"
                 width={400}
                 height={300}
@@ -1034,7 +1034,7 @@ export default function Ch1General() {
             {/* IMAGE 17: Clearance Requirements */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                src="/images/module-01/danger-high-voltage.svg"
                 alt="Proper clearance maintained between electrical conductors and building structures"
                 width={400}
                 height={300}
@@ -1095,7 +1095,7 @@ export default function Ch1General() {
             {/* IMAGE 18: Service Entrance */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                src="/images/module-01/hero-panel.jpg"
                 alt="Main service entrance with meter and disconnect switch installation"
                 width={400}
                 height={300}
@@ -1109,7 +1109,7 @@ export default function Ch1General() {
             {/* IMAGE 19: Service Disconnect */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
+                src="/images/module-01/high-voltage.svg"
                 alt="Main service disconnect switch with proper labeling and accessibility"
                 width={400}
                 height={300}
@@ -1210,7 +1210,7 @@ export default function Ch1General() {
             {/* IMAGE 21: Protection Coordination */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                src="/images/module-01/danger-high-voltage.svg"
                 alt="Proper coordination of overcurrent protection devices in electrical system"
                 width={400}
                 height={300}
@@ -1289,7 +1289,7 @@ export default function Ch1General() {
             {/* IMAGE 22: Grounding System */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                src="/images/module-01/hero-panel.jpg"
                 alt="Complete grounding system with ground rods and bonding conductors"
                 width={400}
                 height={300}
@@ -1303,7 +1303,7 @@ export default function Ch1General() {
             {/* IMAGE 23: Bonding Connections */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
+                src="/images/module-01/high-voltage.svg"
                 alt="Proper bonding connections between metallic parts and equipment"
                 width={400}
                 height={300}
@@ -1410,7 +1410,7 @@ export default function Ch1General() {
             {/* IMAGE 25: Underground Protection */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
+                src="/images/module-01/danger-high-voltage.svg"
                 alt="Underground electrical installation with proper protection and burial depth"
                 width={400}
                 height={300}
@@ -1497,7 +1497,7 @@ export default function Ch1General() {
             {/* IMAGE 26: Conductor Ampacity */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
+                src="/images/module-01/hero-panel.jpg"
                 alt="Conductor ampacity tables and temperature rating considerations"
                 width={400}
                 height={300}
@@ -1511,7 +1511,7 @@ export default function Ch1General() {
             {/* IMAGE 27: Parallel Conductors */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
+                src="/images/module-01/high-voltage.svg"
                 alt="Parallel conductor installation with proper sizing and termination"
                 width={400}
                 height={300}
