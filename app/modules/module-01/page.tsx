@@ -281,7 +281,7 @@ export default function Ch1General() {
           {/* Background Image */}
           <div className="absolute inset-0 opacity-20">
             <Image
-              src="https://source.unsplash.com/1600x900/?electrician,safety,ppe,lockout-tagout,panel"
+              src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
               alt="Electrical safety overview"
               fill
               className="object-cover"
@@ -359,7 +359,7 @@ export default function Ch1General() {
           <div className="space-y-4">
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://source.unsplash.com/800x600/?nec,codebook,electrical,standards"
+                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
                 alt="NEC codebook and standards reference"
                 width={400}
                 height={300}
@@ -372,7 +372,7 @@ export default function Ch1General() {
             
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://source.unsplash.com/800x600/?electrical,safety,gloves,insulated,tools"
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
                 alt="Insulated tools and PPE for electrical work"
                 width={400}
                 height={300}
@@ -428,7 +428,7 @@ export default function Ch1General() {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <Image
-                  src="https://source.unsplash.com/600x600/?neutral,conductor,electrical,wiring"
+                  src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
                   alt="Grounded Conductor"
                   width={120}
                   height={120}
@@ -448,7 +448,7 @@ export default function Ch1General() {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <Image
-                  src="https://source.unsplash.com/600x600/?ground,egc,bonding,green-wire"
+                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
                   alt="Equipment Grounding Conductor"
                   width={120}
                   height={120}
@@ -468,7 +468,7 @@ export default function Ch1General() {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <Image
-                  src="https://source.unsplash.com/600x600/?bonding,grounding-jumper,equipment-bond"
+                  src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
                   alt="Bonding Connection"
                   width={120}
                   height={120}
@@ -488,7 +488,7 @@ export default function Ch1General() {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <Image
-                  src="https://source.unsplash.com/600x600/?ul,listed,label,compliance,sticker"
+                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
                   alt="Listed Equipment"
                   width={120}
                   height={120}
@@ -584,7 +584,7 @@ export default function Ch1General() {
           <div className="space-y-4">
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://source.unsplash.com/800x600/?electrical,panel,working-space,clearance"
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
                 alt="Working Space Clearance"
                 width={400}
                 height={300}
@@ -597,7 +597,7 @@ export default function Ch1General() {
             
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://source.unsplash.com/800x600/?breaker-panel,installation,wire-management"
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
                 alt="Proper Panel Installation"
                 width={400}
                 height={300}
@@ -692,7 +692,7 @@ export default function Ch1General() {
           <div className="space-y-4">
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://source.unsplash.com/800x600/?wire,identification,white,gray,striped"
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
                 alt="Conductor Identification"
                 width={400}
                 height={300}
@@ -705,7 +705,7 @@ export default function Ch1General() {
             
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://source.unsplash.com/800x600/?wire,colors,terminal,labels"
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
                 alt="Color Coding Standards"
                 width={400}
                 height={300}
@@ -763,7 +763,7 @@ export default function Ch1General() {
           <div className="space-y-4">
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://source.unsplash.com/800x600/?ground-rod,grounding-electrode,clamp"
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
                 alt="Grounding System Overview"
                 width={400}
                 height={300}
@@ -776,7 +776,7 @@ export default function Ch1General() {
             
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://source.unsplash.com/800x600/?bonding-jumper,enclosure,bonding-screw"
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
                 alt="Bonding Jumper Installation"
                 width={400}
                 height={300}
@@ -842,7 +842,7 @@ export default function Ch1General() {
           <div className="space-y-4">
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://source.unsplash.com/800x600/?nm-cable,romex,staples,cable-routing"
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
                 alt="Proper Cable Installation"
                 width={400}
                 height={300}
@@ -855,7 +855,7 @@ export default function Ch1General() {
             
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://source.unsplash.com/800x600/?conduit,emt,bender,conduit-run"
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
                 alt="Conduit Installation"
                 width={400}
                 height={300}
@@ -911,7 +911,7 @@ export default function Ch1General() {
           <div className="space-y-4">
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://source.unsplash.com/800x600/?copper,wire,awg,spool"
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
                 alt="Wire Types & Sizes"
                 width={400}
                 height={300}
@@ -924,7 +924,7 @@ export default function Ch1General() {
             
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="https://source.unsplash.com/800x600/?pulling-wire,cable-tray,conduit-pull"
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
                 alt="Conductor Installation"
                 width={400}
                 height={300}
