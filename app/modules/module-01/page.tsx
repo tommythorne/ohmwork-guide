@@ -1183,6 +1183,7 @@ export default function Ch1General() {
             <p>
               — <HL>240.6</HL>: Standard ampere ratings for fuses and circuit breakers.
             </p>
+            <p>
               — <HL>240.21</HL>: Location of overcurrent protection devices.
             </p>
             <p>
