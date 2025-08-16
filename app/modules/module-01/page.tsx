@@ -22,7 +22,7 @@ const WarningBox = ({ children }: { children: React.ReactNode }) => (
 const RuleBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-yellow-400 text-xl">📏</span>
+      <span className="text-yellow-400 text-xl"></span>
       <span className="font-bold text-yellow-400">RULE OF THUMB</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -32,7 +32,7 @@ const RuleBox = ({ children }: { children: React.ReactNode }) => (
 const HorrorStory = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-orange-400 text-xl">🔥</span>
+      <span className="text-orange-400 text-xl"></span>
       <span className="font-bold text-orange-400">JOBSITE HORROR STORY</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -42,7 +42,7 @@ const HorrorStory = ({ children }: { children: React.ReactNode }) => (
 const CodeBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-blue-500/40 bg-blue-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-blue-400 text-xl">📘</span>
+      <span className="text-blue-400 text-xl"></span>
       <span className="font-bold text-blue-400">NEC REFERENCE</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -264,6 +264,40 @@ export default function Ch1General() {
     setIsVisible(true);
   }, []);
 
+  // Enhanced quiz state
+  const [selectedAnswers, setSelectedAnswers] = useState<Record<number, "A" | "B" | "C" | "D" | null>>({});
+  const [quizSubmitted, setQuizSubmitted] = useState(false);
+  const [showScore, setShowScore] = useState(false);
+  const [score, setScore] = useState(0);
+
+  // Quiz functions
+  const selectAnswer = (questionId: number, answer: "A" | "B" | "C" | "D") => {
+    if (!quizSubmitted) {
+      setSelectedAnswers(prev => ({ ...prev, [questionId]: answer }));
+    }
+  };
+
+  const submitQuiz = () => {
+    let correctCount = 0;
+    quiz.forEach(q => {
+      if (selectedAnswers[q.id] === q.answer) {
+        correctCount++;
+      }
+    });
+    
+    const percentage = Math.round((correctCount / quiz.length) * 100);
+    setScore(percentage);
+    setQuizSubmitted(true);
+    setShowScore(true);
+  };
+
+  const resetQuiz = () => {
+    setSelectedAnswers({});
+    setQuizSubmitted(false);
+    setShowScore(false);
+    setScore(0);
+  };
+
   return (
     <main className="min-h-screen bg-black text-white px-5 py-8 md:px-8 md:py-12">
       {/* Top Bar */}
@@ -281,12 +315,12 @@ export default function Ch1General() {
           {/* Background Image - IMAGE 1: NEC Code Book */}
           <div className="absolute inset-0 opacity-20">
             <Image
-              src="/images/module-01/m01-01.jpg"
+              src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
               alt="NEC codebook and electrical standards documentation"
               fill
               className="object-cover"
               priority
-             width={1200} height={800}/>
+            />
           </div>
           
           {/* Content */}
@@ -360,7 +394,7 @@ export default function Ch1General() {
             {/* IMAGE 2: Electrical Safety Equipment */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-02.jpg"
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
                 alt="Insulated tools and PPE for electrical work"
                 width={400}
                 height={300}
@@ -374,7 +408,7 @@ export default function Ch1General() {
             {/* IMAGE 3: Electrical Standards Documentation */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-03.jpg"
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
                 alt="Electrical safety standards and compliance documentation"
                 width={400}
                 height={300}
@@ -414,7 +448,7 @@ export default function Ch1General() {
       {/* 🔧 Article 100 — Definitions */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <span className="text-4xl"></span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 100 — Definitions
           </h2>
@@ -431,7 +465,7 @@ export default function Ch1General() {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <Image
-                  src="/images/module-01/m01-04.jpg"
+                  src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64"
                   alt="Grounded conductor (neutral wire) identification and color coding"
                   width={120}
                   height={120}
@@ -452,7 +486,7 @@ export default function Ch1General() {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <Image
-                  src="/images/module-01/m01-05.jpg"
+                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
                   alt="Equipment grounding conductor and green wire identification"
                   width={120}
                   height={120}
@@ -473,7 +507,7 @@ export default function Ch1General() {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <Image
-                  src="/images/module-01/m01-06.jpg"
+                  src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
                   alt="Bonding jumper and equipment bonding connection"
                   width={120}
                   height={120}
@@ -494,7 +528,7 @@ export default function Ch1General() {
             <div className="flex items-start gap-4">
               <div className="flex-shrink-0">
                 <Image
-                  src="/images/module-01/m01-07.jpg"
+                  src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
                   alt="UL listed equipment with compliance labels and certification"
                   width={120}
                   height={120}
@@ -591,7 +625,7 @@ export default function Ch1General() {
             {/* IMAGE 8: Working Space Clearance */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-08.jpg"
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64"
                 alt="Electrical panel with proper working space clearance and clear access"
                 width={400}
                 height={300}
@@ -605,7 +639,7 @@ export default function Ch1General() {
             {/* IMAGE 9: Panel Installation */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-09.jpg"
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
                 alt="Professional breaker panel installation with proper wire management"
                 width={400}
                 height={300}
@@ -654,12 +688,12 @@ export default function Ch1General() {
           </div>
         </div>
 
-                {/* Horror Story */}
+        {/* Horror Story */}
         <HorrorStory>
           <strong>True Story:</strong> A crew crammed a new panel in a tight closet, ignoring clearance rules. 
-          When a breaker tripped, the tech couldn’t even open the panel cover all the way. 
+          When a breaker tripped, the tech couldn't even open the panel cover all the way. 
           The only way to fix it was shutting power to the entire floor. 
-          <HL>110.26</HL> exists for a reason—working space isn’t optional.
+          <HL>110.26</HL> exists for a reason—working space isn't optional.
         </HorrorStory>
       </section>
 
@@ -704,7 +738,7 @@ export default function Ch1General() {
             {/* IMAGE 10: Wire Color Identification */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-10.jpg"
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
                 alt="Color-coded electrical wires showing white neutral and colored hot wires"
                 width={400}
                 height={300}
@@ -718,7 +752,7 @@ export default function Ch1General() {
             {/* IMAGE 11: Conductor Identification */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-11.jpg"
+                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
                 alt="Properly identified conductors with labels and color coding"
                 width={400}
                 height={300}
@@ -792,7 +826,7 @@ export default function Ch1General() {
       {/* 🔌 Article 210 — Branch Circuits */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <span className="text-4xl"></span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 210 — Branch Circuits
           </h2>
@@ -820,7 +854,7 @@ export default function Ch1General() {
             {/* IMAGE 12: Branch Circuit Panel */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-12.jpg"
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64"
                 alt="Residential electrical panel with branch circuit breakers and proper labeling"
                 width={400}
                 height={300}
@@ -834,7 +868,7 @@ export default function Ch1General() {
             {/* IMAGE 13: AFCI Protection */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-13.jpg"
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
                 alt="AFCI circuit breaker with test button and indicator light"
                 width={400}
                 height={300}
@@ -927,7 +961,7 @@ export default function Ch1General() {
             {/* IMAGE 14: Feeder Installation */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-14.jpg"
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
                 alt="Main feeder conductors and service entrance equipment installation"
                 width={400}
                 height={300}
@@ -941,7 +975,7 @@ export default function Ch1General() {
             {/* IMAGE 15: Feeder Protection */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-15.jpg"
+                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
                 alt="Feeder overcurrent protection devices and main disconnect switches"
                 width={400}
                 height={300}
@@ -973,15 +1007,16 @@ export default function Ch1General() {
           </div>
         </ChartBox>
 
-                {/* Horror Story */}
+        {/* Horror Story */}
         <HorrorStory>
-          <strong>True Story:</strong> A contractor sized a feeder right at the calculated load, ignoring that the equipment would run nonstop. 
-          After a few hours under continuous operation, the conductors overheated, insulation failed, and a fire broke out. 
-          <HL>215.2</HL> exists for a reason—continuous loads demand extra capacity.
+          <strong>True Story:</strong> A feeder was sized right at the calculated load—no margin. 
+          Problem? It was a continuous load. After a few hours under peak demand, the insulation baked, 
+          conductors sagged, and the panel lit up. 
+          <HL>215.2</HL> exists for a reason—continuous loads need extra capacity.
         </HorrorStory>
       </section>
 
-            {/* Visual Divider */}
+      {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1500 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
@@ -1021,7 +1056,7 @@ export default function Ch1General() {
             {/* IMAGE 16: Outdoor Wiring Installation */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-16.jpg"
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64"
                 alt="Outdoor electrical wiring with proper weatherproof enclosures and outdoor-rated materials"
                 width={400}
                 height={300}
@@ -1035,7 +1070,7 @@ export default function Ch1General() {
             {/* IMAGE 17: Clearance Requirements */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-17.jpg"
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
                 alt="Proper clearance maintained between electrical conductors and building structures"
                 width={400}
                 height={300}
@@ -1048,16 +1083,16 @@ export default function Ch1General() {
           </div>
         </div>
 
-                {/* Horror Story */}
+        {/* Horror Story */}
         <HorrorStory>
-          <strong>True Story:</strong> An electrician cut corners and ran indoor cable to power outdoor lighting. 
-          Within months, sunlight and weather chewed through the insulation, leaving bare copper exposed. 
-          The result? A short circuit that torched the entire fixture. 
-          <HL>225.6</HL> exists for a reason—always use outdoor-rated wiring.
+          <strong>True Story:</strong> Someone ran Romex (NM cable) to a backyard light because it was cheaper. 
+          After one summer of sun and rain, the jacket split, water got in, and the circuit shorted. 
+          The fire department showed up before anyone realized what happened. 
+          <HL>225.6</HL> exists for a reason—only use cable rated for the environment.
         </HorrorStory>
       </section>
 
-      {/* Visual Divider */}
+            {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1700 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
@@ -1097,7 +1132,7 @@ export default function Ch1General() {
             {/* IMAGE 18: Service Entrance */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-18.jpg"
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
                 alt="Main service entrance with meter and disconnect switch installation"
                 width={400}
                 height={300}
@@ -1111,7 +1146,7 @@ export default function Ch1General() {
             {/* IMAGE 19: Service Disconnect */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-19.jpg"
+                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
                 alt="Main service disconnect switch with proper labeling and accessibility"
                 width={400}
                 height={300}
@@ -1198,7 +1233,7 @@ export default function Ch1General() {
             {/* IMAGE 20: Overcurrent Protection */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-20.jpg"
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64"
                 alt="Circuit breakers and fuses providing overcurrent protection in electrical panel"
                 width={400}
                 height={300}
@@ -1212,7 +1247,7 @@ export default function Ch1General() {
             {/* IMAGE 21: Protection Coordination */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-21.jpg"
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
                 alt="Proper coordination of overcurrent protection devices in electrical system"
                 width={400}
                 height={300}
@@ -1291,7 +1326,7 @@ export default function Ch1General() {
             {/* IMAGE 22: Grounding System */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-22.jpg"
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
                 alt="Complete grounding system with ground rods and bonding conductors"
                 width={400}
                 height={300}
@@ -1305,7 +1340,7 @@ export default function Ch1General() {
             {/* IMAGE 23: Bonding Connections */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-23.jpg"
+                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
                 alt="Proper bonding connections between metallic parts and equipment"
                 width={400}
                 height={300}
@@ -1358,7 +1393,7 @@ export default function Ch1General() {
         </RuleBox>
       </section>
 
-            {/* Visual Divider */}
+      {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-2300 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
@@ -1398,7 +1433,7 @@ export default function Ch1General() {
             {/* IMAGE 24: Raceway Installation */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-24.jpg"
+                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64"
                 alt="Proper raceway installation with secure fastening and support"
                 width={400}
                 height={300}
@@ -1412,7 +1447,7 @@ export default function Ch1General() {
             {/* IMAGE 25: Underground Protection */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-25.jpg"
+                src="https://images.unsplash.com/photo-1581094794329-c8112a89af12"
                 alt="Underground electrical installation with proper protection and burial depth"
                 width={400}
                 height={300}
@@ -1499,7 +1534,7 @@ export default function Ch1General() {
             {/* IMAGE 26: Conductor Ampacity */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-26.jpg"
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e"
                 alt="Conductor ampacity tables and temperature rating considerations"
                 width={400}
                 height={300}
@@ -1513,7 +1548,7 @@ export default function Ch1General() {
             {/* IMAGE 27: Parallel Conductors */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-01/m01-27.jpg"
+                src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73"
                 alt="Parallel conductor installation with proper sizing and termination"
                 width={400}
                 height={300}
@@ -1552,7 +1587,7 @@ export default function Ch1General() {
         </WarningBox>
       </section>
 
-      {/* Visual Divider */}
+            {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-2700 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
@@ -1561,169 +1596,135 @@ export default function Ch1General() {
         </div>
       </div>
 
-      // Replace the current quiz section with this enhanced version:
-
-// Enhanced quiz state
-const [selectedAnswers, setSelectedAnswers] = useState<Record<number, "A" | "B" | "C" | "D" | null>>({});
-const [quizSubmitted, setQuizSubmitted] = useState(false);
-const [showScore, setShowScore] = useState(false);
-const [score, setScore] = useState(0);
-
-// Quiz functions
-const selectAnswer = (questionId: number, answer: "A" | "B" | "C" | "D") => {
-  if (!quizSubmitted) {
-    setSelectedAnswers(prev => ({ ...prev, [questionId]: answer }));
-  }
-};
-
-const submitQuiz = () => {
-  let correctCount = 0;
-  quiz.forEach(q => {
-    if (selectedAnswers[q.id] === q.answer) {
-      correctCount++;
-    }
-  });
-  
-  const percentage = Math.round((correctCount / quiz.length) * 100);
-  setScore(percentage);
-  setQuizSubmitted(true);
-  setShowScore(true);
-};
-
-const resetQuiz = () => {
-  setSelectedAnswers({});
-  setQuizSubmitted(false);
-  setShowScore(false);
-  setScore(0);
-};
-
-// Enhanced Quiz Section
-<section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-  <div className="text-center mb-8">
-    <h2 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-4">
-      🧠 Test Your Knowledge
-    </h2>
-    <p className="text-white/80 text-lg">
-      Time to see if you've been paying attention. 15 questions covering everything we just covered.
-    </p>
-  </div>
-
-  {/* Quiz Questions */}
-  <div className="space-y-6 mb-8">
-    {quiz.map((q) => (
-      <div key={q.id} className="bg-white/[0.03] rounded-xl border border-white/20 p-6">
-        <h3 className="text-lg font-semibold text-white mb-4">
-          Question {q.id}: {q.stem}
-        </h3>
-        
-        {/* Multiple Choice Options */}
-        <div className="grid gap-3 mb-4">
-          {q.choices.map((choice) => {
-            const isSelected = selectedAnswers[q.id] === choice.key;
-            const isCorrect = choice.key === q.answer;
-            const isWrong = quizSubmitted && isSelected && !isCorrect;
-            
-            return (
-              <button
-                key={choice.key}
-                onClick={() => selectAnswer(q.id, choice.key)}
-                disabled={quizSubmitted}
-                className={`p-4 rounded-lg border text-left transition-all duration-200 ${
-                  isSelected && !quizSubmitted
-                    ? "border-yellow-400 bg-yellow-400/20"
-                    : isCorrect && quizSubmitted
-                    ? "border-green-500 bg-green-500/20"
-                    : isWrong
-                    ? "border-red-500 bg-red-500/20"
-                    : "border-white/20 hover:border-white/40 hover:bg-white/[0.02]"
-                } ${quizSubmitted ? "cursor-default" : "cursor-pointer"}`}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className={`font-semibold text-lg ${
-                      isSelected && !quizSubmitted
-                        ? "text-yellow-400"
-                        : isCorrect && quizSubmitted
-                        ? "text-green-400"
-                        : isWrong
-                        ? "text-red-400"
-                        : "text-yellow-400"
-                    }`}>
-                      {choice.key}.
-                    </span>
-                    <span className="text-white/90">{choice.text}</span>
-                  </div>
-                  
-                  {/* Answer indicators */}
-                  {quizSubmitted && (
-                    <div className="flex items-center gap-2">
-                      {isCorrect && (
-                        <span className="text-green-400 text-xl">✅</span>
-                      )}
-                      {isWrong && (
-                        <span className="text-red-400 text-xl">❌</span>
-                      )}
-                    </div>
-                  )}
-                </div>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Explanation for wrong answers */}
-        {quizSubmitted && selectedAnswers[q.id] !== q.answer && (
-          <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 mt-4">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-red-400 text-xl">💡</span>
-              <span className="font-bold text-red-400">NEC Explanation</span>
-            </div>
-            <p className="text-white/90 text-sm leading-relaxed">
-              {q.why}
-            </p>
-          </div>
-        )}
-      </div>
-    ))}
-  </div>
-
-  {/* Quiz Controls */}
-  <div className="text-center space-y-4">
-    {!quizSubmitted ? (
-      <button
-        onClick={submitQuiz}
-        disabled={Object.keys(selectedAnswers).length < quiz.length}
-        className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 ${
-          Object.keys(selectedAnswers).length < quiz.length
-            ? "bg-gray-600 text-gray-400 cursor-not-allowed"
-            : "bg-yellow-500 hover:bg-yellow-400 text-black hover:scale-105"
-        }`}
-      >
-        Submit Answers
-      </button>
-    ) : (
-      <div className="space-y-4">
-        {/* Score Display */}
-        <div className="bg-white/[0.05] rounded-xl border border-white/20 p-6 max-w-md mx-auto">
-          <h3 className="text-2xl font-bold text-white mb-2">Quiz Complete!</h3>
-          <div className="text-4xl font-bold text-yellow-400 mb-2">{score}%</div>
-          <p className="text-white/80">
-            {score >= 80 ? "Great job! You're getting it." : 
-             score >= 60 ? "Not bad, but room for improvement." : 
-             "Keep studying - the NEC takes time to master."}
+      {/* 🧠 Interactive Quiz Section */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="text-center mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-4">
+            🧠 Test Your Knowledge
+          </h2>
+          <p className="text-white/80 text-lg">
+            Time to see if you've been paying attention. 15 questions covering everything we just covered.
           </p>
         </div>
-        
-        <button
-          onClick={resetQuiz}
-          className="px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-white font-semibold transition-all duration-200 hover:scale-105"
-        >
-          Reset Quiz
-        </button>
-      </div>
-    )}
-  </div>
-</section>
+
+        {/* Quiz Questions */}
+        <div className="space-y-6 mb-8">
+          {quiz.map((q) => (
+            <div key={q.id} className="bg-white/[0.03] rounded-xl border border-white/20 p-6">
+              <div className="flex items-start justify-between mb-4">
+                <h3 className="text-lg font-semibold text-white">
+                  Question {q.id}: {q.stem}
+                </h3>
+              </div>
+              
+              {/* Multiple Choice Options */}
+              <div className="grid gap-3 mb-4">
+                {q.choices.map((choice) => {
+                  const isSelected = selectedAnswers[q.id] === choice.key;
+                  const isCorrect = choice.key === q.answer;
+                  const isWrong = quizSubmitted && isSelected && !isCorrect;
+                  
+                  return (
+                    <button
+                      key={choice.key}
+                      onClick={() => selectAnswer(q.id, choice.key)}
+                      disabled={quizSubmitted}
+                      className={`p-4 rounded-lg border text-left transition-all duration-200 ${
+                        isSelected && !quizSubmitted
+                          ? "border-yellow-400 bg-yellow-400/20"
+                          : isCorrect && quizSubmitted
+                          ? "border-green-500 bg-green-500/20"
+                          : isWrong
+                          ? "border-red-500 bg-red-500/20"
+                          : "border-white/20 hover:border-white/40 hover:bg-white/[0.02]"
+                      } ${quizSubmitted ? "cursor-default" : "cursor-pointer"}`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <span className={`font-semibold text-lg ${
+                            isSelected && !quizSubmitted
+                              ? "text-yellow-400"
+                              : isCorrect && quizSubmitted
+                              ? "text-green-400"
+                              : isWrong
+                              ? "text-red-400"
+                              : "text-yellow-400"
+                          }`}>
+                            {choice.key}.
+                          </span>
+                          <span className="text-white/90">{choice.text}</span>
+                        </div>
+                        
+                        {/* Answer indicators */}
+                        {quizSubmitted && (
+                          <div className="flex items-center gap-2">
+                            {isCorrect && (
+                              <span className="text-green-400 text-xl">✅</span>
+                            )}
+                            {isWrong && (
+                              <span className="text-red-400 text-xl">❌</span>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Explanation for wrong answers */}
+              {quizSubmitted && selectedAnswers[q.id] !== q.answer && (
+                <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 mt-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-red-400 text-xl">💡</span>
+                    <span className="font-bold text-red-400">NEC Explanation</span>
+                  </div>
+                  <p className="text-white/90 text-sm leading-relaxed">
+                    {q.why}
+                  </p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Quiz Controls */}
+        <div className="text-center space-y-4">
+          {!quizSubmitted ? (
+            <button
+              onClick={submitQuiz}
+              disabled={Object.keys(selectedAnswers).length < quiz.length}
+              className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 ${
+                Object.keys(selectedAnswers).length < quiz.length
+                  ? "bg-gray-600 text-gray-400 cursor-not-allowed"
+                  : "bg-yellow-500 hover:bg-yellow-400 text-black hover:scale-105"
+              }`}
+            >
+              Submit Answers
+            </button>
+          ) : (
+            <div className="space-y-4">
+              {/* Score Display */}
+              <div className="bg-white/[0.05] rounded-xl border border-white/20 p-6 max-w-md mx-auto">
+                <h3 className="text-2xl font-bold text-white mb-2">Quiz Complete!</h3>
+                <div className="text-4xl font-bold text-yellow-400 mb-2">{score}%</div>
+                <p className="text-white/80">
+                  {score >= 80 ? "Great job! You're getting it." : 
+                   score >= 60 ? "Not bad, but room for improvement." : 
+                   "Keep studying - the NEC takes time to master."}
+                </p>
+              </div>
+              
+              <button
+                onClick={resetQuiz}
+                className="px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-white font-semibold transition-all duration-200 hover:scale-105"
+              >
+                Reset Quiz
+              </button>
+            </div>
+          )}
+        </div>
+      </section>
 
       {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-2900 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
