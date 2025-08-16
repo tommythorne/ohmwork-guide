@@ -346,7 +346,7 @@ export default function Ch1General() {
       {/* 🔧 Article 100 — Definitions */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 100 — Definitions
           </h2>
@@ -494,7 +494,7 @@ export default function Ch1General() {
       {/* 🛠️ Article 110 — General Requirements */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">🛠️</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 110 — General Requirements
           </h2>
@@ -607,7 +607,7 @@ export default function Ch1General() {
       {/* ⚡ Article 200 — Use and Identification of Grounded Conductors */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 200 — Use and Identification of Grounded Conductors
           </h2>
@@ -724,7 +724,7 @@ export default function Ch1General() {
       {/* 🔌 Article 210 — Branch Circuits */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 210 — Branch Circuits
           </h2>
@@ -831,7 +831,7 @@ export default function Ch1General() {
       {/* ⚡ Article 215 — Feeders */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 215 — Feeders
           </h2>
@@ -925,7 +925,7 @@ export default function Ch1General() {
       {/* 🔌 Article 225 — Outside Branch Circuits and Feeders */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl"></span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 225 — Outside Branch Circuits and Feeders
           </h2>
@@ -1001,7 +1001,7 @@ export default function Ch1General() {
       {/* ⚡ Article 230 — Services */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 230 — Services
           </h2>
@@ -1102,7 +1102,7 @@ export default function Ch1General() {
       {/* Article 240 — Overcurrent Protection */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl"></span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 240 — Overcurrent Protection
           </h2>
@@ -1195,7 +1195,7 @@ export default function Ch1General() {
       {/* ⚡ Article 250 — Grounding and Bonding */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 250 — Grounding and Bonding
           </h2>
@@ -1302,7 +1302,7 @@ export default function Ch1General() {
       {/* 🔌 Article 300 — Wiring Methods */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl"></span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 300 — Wiring Methods
           </h2>
@@ -1403,7 +1403,7 @@ export default function Ch1General() {
       {/* ⚡ Article 310 — Conductors for General Wiring */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 310 — Conductors for General Wiring
           </h2>
@@ -1585,7 +1585,7 @@ export default function Ch1General() {
 {/* 🧠 Interactive Quiz Section */}
 <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
   <div className="flex items-center gap-3 mb-6">
-    <span className="text-4xl">📝</span>
+    <Zap className="w-8 h-8 text-yellow-400" />
     <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">15-Question Check</h2>
   </div>
   <p className="text-white/80 mb-6 text-lg">Select your answers for all questions, then press <strong>Submit</strong> to see your score and explanations. You need <strong>70%</strong> to pass. Use <em>Reset</em> to try again.</p>
