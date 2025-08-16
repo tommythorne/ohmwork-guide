@@ -344,7 +344,7 @@ export default function Ch1General() {
       {/* 🔧 Article 100 — Definitions */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <Zap className="w-8 h-8 text-yellow-400" />
+          <span className="inline-block align-middle text-yellow-400 text-3xl">⚡</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">Chapter 1 Summary</h2>
           <p className="text-white/80 text-lg leading-relaxed max-w-4xl mx-auto">
             You've covered the foundation of the NEC. These general requirements apply to <HL>everything</HL> that follows. 
@@ -422,7 +422,7 @@ export default function Ch1General() {
 {/* 🧠 Interactive Quiz Section */}
 <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
   <div className="flex items-center gap-3 mb-6">
-    <Zap className="w-8 h-8 text-yellow-400" />
+    <span className="inline-block align-middle text-yellow-400 text-3xl">⚡</span>
     <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">15-Question Check</h2>
   </div>
   <p className="text-white/80 mb-6 text-lg">Select your answers for all questions, then press <strong>Submit</strong> to see your score and explanations. You need <strong>70%</strong> to pass. Use <em>Reset</em> to try again.</p>
