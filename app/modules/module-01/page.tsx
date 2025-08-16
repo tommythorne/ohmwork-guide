@@ -335,7 +335,7 @@ export default function Ch1General() {
     <span className="text-4xl">📝</span>
     <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">15-Question Check</h2>
   </div>
-  <p className="text-white/80 mb-6 text-lg">Select all answers, then submit to see your score and corrections.</p>
+  <p className="text-white/80 mb-6 text-lg">Select your answers for all questions, then press <strong>Submit</strong> to see your score and explanations. You need <strong>70%</strong> to pass. Use <em>Reset</em> to try again.</p>
   <Quiz questions={quiz} />
 </section>
 
