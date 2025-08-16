@@ -654,11 +654,12 @@ export default function Ch1General() {
           </div>
         </div>
 
-        {/* Horror Story */}
+                {/* Horror Story */}
         <HorrorStory>
-          <strong>True Story:</strong> Electrician ignored working space requirements and installed a panel too close to a wall. 
-          During maintenance, he couldn't safely access the panel and had to shut down the entire building. 
-          <HL>110.26</HL> exists for a reason—respect the working space.
+          <strong>True Story:</strong> A crew crammed a new panel in a tight closet, ignoring clearance rules. 
+          When a breaker tripped, the tech couldn’t even open the panel cover all the way. 
+          The only way to fix it was shutting power to the entire floor. 
+          <HL>110.26</HL> exists for a reason—working space isn’t optional.
         </HorrorStory>
       </section>
 
@@ -972,11 +973,11 @@ export default function Ch1General() {
           </div>
         </ChartBox>
 
-        {/* Horror Story */}
+                {/* Horror Story */}
         <HorrorStory>
-          <strong>True Story:</strong> Contractor sized a feeder for 100% load, but the load was continuous. 
-          After running for 3 hours, the conductors overheated and caused a fire. 
-          <HL>215.2</HL> exists for a reason—always consider continuous loads.
+          <strong>True Story:</strong> A contractor sized a feeder right at the calculated load, ignoring that the equipment would run nonstop. 
+          After a few hours under continuous operation, the conductors overheated, insulation failed, and a fire broke out. 
+          <HL>215.2</HL> exists for a reason—continuous loads demand extra capacity.
         </HorrorStory>
       </section>
 
@@ -1047,11 +1048,12 @@ export default function Ch1General() {
           </div>
         </div>
 
-        {/* Horror Story */}
+                {/* Horror Story */}
         <HorrorStory>
-          <strong>True Story:</strong> Electrician used indoor cable for outdoor lighting. After six months, 
-          the insulation cracked from UV exposure, causing a short circuit and starting a fire. 
-          <HL>225.6</HL> exists for a reason—use outdoor-rated materials.
+          <strong>True Story:</strong> An electrician cut corners and ran indoor cable to power outdoor lighting. 
+          Within months, sunlight and weather chewed through the insulation, leaving bare copper exposed. 
+          The result? A short circuit that torched the entire fixture. 
+          <HL>225.6</HL> exists for a reason—always use outdoor-rated wiring.
         </HorrorStory>
       </section>
 
