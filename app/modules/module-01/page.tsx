@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle , Zap } from "lucide-react";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -1519,7 +1519,7 @@ export default function Ch1General() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
           <div className="bg-white/[0.03] rounded-xl border border-white/20 p-6 text-center">
             <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">⚡</span>
+              <Zap className="w-6 h-6 text-yellow-400" aria-hidden="true" />
             </div>
             <h3 className="font-bold text-white mb-2">Purpose & Scope</h3>
             <p className="text-white/80 text-sm">
@@ -1549,7 +1549,7 @@ export default function Ch1General() {
           
           <div className="bg-white/[0.03] rounded-xl border border-white/20 p-6 text-center">
             <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">⚡</span>
+              <Zap className="w-6 h-6 text-yellow-400" aria-hidden="true" />
             </div>
             <h3 className="font-bold text-white mb-2">Conductor Rules</h3>
             <p className="text-white/80 text-sm">
@@ -1569,7 +1569,7 @@ export default function Ch1General() {
           
           <div className="bg-white/[0.03] rounded-xl border border-white/20 p-6 text-center">
             <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">⚡</span>
+              <Zap className="w-6 h-6 text-yellow-400" aria-hidden="true" />
             </div>
             <h3 className="font-bold text-white mb-2">Protection & Grounding</h3>
             <p className="text-white/80 text-sm">
