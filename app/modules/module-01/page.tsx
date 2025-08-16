@@ -1498,70 +1498,6 @@ export default function Ch1General() {
         </div>
       </div>
 
-      {/* 🧠 Interactive Quiz Section */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-4">
-            🧠 Test Your Knowledge
-          </h2>
-          <p className="text-white/80 text-lg">
-            Time to see if you've been paying attention. 15 questions covering everything we just covered.
-          </p>
-        </div>
-
-        {/* Quiz Questions */}
-        <div className="space-y-6">
-          {quiz.map((q) => (
-            <div key={q.id} className="bg-white/[0.03] rounded-xl border border-white/20 p-6">
-              <div className="flex items-start justify-between mb-4">
-                <h3 className="text-lg font-semibold text-white">
-                  Question {q.id}: {q.stem}
-                </h3>
-                <button
-                  onClick={() => toggle(q.id)}
-                  className="text-yellow-400 hover:text-yellow-300 transition-colors"
-                >
-                  {open[q.id] ? "Hide Answer" : "Show Answer"}
-                </button>
-              </div>
-              
-              {/* Multiple Choice Options */}
-              <div className="grid gap-3 mb-4">
-                {q.choices.map((choice) => (
-                  <div
-                    key={choice.key}
-                    className={`p-3 rounded-lg border transition-colors ${
-                      open[q.id] && choice.key === q.answer
-                        ? "border-green-500 bg-green-500/10"
-                        : "border-white/20 hover:border-white/40"
-                    }`}
-                  >
-                    <span className="font-semibold text-yellow-400 mr-3">
-                      {choice.key}.
-                    </span>
-                    <span className="text-white/90">{choice.text}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Answer and Explanation */}
-              {open[q.id] && (
-                <div className="bg-white/[0.05] rounded-lg p-4 border border-white/20">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-green-400 text-xl">✅</span>
-                    <span className="font-bold text-green-400">
-                      Correct Answer: {q.answer}
-                    </span>
-                  </div>
-                  <p className="text-white/90 text-sm leading-relaxed">
-                    <strong>Why:</strong> {q.why}
-                  </p>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-2900 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
@@ -1649,6 +1585,70 @@ export default function Ch1General() {
       </section>
 
       {/* Footer Navigation */}
+      {/* 🧠 Interactive Quiz Section */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="text-center mb-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-4">
+            🧠 Test Your Knowledge
+          </h2>
+          <p className="text-white/80 text-lg">
+            Time to see if you've been paying attention. 15 questions covering everything we just covered.
+          </p>
+        </div>
+
+        {/* Quiz Questions */}
+        <div className="space-y-6">
+          {quiz.map((q) => (
+            <div key={q.id} className="bg-white/[0.03] rounded-xl border border-white/20 p-6">
+              <div className="flex items-start justify-between mb-4">
+                <h3 className="text-lg font-semibold text-white">
+                  Question {q.id}: {q.stem}
+                </h3>
+                <button
+                  onClick={() => toggle(q.id)}
+                  className="text-yellow-400 hover:text-yellow-300 transition-colors"
+                >
+                  {open[q.id] ? "Hide Answer" : "Show Answer"}
+                </button>
+              </div>
+              
+              {/* Multiple Choice Options */}
+              <div className="grid gap-3 mb-4">
+                {q.choices.map((choice) => (
+                  <div
+                    key={choice.key}
+                    className={`p-3 rounded-lg border transition-colors ${
+                      open[q.id] && choice.key === q.answer
+                        ? "border-green-500 bg-green-500/10"
+                        : "border-white/20 hover:border-white/40"
+                    }`}
+                  >
+                    <span className="font-semibold text-yellow-400 mr-3">
+                      {choice.key}.
+                    </span>
+                    <span className="text-white/90">{choice.text}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Answer and Explanation */}
+              {open[q.id] && (
+                <div className="bg-white/[0.05] rounded-lg p-4 border border-white/20">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-green-400 text-xl">✅</span>
+                    <span className="font-bold text-green-400">
+                      Correct Answer: {q.answer}
+                    </span>
+                  </div>
+                  <p className="text-white/90 text-sm leading-relaxed">
+                    <strong>Why:</strong> {q.why}
+                  </p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </section>
       <footer className={`mx-auto max-w-5xl mt-16 transition-all duration-1000 delay-3100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-6 bg-white/[0.03] rounded-xl border border-white/20">
           <div className="text-center sm:text-left">
