@@ -22,7 +22,7 @@ const WarningBox = ({ children }: { children: React.ReactNode }) => (
 const RuleBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-yellow-400 text-xl">��</span>
+      <span className="text-yellow-400 text-xl">📏</span>
       <span className="font-bold text-yellow-400">RULE OF THUMB</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -32,7 +32,7 @@ const RuleBox = ({ children }: { children: React.ReactNode }) => (
 const HorrorStory = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-orange-400 text-xl">��</span>
+      <span className="text-orange-400 text-xl">🔥</span>
       <span className="font-bold text-orange-400">JOBSITE HORROR STORY</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -42,7 +42,7 @@ const HorrorStory = ({ children }: { children: React.ReactNode }) => (
 const CodeBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-blue-500/40 bg-blue-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-blue-400 text-xl">��</span>
+      <span className="text-blue-400 text-xl">📘</span>
       <span className="font-bold text-blue-400">NEC REFERENCE</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -414,7 +414,7 @@ export default function Ch1General() {
       {/* 🔧 Article 100 — Definitions */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <span className="text-4xl">⚡</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 100 — Definitions
           </h2>
@@ -792,7 +792,7 @@ export default function Ch1General() {
       {/* 🔌 Article 210 — Branch Circuits */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <span className="text-4xl">⚡</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 210 — Branch Circuits
           </h2>
