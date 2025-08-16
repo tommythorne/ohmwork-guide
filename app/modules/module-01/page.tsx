@@ -1,7 +1,5 @@
 "use client";
 
-import { AlertTriangle, ShieldCheck, BookOpen, Wrench, Zap, Plug, Shield } from "lucide-react";
-
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -368,7 +366,7 @@ export default function Ch1General() {
           
           <div className="bg-white/[0.03] rounded-xl border border-white/20 p-6 text-center">
             <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl"></span>
+              <span className="text-2xl">⚡</span>
             </div>
             <h3 className="font-bold text-white mb-2">Definitions</h3>
             <p className="text-white/80 text-sm">
@@ -378,7 +376,7 @@ export default function Ch1General() {
           
           <div className="bg-white/[0.03] rounded-xl border border-white/20 p-6 text-center">
             <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">🛠️</span>
+              <span className="text-2xl">📖</span>
             </div>
             <h3 className="font-bold text-white mb-2">General Requirements</h3>
             <p className="text-white/80 text-sm">
@@ -398,7 +396,7 @@ export default function Ch1General() {
           
           <div className="bg-white/[0.03] rounded-xl border border-white/20 p-6 text-center">
             <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl"></span>
+              <span className="text-2xl">🛠️</span>
             </div>
             <h3 className="font-bold text-white mb-2">Circuit Basics</h3>
             <p className="text-white/80 text-sm">
