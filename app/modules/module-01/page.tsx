@@ -1561,70 +1561,169 @@ export default function Ch1General() {
         </div>
       </div>
 
-      {/* 🧠 Interactive Quiz Section */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-4">
-            🧠 Test Your Knowledge
-          </h2>
-          <p className="text-white/80 text-lg">
-            Time to see if you've been paying attention. 15 questions covering everything we just covered.
-          </p>
-        </div>
+      // Replace the current quiz section with this enhanced version:
 
-        {/* Quiz Questions */}
-        <div className="space-y-6">
-          {quiz.map((q) => (
-            <div key={q.id} className="bg-white/[0.03] rounded-xl border border-white/20 p-6">
-              <div className="flex items-start justify-between mb-4">
-                <h3 className="text-lg font-semibold text-white">
-                  Question {q.id}: {q.stem}
-                </h3>
-                <button
-                  onClick={() => toggle(q.id)}
-                  className="text-yellow-400 hover:text-yellow-300 transition-colors"
-                >
-                  {open[q.id] ? "Hide Answer" : "Show Answer"}
-                </button>
-              </div>
-              
-              {/* Multiple Choice Options */}
-              <div className="grid gap-3 mb-4">
-                {q.choices.map((choice) => (
-                  <div
-                    key={choice.key}
-                    className={`p-3 rounded-lg border transition-colors ${
-                      open[q.id] && choice.key === q.answer
-                        ? "border-green-500 bg-green-500/10"
-                        : "border-white/20 hover:border-white/40"
-                    }`}
-                  >
-                    <span className="font-semibold text-yellow-400 mr-3">
+// Enhanced quiz state
+const [selectedAnswers, setSelectedAnswers] = useState<Record<number, "A" | "B" | "C" | "D" | null>>({});
+const [quizSubmitted, setQuizSubmitted] = useState(false);
+const [showScore, setShowScore] = useState(false);
+const [score, setScore] = useState(0);
+
+// Quiz functions
+const selectAnswer = (questionId: number, answer: "A" | "B" | "C" | "D") => {
+  if (!quizSubmitted) {
+    setSelectedAnswers(prev => ({ ...prev, [questionId]: answer }));
+  }
+};
+
+const submitQuiz = () => {
+  let correctCount = 0;
+  quiz.forEach(q => {
+    if (selectedAnswers[q.id] === q.answer) {
+      correctCount++;
+    }
+  });
+  
+  const percentage = Math.round((correctCount / quiz.length) * 100);
+  setScore(percentage);
+  setQuizSubmitted(true);
+  setShowScore(true);
+};
+
+const resetQuiz = () => {
+  setSelectedAnswers({});
+  setQuizSubmitted(false);
+  setShowScore(false);
+  setScore(0);
+};
+
+// Enhanced Quiz Section
+<section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+  <div className="text-center mb-8">
+    <h2 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-4">
+      🧠 Test Your Knowledge
+    </h2>
+    <p className="text-white/80 text-lg">
+      Time to see if you've been paying attention. 15 questions covering everything we just covered.
+    </p>
+  </div>
+
+  {/* Quiz Questions */}
+  <div className="space-y-6 mb-8">
+    {quiz.map((q) => (
+      <div key={q.id} className="bg-white/[0.03] rounded-xl border border-white/20 p-6">
+        <h3 className="text-lg font-semibold text-white mb-4">
+          Question {q.id}: {q.stem}
+        </h3>
+        
+        {/* Multiple Choice Options */}
+        <div className="grid gap-3 mb-4">
+          {q.choices.map((choice) => {
+            const isSelected = selectedAnswers[q.id] === choice.key;
+            const isCorrect = choice.key === q.answer;
+            const isWrong = quizSubmitted && isSelected && !isCorrect;
+            
+            return (
+              <button
+                key={choice.key}
+                onClick={() => selectAnswer(q.id, choice.key)}
+                disabled={quizSubmitted}
+                className={`p-4 rounded-lg border text-left transition-all duration-200 ${
+                  isSelected && !quizSubmitted
+                    ? "border-yellow-400 bg-yellow-400/20"
+                    : isCorrect && quizSubmitted
+                    ? "border-green-500 bg-green-500/20"
+                    : isWrong
+                    ? "border-red-500 bg-red-500/20"
+                    : "border-white/20 hover:border-white/40 hover:bg-white/[0.02]"
+                } ${quizSubmitted ? "cursor-default" : "cursor-pointer"}`}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <span className={`font-semibold text-lg ${
+                      isSelected && !quizSubmitted
+                        ? "text-yellow-400"
+                        : isCorrect && quizSubmitted
+                        ? "text-green-400"
+                        : isWrong
+                        ? "text-red-400"
+                        : "text-yellow-400"
+                    }`}>
                       {choice.key}.
                     </span>
                     <span className="text-white/90">{choice.text}</span>
                   </div>
-                ))}
-              </div>
-
-              {/* Answer and Explanation */}
-              {open[q.id] && (
-                <div className="bg-white/[0.05] rounded-lg p-4 border border-white/20">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-green-400 text-xl">✅</span>
-                    <span className="font-bold text-green-400">
-                      Correct Answer: {q.answer}
-                    </span>
-                  </div>
-                  <p className="text-white/90 text-sm leading-relaxed">
-                    <strong>Why:</strong> {q.why}
-                  </p>
+                  
+                  {/* Answer indicators */}
+                  {quizSubmitted && (
+                    <div className="flex items-center gap-2">
+                      {isCorrect && (
+                        <span className="text-green-400 text-xl">✅</span>
+                      )}
+                      {isWrong && (
+                        <span className="text-red-400 text-xl">❌</span>
+                      )}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          ))}
+              </button>
+            );
+          })}
         </div>
-      </section>
+
+        {/* Explanation for wrong answers */}
+        {quizSubmitted && selectedAnswers[q.id] !== q.answer && (
+          <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4 mt-4">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-red-400 text-xl">💡</span>
+              <span className="font-bold text-red-400">NEC Explanation</span>
+            </div>
+            <p className="text-white/90 text-sm leading-relaxed">
+              {q.why}
+            </p>
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+
+  {/* Quiz Controls */}
+  <div className="text-center space-y-4">
+    {!quizSubmitted ? (
+      <button
+        onClick={submitQuiz}
+        disabled={Object.keys(selectedAnswers).length < quiz.length}
+        className={`px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-200 ${
+          Object.keys(selectedAnswers).length < quiz.length
+            ? "bg-gray-600 text-gray-400 cursor-not-allowed"
+            : "bg-yellow-500 hover:bg-yellow-400 text-black hover:scale-105"
+        }`}
+      >
+        Submit Answers
+      </button>
+    ) : (
+      <div className="space-y-4">
+        {/* Score Display */}
+        <div className="bg-white/[0.05] rounded-xl border border-white/20 p-6 max-w-md mx-auto">
+          <h3 className="text-2xl font-bold text-white mb-2">Quiz Complete!</h3>
+          <div className="text-4xl font-bold text-yellow-400 mb-2">{score}%</div>
+          <p className="text-white/80">
+            {score >= 80 ? "Great job! You're getting it." : 
+             score >= 60 ? "Not bad, but room for improvement." : 
+             "Keep studying - the NEC takes time to master."}
+          </p>
+        </div>
+        
+        <button
+          onClick={resetQuiz}
+          className="px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-white font-semibold transition-all duration-200 hover:scale-105"
+        >
+          Reset Quiz
+        </button>
+      </div>
+    )}
+  </div>
+</section>
 
       {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-2900 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
