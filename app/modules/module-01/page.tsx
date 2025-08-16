@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+import Quiz from "../../components/Quiz";
 // Enhanced highlight helpers with electrician grit
 const HL = ({ children }: { children: React.ReactNode }) => (
   <span className="font-extrabold underline decoration-yellow-400 underline-offset-4">{children}</span>
@@ -328,79 +329,15 @@ export default function Ch1General() {
       </div>
 
       {/* ⚡ Article 90 — Purpose, Scope, How the NEC Works */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 90 — Purpose, Scope, How This Beast Operates
-          </h2>
-        </div>
-        
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {/* Left Column - Text Content */}
-          <div className="space-y-4 text-white/90 leading-relaxed">
-            <p>
-              — The NEC's mission isn't "perfect systems." It's <HL>practical safeguarding</HL> of people and property (<span className="italic">90.1(A)</span>). 
-              Translation: minimize hazard. Period.
-            </p>
-            <p>
-              — The Code is <HL>not a design manual</HL> (<span className="italic">90.1(B)</span>). You still follow <HL>manufacturer instructions</HL>, 
-              standards, and good sense. The NEC sets the safety floor.
-            </p>
-            <p>
-              — <HL>Enforcement</HL> belongs to the <HL>AHJ</HL> (Authority Having Jurisdiction). They interpret, you comply.
-            </p>
-            <p>
-              — Utility stuff? Mostly <HL>outside</HL> NEC scope. Your work? Squarely inside.
-            </p>
-          </div>
-          
-          {/* Right Column - Visual Examples */}
-          <div className="space-y-4">
-            {/* IMAGE 2: Electrical Safety Equipment */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
-              <Image
-                src="/images/module-01/m01-02.jpg"
-                alt="Insulated tools and PPE for electrical work"
-                width={400}
-                height={300}
-                className="w-full h-48 object-cover rounded-lg"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Safety First: Always</p>
-              </div>
-            </div>
-            
-            {/* IMAGE 3: Electrical Standards Documentation */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
-              <Image
-                src="/images/module-01/m01-03.jpg"
-                alt="Electrical safety standards and compliance documentation"
-                width={400}
-                height={300}
-                className="w-full h-48 object-cover rounded-lg"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Standards & Compliance</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Interactive Code Reference */}
-        <CodeBox>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h4 className="font-bold text-blue-400 mb-2">90.1(A) — Purpose</h4>
-              <p className="text-sm">Practical safeguarding of persons and property from hazards arising from electricity.</p>
-            </div>
-            <div>
-              <h4 className="font-bold text-blue-400 mb-2">90.1(B) — Scope</h4>
-              <p className="text-sm">Not intended as a design specification or instruction manual for untrained persons.</p>
-            </div>
-          </div>
-        </CodeBox>
-      </section>
+      /* 📝 Quiz */
+<section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+  <div className="flex items-center gap-3 mb-6">
+    <span className="text-4xl">📝</span>
+    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">15-Question Check</h2>
+  </div>
+  <p className="text-white/80 mb-6 text-lg">Select all answers, then submit to see your score and corrections.</p>
+  <Quiz questions={quiz} />
+</section>
 
             {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
