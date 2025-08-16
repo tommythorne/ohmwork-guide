@@ -1,5 +1,5 @@
-import { AlertTriangle } from "lucide-react";
 "use client";
+import { AlertTriangle } from "lucide-react";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
