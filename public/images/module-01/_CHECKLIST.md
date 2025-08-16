@@ -1,0 +1,29 @@
+# Module 1 Image Checklist
+
+- **m01-01.jpg** — ALT: NEC codebook and electrical standards documentation
+- **m01-02.jpg** — ALT: Insulated tools and PPE for electrical work
+- **m01-03.jpg** — ALT: Electrical safety standards and compliance documentation
+- **m01-04.jpg** — ALT: Grounded conductor (neutral wire) identification and color coding
+- **m01-05.jpg** — ALT: Equipment grounding conductor and green wire identification
+- **m01-06.jpg** — ALT: Bonding jumper and equipment bonding connection
+- **m01-07.jpg** — ALT: UL listed equipment with compliance labels and certification
+- **m01-08.jpg** — ALT: Electrical panel with proper working space clearance and clear access
+- **m01-09.jpg** — ALT: Professional breaker panel installation with proper wire management
+- **m01-10.jpg** — ALT: Color-coded electrical wires showing white neutral and colored hot wires
+- **m01-11.jpg** — ALT: Properly identified conductors with labels and color coding
+- **m01-12.jpg** — ALT: Residential electrical panel with branch circuit breakers and proper labeling
+- **m01-13.jpg** — ALT: AFCI circuit breaker with test button and indicator light
+- **m01-14.jpg** — ALT: Main feeder conductors and service entrance equipment installation
+- **m01-15.jpg** — ALT: Feeder overcurrent protection devices and main disconnect switches
+- **m01-16.jpg** — ALT: Outdoor electrical wiring with proper weatherproof enclosures and outdoor-rated materials
+- **m01-17.jpg** — ALT: Proper clearance maintained between electrical conductors and building structures
+- **m01-18.jpg** — ALT: Main service entrance with meter and disconnect switch installation
+- **m01-19.jpg** — ALT: Main service disconnect switch with proper labeling and accessibility
+- **m01-20.jpg** — ALT: Circuit breakers and fuses providing overcurrent protection in electrical panel
+- **m01-21.jpg** — ALT: Proper coordination of overcurrent protection devices in electrical system
+- **m01-22.jpg** — ALT: Complete grounding system with ground rods and bonding conductors
+- **m01-23.jpg** — ALT: Proper bonding connections between metallic parts and equipment
+- **m01-24.jpg** — ALT: Proper raceway installation with secure fastening and support
+- **m01-25.jpg** — ALT: Underground electrical installation with proper protection and burial depth
+- **m01-26.jpg** — ALT: Conductor ampacity tables and temperature rating considerations
+- **m01-27.jpg** — ALT: Parallel conductor installation with proper sizing and termination
