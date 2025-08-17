@@ -1,9 +1,12 @@
 "use client";
 
+import { AlertTriangle } from "lucide-react";
+
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+import Quiz from "../../components/Quiz";
 // Enhanced highlight helpers with electrician grit
 const HL = ({ children }: { children: React.ReactNode }) => (
   <span className="font-extrabold underline decoration-yellow-400 underline-offset-4">{children}</span>
@@ -328,79 +331,8 @@ export default function Ch1General() {
       </div>
 
       {/* ⚡ Article 90 — Purpose, Scope, How the NEC Works */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 90 — Purpose, Scope, How This Beast Operates
-          </h2>
-        </div>
-        
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {/* Left Column - Text Content */}
-          <div className="space-y-4 text-white/90 leading-relaxed">
-            <p>
-              — The NEC's mission isn't "perfect systems." It's <HL>practical safeguarding</HL> of people and property (<span className="italic">90.1(A)</span>). 
-              Translation: minimize hazard. Period.
-            </p>
-            <p>
-              — The Code is <HL>not a design manual</HL> (<span className="italic">90.1(B)</span>). You still follow <HL>manufacturer instructions</HL>, 
-              standards, and good sense. The NEC sets the safety floor.
-            </p>
-            <p>
-              — <HL>Enforcement</HL> belongs to the <HL>AHJ</HL> (Authority Having Jurisdiction). They interpret, you comply.
-            </p>
-            <p>
-              — Utility stuff? Mostly <HL>outside</HL> NEC scope. Your work? Squarely inside.
-            </p>
-          </div>
-          
-          {/* Right Column - Visual Examples */}
-          <div className="space-y-4">
-            {/* IMAGE 2: Electrical Safety Equipment */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
-              <Image
-                src="/images/module-01/m01-02.jpg"
-                alt="Insulated tools and PPE for electrical work"
-                width={400}
-                height={300}
-                className="w-full h-48 object-cover rounded-lg"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Safety First: Always</p>
-              </div>
-            </div>
-            
-            {/* IMAGE 3: Electrical Standards Documentation */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
-              <Image
-                src="/images/module-01/m01-03.jpg"
-                alt="Electrical safety standards and compliance documentation"
-                width={400}
-                height={300}
-                className="w-full h-48 object-cover rounded-lg"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Standards & Compliance</p>
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* 📝 Quiz */}
 
-        {/* Interactive Code Reference */}
-        <CodeBox>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h4 className="font-bold text-blue-400 mb-2">90.1(A) — Purpose</h4>
-              <p className="text-sm">Practical safeguarding of persons and property from hazards arising from electricity.</p>
-            </div>
-            <div>
-              <h4 className="font-bold text-blue-400 mb-2">90.1(B) — Scope</h4>
-              <p className="text-sm">Not intended as a design specification or instruction manual for untrained persons.</p>
-            </div>
-          </div>
-        </CodeBox>
-      </section>
 
             {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
@@ -414,7 +346,7 @@ export default function Ch1General() {
       {/* 🔧 Article 100 — Definitions */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 100 — Definitions
           </h2>
@@ -562,7 +494,7 @@ export default function Ch1General() {
       {/* 🛠️ Article 110 — General Requirements */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">🛠️</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 110 — General Requirements
           </h2>
@@ -675,7 +607,7 @@ export default function Ch1General() {
       {/* ⚡ Article 200 — Use and Identification of Grounded Conductors */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 200 — Use and Identification of Grounded Conductors
           </h2>
@@ -792,7 +724,7 @@ export default function Ch1General() {
       {/* 🔌 Article 210 — Branch Circuits */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 210 — Branch Circuits
           </h2>
@@ -899,7 +831,7 @@ export default function Ch1General() {
       {/* ⚡ Article 215 — Feeders */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 215 — Feeders
           </h2>
@@ -993,7 +925,7 @@ export default function Ch1General() {
       {/* 🔌 Article 225 — Outside Branch Circuits and Feeders */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl"></span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 225 — Outside Branch Circuits and Feeders
           </h2>
@@ -1069,7 +1001,7 @@ export default function Ch1General() {
       {/* ⚡ Article 230 — Services */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 230 — Services
           </h2>
@@ -1170,7 +1102,7 @@ export default function Ch1General() {
       {/* Article 240 — Overcurrent Protection */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl"></span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 240 — Overcurrent Protection
           </h2>
@@ -1263,7 +1195,7 @@ export default function Ch1General() {
       {/* ⚡ Article 250 — Grounding and Bonding */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 250 — Grounding and Bonding
           </h2>
@@ -1370,7 +1302,7 @@ export default function Ch1General() {
       {/* 🔌 Article 300 — Wiring Methods */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl"></span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 300 — Wiring Methods
           </h2>
@@ -1471,7 +1403,7 @@ export default function Ch1General() {
       {/* ⚡ Article 310 — Conductors for General Wiring */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 310 — Conductors for General Wiring
           </h2>
@@ -1561,70 +1493,6 @@ export default function Ch1General() {
         </div>
       </div>
 
-      {/* 🧠 Interactive Quiz Section */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-4">
-            🧠 Test Your Knowledge
-          </h2>
-          <p className="text-white/80 text-lg">
-            Time to see if you've been paying attention. 15 questions covering everything we just covered.
-          </p>
-        </div>
-
-        {/* Quiz Questions */}
-        <div className="space-y-6">
-          {quiz.map((q) => (
-            <div key={q.id} className="bg-white/[0.03] rounded-xl border border-white/20 p-6">
-              <div className="flex items-start justify-between mb-4">
-                <h3 className="text-lg font-semibold text-white">
-                  Question {q.id}: {q.stem}
-                </h3>
-                <button
-                  onClick={() => toggle(q.id)}
-                  className="text-yellow-400 hover:text-yellow-300 transition-colors"
-                >
-                  {open[q.id] ? "Hide Answer" : "Show Answer"}
-                </button>
-              </div>
-              
-              {/* Multiple Choice Options */}
-              <div className="grid gap-3 mb-4">
-                {q.choices.map((choice) => (
-                  <div
-                    key={choice.key}
-                    className={`p-3 rounded-lg border transition-colors ${
-                      open[q.id] && choice.key === q.answer
-                        ? "border-green-500 bg-green-500/10"
-                        : "border-white/20 hover:border-white/40"
-                    }`}
-                  >
-                    <span className="font-semibold text-yellow-400 mr-3">
-                      {choice.key}.
-                    </span>
-                    <span className="text-white/90">{choice.text}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Answer and Explanation */}
-              {open[q.id] && (
-                <div className="bg-white/[0.05] rounded-lg p-4 border border-white/20">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-green-400 text-xl">✅</span>
-                    <span className="font-bold text-green-400">
-                      Correct Answer: {q.answer}
-                    </span>
-                  </div>
-                  <p className="text-white/90 text-sm leading-relaxed">
-                    <strong>Why:</strong> {q.why}
-                  </p>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-2900 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
@@ -1639,7 +1507,7 @@ export default function Ch1General() {
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-3000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-6">
-            �� Chapter 1 Summary
+            <AlertTriangle className="inline-block w-6 h-6 text-yellow-400 mr-2" /> Chapter 1 Summary
           </h2>
           <p className="text-white/80 text-lg leading-relaxed max-w-4xl mx-auto">
             You've covered the foundation of the NEC. These general requirements apply to <HL>everything</HL> that follows. 
@@ -1712,6 +1580,18 @@ export default function Ch1General() {
       </section>
 
       {/* Footer Navigation */}
+      
+
+{/* 🧠 Interactive Quiz Section */}
+<section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+  <div className="flex items-center gap-3 mb-6">
+    <Zap className="w-8 h-8 text-yellow-400" />
+    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">15-Question Check</h2>
+  </div>
+  <p className="text-white/80 mb-6 text-lg">Select your answers for all questions, then press <strong>Submit</strong> to see your score and explanations. You need <strong>70%</strong> to pass. Use <em>Reset</em> to try again.</p>
+  <Quiz questions={quiz} />
+</section>
+
       <footer className={`mx-auto max-w-5xl mt-16 transition-all duration-1000 delay-3100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-6 bg-white/[0.03] rounded-xl border border-white/20">
           <div className="text-center sm:text-left">
@@ -1744,3 +1624,4 @@ export default function Ch1General() {
     </main>
   );
 }
+
