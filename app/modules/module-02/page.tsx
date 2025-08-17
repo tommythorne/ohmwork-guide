@@ -146,7 +146,7 @@ const quiz: Q[] = [
       { key: "D", text: "42 inches" },
     ],
     answer: "C",
-    whys: "NEC 110.26(A)(1) requires 36 inches minimum working space for equipment over 600V.",
+    why: "NEC 110.26(A)(1) requires 36 inches minimum working space for equipment over 600V.",
   },
   {
     id: 7,
