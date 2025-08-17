@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle, Zap } from "lucide-react";
+import { AlertTriangle, BookOpen, CircuitBoard, Plug, Shield, Target, Wrench, Zap } from "lucide-react";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -16,7 +16,7 @@ const HL = ({ children }: { children: React.ReactNode }) => (
 const WarningBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-red-500/40 bg-red-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-red-400 text-xl">⚠️</span>
+      <Zap className="w-8 h-8 text-yellow-400" />
       <span className="font-bold text-red-400">EXAM TRAP</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -26,7 +26,7 @@ const WarningBox = ({ children }: { children: React.ReactNode }) => (
 const RuleBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-yellow-400 text-xl">��</span>
+      <Zap className="w-8 h-8 text-yellow-400" />
       <span className="font-bold text-yellow-400">RULE OF THUMB</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -36,7 +36,7 @@ const RuleBox = ({ children }: { children: React.ReactNode }) => (
 const HorrorStory = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-orange-400 text-xl">��</span>
+      <Zap className="w-8 h-8 text-yellow-400" />
       <span className="font-bold text-orange-400">JOBSITE HORROR STORY</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -46,7 +46,7 @@ const HorrorStory = ({ children }: { children: React.ReactNode }) => (
 const CodeBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-blue-500/40 bg-blue-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-blue-400 text-xl">��</span>
+      <Zap className="w-8 h-8 text-yellow-400" />
       <span className="font-bold text-blue-400">NEC REFERENCE</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -334,7 +334,7 @@ export default function Ch2Wiring() {
       {/* 🔌 Article 300 — Wiring Methods */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 300 — Wiring Methods
           </h2>
@@ -446,7 +446,7 @@ export default function Ch2Wiring() {
           <div className="rounded-xl border border-white/10 p-4 bg-white/[0.03] hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
             <div className="text-center">
               <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-yellow-400/30 transition-colors">
-                <span className="text-2xl">🔌</span>
+                <Zap className="w-8 h-8 text-yellow-400" />
               </div>
               <p className="text-white/85 text-sm">
                 <HL>Choose wisely:</HL> Wrong method = future problems.
@@ -457,7 +457,7 @@ export default function Ch2Wiring() {
           <div className="rounded-xl border border-white/10 p-4 bg-white/[0.03] hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
             <div className="text-center">
               <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-yellow-400/30 transition-colors">
-                <span className="text-2xl">📏</span>
+                <Zap className="w-8 h-8 text-yellow-400" />
               </div>
               <p className="text-white/85 text-sm">
                 <HL>Support properly:</HL> Gravity never takes a day off.
@@ -468,7 +468,7 @@ export default function Ch2Wiring() {
           <div className="rounded-xl border border-white/10 p-4 bg-white/[0.03] hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
             <div className="text-center">
               <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-yellow-400/30 transition-colors">
-                <span className="text-3xl">✅</span>
+                <Zap className="w-8 h-8 text-yellow-400" />
               </div>
               <p className="text-white/85 text-sm">
                 <HL>Protect conductors:</HL> Damage prevention is cheaper than repair.
@@ -497,7 +497,7 @@ export default function Ch2Wiring() {
       {/* ⚡ Article 310 — Conductors for General Wiring */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 310 — Conductors for General Wiring
           </h2>
@@ -596,7 +596,7 @@ export default function Ch2Wiring() {
       {/* ��️ Article 320 — Armored Cable (Type AC) */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">🛡️</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 320 — Armored Cable (Type AC)
           </h2>
@@ -698,7 +698,7 @@ export default function Ch2Wiring() {
       {/* ⚡ Article 330 — Metal-Clad Cable (Type MC) */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚡</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 330 — Metal-Clad Cable (Type MC)
           </h2>
@@ -797,7 +797,7 @@ export default function Ch2Wiring() {
       {/* 🏠 Article 340 — Nonmetallic-Sheathed Cable (Type NM) */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 340 — Nonmetallic-Sheathed Cable (Type NM)
           </h2>
@@ -906,7 +906,7 @@ export default function Ch2Wiring() {
       {/* 💧 Article 350 — Liquidtight Flexible Metal Conduit (Type LFMC) */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 350 — Liquidtight Flexible Metal Conduit (Type LFMC)
           </h2>
@@ -1006,7 +1006,7 @@ export default function Ch2Wiring() {
       {/* ⚙️ Article 360 — Flexible Metallic Tubing (Type FMT) */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⚙️</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 360 — Flexible Metallic Tubing (Type FMT)
           </h2>
@@ -1099,7 +1099,7 @@ export default function Ch2Wiring() {
       {/* 🚌 Article 370 — Cablebus */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 370 — Cablebus
           </h2>
@@ -1200,7 +1200,7 @@ export default function Ch2Wiring() {
       {/* 🔌 Article 380 — Multioutlet Assembly */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 380 — Multioutlet Assembly
           </h2>
@@ -1293,7 +1293,7 @@ export default function Ch2Wiring() {
       {/* ⬇️ Article 390 — Underfloor Raceways */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">⬇️</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 390 — Underfloor Raceways
           </h2>
@@ -1393,7 +1393,7 @@ export default function Ch2Wiring() {
       {/* 🔌 Article 400 — Flexible Cords and Cables */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">〰️</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 400 — Flexible Cords and Cables
           </h2>
@@ -1505,7 +1505,7 @@ export default function Ch2Wiring() {
       {/* 💡 Article 402 — Fixture Wires */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 402 — Fixture Wires
           </h2>
@@ -1592,7 +1592,7 @@ export default function Ch2Wiring() {
       {/* 🔌 Article 404 — Switches */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <span className="text-4xl">��</span>
+          <Zap className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 404 — Switches
           </h2>
@@ -1723,7 +1723,7 @@ export default function Ch2Wiring() {
           <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
             <div className="text-center">
               <div className="w-16 h-16 bg-yellow-400/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-400/30 transition-colors">
-                <span className="text-3xl">⚡</span>
+                <Zap className="w-8 h-8 text-yellow-400" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Wiring Methods</h3>
               <p className="text-white/80 text-sm">
@@ -1736,7 +1736,7 @@ export default function Ch2Wiring() {
           <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
             <div className="text-center">
               <div className="w-16 h-16 bg-yellow-400/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-400/30 transition-colors">
-                <span className="text-3xl">📚</span>
+                <Zap className="w-8 h-8 text-yellow-400" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Support Requirements</h3>
               <p className="text-white/80 text-sm">
@@ -1749,7 +1749,7 @@ export default function Ch2Wiring() {
           <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
             <div className="text-center">
               <div className="w-16 h-16 bg-yellow-400/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-400/30 transition-colors">
-                <span className="text-3xl">🛠️</span>
+                <Zap className="w-8 h-8 text-yellow-400" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Installation Quality</h3>
               <p className="text-white/80 text-sm">
@@ -1762,7 +1762,7 @@ export default function Ch2Wiring() {
           <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
             <div className="text-center">
               <div className="w-16 h-16 bg-yellow-400/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-400/30 transition-colors">
-                <span className="text-3xl">🔌</span>
+                <Zap className="w-8 h-8 text-yellow-400" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Cable Types</h3>
               <p className="text-white/80 text-sm">
@@ -1775,7 +1775,7 @@ export default function Ch2Wiring() {
           <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
             <div className="text-center">
               <div className="w-16 h-16 bg-yellow-400/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-400/30 transition-colors">
-                <span className="text-3xl">🛡️</span>
+                <Zap className="w-8 h-8 text-yellow-400" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Protection</h3>
               <p className="text-white/80 text-sm">
@@ -1788,7 +1788,7 @@ export default function Ch2Wiring() {
           <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
             <div className="text-center">
               <div className="w-16 h-16 bg-yellow-400/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-400/30 transition-colors">
-                <span className="text-3xl">⚡</span>
+                <Zap className="w-8 h-8 text-yellow-400" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Code Compliance</h3>
               <p className="text-white/80 text-sm">
@@ -1803,7 +1803,7 @@ export default function Ch2Wiring() {
       <section className={`mx-auto max-w-5xl mb-16 transition-all duration-1000 delay-3200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="text-4xl">��</span>
+            <Zap className="w-8 h-8 text-yellow-400" />
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-400">
               Knowledge Check Quiz
             </h2>
