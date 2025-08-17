@@ -334,7 +334,7 @@ export default function Ch2Wiring() {
       {/* 🔌 Article 300 — Wiring Methods */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <Zap className="w-8 h-8 text-yellow-400" />
+          <span className="text-4xl">��</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 300 — Wiring Methods
           </h2>
@@ -497,7 +497,7 @@ export default function Ch2Wiring() {
       {/* ⚡ Article 310 — Conductors for General Wiring */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <Zap className="w-8 h-8 text-yellow-400" />
+          <span className="text-4xl">⚡</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 310 — Conductors for General Wiring
           </h2>
@@ -593,10 +593,10 @@ export default function Ch2Wiring() {
         </div>
       </div>
 
-      {/* 🔌 Article 320 — Armored Cable (Type AC) */}
+      {/* ��️ Article 320 — Armored Cable (Type AC) */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <Zap className="w-8 h-8 text-yellow-400" />
+          <span className="text-4xl">🛡️</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 320 — Armored Cable (Type AC)
           </h2>
@@ -698,7 +698,7 @@ export default function Ch2Wiring() {
       {/* ⚡ Article 330 — Metal-Clad Cable (Type MC) */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <Zap className="w-8 h-8 text-yellow-400" />
+          <span className="text-4xl">⚡</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 330 — Metal-Clad Cable (Type MC)
           </h2>
@@ -794,10 +794,10 @@ export default function Ch2Wiring() {
         </div>
       </div>
 
-      {/* 🔌 Article 340 — Nonmetallic-Sheathed Cable (Type NM) */}
+      {/* 🏠 Article 340 — Nonmetallic-Sheathed Cable (Type NM) */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <Zap className="w-8 h-8 text-yellow-400" />
+          <span className="text-4xl">��</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 340 — Nonmetallic-Sheathed Cable (Type NM)
           </h2>
@@ -894,7 +894,7 @@ export default function Ch2Wiring() {
         </HorrorStory>
       </section>
 
-      {/* Visual Divider */}
+            {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1300 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
@@ -903,10 +903,10 @@ export default function Ch2Wiring() {
         </div>
       </div>
 
-      {/* 🔌 Article 350 — Liquidtight Flexible Metal Conduit (Type LFMC) */}
+      {/* 💧 Article 350 — Liquidtight Flexible Metal Conduit (Type LFMC) */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <Zap className="w-8 h-8 text-yellow-400" />
+          <span className="text-4xl">��</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 350 — Liquidtight Flexible Metal Conduit (Type LFMC)
           </h2>
@@ -994,7 +994,7 @@ export default function Ch2Wiring() {
         </WarningBox>
       </section>
 
-            {/* Visual Divider */}
+      {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1500 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
@@ -1003,10 +1003,10 @@ export default function Ch2Wiring() {
         </div>
       </div>
 
-      {/* 🔌 Article 360 — Flexible Metallic Tubing (Type FMT) */}
+      {/* ⚙️ Article 360 — Flexible Metallic Tubing (Type FMT) */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <Zap className="w-8 h-8 text-yellow-400" />
+          <span className="text-4xl">⚙️</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 360 — Flexible Metallic Tubing (Type FMT)
           </h2>
@@ -1096,10 +1096,10 @@ export default function Ch2Wiring() {
         </div>
       </div>
 
-      {/* ⚡ Article 370 — Cablebus */}
+      {/* 🚌 Article 370 — Cablebus */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <Zap className="w-8 h-8 text-yellow-400" />
+          <span className="text-4xl">��</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 370 — Cablebus
           </h2>
@@ -1188,7 +1188,7 @@ export default function Ch2Wiring() {
         </DataTable>
       </section>
 
-      {/* Visual Divider */}
+            {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1900 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
@@ -1200,7 +1200,7 @@ export default function Ch2Wiring() {
       {/* 🔌 Article 380 — Multioutlet Assembly */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <Zap className="w-8 h-8 text-yellow-400" />
+          <span className="text-4xl">��</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 380 — Multioutlet Assembly
           </h2>
@@ -1290,10 +1290,10 @@ export default function Ch2Wiring() {
         </div>
       </div>
 
-      {/* ⚡ Article 390 — Underfloor Raceways */}
+      {/* ⬇️ Article 390 — Underfloor Raceways */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <Zap className="w-8 h-8 text-yellow-400" />
+          <span className="text-4xl">⬇️</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 390 — Underfloor Raceways
           </h2>
@@ -1393,7 +1393,7 @@ export default function Ch2Wiring() {
       {/* 🔌 Article 400 — Flexible Cords and Cables */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <Zap className="w-8 h-8 text-yellow-400" />
+          <span className="text-4xl">〰️</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 400 — Flexible Cords and Cables
           </h2>
@@ -1493,7 +1493,7 @@ export default function Ch2Wiring() {
         </WarningBox>
       </section>
 
-            {/* Visual Divider */}
+      {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-2500 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
@@ -1502,10 +1502,10 @@ export default function Ch2Wiring() {
         </div>
       </div>
 
-      {/* 🔌 Article 402 — Fixture Wires */}
+      {/* 💡 Article 402 — Fixture Wires */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <Zap className="w-8 h-8 text-yellow-400" />
+          <span className="text-4xl">��</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 402 — Fixture Wires
           </h2>
@@ -1592,7 +1592,7 @@ export default function Ch2Wiring() {
       {/* 🔌 Article 404 — Switches */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <Zap className="w-8 h-8 text-yellow-400" />
+          <span className="text-4xl">��</span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
             Article 404 — Switches
           </h2>
@@ -1701,129 +1701,140 @@ export default function Ch2Wiring() {
         </div>
       </div>
 
-      {/* 🎯 Chapter Summary */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-3000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-6">
-            <AlertTriangle className="inline-block w-6 h-6 text-yellow-400 mr-2" /> Chapter 2 Summary
-          </h2>
-          <p className="text-white/80 text-lg leading-relaxed max-w-4xl mx-auto">
-            You've mastered the art of electrical installation methods. These wiring techniques are the foundation of every 
-            electrical system—choose the right method for the environment, or face the consequences.
+      {/* 🎯 Chapter 2 Summary */}
+      <section className={`mx-auto max-w-5xl mb-16 transition-all duration-1000 delay-3000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="text-center mb-12">
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <span className="text-5xl">��</span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-yellow-400">
+              Chapter 2 Summary
+            </h2>
+            <span className="text-5xl">🎯</span>
+          </div>
+          <p className="text-xl text-white/90 max-w-3xl mx-auto">
+            You've mastered the core wiring methods that make electrical installations safe and reliable. 
+            Remember: choose the right method for the environment, support everything properly, and protect conductors from damage.
           </p>
         </div>
 
-        {/* Key Points Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-          <div className="bg-white/[0.03] rounded-xl border border-white/20 p-6 text-center">
-            <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <Zap className="w-6 h-6 text-yellow-400" aria-hidden="true" />
+        {/* Summary Cards Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          {/* Card 1 */}
+          <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-yellow-400/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-400/30 transition-colors">
+                <span className="text-3xl">⚡</span>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Wiring Methods</h3>
+              <p className="text-white/80 text-sm">
+                Choose the right raceway for the environment. EMT for dry, PVC for wet, RMC for hazardous.
+              </p>
             </div>
-            <h3 className="font-bold text-white mb-2">Raceway Selection</h3>
-            <p className="text-white/80 text-sm">
-              Choose the right method for the environment. EMT for dry, PVC for wet, RMC for hazardous.
-            </p>
           </div>
-          
-          <div className="bg-white/[0.03] rounded-xl border border-white/20 p-6 text-center">
-            <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">��</span>
+
+          {/* Card 2 */}
+          <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-yellow-400/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-400/30 transition-colors">
+                <span className="text-3xl">📚</span>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Support Requirements</h3>
+              <p className="text-white/80 text-sm">
+                Every wiring method has specific support spacing. Don't guess—check the code!
+              </p>
             </div>
-            <h3 className="font-bold text-white mb-2">Support Requirements</h3>
-            <p className="text-white/80 text-sm">
-              Every wiring method has specific support intervals. Don't exceed them—gravity always wins.
-            </p>
           </div>
-          
-          <div className="bg-white/[0.03] rounded-xl border border-white/20 p-6 text-center">
-            <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">🛠️</span>
+
+          {/* Card 3 */}
+          <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-yellow-400/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-400/30 transition-colors">
+                <span className="text-3xl">🛠️</span>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Installation Quality</h3>
+              <p className="text-white/80 text-sm">
+                Proper installation prevents future problems. Take your time, do it right.
+              </p>
             </div>
-            <h3 className="font-bold text-white mb-2">Installation Quality</h3>
-            <p className="text-white/80 text-sm">
-              Use approved fittings, protect from damage, and follow manufacturer instructions.
-            </p>
           </div>
-          
-          <div className="bg-white/[0.03] rounded-xl border border-white/20 p-6 text-center">
-            <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <Zap className="w-6 h-6 text-yellow-400" aria-hidden="true" />
+
+          {/* Card 4 */}
+          <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-yellow-400/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-400/30 transition-colors">
+                <span className="text-3xl">🔌</span>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Cable Types</h3>
+              <p className="text-white/80 text-sm">
+                Type AC, MC, NM, and flexible cords each have specific uses and limitations.
+              </p>
             </div>
-            <h3 className="font-bold text-white mb-2">Cable Types</h3>
-            <p className="text-white/80 text-sm">
-              Type AC, MC, NM, UF—each has specific uses and limitations. Know them cold.
-            </p>
           </div>
-          
-          <div className="bg-white/[0.03] rounded-xl border border-white/20 p-6 text-center">
-            <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">��</span>
+
+          {/* Card 5 */}
+          <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-yellow-400/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-400/30 transition-colors">
+                <span className="text-3xl">🛡️</span>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Protection</h3>
+              <p className="text-white/80 text-sm">
+                Physical damage protection is crucial. Plan for the environment and potential hazards.
+              </p>
             </div>
-            <h3 className="font-bold text-white mb-2">Flexible Solutions</h3>
-            <p className="text-white/80 text-sm">
-              FMC, FMT, LFMC—flexible wiring for specific applications. Not for general use.
-            </p>
           </div>
-          
-          <div className="bg-white/[0.03] rounded-xl border border-white/20 p-6 text-center">
-            <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <Zap className="w-6 h-6 text-yellow-400" aria-hidden="true" />
+
+          {/* Card 6 */}
+          <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-yellow-400/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-400/30 transition-colors">
+                <span className="text-3xl">⚡</span>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Code Compliance</h3>
+              <p className="text-white/80 text-sm">
+                Follow NEC requirements exactly. The code exists to keep people safe and installations reliable.
+              </p>
             </div>
-            <h3 className="font-bold text-white mb-2">Specialized Systems</h3>
-            <p className="text-white/80 text-sm">
-              Cablebus, multioutlet assemblies, underfloor raceways—high-capacity solutions.
-            </p>
           </div>
         </div>
       </section>
 
-      {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-3100 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
-        <div className="flex items-center gap-4">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+      {/* 🧠 Knowledge Check Quiz */}
+      <section className={`mx-auto max-w-5xl mb-16 transition-all duration-1000 delay-3200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <span className="text-4xl">��</span>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-400">
+              Knowledge Check Quiz
+            </h2>
+            <span className="text-4xl">🧠</span>
+          </div>
+          <p className="text-lg text-white/90">
+            Test your understanding of Chapter 2. Get 80% or higher to prove you've mastered wiring methods!
+          </p>
         </div>
-      </div>
 
-      {/* 🧠 Interactive Quiz Section */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-3200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex items-center gap-3 mb-6">
-          <Zap className="w-8 h-8 text-yellow-400" />
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">15-Question Check</h2>
-        </div>
-        <p className="text-white/80 mb-6 text-lg">Select your answers for all questions, then press <strong>Submit</strong> to see your score and explanations. You need <strong>70%</strong> to pass. Use <em>Reset</em> to try again.</p>
         <Quiz questions={quiz} />
       </section>
 
       {/* Footer Navigation */}
-      <footer className={`mx-auto max-w-5xl mt-16 transition-all duration-1000 delay-3300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-6 bg-white/[0.03] rounded-xl border border-white/20">
-          <div className="text-center sm:text-left">
-            <h3 className="text-lg font-bold text-white mb-2">Ready for More?</h3>
-            <p className="text-white/70 text-sm">
-              Chapter 2 complete. Wiring methods mastered. Time to tackle the next challenge.
-            </p>
+      <footer className={`mx-auto max-w-5xl border-t border-white/20 pt-8 transition-all duration-1000 delay-3500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="text-white/60 text-sm">
+            © 2024 OhmWork Electrician Survival Guide
           </div>
           
-          <div className="flex gap-4">
-            <Link
-              href="/intro"
-              className="px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-white transition-all duration-200 hover:scale-105"
-            >
+          <nav className="flex items-center gap-6">
+            <Link href="/intro" className="text-white/70 hover:text-white transition-colors duration-200">
               ← Back to TOC
             </Link>
-            <Link
-              href="/modules/module-03"
-              className="px-6 py-3 bg-yellow-500 hover:bg-yellow-400 text-black font-semibold rounded-lg transition-all duration-200 hover:scale-105"
-            >
-              Next: Chapter 3 →
+            <span className="text-white/40">|</span>
+            <Link href="/modules/module-01" className="text-white/70 hover:text-white transition-colors duration-200">
+              Chapter 1
             </Link>
-          </div>
-        </div>
-        
-        <div className="text-center mt-8 text-white/50 text-sm">
-          <p>OhmWork Electrician Survival Guide • NEC 2017 • Chapter 2 Complete</p>
+            <span className="text-white/40">|</span>
+            <span className="text-yellow-400 font-semibold">Chapter 2</span>
+          </nav>
         </div>
       </footer>
     </main>
