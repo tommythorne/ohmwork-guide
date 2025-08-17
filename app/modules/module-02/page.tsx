@@ -335,67 +335,94 @@ export default function Ch2Wiring() {
       
       {/* Article 314 — Boxes & Conduit Bodies (Box Fill) */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex items-center gap-3 mb-6">
-          <Building className="w-8 h-8 text-yellow-400" />
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 314 — Boxes & Conduit Bodies (Box Fill)
-          </h2>
-        </div>
 
-        <p className="text-white/90 mb-6">Use <HL>314.16(B)</HL> to calculate box volume. Count each conductor, device yoke, internal clamp, and EGC correctly.</p>
+  <div className="flex items-center gap-3 mb-6">
+    <Building className="w-8 h-8 text-yellow-400" />
+    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
+      Article 314 — Boxes & Conduit Bodies (Box Fill)
+    </h2>
+  </div>
 
-        <DataTable>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-white/20">
-                  <th className="text-left p-3 text-yellow-400 font-bold">Item</th>
-                  <th className="text-left p-3 text-yellow-400 font-bold">How to Count</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/10">
-                <tr><td className="p-3 font-semibold">Each ungrounded or neutral conductor</td><td className="p-3">1 volume allowance of its largest gauge</td></tr>
-                <tr><td className="p-3 font-semibold">All equipment grounds together</td><td className="p-3">Count as <strong>1</strong> volume total</td></tr>
-                <tr><td className="p-3 font-semibold">Each internal clamp</td><td className="p-3">Add <strong>1</strong> volume</td></tr>
-                <tr><td className="p-3 font-semibold">Device yoke (switch/receptacle)</td><td className="p-3"><strong>2</strong> volumes of the largest conductor connected</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </DataTable>
+  <div className="grid lg:grid-cols-2 gap-8 mb-8">
+    {/* Left Column - Text Content */}
+    <div className="space-y-4 text-white/90 leading-relaxed">
+      <p>
+        — <HL>314.16(A)</HL>: Box volume must be adequate for the number & size of conductors. The box volume (in³)
+        must be ≥ the sum of allowances.
+      </p>
+      <p>
+        — <HL>314.16(B)</HL>: Counting rules — one allowance per unbroken conductor entering; all equipment grounds
+        together = one allowance total; internal clamps = one allowance; each device yoke = two allowances (one per yoke side).
+      </p>
+      <p>
+        — <HL>Volume per conductor (Cu)</HL>: 18 AWG = 1.5; 16 = 1.75; 14 = 2.0; 12 = 2.25; 10 = 2.5; 8 = 3.0; 6 = 5.0 (in³).
+      </p>
+      <p>
+        — <HL>Conduit bodies</HL>: If used for splices or devices, they must provide sufficient volume per the same rules.
+      </p>
+    </div>
 
-        <RuleBox>
-          <strong>Worked Example:</strong> 4" square box with (4) #12 conductors, (1) device, (2) #12 grounds tied, and an internal clamp.<br/>
-          Counts: conductors = 4, device yoke = 2, grounds = 1, clamp = 1 → total = <strong>8</strong> #12 volumes.<br/>
-          Table 314.16(B) says #12 = <strong>2.25 in³</strong> → required volume = <strong>18 in³</strong>.
-        </RuleBox>
-      
-          {/* Right Column - Visual Examples (auto-added) */}
-          <div className="space-y-4">
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
-              <Image
-                src="/images/module-02/m02-02.jpg"
-                alt="Box fill sizing reference example"
-                width={400}
-                height={300}
-                className="w-full h-48 object-cover rounded-lg"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Box fill example (314.16)</p>
-              </div>
-            </div>
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
-              <Image
-                src="/images/module-02/m02-03.jpg"
-                alt="Device yoke and clamp counting for box fill"
-                width={400}
-                height={300}
-                className="w-full h-48 object-cover rounded-lg"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Count conductors, yokes, clamps</p>
-              </div>
-            </div>
-          </div>
+    {/* Right Column - Visual Examples */}
+    <div className="space-y-4">
+      {/* IMAGE A: Box fill overview */}
+      <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+        <Image
+          src="/images/module-02/m02-02.jpg"
+          alt="Box fill example showing conductor counting and device yoke allowances"
+          width={400}
+          height={300}
+          className="w-full h-48 object-cover rounded-lg"
+        />
+      </div>
+
+      {/* IMAGE B: Counting conductors / yokes */}
+      <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+        <Image
+          src="/images/module-02/m02-03.jpg"
+          alt="Counting rules for conductors, grounds, clamps and yokes inside an electrical box"
+          width={400}
+          height={300}
+          className="w-full h-48 object-cover rounded-lg"
+        />
+      </div>
+    </div>
+  </div>
+
+  {/* Quick Reference Table */}
+  <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 my-6 overflow-x-auto">
+    <table className="w-full text-sm">
+      <thead>
+        <tr className="border-b border-white/20">
+          <th className="text-left p-3 text-yellow-400 font-bold">Item</th>
+          <th className="text-left p-3 text-yellow-400 font-bold">Allowance</th>
+          <th className="text-left p-3 text-yellow-400 font-bold">Notes</th>
+        </tr>
+      </thead>
+      <tbody className="divide-y divide-white/10">
+        <tr className="hover:bg-white/[0.02] transition-colors">
+          <td className="p-3 font-semibold">Unbroken Conductor</td>
+          <td className="p-3">1× volume of its AWG</td>
+          <td className="p-3 text-green-400">Each entering conductor</td>
+        </tr>
+        <tr className="hover:bg-white/[0.02] transition-colors">
+          <td className="p-3 font-semibold">All Equipment Grounds</td>
+          <td className="p-3">1× of largest ground</td>
+          <td className="p-3 text-green-400">All grounds count as one total</td>
+        </tr>
+        <tr className="hover:bg-white/[0.02] transition-colors">
+          <td className="p-3 font-semibold">Internal Clamp</td>
+          <td className="p-3">1× of largest conductor</td>
+          <td className="p-3 text-green-400">If integral to the box</td>
+        </tr>
+        <tr className="hover:bg-white/[0.02] transition-colors">
+          <td className="p-3 font-semibold">Device Yoke</td>
+          <td className="p-3">2× of largest conductor</td>
+          <td className="p-3 text-green-400">One per yoke (both sides)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </section>
 
 
