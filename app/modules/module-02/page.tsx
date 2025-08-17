@@ -412,7 +412,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 6: Armored Cable Installation */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-06.jpg"
+                src="/images/module-02/m02-02.jpg"
                 alt="Type AC armored cable installation with proper support and termination"
                 width={400}
                 height={300}
@@ -426,7 +426,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 7: AC Cable Support */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-07.jpg"
+                src="/images/module-02/m02-03.jpg"
                 alt="Proper support and securing of armored cable at intervals"
                 width={400}
                 height={300}
@@ -513,7 +513,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 8: MC Cable Installation */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-08.jpg"
+                src="/images/module-02/m02-04.jpg"
                 alt="Type MC metal-clad cable installation in commercial application"
                 width={400}
                 height={300}
@@ -527,7 +527,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 9: MC Cable Support */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-09.jpg"
+                src="/images/module-02/m02-05.jpg"
                 alt="Proper support and securing of MC cable with approved fittings"
                 width={400}
                 height={300}
@@ -613,7 +613,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 10: NM Cable Installation */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-10.jpg"
+                src="/images/module-02/m02-06.jpg"
                 alt="Type NM cable installation in residential application with proper support"
                 width={400}
                 height={300}
@@ -627,7 +627,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 11: NM Cable Protection */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-11.jpg"
+                src="/images/module-02/m02-07.jpg"
                 alt="Protection of NM cable where it passes through framing members"
                 width={400}
                 height={300}
@@ -721,7 +721,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 12: LFMC Installation */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-12.jpg"
+                src="/images/module-02/m02-08.jpg"
                 alt="Type LFMC installation in wet location with proper fittings"
                 width={400}
                 height={300}
@@ -735,7 +735,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 13: LFMC Fittings */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-13.jpg"
+                src="/images/module-02/m02-09.jpg"
                 alt="Proper LFMC fittings and termination methods"
                 width={400}
                 height={300}
@@ -821,7 +821,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 14: FMT Installation */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-14.jpg"
+                src="/images/module-02/m02-10.jpg"
                 alt="Type FMT installation in dry location with proper support"
                 width={400}
                 height={300}
@@ -835,7 +835,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 15: FMT Fittings */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-15.jpg"
+                src="/images/module-02/m02-11.jpg"
                 alt="Proper FMT fittings and termination methods"
                 width={400}
                 height={300}
@@ -914,7 +914,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 16: Cablebus Installation */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-16.jpg"
+                src="/images/module-02/m02-12.jpg"
                 alt="Cablebus installation in commercial application with proper support"
                 width={400}
                 height={300}
@@ -928,7 +928,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 17: Cablebus Support */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-17.jpg"
+                src="/images/module-02/m02-13.jpg"
                 alt="Proper support and securing of cablebus system"
                 width={400}
                 height={300}
@@ -1015,7 +1015,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 18: Multioutlet Assembly */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-18.jpg"
+                src="/images/module-02/m02-14.jpg"
                 alt="Multioutlet assembly installation in commercial space"
                 width={400}
                 height={300}
@@ -1029,7 +1029,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 19: Multioutlet Support */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-19.jpg"
+                src="/images/module-02/m02-15.jpg"
                 alt="Proper support and securing of multioutlet assembly"
                 width={400}
                 height={300}
@@ -1108,7 +1108,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 20: Underfloor Raceway */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-20.jpg"
+                src="/images/module-02/m02-16.jpg"
                 alt="Underfloor raceway installation in commercial building"
                 width={400}
                 height={300}
@@ -1122,7 +1122,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 21: Raceway Access */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-21.jpg"
+                src="/images/module-02/m02-17.jpg"
                 alt="Access points and junction boxes for underfloor raceway system"
                 width={400}
                 height={300}
@@ -1208,7 +1208,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 22: Flexible Cord Usage */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-22.jpg"
+                src="/images/module-02/m02-18.jpg"
                 alt="Proper flexible cord usage with strain relief and approved fittings"
                 width={400}
                 height={300}
@@ -1222,7 +1222,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 23: Cord Protection */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-23.jpg"
+                src="/images/module-02/m02-19.jpg"
                 alt="Protection of flexible cords from physical damage and excessive tension"
                 width={400}
                 height={300}
@@ -1320,7 +1320,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 24: Fixture Wire Usage */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-24.jpg"
+                src="/images/module-02/m02-20.jpg"
                 alt="Fixture wire usage in luminaire internal wiring"
                 width={400}
                 height={300}
@@ -1334,7 +1334,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 25: Fixture Wire Protection */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-25.jpg"
+                src="/images/module-02/m02-21.jpg"
                 alt="Protection of fixture wires from damage and proper strain relief"
                 width={400}
                 height={300}
@@ -1407,7 +1407,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 26: Switch Installation */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-26.jpg"
+                src="/images/module-02/m02-22.jpg"
                 alt="Proper switch installation with correct height and accessibility"
                 width={400}
                 height={300}
@@ -1421,7 +1421,7 @@ export default function Ch2Wiring() {
             {/* IMAGE 27: Switch Marking */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
-                src="/images/module-02/m02-27.jpg"
+                src="/images/module-02/m02-23.jpg"
                 alt="Properly marked switches with function and rating information"
                 width={400}
                 height={300}
