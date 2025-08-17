@@ -332,257 +332,44 @@ export default function Ch2Wiring() {
       </div>
 
       {/* Article 300 — Wiring Methods */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      
+      {/* Article 314 — Boxes & Conduit Bodies (Box Fill) */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="flex items-center gap-3 mb-6">
-          <Shield className="w-8 h-8 text-yellow-400" />
+          <Building className="w-8 h-8 text-yellow-400" />
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 300 — Wiring Methods
+            Article 314 — Boxes & Conduit Bodies (Box Fill)
           </h2>
         </div>
-        
-        <p className="text-lg text-white/90 mb-8 leading-relaxed">
-          The foundation of every electrical installation. Choose the right method for the environment, or watch your work fail spectacularly.
-        </p>
 
-        {/* Core Principles Grid */}
-        <div className="grid md:grid-cols-2 gap-8 mb-8">
-          {/* Left Column - Text Content */}
-          <div className="space-y-4 text-white/90 leading-relaxed">
-            <p>
-              — <HL>300.3</HL>: Conductors of the same circuit must be in the same raceway, cable, or enclosure. 
-              Don't split them up—it's a safety nightmare.
-            </p>
-            <p>
-              — <HL>300.4</HL>: Protection against physical damage required where conductors are subject to damage. 
-              Think: "Will a forklift hit this?"
-            </p>
-            <p>
-              — <HL>300.5</HL>: Underground installations must be protected against damage and properly buried. 
-              Depth matters—shallow burial equals future problems.
-            </p>
-            <p>
-              — <HL>300.11</HL>: Raceways and cables must be securely fastened and supported. 
-              No floating raceways—gravity always wins.
-            </p>
-          </div>
-          
-          {/* Right Column - Visual Examples */}
-          <div className="space-y-4">
-            {/* IMAGE 2: Raceway Installation */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
-              <Image
-                src="/images/module-02/m02-02.jpg"
-                alt="Professional raceway installation with proper support and fastening"
-                width={400}
-                height={300}
-                className="w-full h-48 object-cover rounded-lg"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Proper Raceway Support Required</p>
-              </div>
-            </div>
-            
-            {/* IMAGE 3: Underground Protection */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
-              <Image
-                src="/images/module-02/m02-03.jpg"
-                alt="Underground electrical installation with proper burial depth and protection"
-                width={400}
-                height={300}
-                className="w-full h-48 object-cover rounded-lg"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Underground: Depth & Protection Matter</p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <p className="text-white/90 mb-6">Use <HL>314.16(B)</HL> to calculate box volume. Count each conductor, device yoke, internal clamp, and EGC correctly.</p>
 
-        {/* Wiring Methods Comparison Table */}
         <DataTable>
-          <h4 className="font-bold text-white mb-4">Common Raceway Types & Applications</h4>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-white/20">
-                  <th className="text-left p-3 text-yellow-400 font-bold">Type</th>
-                  <th className="text-left p-3 text-yellow-400 font-bold">Use</th>
-                  <th className="text-left p-3 text-yellow-400 font-bold">Limitations</th>
-                  <th className="text-left p-3 text-yellow-400 font-bold">Support Spacing</th>
+                  <th className="text-left p-3 text-yellow-400 font-bold">Item</th>
+                  <th className="text-left p-3 text-yellow-400 font-bold">How to Count</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/10">
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">EMT</td>
-                  <td className="p-3">Indoor, dry locations</td>
-                  <td className="p-3 text-red-400">Not for wet locations</td>
-                  <td className="p-3">10 ft max</td>
-                </tr>
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">RMC</td>
-                  <td className="p-3">Hazardous, wet locations</td>
-                  <td className="p-3 text-green-400">Most robust</td>
-                  <td className="p-3">20 ft max</td>
-                </tr>
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">PVC</td>
-                  <td className="p-3">Underground, wet</td>
-                  <td className="p-3 text-red-400">UV sensitive</td>
-                  <td className="p-3">3 ft max</td>
-                </tr>
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">FMC</td>
-                  <td className="p-3">Flexible connections</td>
-                  <td className="p-3 text-red-400">Limited length</td>
-                  <td className="p-3">4.5 ft max</td>
-                </tr>
+                <tr><td className="p-3 font-semibold">Each ungrounded or neutral conductor</td><td className="p-3">1 volume allowance of its largest gauge</td></tr>
+                <tr><td className="p-3 font-semibold">All equipment grounds together</td><td className="p-3">Count as <strong>1</strong> volume total</td></tr>
+                <tr><td className="p-3 font-semibold">Each internal clamp</td><td className="p-3">Add <strong>1</strong> volume</td></tr>
+                <tr><td className="p-3 font-semibold">Device yoke (switch/receptacle)</td><td className="p-3"><strong>2</strong> volumes of the largest conductor connected</td></tr>
               </tbody>
             </table>
           </div>
         </DataTable>
 
-        {/* Interactive Visual Cards */}
-        <div className="grid md:grid-cols-3 gap-4 mb-6">
-          <div className="rounded-xl border border-white/10 p-4 bg-white/[0.03] hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-yellow-400/30 transition-colors">
-                <Plug className="w-6 h-6 text-yellow-400" />
-              </div>
-              <p className="text-white/85 text-sm">
-                <HL>Choose wisely:</HL> Wrong method = future problems.
-              </p>
-            </div>
-          </div>
-          
-          <div className="rounded-xl border border-white/10 p-4 bg-white/[0.03] hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-yellow-400/30 transition-colors">
-                <span className="text-2xl">📏</span>
-              </div>
-              <p className="text-white/85 text-sm">
-                <HL>Support properly:</HL> Gravity never takes a day off.
-              </p>
-            </div>
-          </div>
-          
-          <div className="rounded-xl border border-white/10 p-4 bg-white/[0.03] hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
-            <div className="text-center">
-              <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-yellow-400/30 transition-colors">
-                <span className="text-3xl">✅</span>
-              </div>
-              <p className="text-white/85 text-sm">
-                <HL>Protect conductors:</HL> Damage prevention is cheaper than repair.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Horror Story */}
-        <HorrorStory>
-          <strong>True Story:</strong> A crew installed EMT in a parking garage without considering vehicle impact. 
-          Within weeks, several raceways were crushed by careless drivers. The rework cost more than the original installation. 
-          <HL>300.4</HL> exists for a reason—always think about the environment where you're installing.
-        </HorrorStory>
+        <RuleBox>
+          <strong>Worked Example:</strong> 4" square box with (4) #12 conductors, (1) device, (2) #12 grounds tied, and an internal clamp.<br/>
+          Counts: conductors = 4, device yoke = 2, grounds = 1, clamp = 1 → total = <strong>8</strong> #12 volumes.<br/>
+          Table 314.16(B) says #12 = <strong>2.25 in³</strong> → required volume = <strong>18 in³</strong>.
+        </RuleBox>
       </section>
 
-      {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
-        <div className="flex items-center gap-4">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-        </div>
-      </div>
-
-      {/* Article 310 — Conductors for General Wiring */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex items-center gap-3 mb-6">
-          <Cable className="w-8 h-8 text-yellow-400" />
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 310 — Conductors for General Wiring
-          </h2>
-        </div>
-        
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {/* Left Column - Text Content */}
-          <div className="space-y-4 text-white/90 leading-relaxed">
-            <p>
-              — <HL>310.15</HL>: Ampacity tables determine conductor sizing based on insulation type and ambient temperature. 
-              Higher temps = lower ampacity. It's physics, not opinion.
-            </p>
-            <p>
-              — <HL>310.16</HL>: Ampacity adjustment factors for more than three current-carrying conductors in a raceway. 
-              Crowded raceways get hot—derate accordingly.
-            </p>
-            <p>
-              — <HL>310.17</HL>: Ampacity for conductors in free air (not in raceways). 
-              Free air conductors can handle more current—use the right table.
-            </p>
-            <p>
-              — <HL>310.19</HL>: Ampacity for conductors in parallel installations. 
-              Parallel conductors must be identical—size, length, and type.
-            </p>
-          </div>
-          
-          {/* Right Column - Visual Examples */}
-          <div className="space-y-4">
-            {/* IMAGE 4: Conductor Ampacity */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
-              <Image
-                src="/images/module-02/m02-04.jpg"
-                alt="Conductor ampacity tables and temperature rating considerations"
-                width={400}
-                height={300}
-                className="w-full h-48 object-cover rounded-lg"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Ampacity Tables: Your Sizing Bible</p>
-              </div>
-            </div>
-            
-            {/* IMAGE 5: Parallel Conductors */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
-              <Image
-                src="/images/module-02/m02-05.jpg"
-                alt="Parallel conductor installation with proper sizing and termination"
-                width={400}
-                height={300}
-                className="w-full h-48 object-cover rounded-lg"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Parallel Conductors: Must Be Identical</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Ampacity Factors Chart */}
-        <ChartBox>
-          <h4 className="font-bold text-white mb-4 text-center">Ampacity Adjustment Factors</h4>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h5 className="font-semibold text-yellow-400 mb-2">Temperature Factors</h5>
-              <p className="text-white/85 text-sm">
-                Higher ambient temperatures reduce conductor ampacity. Use correction factors from Table 310.15(B)(1).
-                Every 10°F above 86°F reduces ampacity by about 5%.
-              </p>
-            </div>
-            <div>
-              <h5 className="font-semibold text-yellow-400 mb-2">Conductor Count Factors</h5>
-              <p className="text-white/85 text-sm">
-                More than three current-carrying conductors in a raceway require derating. 
-                See Table 310.15(B)(3)(a) for specific percentages.
-              </p>
-            </div>
-          </div>
-        </ChartBox>
-
-        {/* Warning Box */}
-        <WarningBox>
-          <strong>EXAM TRAP:</strong> The exam loves ampacity questions. Remember: temperature affects ampacity, 
-          and more than three conductors in a raceway requires derating. Always check the tables—don't guess!
-        </WarningBox>
-      </section>
 
             {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
