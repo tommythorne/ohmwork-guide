@@ -1,5 +1,6 @@
 "use client";
-import { Zap } from "lucide-react";
+
+import { AlertTriangle , Zap } from "lucide-react";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -332,6 +333,7 @@ export default function Ch1General() {
       {/* ⚡ Article 90 — Purpose, Scope, How the NEC Works */}
       {/* 📝 Quiz */}
 
+
             {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
@@ -553,7 +555,7 @@ export default function Ch1General() {
           <div className="rounded-xl border border-white/10 p-4 bg-white/[0.03] hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
             <div className="text-center">
               <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-3 group-hover:bg-yellow-400/30 transition-colors">
-                <span className="text-2xl">🛡️</span>
+                <span className="text-2xl">🏷️</span>
               </div>
               <p className="text-white/85 text-sm">
                 <HL>Label it</HL> so the next human doesn't guess at 2AM.
@@ -1491,6 +1493,7 @@ export default function Ch1General() {
         </div>
       </div>
 
+
       {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-2900 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
@@ -1504,7 +1507,7 @@ export default function Ch1General() {
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-3000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-6">
-            Chapter 1 Summary
+            <AlertTriangle className="inline-block w-6 h-6 text-yellow-400 mr-2" /> Chapter 1 Summary
           </h2>
           <p className="text-white/80 text-lg leading-relaxed max-w-4xl mx-auto">
             You've covered the foundation of the NEC. These general requirements apply to <HL>everything</HL> that follows. 
@@ -1516,7 +1519,7 @@ export default function Ch1General() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
           <div className="bg-white/[0.03] rounded-xl border border-white/20 p-6 text-center">
             <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">⚡</span>
+              <Zap className="w-6 h-6 text-yellow-400" aria-hidden="true" />
             </div>
             <h3 className="font-bold text-white mb-2">Purpose & Scope</h3>
             <p className="text-white/80 text-sm">
@@ -1546,7 +1549,7 @@ export default function Ch1General() {
           
           <div className="bg-white/[0.03] rounded-xl border border-white/20 p-6 text-center">
             <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">⚡</span>
+              <Zap className="w-6 h-6 text-yellow-400" aria-hidden="true" />
             </div>
             <h3 className="font-bold text-white mb-2">Conductor Rules</h3>
             <p className="text-white/80 text-sm">
@@ -1566,7 +1569,7 @@ export default function Ch1General() {
           
           <div className="bg-white/[0.03] rounded-xl border border-white/20 p-6 text-center">
             <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">⚡</span>
+              <Zap className="w-6 h-6 text-yellow-400" aria-hidden="true" />
             </div>
             <h3 className="font-bold text-white mb-2">Protection & Grounding</h3>
             <p className="text-white/80 text-sm">
