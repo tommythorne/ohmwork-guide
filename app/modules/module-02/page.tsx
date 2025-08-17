@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle, Zap, Shield, Plug, Cable, Building, CloudLightning, Flame, Target, Waypoints, GitBranch } from "lucide-react";
+import { AlertTriangle, Zap, Shield, Plug, Cable, Building, CloudLightning, Flame, Target, Waypoints, GitBranch, Ruler, BookOpen, Brain } from "lucide-react";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -26,7 +26,7 @@ const WarningBox = ({ children }: { children: React.ReactNode }) => (
 const RuleBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-yellow-400 text-xl">��</span>
+      <Ruler className="w-5 h-5 text-yellow-400" aria-hidden="true" />
       <span className="font-bold text-yellow-400">RULE OF THUMB</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -36,7 +36,7 @@ const RuleBox = ({ children }: { children: React.ReactNode }) => (
 const HorrorStory = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-orange-400 text-xl">��</span>
+      <Flame className="w-5 h-5 text-orange-400" aria-hidden="true" />
       <span className="font-bold text-orange-400">JOBSITE HORROR STORY</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -46,7 +46,7 @@ const HorrorStory = ({ children }: { children: React.ReactNode }) => (
 const CodeBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-blue-500/40 bg-blue-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-blue-400 text-xl">��</span>
+      <BookOpen className="w-5 h-5 text-blue-400" aria-hidden="true" />
       <span className="font-bold text-blue-400">NEC REFERENCE</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -1803,11 +1803,11 @@ export default function Ch2Wiring() {
       <section className={`mx-auto max-w-5xl mb-16 transition-all duration-1000 delay-3200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="text-4xl">��</span>
+            <Brain className="w-8 h-8 text-yellow-400" />
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-400">
               Knowledge Check Quiz
             </h2>
-            <span className="text-4xl">🧠</span>
+            <Brain className="w-8 h-8 text-yellow-400" />
           </div>
           <p className="text-lg text-white/90">
             Test your understanding of Chapter 2. Get 80% or higher to prove you've mastered wiring methods!
