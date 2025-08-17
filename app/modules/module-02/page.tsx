@@ -368,7 +368,35 @@ export default function Ch2Wiring() {
           Counts: conductors = 4, device yoke = 2, grounds = 1, clamp = 1 → total = <strong>8</strong> #12 volumes.<br/>
           Table 314.16(B) says #12 = <strong>2.25 in³</strong> → required volume = <strong>18 in³</strong>.
         </RuleBox>
-      </section>
+      
+          {/* Right Column - Visual Examples (auto-added) */}
+          <div className="space-y-4">
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+              <Image
+                src="/images/module-02/m02-02.jpg"
+                alt="Box fill sizing reference example"
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <p className="text-white text-sm font-semibold">Box fill example (314.16)</p>
+              </div>
+            </div>
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+              <Image
+                src="/images/module-02/m02-03.jpg"
+                alt="Device yoke and clamp counting for box fill"
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <p className="text-white text-sm font-semibold">Count conductors, yokes, clamps</p>
+              </div>
+            </div>
+          </div>
+</section>
 
 
             {/* Visual Divider */}
