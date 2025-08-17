@@ -1,4 +1,5 @@
 "use client";
+import { Zap } from "lucide-react";
 
 import { AlertTriangle } from "lucide-react";
 
