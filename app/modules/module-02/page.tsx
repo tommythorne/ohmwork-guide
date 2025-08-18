@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import Quiz from "../../components/Quiz";
+import FooterNav from "../../components/FooterNav";
 
 // Enhanced highlight helpers with electrician grit
 const HL = ({ children }: { children: React.ReactNode }) => (
@@ -1660,25 +1661,7 @@ export default function Ch2Wiring() {
       </section>
 
       {/* Footer Navigation */}
-      <footer className={`mx-auto max-w-5xl border-t border-white/20 pt-8 transition-all duration-1000 delay-3500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-white/60 text-sm">
-            © 2024 OhmWork Electrician Survival Guide
-          </div>
-          
-          <nav className="flex items-center gap-6">
-            <Link href="/intro" className="text-white/70 hover:text-white transition-colors duration-200">
-              ← Back to TOC
-            </Link>
-            <span className="text-white/40">|</span>
-            <Link href="/modules/module-01" className="text-white/70 hover:text-white transition-colors duration-200">
-              Chapter 1
-            </Link>
-            <span className="text-white/40">|</span>
-            <span className="text-yellow-400 font-semibold">Chapter 2</span>
-          </nav>
-        </div>
-      </footer>
+      <FooterNav prev={{href:"/modules/module-01",label:"Chapter 1"}} next={{href:"/modules/module-03",label:"Chapter 3"}} />
     </main>
   );
 }

@@ -7,6 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 import Quiz from "../../components/Quiz";
+import FooterNav from "../../components/FooterNav";
 // Enhanced highlight helpers with electrician grit
 const HL = ({ children }: { children: React.ReactNode }) => (
   <span className="font-extrabold underline decoration-yellow-400 underline-offset-4">{children}</span>
@@ -1586,35 +1587,7 @@ export default function Ch1General() {
   <Quiz questions={quiz} />
 </section>
 
-      <footer className={`mx-auto max-w-5xl mt-16 transition-all duration-1000 delay-3100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 p-6 bg-white/[0.03] rounded-xl border border-white/20">
-          <div className="text-center sm:text-left">
-            <h3 className="text-lg font-bold text-white mb-2">Ready for More?</h3>
-            <p className="text-white/70 text-sm">
-              Chapter 1 down. The foundation is set. Time to build on it.
-            </p>
-          </div>
-          
-          <div className="flex gap-4">
-            <Link
-              href="/intro"
-              className="px-6 py-3 bg-white/10 hover:bg-white/20 border border-white/20 rounded-lg text-white transition-all duration-200 hover:scale-105"
-            >
-              ← Back to TOC
-            </Link>
-            <Link
-              href="/modules/module-02"
-              className="px-6 py-3 bg-yellow-500 hover:bg-yellow-400 text-black font-semibold rounded-lg transition-all duration-200 hover:scale-105"
-            >
-              Next: Chapter 2 →
-            </Link>
-          </div>
-        </div>
-        
-        <div className="text-center mt-8 text-white/50 text-sm">
-          <p>OhmWork Electrician Survival Guide • NEC 2017 • Chapter 1 Complete</p>
-        </div>
-      </footer>
+      <FooterNav next={{href:"/modules/module-02",label:"Chapter 2"}} />
     </main>
   );
 }
