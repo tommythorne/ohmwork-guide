@@ -297,7 +297,7 @@ export default function Ch2Wiring() {
           {/* Content */}
           <div className="relative z-10">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-yellow-400 mb-6">
-              Chapter 2 — Wiring Methods & Branch Circuits
+              Chapter 2 — Wiring and Protection
             </h1>
             <p className="text-xl md:text-2xl text-white/90 leading-relaxed max-w-4xl">
               <HL>Master the Art of Installation</HL>: raceways, conductors, and the methods that keep electricity flowing safely. 

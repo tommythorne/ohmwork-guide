@@ -109,7 +109,7 @@ export default function Ch3Raceways() {
           <div className="relative z-10">
             <p className="text-white/80 mb-2">Advanced raceway systems: IMC, RMC, PVC, LFNC, metal wireways, and surface raceways</p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-yellow-400 mb-6">
-              Chapter 3 — Raceway Systems & Wireways (Advanced)
+              Chapter 3 — Wiring Methods and Materials
             </h1>
             <p className="text-xl md:text-2xl text-white/90 leading-relaxed max-w-4xl">
               <HL>Push beyond basics</HL>: learn when and why to choose each raceway, plus support spacing, fittings,
