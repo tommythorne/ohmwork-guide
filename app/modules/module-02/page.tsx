@@ -323,7 +323,7 @@ export default function Ch2Wiring() {
         </div>
       </div>
 
-            {/* Visual Divider */}
+      {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
@@ -332,102 +332,99 @@ export default function Ch2Wiring() {
         </div>
       </div>
 
-      {/* Article 300 — Wiring Methods */}
-      
       {/* Article 314 — Boxes & Conduit Bodies (Box Fill) */}
       <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
 
-  <div className="flex items-center gap-3 mb-6">
-    <Building className="w-8 h-8 text-yellow-400" />
-    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-      Article 314 — Boxes & Conduit Bodies (Box Fill)
-    </h2>
-  </div>
+        <div className="flex items-center gap-3 mb-6">
+          <Building className="w-8 h-8 text-yellow-400" />
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
+            Article 314 — Boxes & Conduit Bodies (Box Fill)
+          </h2>
+        </div>
 
-  <div className="grid lg:grid-cols-2 gap-8 mb-8">
-    {/* Left Column - Text Content */}
-    <div className="space-y-4 text-white/90 leading-relaxed">
-      <p>
-        — <HL>314.16(A)</HL>: Box volume must be adequate for the number & size of conductors. The box volume (in³)
-        must be ≥ the sum of allowances.
-      </p>
-      <p>
-        — <HL>314.16(B)</HL>: Counting rules — one allowance per unbroken conductor entering; all equipment grounds
-        together = one allowance total; internal clamps = one allowance; each device yoke = two allowances (one per yoke side).
-      </p>
-      <p>
-        — <HL>Volume per conductor (Cu)</HL>: 18 AWG = 1.5; 16 = 1.75; 14 = 2.0; 12 = 2.25; 10 = 2.5; 8 = 3.0; 6 = 5.0 (in³).
-      </p>
-      <p>
-        — <HL>Conduit bodies</HL>: If used for splices or devices, they must provide sufficient volume per the same rules.
-      </p>
-    </div>
+        <div className="grid lg:grid-cols-2 gap-8 mb-8">
+          {/* Left Column - Text Content */}
+          <div className="space-y-4 text-white/90 leading-relaxed">
+            <p>
+              — <HL>314.16(A)</HL>: Box volume must be adequate for the number & size of conductors. The box volume (in³)
+              must be ≥ the sum of allowances.
+            </p>
+            <p>
+              — <HL>314.16(B)</HL>: Counting rules — one allowance per unbroken conductor entering; all equipment grounds
+              together = one allowance total; internal clamps = one allowance; each device yoke = two allowances (one per yoke side).
+            </p>
+            <p>
+              — <HL>Volume per conductor (Cu)</HL>: 18 AWG = 1.5; 16 = 1.75; 14 = 2.0; 12 = 2.25; 10 = 2.5; 8 = 3.0; 6 = 5.0 (in³).
+            </p>
+            <p>
+              — <HL>Conduit bodies</HL>: If used for splices or devices, they must provide sufficient volume per the same rules.
+            </p>
+          </div>
 
-    {/* Right Column - Visual Examples */}
-    <div className="space-y-4">
-      {/* IMAGE A: Box fill overview */}
-      <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
-        <Image
-          src="/images/module-02/m02-02.jpg"
-          alt="Box fill example showing conductor counting and device yoke allowances"
-          width={400}
-          height={300}
-          className="w-full h-48 object-cover rounded-lg"
-        />
-      </div>
+          {/* Right Column - Visual Examples */}
+          <div className="space-y-4">
+            {/* IMAGE A: Box fill overview */}
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+              <Image
+                src="/images/module-02/m02-02.jpg"
+                alt="Box fill example showing conductor counting and device yoke allowances"
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+            </div>
 
-      {/* IMAGE B: Counting conductors / yokes */}
-      <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
-        <Image
-          src="/images/module-02/m02-03.jpg"
-          alt="Counting rules for conductors, grounds, clamps and yokes inside an electrical box"
-          width={400}
-          height={300}
-          className="w-full h-48 object-cover rounded-lg"
-        />
-      </div>
-    </div>
-  </div>
+            {/* IMAGE B: Counting conductors / yokes */}
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+              <Image
+                src="/images/module-02/m02-03.jpg"
+                alt="Counting rules for conductors, grounds, clamps and yokes inside an electrical box"
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+            </div>
+          </div>
+        </div>
 
-  {/* Quick Reference Table */}
-  <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 my-6 overflow-x-auto">
-    <table className="w-full text-sm">
-      <thead>
-        <tr className="border-b border-white/20">
-          <th className="text-left p-3 text-yellow-400 font-bold">Item</th>
-          <th className="text-left p-3 text-yellow-400 font-bold">Allowance</th>
-          <th className="text-left p-3 text-yellow-400 font-bold">Notes</th>
-        </tr>
-      </thead>
-      <tbody className="divide-y divide-white/10">
-        <tr className="hover:bg-white/[0.02] transition-colors">
-          <td className="p-3 font-semibold">Unbroken Conductor</td>
-          <td className="p-3">1× volume of its AWG</td>
-          <td className="p-3 text-green-400">Each entering conductor</td>
-        </tr>
-        <tr className="hover:bg-white/[0.02] transition-colors">
-          <td className="p-3 font-semibold">All Equipment Grounds</td>
-          <td className="p-3">1× of largest ground</td>
-          <td className="p-3 text-green-400">All grounds count as one total</td>
-        </tr>
-        <tr className="hover:bg-white/[0.02] transition-colors">
-          <td className="p-3 font-semibold">Internal Clamp</td>
-          <td className="p-3">1× of largest conductor</td>
-          <td className="p-3 text-green-400">If integral to the box</td>
-        </tr>
-        <tr className="hover:bg-white/[0.02] transition-colors">
-          <td className="p-3 font-semibold">Device Yoke</td>
-          <td className="p-3">2× of largest conductor</td>
-          <td className="p-3 text-green-400">One per yoke (both sides)</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+        {/* Quick Reference Table */}
+        <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 my-6 overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-white/20">
+                <th className="text-left p-3 text-yellow-400 font-bold">Item</th>
+                <th className="text-left p-3 text-yellow-400 font-bold">Allowance</th>
+                <th className="text-left p-3 text-yellow-400 font-bold">Notes</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/10">
+              <tr className="hover:bg-white/[0.02] transition-colors">
+                <td className="p-3 font-semibold">Unbroken Conductor</td>
+                <td className="p-3">1× volume of its AWG</td>
+                <td className="p-3 text-green-400">Each entering conductor</td>
+              </tr>
+              <tr className="hover:bg-white/[0.02] transition-colors">
+                <td className="p-3 font-semibold">All Equipment Grounds</td>
+                <td className="p-3">1× of largest ground</td>
+                <td className="p-3 text-green-400">All grounds count as one total</td>
+              </tr>
+              <tr className="hover:bg-white/[0.02] transition-colors">
+                <td className="p-3 font-semibold">Internal Clamp</td>
+                <td className="p-3">1× of largest conductor</td>
+                <td className="p-3 text-green-400">If integral to the box</td>
+              </tr>
+              <tr className="hover:bg-white/[0.02] transition-colors">
+                <td className="p-3 font-semibold">Device Yoke</td>
+                <td className="p-3">2× of largest conductor</td>
+                <td className="p-3 text-green-400">One per yoke (both sides)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
-</section>
+      </section>
 
-
-            {/* Visual Divider */}
+      {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
@@ -737,7 +734,7 @@ export default function Ch2Wiring() {
         </HorrorStory>
       </section>
 
-            {/* Visual Divider */}
+      {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1300 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
@@ -1031,7 +1028,7 @@ export default function Ch2Wiring() {
         </DataTable>
       </section>
 
-            {/* Visual Divider */}
+      {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1900 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
@@ -1460,7 +1457,8 @@ export default function Ch2Wiring() {
           
           {/* Right Column - Visual Examples */}
           <div className="space-y-4">
-            {/* IMAGE 26: Switch Installation */}
+            {/* IMAGE 26 placeholder moved to Article 406 below */}
+            {/* IMAGE 27 placeholder moved to Article 406 below */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
                 src="/images/module-02/m02-24.jpg"
@@ -1474,7 +1472,6 @@ export default function Ch2Wiring() {
               </div>
             </div>
             
-            {/* IMAGE 27: Switch Marking */}
             <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
               <Image
                 src="/images/module-02/m02-25.jpg"
@@ -1535,8 +1532,105 @@ export default function Ch2Wiring() {
         </RuleBox>
       </section>
 
+      {/* NEW Visual Divider before Article 406 */}
+      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-2850 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
+        <div className="flex items-center gap-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
+        </div>
+      </div>
+
+      {/* NEW Article 406 — Receptacles, Cord Connectors, and Attachment Plugs (Caps) */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2900 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="flex items-center gap-3 mb-6">
+          <Plug className="w-8 h-8 text-yellow-400" />
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
+            Article 406 — Receptacles, Cord Connectors & Attachment Plugs (Caps)
+          </h2>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-8 mb-8">
+          {/* Left Column */}
+          <div className="space-y-4 text-white/90 leading-relaxed">
+            <p>— <HL>406.4(D)</HL>: Receptacles must be installed with the correct grounding type and rating; tamper-resistant where required.</p>
+            <p>— <HL>406.9(A)&(B)</HL>: Damp and wet locations require covers/enclosures rated for the environment (in-use covers outdoors).</p>
+            <p>— <HL>406.12</HL>: Tamper-resistant (TR) receptacles required in dwelling unit habitable rooms and other specified locations.</p>
+            <p>— <HL>406.13</HL>: Weather-resistant (WR) receptacles required where exposed to weather.</p>
+          </div>
+
+          {/* Right Column — adds image slots 26 & 27 */}
+          <div className="space-y-4">
+            {/* IMAGE 26 */}
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+              <Image
+                src="/images/module-02/m02-26.jpg"
+                alt="In-use weatherproof cover protecting an outdoor receptacle"
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <p className="text-white text-sm font-semibold">Use In-Use Covers Outdoors (406.9)</p>
+              </div>
+            </div>
+
+            {/* IMAGE 27 */}
+            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+              <Image
+                src="/images/module-02/m02-27.jpg"
+                alt="Tamper-resistant and weather-resistant receptacle marking close-up"
+                width={400}
+                height={300}
+                className="w-full h-48 object-cover rounded-lg"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+                <p className="text-white text-sm font-semibold">TR/WR Markings Matter (406.12 & 406.13)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* 406 Quick Table */}
+        <DataTable>
+          <h4 className="font-bold text-white mb-4">Receptacle Environment Requirements</h4>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-white/20">
+                  <th className="text-left p-3 text-yellow-400 font-bold">Location</th>
+                  <th className="text-left p-3 text-yellow-400 font-bold">Device / Cover</th>
+                  <th className="text-left p-3 text-yellow-400 font-bold">Key Notes</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/10">
+                <tr className="hover:bg-white/[0.02] transition-colors">
+                  <td className="p-3 font-semibold">Dwelling, habitable rooms</td>
+                  <td className="p-3">TR receptacles</td>
+                  <td className="p-3 text-green-400">Safety for children (406.12)</td>
+                </tr>
+                <tr className="hover:bg-white/[0.02] transition-colors">
+                  <td className="p-3 font-semibold">Outdoor (wet)</td>
+                  <td className="p-3">WR receptacles + in-use cover</td>
+                  <td className="p-3 text-green-400">Weather protection (406.9, 406.13)</td>
+                </tr>
+                <tr className="hover:bg-white/[0.02] transition-colors">
+                  <td className="p-3 font-semibold">Damp locations</td>
+                  <td className="p-3">Damp-rated cover</td>
+                  <td className="p-3 text-green-400">Keep moisture out (406.9(A))</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </DataTable>
+
+        <WarningBox>
+          TR ≠ WR: Tamper-resistant protects from insertion by kids; weather-resistant protects the device materials outdoors. Don’t substitute one for the other. Check both the <HL>TR</HL> and <HL>WR</HL> markings when required.
+        </WarningBox>
+      </section>
+
       {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-2900 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
+      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-3000 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
           <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
@@ -1545,7 +1639,7 @@ export default function Ch2Wiring() {
       </div>
 
       {/* Chapter 2 Summary */}
-      <section className={`mx-auto max-w-5xl mb-16 transition-all duration-1000 delay-3000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      <section className={`mx-auto max-w-5xl mb-16 transition-all duration-1000 delay-3050 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-6">
             <Target className="w-10 h-10 text-yellow-400" />
