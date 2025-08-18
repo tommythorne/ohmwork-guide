@@ -63,105 +63,105 @@ const quiz = [
     id: 1,
     stem: "Which raceway type is specifically designed for hazardous locations and requires threaded connections?",
     choices: ["EMT", "IMC", "PVC", "LFNC"],
-    correct: "B",
+    answer: "IMC",
     why: "IMC (Intermediate Metal Conduit) is designed for hazardous locations and requires threaded connections for proper sealing and safety."
   },
   {
     id: 2,
     stem: "What is the maximum support spacing for Type RMC in exposed work?",
     choices: ["10 feet", "15 feet", "20 feet", "25 feet"],
-    correct: "A",
+    answer: "10 feet",
     why: "RMC requires support every 10 feet maximum in exposed work to prevent sagging and maintain proper installation."
   },
   {
     id: 3,
     stem: "Which PVC installation method is required for underground applications?",
     choices: ["Direct burial", "Concrete encasement", "Both A and B", "Neither A nor B"],
-    correct: "C",
+    answer: "Both A and B",
     why: "Underground PVC requires either direct burial with proper depth or concrete encasement for protection."
   },
   {
     id: 4,
     stem: "What is the primary advantage of Type LFNC over standard FMC?",
     choices: ["Lower cost", "Liquidtight seal", "Easier bending", "Faster installation"],
-    correct: "B",
+    answer: "Liquidtight seal",
     why: "LFNC provides a liquidtight seal, making it ideal for wet locations and areas exposed to liquids."
   },
   {
     id: 5,
     stem: "Which raceway type is most suitable for corrosive environments?",
     choices: ["EMT", "RMC", "PVC", "IMC"],
-    correct: "C",
+    answer: "PVC",
     why: "PVC is highly resistant to corrosion and is the preferred choice for corrosive environments."
   },
   {
     id: 6,
     stem: "What is the maximum bend radius for Type ENT in exposed work?",
     choices: ["3 times the diameter", "5 times the diameter", "10 times the diameter", "No limit"],
-    correct: "B",
+    answer: "5 times the diameter",
     why: "ENT requires a minimum bend radius of 5 times the outside diameter to prevent damage to the raceway."
   },
   {
     id: 7,
     stem: "Which wireway type is required for outdoor installations?",
     choices: ["Metal wireways only", "Nonmetallic wireways only", "Either type", "Neither type"],
-    correct: "A",
+    answer: "Metal wireways only",
     why: "Metal wireways are required for outdoor installations due to their durability and weather resistance."
   },
   {
     id: 8,
     stem: "What is the maximum fill percentage for wireways?",
     choices: ["20%", "40%", "60%", "80%"],
-    correct: "B",
+    answer: "40%",
     why: "Wireways have a maximum fill of 40% to allow for proper heat dissipation and future additions."
   },
   {
     id: 9,
     stem: "Which surface raceway type is suitable for wet locations?",
     choices: ["Surface metal raceways", "Surface nonmetallic raceways", "Both types", "Neither type"],
-    correct: "B",
+    answer: "Surface nonmetallic raceways",
     why: "Surface nonmetallic raceways are suitable for wet locations when properly listed and installed."
   },
   {
     id: 10,
     stem: "What is the primary purpose of expansion fittings in raceway systems?",
     choices: ["Cost reduction", "Thermal expansion compensation", "Easier installation", "Aesthetic improvement"],
-    correct: "B",
+    answer: "Thermal expansion compensation",
     why: "Expansion fittings compensate for thermal expansion and contraction of raceway systems."
   },
   {
     id: 11,
     stem: "Which raceway type requires the most frequent support?",
     choices: ["RMC", "EMT", "PVC", "IMC"],
-    correct: "B",
+    answer: "EMT",
     why: "EMT requires the most frequent support due to its thinner wall construction and flexibility."
   },
   {
     id: 12,
     stem: "What is the maximum temperature rating for standard PVC conduit?",
     choices: ["60°C", "75°C", "90°C", "105°C"],
-    correct: "B",
+    answer: "75°C",
     why: "Standard PVC conduit has a maximum temperature rating of 75°C."
   },
   {
     id: 13,
     stem: "Which raceway type is most suitable for vibration-prone areas?",
     choices: ["Rigid metal conduit", "Flexible metal conduit", "PVC conduit", "EMT"],
-    correct: "B",
+    answer: "Flexible metal conduit",
     why: "Flexible metal conduit is designed to handle vibration and movement in equipment connections."
   },
   {
     id: 14,
     stem: "What is the primary advantage of Type IMC over Type RMC?",
     choices: ["Lower cost", "Lighter weight", "Better corrosion resistance", "Easier bending"],
-    correct: "B",
+    answer: "Lighter weight",
     why: "IMC is lighter than RMC while maintaining similar strength and durability."
   },
   {
     id: 15,
     stem: "Which installation method is required for raceways in concrete?",
     choices: ["Direct embedment", "Concrete encasement", "Both A and B", "Neither A nor B"],
-    correct: "C",
+    answer: "Both A and B",
     why: "Raceways in concrete require either direct embedment or concrete encasement for proper protection and support."
   }
 ];
@@ -513,7 +513,7 @@ export default function ModulePage() {
         </RuleBox>
       </section>
 
-            {/* Visual Divider */}
+      {/* Visual Divider */}
       <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-900 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
         <div className="flex items-center gap-4">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
