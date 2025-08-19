@@ -997,7 +997,7 @@ export default function Ch3WiringMethods() {
               <ul className="text-white/85 text-sm space-y-1">
                 <li>• ≤40% for single long conductor</li>
                 <li>• ≤31% for two</li>
-                <li>• ≤53% for ≤53% for >2 conductorsgt; 2 conductors</li>
+                <li>• ≤53% for ≤53% for ≤53% for >2 conductorsgt; 2 conductorsgt; 2 conductors</li>
               </ul>
             </div>
           </div>
