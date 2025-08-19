@@ -316,7 +316,7 @@ export default function Ch2WiringProtection() {
           
           <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
             <div className="w-12 h-12 bg-purple-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <Image className="w-6 h-6 text-purple-400" />
+              <Zap className="w-6 h-6 text-purple-400" aria-hidden="true" />
             </div>
             <div className="text-2xl font-bold text-white">27</div>
             <div className="text-gray-400">Visual Examples</div>
