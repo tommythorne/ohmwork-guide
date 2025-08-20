@@ -523,3 +523,4 @@ export default function Ch3WiringMethods() {
       />
     </main>
   );
+}
