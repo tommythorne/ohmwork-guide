@@ -1,363 +1,277 @@
 "use client";
 
-import React from "react";
-import ModuleTemplate, {
-  ArticleHeader,
-  Section,
-  ImageCard,
-  HL,
-  WarningBox,
-  RuleBox,
-  CodeBox,
-  HorrorStory,
-  DataTable,
-  ChartBox,
-  Zap,
-  Cable,
-  Building,
-  Plug,
-  Shield
-} from "../../components/ModuleTemplate";
+import { AlertTriangle, GitBranch, Building, Flame, Zap, HardHat } from "lucide-react";
+import ModuleTemplate from "../../components/ModuleTemplate";
 
 const quiz = [
-  {
-    id: 1,
-    stem: "What is the primary focus of NEC Chapter 3?",
-    choices: [
-      { key: "A", text: "Grounding and bonding" },
-      { key: "B", text: "Wiring methods and materials" },
-      { key: "C", text: "Overcurrent protection" },
-      { key: "D", text: "Service calculations" }
-    ],
-    answer: "B",
-    why: "Chapter 3 covers wiring methods and materials, including raceways, cables, and boxes."
-  },
-  {
-    id: 2,
-    stem: "According to Article 300, conductors of the same circuit must:",
-    choices: [
-      { key: "A", text: "Be run in separate raceways" },
-      { key: "B", text: "Be run together in the same raceway or cable" },
-      { key: "C", text: "Be run in metallic conduit only" },
-      { key: "D", text: "Be run in flexible cord" }
-    ],
-    answer: "B",
-    why: "NEC 300.3(B) requires all conductors of the same circuit to be run together in the same raceway, cable, or enclosure."
-  },
-  {
-    id: 3,
-    stem: "What is the minimum cover depth for direct burial of Type UF cable under a residential lawn?",
-    choices: [
-      { key: "A", text: "6 inches" },
-      { key: "B", text: "12 inches" },
-      { key: "C", text: "18 inches" },
-      { key: "D", text: "24 inches" }
-    ],
-    answer: "B",
-    why: "NEC Table 300.5 requires a minimum of 12 inches cover for direct burial UF cable under a residential lawn."
-  },
-  {
-    id: 4,
-    stem: "Article 310 covers requirements for:",
-    choices: [
-      { key: "A", text: "Flexible cords" },
-      { key: "B", text: "Conductors for general wiring" },
-      { key: "C", text: "Nonmetallic-sheathed cable" },
-      { key: "D", text: "Raceways" }
-    ],
-    answer: "B",
-    why: "Article 310 covers conductors for general wiring, including ampacity and insulation types."
-  },
-  {
-    id: 5,
-    stem: "What is the maximum number of 90-degree bends allowed between pull points in a conduit run?",
-    choices: [
-      { key: "A", text: "2" },
-      { key: "B", text: "3" },
-      { key: "C", text: "4" },
-      { key: "D", text: "5" }
-    ],
-    answer: "C",
-    why: "NEC 300.14 limits the total bends between pull points to 360 degrees (4 x 90°)."
-  },
-  {
-    id: 6,
-    stem: "Article 314 covers requirements for:",
-    choices: [
-      { key: "A", text: "Boxes and conduit bodies" },
-      { key: "B", text: "Flexible cords" },
-      { key: "C", text: "Service equipment" },
-      { key: "D", text: "Grounding electrodes" }
-    ],
-    answer: "A",
-    why: "Article 314 covers outlet, device, pull, and junction boxes, as well as conduit bodies."
-  },
-  {
-    id: 7,
-    stem: "What is the minimum box volume required for four 12 AWG conductors and one device?",
-    choices: [
-      { key: "A", text: "12.5 cubic inches" },
-      { key: "B", text: "16.5 cubic inches" },
-      { key: "C", text: "20.5 cubic inches" },
-      { key: "D", text: "24.5 cubic inches" }
-    ],
-    answer: "B",
-    why: "Each 12 AWG conductor = 2.25 in³, device = 2 x 2.25 in³. (4+2=6) x 2.25 = 13.5 in³. With ground, 16.5 in³ is required."
-  },
-  {
-    id: 8,
-    stem: "Article 320 covers which wiring method?",
-    choices: [
-      { key: "A", text: "Armored cable (Type AC)" },
-      { key: "B", text: "Nonmetallic-sheathed cable (Type NM)" },
-      { key: "C", text: "Flexible metal conduit (FMC)" },
-      { key: "D", text: "Rigid metal conduit (RMC)" }
-    ],
-    answer: "A",
-    why: "Article 320 covers Armored Cable (Type AC)."
-  },
-  {
-    id: 9,
-    stem: "Which article covers Nonmetallic-Sheathed Cable (Type NM)?",
-    choices: [
-      { key: "A", text: "Article 320" },
-      { key: "B", text: "Article 322" },
-      { key: "C", text: "Article 334" },
-      { key: "D", text: "Article 338" }
-    ],
-    answer: "C",
-    why: "Article 334 covers Nonmetallic-Sheathed Cable (Type NM)."
-  },
-  {
-    id: 10,
-    stem: "What is the minimum bending radius for Type MC cable?",
-    choices: [
-      { key: "A", text: "5 times the cable diameter" },
-      { key: "B", text: "7 times the cable diameter" },
-      { key: "C", text: "10 times the cable diameter" },
-      { key: "D", text: "12 times the cable diameter" }
-    ],
-    answer: "B",
-    why: "NEC 330.24(A) requires a minimum bending radius of 7 times the cable diameter for MC cable."
-  }
-] as const;
-
-const sections = [
-  <Section key="300">
-    <ArticleHeader
-      icon={<div className="p-2 bg-yellow-400/20 rounded-lg"><Zap className="w-6 h-6 text-yellow-400" /></div>}
-      title="Article 300 — General Requirements for Wiring Methods"
-    />
-    <div className="grid lg:grid-cols-2 gap-8">
-      <div>
-        <div className="space-y-4 text-gray-300">
-          <p><HL>300.3</HL>: All conductors of the same circuit must be contained within the same raceway, cable, or enclosure.</p>
-          <p><HL>300.4</HL>: Protection against physical damage required where wiring methods are subject to damage.</p>
-          <p><HL>300.5</HL>: Minimum cover requirements for underground installations vary by location and circuit type.</p>
-          <p><HL>300.11</HL>: Wiring methods shall be securely fastened in place.</p>
-          <p><HL>300.15</HL>: Boxes or conduit bodies required at all splice, tap, and termination points.</p>
-        </div>
-        <WarningBox>
-          Common violation: Splitting circuit conductors between different raceways or cables. All circuit conductors must stay together!
-        </WarningBox>
-      </div>
-      <div className="space-y-4">
-        <ImageCard
-          src="/images/module-03/m03-02.jpg"
-          alt="Proper conductor grouping in raceway"
-          caption="All circuit conductors grouped together"
-        />
-        <ImageCard
-          src="/images/module-03/m03-03.jpg"
-          alt="Underground installation with proper depth markings"
-          caption="Underground installation requirements"
-        />
-      </div>
-    </div>
-  </Section>,
-
-  <Section key="310">
-    <ArticleHeader
-      icon={<div className="p-2 bg-blue-400/20 rounded-lg"><Cable className="w-6 h-6 text-blue-400" /></div>}
-      title="Article 310 — Conductors for General Wiring"
-    />
-    <div className="grid lg:grid-cols-2 gap-8">
-      <div>
-        <div className="space-y-4 text-gray-300">
-          <p><HL>310.10</HL>: Conductor construction and applications must be suitable for installation conditions.</p>
-          <p><HL>310.15</HL>: Ampacities based on ambient temperature, number of conductors, and installation method.</p>
-          <p><HL>310.104</HL>: Conductor insulation types and requirements for various applications.</p>
-        </div>
-        <DataTable>
-          <h4 className="font-bold text-white mb-4">Common Conductor Types</h4>
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-white/20">
-                <th className="text-left p-3 text-yellow-400">Type</th>
-                <th className="text-left p-3 text-yellow-400">Max Temp</th>
-                <th className="text-left p-3 text-yellow-400">Application</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-white/10">
-              <tr><td className="p-3">THHN</td><td className="p-3">90°C</td><td className="p-3">Dry/Damp</td></tr>
-              <tr><td className="p-3">XHHW</td><td className="p-3">90°C</td><td className="p-3">Dry/Wet</td></tr>
-              <tr><td className="p-3">THW</td><td className="p-3">75°C</td><td className="p-3">Dry/Wet</td></tr>
-            </tbody>
-          </table>
-        </DataTable>
-      </div>
-      <div className="space-y-4">
-        <ImageCard
-          src="/images/module-03/m03-04.jpg"
-          alt="Various conductor insulation types"
-          caption="Common conductor insulation types"
-        />
-        <ImageCard
-          src="/images/module-03/m03-05.jpg"
-          alt="Conductor ampacity calculation example"
-          caption="Ampacity calculation factors"
-        />
-      </div>
-    </div>
-  </Section>,
-
-  <Section key="314">
-    <ArticleHeader
-      icon={<div className="p-2 bg-green-400/20 rounded-lg"><Building className="w-6 h-6 text-green-400" /></div>}
-      title="Article 314 — Outlet, Device, Pull, and Junction Boxes"
-    />
-    <div className="grid lg:grid-cols-2 gap-8">
-      <div>
-        <div className="space-y-4 text-gray-300">
-          <p><HL>314.16</HL>: Box fill calculations required based on conductor count, clamps, and devices.</p>
-          <p><HL>314.23</HL>: Boxes must be securely fastened and supported independently.</p>
-          <p><HL>314.25</HL>: Covers required to protect wiring and connections.</p>
-          <p><HL>314.29</HL>: Boxes must remain accessible after installation.</p>
-        </div>
-        <ChartBox>
-          <h4 className="font-bold text-white mb-4">Box Fill Calculations</h4>
-          <ul className="space-y-2 text-gray-300">
-            <li>• Each conductor counts as one volume unit</li>
-            <li>• Device counts as two volume units</li>
-            <li>• All ground wires together count as one unit</li>
-            <li>• Each internal cable clamp counts as one unit</li>
-          </ul>
-        </ChartBox>
-      </div>
-      <div className="space-y-4">
-        <ImageCard
-          src="/images/module-03/m03-06.jpg"
-          alt="Box fill calculation diagram"
-          caption="Box fill requirements"
-        />
-        <ImageCard
-          src="/images/module-03/m03-07.jpg"
-          alt="Proper box support and accessibility"
-          caption="Box support and access"
-        />
-      </div>
-    </div>
-  </Section>,
-
-  <Section key="320-330-334">
-    <ArticleHeader
-      icon={<div className="p-2 bg-purple-400/20 rounded-lg"><Cable className="w-6 h-6 text-purple-400" /></div>}
-      title="Articles 320, 330, 334 — Cable Types"
-    />
-    <div className="grid lg:grid-cols-2 gap-8">
-      <div>
-        <div className="space-y-4 text-gray-300">
-          <p><HL>320</HL>: Armored Cable (Type AC) requirements and uses.</p>
-          <p><HL>330</HL>: Metal-Clad Cable (Type MC) installation and support.</p>
-          <p><HL>334</HL>: Nonmetallic-Sheathed Cable (Type NM) limitations.</p>
-        </div>
-        <DataTable>
-          <h4 className="font-bold text-white mb-4">Cable Type Comparison</h4>
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-white/20">
-                <th className="text-left p-3 text-yellow-400">Type</th>
-                <th className="text-left p-3 text-yellow-400">Support</th>
-                <th className="text-left p-3 text-yellow-400">Location</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-white/10">
-              <tr><td className="p-3">AC</td><td className="p-3">4.5 ft</td><td className="p-3">Dry only</td></tr>
-              <tr><td className="p-3">MC</td><td className="p-3">6 ft</td><td className="p-3">Wet/Dry</td></tr>
-              <tr><td className="p-3">NM</td><td className="p-3">4.5 ft</td><td className="p-3">Dry only</td></tr>
-            </tbody>
-          </table>
-        </DataTable>
-      </div>
-      <div className="space-y-4">
-        <ImageCard
-          src="/images/module-03/m03-08.jpg"
-          alt="Cable type installations"
-          caption="Different cable type installations"
-        />
-        <ImageCard
-          src="/images/module-03/m03-09.jpg"
-          alt="Cable support methods"
-          caption="Proper cable support methods"
-        />
-      </div>
-    </div>
-  </Section>
+  { id: 1, stem: "Which wiring method is NOT permitted in wet locations?", choices: [
+    { key: "A", text: "PVC" }, { key: "B", text: "RMC" }, { key: "C", text: "Type NM" }, { key: "D", text: "LFMC" }
+  ], answer: "C", why: "NM is dry‑location only (340.12)." },
+  { id: 2, stem: "Max total bend between pull points in a raceway?", choices: [
+    { key: "A", text: "180°" }, { key: "B", text: "270°" }, { key: "C", text: "360°" }, { key: "D", text: "No limit" }
+  ], answer: "C", why: "Most raceway articles limit to 360° (e.g., 358.26, 344.26)." },
+  { id: 3, stem: "Derating required when CCC count in one raceway exceeds:", choices: [
+    { key: "A", text: "2" }, { key: "B", text: "3" }, { key: "C", text: "4" }, { key: "D", text: "6" }
+  ], answer: "B", why: "More than 3 CCC triggers adjustment (310.15)." },
+  { id: 4, stem: "Max conductor fill for &gt;2 conductors (Chapter 9, Table 1)?", choices: [
+    { key: "A", text: "31%" }, { key: "B", text: "40%" }, { key: "C", text: "53%" }, { key: "D", text: "60%" }
+  ], answer: "C", why: "53% for &gt;2 conductors." },
+  { id: 5, stem: "EMT permitted in wet locations if:", choices: [
+    { key: "A", text: "Any time" }, { key: "B", text: "With thread sealant" }, { key: "C", text: "With listed compression fittings" }, { key: "D", text: "Only indoors" }
+  ], answer: "C", why: "Use listed rain‑tight fittings (358.10, .42)." },
+  { id: 6, stem: "LFMC typical support interval:", choices: [
+    { key: "A", text: "3 ft" }, { key: "B", text: "4.5 ft" }, { key: "C", text: "6 ft" }, { key: "D", text: "10 ft" }
+  ], answer: "B", why: "Support within 12 in. of boxes and at ≤4.5 ft (350.30)." },
+  { id: 7, stem: "MC cable allowed in wet locations when:", choices: [
+    { key: "A", text: "Always" }, { key: "B", text: "If PVC jacketed & listed" }, { key: "C", text: "Only underground" }, { key: "D", text: "Never" }
+  ], answer: "B", why: "Wet‑location listed types permitted (330.10)." },
+  { id: 8, stem: "Box volume rules appear in:", choices: [
+    { key: "A", text: "Article 300" }, { key: "B", text: "Article 310" }, { key: "C", text: "Article 314" }, { key: "D", text: "Article 312" }
+  ], answer: "C", why: "314.16 governs box fill." },
+  { id: 9, stem: "Cable tray bonding requirement location:", choices: [
+    { key: "A", text: "Article 250 only" }, { key: "B", text: "Article 392" }, { key: "C", text: "Article 376" }, { key: "D", text: "Article 386" }
+  ], answer: "B", why: "392 requires bonding of tray systems." },
+  { id: 10, stem: "Max wireway fill (metal/nonmetallic):", choices: [
+    { key: "A", text: "20%" }, { key: "B", text: "30%" }, { key: "C", text: "40%" }, { key: "D", text: "60%" }
+  ], answer: "C", why: "Wireways limited to 20% (continuous) and 40% (conductors) per 376/378." },
+  { id: 11, stem: "ENT (smurf tube) is:", choices: [
+    { key: "A", text: "Rigid metal" }, { key: "B", text: "Electrical nonmetallic tubing" }, { key: "C", text: "Flexible metal conduit" }, { key: "D", text: "Surface raceway" }
+  ], answer: "B", why: "ENT is Article 362; nonmetallic tubing." },
+  { id: 12, stem: "RMC support spacing typically up to:", choices: [
+    { key: "A", text: "3 ft" }, { key: "B", text: "6 ft" }, { key: "C", text: "10 ft" }, { key: "D", text: "12 ft" }
+  ], answer: "C", why: "Commonly 10 ft (344.30) with size exceptions." },
+  { id: 13, stem: "Surface raceway articles:", choices: [
+    { key: "A", text: "386/388" }, { key: "B", text: "376/378" }, { key: "C", text: "392/390" }, { key: "D", text: "314/312" }
+  ], answer: "A", why: "386 (metal), 388 (nonmetallic) surface raceways." },
+  { id: 14, stem: "Underground cover for PVC under driveway:", choices: [
+    { key: "A", text: "12 in." }, { key: "B", text: "18 in." }, { key: "C", text: "24 in." }, { key: "D", text: "36 in." }
+  ], answer: "C", why: "24 in. per 300.5 (typical residential)." },
+  { id: 15, stem: "Conduit body used for splices must:", choices: [
+    { key: "A", text: "Be any size" }, { key: "B", text: "Meet box‑fill volume rules" }, { key: "C", text: "Be metal only" }, { key: "D", text: "Use pulling compound" }
+  ], answer: "B", why: "314.16 volume rules apply when used for splices/devices." }
 ];
 
-export default function Module03() {
+export default function Module03Page() {
   return (
     <ModuleTemplate
-      title="Chapter 3 — Wiring Methods and Materials"
-      subtitle="Master the requirements for wiring methods, raceways, cables, and boxes that ensure safe and code-compliant installations."
-      heroImage={{
-        src: "/images/module-03/m03-01.jpg",
-        alt: "Various electrical wiring methods and materials"
+      hero={{
+        imageSrc: "/images/module-03/m03-01.jpg",
+        imageAlt: "Raceways and wiring methods collage",
+        title: "Chapter 3 — Wiring Methods & Materials",
+        subtitle: "Choosing, installing, and protecting the path conductors take.",
+        blurb:
+          "From EMT to cable tray, learn the NEC rules for selecting wiring methods, spacing supports, managing fill and bends, and keeping terminations safe and serviceable."
       }}
-      stats={{
-        articles: 20,
-        questions: 10,
-        visuals: 15
-      }}
-      sections={sections}
+      articles={[
+        {
+          id: "300",
+          title: "Article 300 — General Requirements",
+          body: (
+            <>
+              <p><strong>300.3</strong>: Conductors of the same circuit in the same raceway/cable to reduce inductive heating.</p>
+              <p><strong>300.5</strong>: Underground cover—typical: 18 in. direct burial, 24 in. under driveways, 36 in. under streets.</p>
+              <p><strong>300.15</strong>: Use boxes/conduit bodies at splices, devices, and pull points.</p>
+            </>
+          ),
+          images: [
+            { src: "/images/module-03/m03-02.jpg", alt: "Underground burial depth chart", caption: "Typical covers" },
+            { src: "/images/module-03/m03-03.jpg", alt: "Junction box at pull point", caption: "Splice in box" }
+          ]
+        },
+        {
+          id: "310",
+          title: "Article 310 — Conductors for General Wiring",
+          body: (
+            <>
+              <p><strong>310.10</strong>: Use insulation suitable for location and temperature rating (60/75/90 °C).</p>
+              <p><strong>310.15</strong>: Apply ampacity adjustment when CCC &gt; 3; apply ambient temperature correction.</p>
+              <p><strong>310.10(H)</strong>: Parallel conductors must match length, size, material, and insulation; terminate alike.</p>
+            </>
+          ),
+          images: [
+            { src: "/images/module-03/m03-04.jpg", alt: "Assorted conductor insulation types", caption: "Insulation types" },
+            { src: "/images/module-03/m03-05.jpg", alt: "Parallel conductors landing on lugs", caption: "Parallel rules" }
+          ]
+        },
+        {
+          id: "312",
+          title: "Article 312 — Cabinets, Cutout Boxes & Meters",
+          body: (
+            <>
+              <p><strong>312.2</strong>: Enclosures sized to avoid crowding; proper bending space.</p>
+              <p><strong>312.5(B)</strong>: Smooth fittings/bushings at entries to protect conductors.</p>
+              <p><strong>312.8</strong>: Ground and bond per 250.</p>
+            </>
+          ),
+          images: [
+            { src: "/images/module-03/m03-06.jpg", alt: "Spacious cabinet with neat conductors", caption: "Adequate space" },
+            { src: "/images/module-03/m03-07.jpg", alt: "Bushings at cabinet knockouts", caption: "Protect edges" }
+          ]
+        },
+        {
+          id: "314",
+          title: "Article 314 — Outlet, Device, Pull & Junction Boxes",
+          body: (
+            <>
+              <p><strong>314.16(A)</strong>: Box volume must meet allowances.</p>
+              <p><strong>314.16(B)</strong>: Counting: one per conductor; all grounds count once; internal clamp one; each yoke two.</p>
+              <p><strong>314.16(C)</strong>: Conduit bodies used for splices must meet volume rules.</p>
+            </>
+          ),
+          images: [
+            { src: "/images/module-03/m03-08.jpg", alt: "Box fill calculation notes", caption: "Box fill math" },
+            { src: "/images/module-03/m03-09.jpg", alt: "Assorted box volume markings", caption: "Volume markings" }
+          ]
+        },
+        {
+          id: "320",
+          title: "Article 320 — Armored Cable (AC)",
+          body: (
+            <>
+              <p><strong>320.10</strong>: Dry locations; armor may serve as EGC when properly bonded.</p>
+              <p><strong>320.30</strong>: Support within 12 in. of boxes and at ≤4.5 ft intervals.</p>
+              <p><strong>320.12</strong>: Not for wet/hazardous/corrosive locations.</p>
+            </>
+          ),
+          images: [
+            { src: "/images/module-03/m03-10.jpg", alt: "AC cable to box with bushing", caption: "Bond armor" },
+            { src: "/images/module-03/m03-11.jpg", alt: "Stapled AC runs on studs", caption: "Support spacing" }
+          ]
+        },
+        {
+          id: "330",
+          title: "Article 330 — Metal‑Clad Cable (MC)",
+          body: (
+            <>
+              <p><strong>330.10</strong>: Use in dry, and in wet if listed (jacketed types).</p>
+              <p><strong>330.30</strong>: Support within 12 in. of boxes and at ≤6 ft intervals.</p>
+              <p><strong>330.12</strong>: Haz‑loc only if specifically listed.</p>
+            </>
+          ),
+          images: [
+            { src: "/images/module-03/m03-12.jpg", alt: "MC cable with connectors", caption: "Wet‑listed types" },
+            { src: "/images/module-03/m03-13.jpg", alt: "MC supported along ceiling", caption: "≤6 ft support" }
+          ]
+        },
+        {
+          id: "340",
+          title: "Article 340 — Nonmetallic‑Sheathed Cable (NM)",
+          body: (
+            <>
+              <p><strong>340.10</strong>: Dry, protected locations; residential staple of choice.</p>
+              <p><strong>340.12</strong>: Not in wet, corrosive, or hazardous locations.</p>
+              <p><strong>340.30</strong>: Protect from physical damage; support within 12 in. and ≤4.5 ft.</p>
+            </>
+          ),
+          images: [
+            { src: "/images/module-03/m03-14.jpg", alt: "NM cable neatly stapled", caption: "Dry locations" },
+            { src: "/images/module-03/m03-15.jpg", alt: "NM protected by guard plates", caption: "Physical protection" }
+          ]
+        },
+        {
+          id: "350",
+          title: "Article 350 — Liquidtight Flexible Metal Conduit (LFMC)",
+          body: (
+            <>
+              <p><strong>350.10</strong>: Wet, oily, vibration‑prone areas; equipment connections.</p>
+              <p><strong>350.30</strong>: Support within 12 in. of boxes and at ≤4.5 ft.</p>
+              <p><strong>350.6</strong>: Use listed fittings for liquidtight integrity.</p>
+            </>
+          ),
+          images: [
+            { src: "/images/module-03/m03-16.jpg", alt: "LFMC to motor with fittings", caption: "Wet & vibration" },
+            { src: "/images/module-03/m03-17.jpg", alt: "LFMC straps and connectors", caption: "Listed fittings" }
+          ]
+        },
+        {
+          id: "360",
+          title: "Article 360 — Flexible Metallic Tubing (FMT)",
+          body: (
+            <>
+              <p><strong>360.10</strong>: Dry locations, limited mechanical protection.</p>
+              <p><strong>360.30</strong>: Support within 12 in. of boxes and at ≤4.5 ft.</p>
+              <p><strong>360.12</strong>: Not in wet/hazardous/corrosive areas.</p>
+            </>
+          ),
+          images: [
+            { src: "/images/module-03/m03-18.jpg", alt: "FMT routed to equipment", caption: "Dry only" },
+            { src: "/images/module-03/m03-19.jpg", alt: "FMT straps close to box", caption: "Support rules" }
+          ]
+        },
+        {
+          id: "368",
+          title: "Article 368 — Busways",
+          body: (
+            <>
+              <p><strong>368.10</strong>: Feeder/distribution busway; consider expansion and alignment.</p>
+              <p><strong>368.56</strong>: Bonding/grounding for housing and plug‑in units.</p>
+              <p><strong>368.30</strong>: Support per listing; keep joints accessible.</p>
+            </>
+          ),
+          images: [
+            { src: "/images/module-03/m03-20.jpg", alt: "Busway run with hangers", caption: "Supported runs" },
+            { src: "/images/module-03/m03-21.jpg", alt: "Plug‑in busway section", caption: "Bonding focus" }
+          ]
+        },
+        {
+          id: "376-378",
+          title: "Articles 376/378 — Wireways (Metal/Nonmetallic)",
+          body: (
+            <>
+              <p><strong>376/378</strong>: Wireways permit conductor additions; keep covers accessible.</p>
+              <p><strong>Fill</strong>: Limit to 20% (continuous) / 40% (conductors) typical.</p>
+              <p><strong>Support</strong>: Per listing; bond metallic raceway.</p>
+            </>
+          ),
+          images: [
+            { src: "/images/module-03/m03-22.jpg", alt: "Metal wireway with cover", caption: "Accessible covers" },
+            { src: "/images/module-03/m03-23.jpg", alt: "Nonmetallic wireway section", caption: "Fill limits" }
+          ]
+        },
+        {
+          id: "386-388",
+          title: "Articles 386/388 — Surface Raceways (Metal/Nonmetallic)",
+          body: (
+            <>
+              <p><strong>Use</strong>: Surface‑mounted wiring paths in finished spaces.</p>
+              <p><strong>386/388</strong>: Support per manufacturer; maintain bend radius; bond metal types.</p>
+              <p><strong>Boxes</strong>: Use listed device boxes and covers.</p>
+            </>
+          ),
+          images: [
+            { src: "/images/module-03/m03-24.jpg", alt: "Metal surface raceway on wall", caption: "Finished spaces" },
+            { src: "/images/module-03/m03-25.jpg", alt: "Nonmetallic surface raceway corner", caption: "Listed fittings" }
+          ]
+        },
+        {
+          id: "392",
+          title: "Article 392 — Cable Tray",
+          body: (
+            <>
+              <p><strong>392.10</strong>: Use tray with listed cable types; support spans per design.</p>
+              <p><strong>392.22</strong>: Apply fill limits and sidewall loading rules.</p>
+              <p><strong>392.60</strong>: Bonding of tray sections and to the grounding system.</p>
+            </>
+          ),
+          images: [
+            { src: "/images/module-03/m03-26.jpg", alt: "Ladder cable tray run", caption: "Permitted cables" },
+            { src: "/images/module-03/m03-27.jpg", alt: "Bonding jumper between tray sections", caption: "Bond the tray" }
+          ]
+        }
+      ]}
       summary={{
-        title: "Chapter 3 Key Points",
-        blurb: "Essential concepts for wiring methods and materials",
+        title: "Chapter 3 Summary",
+        blurb: "Pick the right wiring method, support it correctly, respect fill and bend rules, and protect terminations.",
         cards: [
-          {
-            icon: <Zap className="w-8 h-8 text-yellow-400" />,
-            title: "General Requirements",
-            text: "Circuit conductor grouping, physical protection, and support requirements"
-          },
-          {
-            icon: <Cable className="w-8 h-8 text-yellow-400" />,
-            title: "Conductors",
-            text: "Sizing, insulation types, and ampacity calculations"
-          },
-          {// ...existing code...
-          {
-            icon: <Cable className="w-8 h-8 text-yellow-400" />,
-            title: "Conductors",
-            text: "Sizing, insulation types, and ampacity calculations"
-          },
-          {
-            icon: <Building className="w-8 h-8 text-yellow-400" />,
-            title: "Boxes",
-            text: "Box fill calculations, support, and accessibility"
-          },
-          {
-            icon: <Shield className="w-8 h-8 text-yellow-400" />,
-            title: "Protection",
-            text: "Physical damage protection and burial requirements"
-          },
-          {
-            icon: <Plug className="w-8 h-8 text-yellow-400" />,
-            title: "Cable Types",
-            text: "AC, MC, and NM cable requirements and limitations"
-          }
+          { icon: <HardHat className="w-8 h-8 text-yellow-400" />, title: "Pick the Method", text: "Match environment: EMT dry, PVC wet, RMC robust." },
+          { icon: <AlertTriangle className="w-8 h-8 text-yellow-400" />, title: "Mind the Limits", text: "360° bends, 53% fill for &gt;2 conductors." },
+          { icon: <GitBranch className="w-8 h-8 text-yellow-400" />, title: "Box Fill", text: "Use 314.16 counting rules for volume." },
+          { icon: <Building className="w-8 h-8 text-yellow-400" />, title: "Support Spacing", text: "LFMC/FMT ≤4.5 ft; MC ≤6 ft; RMC ≈10 ft." },
+          { icon: <Flame className="w-8 h-8 text-yellow-400" />, title: "Protection", text: "Bushings, listed fittings, physical protection." },
+          { icon: <Zap className="w-8 h-8 text-yellow-400" />, title: "Bonding", text: "Bond trays, metallic raceways, and enclosures." }
         ]
       }}
-      quizQuestions={quiz}
+      quiz={quiz}
       prev={{ href: "/modules/module-02", label: "Chapter 2" }}
       next={{ href: "/modules/module-04", label: "Chapter 4" }}
     />
