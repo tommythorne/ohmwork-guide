@@ -619,7 +619,7 @@ export default function Module03Page() {
       ]}
       summary={{
         title: "Chapter 3 Summary",
-        items: [
+        cards: [
           {
             icon: <HardHat className="w-8 h-8 text-yellow-400" />,
             title: "Pick the Right Method",
