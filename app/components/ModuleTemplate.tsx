@@ -1,16 +1,24 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import Quiz from "../components/Quiz";
-import FooterNav from "../components/FooterNav";
-import { BookOpen, Ruler, Flame } from "lucide-react";
 
-/* ------------------------------------------------------------------
-   Shared UI helpers (exported for modules to import and reuse)
--------------------------------------------------------------------*/
+/** =========================
+ *  Public Types (reused by pages)
+ *  ========================= */
+export type QuizChoiceKey = "A" | "B" | "C" | "D";
+export type QuizQuestion = {
+  id: number;
+  stem: string;
+  choices: { key: QuizChoiceKey; text: string }[];
+  answer: QuizChoiceKey;
+  why: string;
+};
 
+/** =========================
+ *  Helper UI Blocks (exported for reuse in modules)
+ *  ========================= */
 export const HL = ({ children }: { children: React.ReactNode }) => (
   <span className="font-extrabold underline decoration-yellow-400 underline-offset-4">
     {children}
@@ -30,7 +38,7 @@ export const WarningBox = ({ children }: { children: React.ReactNode }) => (
 export const RuleBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 my-4">
     <div className="flex items-center gap-2 mb-2">
-      <Ruler className="w-5 h-5 text-yellow-400" aria-hidden="true" />
+      <span className="text-yellow-400 text-xl">📏</span>
       <span className="font-bold text-yellow-400">RULE OF THUMB</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -40,7 +48,7 @@ export const RuleBox = ({ children }: { children: React.ReactNode }) => (
 export const HorrorStory = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 p-4 my-4">
     <div className="flex items-center gap-2 mb-2">
-      <Flame className="w-5 h-5 text-orange-400" aria-hidden="true" />
+      <span className="text-orange-400 text-xl">🔥</span>
       <span className="font-bold text-orange-400">JOBSITE HORROR STORY</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -50,7 +58,7 @@ export const HorrorStory = ({ children }: { children: React.ReactNode }) => (
 export const CodeBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-blue-500/40 bg-blue-500/10 p-4 my-4">
     <div className="flex items-center gap-2 mb-2">
-      <BookOpen className="w-5 h-5 text-blue-400" aria-hidden="true" />
+      <span className="text-blue-400 text-xl">📘</span>
       <span className="font-bold text-blue-400">NEC REFERENCE</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -69,79 +77,167 @@ export const ChartBox = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-/* ------------------------------------------------------------------
-   Types
--------------------------------------------------------------------*/
+/** =========================
+ *  Lightweight Reveal-on-scroll Animation
+ *  (no external deps)
+ *  ========================= */
+function useReveal(inViewOnce = true, rootMargin = "0px 0px -10% 0px") {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [revealed, setRevealed] = useState(false);
 
-export type QuizChoiceKey = "A" | "B" | "C" | "D";
+  useEffect(() => {
+    if (!ref.current) return;
+    const el = ref.current;
 
-export type QuizQuestion = {
-  id: number;
-  stem: string;
-  choices: { key: QuizChoiceKey; text: string }[];
-  answer: QuizChoiceKey;
-  why: string;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            setRevealed(true);
+            if (inViewOnce) observer.unobserve(el);
+          } else if (!inViewOnce) {
+            setRevealed(false);
+          }
+        });
+      },
+      { root: null, rootMargin, threshold: 0.08 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [inViewOnce, rootMargin]);
+
+  return { ref, revealed };
+}
+
+const Reveal = ({
+  children,
+  delay = 0,
+  y = 12,
+  className = "",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  y?: number;
+  className?: string;
+}) => {
+  const { ref, revealed } = useReveal(true);
+  return (
+    <div
+      ref={ref}
+      style={{
+        transition: "opacity 700ms ease, transform 700ms ease",
+        transitionDelay: `${delay}ms`,
+      }}
+      className={[
+        revealed ? "opacity-100 translate-y-0" : `opacity-0 translate-y-[${y}px]`,
+        "will-change-transform will-change-opacity",
+        className,
+      ].join(" ")}
+    >
+      {children}
+    </div>
+  );
 };
 
-export type ArticleImage = {
-  src: string;
-  alt: string;
-  caption?: string;
-  width?: number;
-  height?: number;
-  priority?: boolean;
+/** =========================
+ *  Minimal Quiz Renderer
+ *  (expects QuizQuestion[])
+ *  ========================= */
+function SimpleQuiz({ questions }: { questions: QuizQuestion[] }) {
+  const [answers, setAnswers] = useState<Record<number, QuizChoiceKey | null>>(
+    () =>
+      Object.fromEntries(questions.map((q) => [q.id, null])) as Record<
+        number,
+        QuizChoiceKey | null
+      >
+  );
+
+  return (
+    <div className="space-y-6">
+      {questions.map((q, i) => (
+        <Reveal key={q.id} delay={80 * i}>
+          <div className="rounded-xl border border-white/15 bg-white/[0.03] p-4">
+            <p className="font-semibold mb-3">{q.stem}</p>
+            <div className="grid sm:grid-cols-2 gap-2">
+              {q.choices.map((c) => {
+                const active = answers[q.id] === c.key;
+                return (
+                  <button
+                    key={c.key}
+                    onClick={() =>
+                      setAnswers((prev) => ({ ...prev, [q.id]: c.key }))
+                    }
+                    className={[
+                      "text-left rounded-lg border p-3 transition-all",
+                      active
+                        ? "border-yellow-400 bg-yellow-400/10"
+                        : "border-white/15 hover:border-white/30 bg-transparent",
+                    ].join(" ")}
+                  >
+                    <span className="font-bold mr-2">{c.key}.</span>
+                    <span>{c.text}</span>
+                  </button>
+                );
+              })}
+            </div>
+            {answers[q.id] && (
+              <div
+                className={[
+                  "mt-3 rounded-lg border p-3 text-sm",
+                  answers[q.id] === q.answer
+                    ? "border-green-500/40 bg-green-500/10"
+                    : "border-red-500/40 bg-red-500/10",
+                ].join(" ")}
+              >
+                {answers[q.id] === q.answer ? "✅ Correct. " : "❌ Not quite. "}
+                {q.why}
+              </div>
+            )}
+          </div>
+        </Reveal>
+      ))}
+    </div>
+  );
+}
+
+/** =========================
+ *  Props for ModuleTemplate
+ *  ========================= */
+type HeroProps = {
+  imageSrc: string;
+  imageAlt: string;
+  title: string;
+  subtitle?: string;
+  blurb?: string;
 };
 
-export type Article = {
+type Article = {
   id: string;
   title: string;
-  body: React.ReactNode; // pass JSX blocks from the module
-  images?: ArticleImage[];
+  body: React.ReactNode;
+  images?: { src: string; alt: string; caption?: string }[];
 };
 
-export type SummaryCard = {
-  icon?: React.ReactNode;
-  title: string;
-  text: string;
+type SummaryProps = {
+  title?: string;
+  blurb?: string;
+  cards?: { icon?: React.ReactNode; title: string; text: string }[];
 };
 
 export type ModuleTemplateProps = {
-  /** Top bar label (e.g., NEC year). Defaults to "NEC 2017" */
-  editionLabel?: string;
-
-  /** Hero section */
-  hero: {
-    imageSrc: string;
-    imageAlt: string;
-    title: string;
-    subtitle?: string;
-    blurb?: string;
-  };
-
-  /** List of articles */
+  hero: HeroProps;
   articles: Article[];
-
-  /** Summary section */
-  summary?: {
-    title?: string;
-    blurb?: string;
-    cards?: SummaryCard[];
-  };
-
-  /** Quiz questions */
+  summary?: SummaryProps;
   quiz?: QuizQuestion[];
-
-  /** Footer navigation */
   prev?: { href: string; label: string };
   next?: { href: string; label: string };
 };
 
-/* ------------------------------------------------------------------
-   Template Component
--------------------------------------------------------------------*/
-
+/** =========================
+ *  ModuleTemplate (animated)
+ *  ========================= */
 export default function ModuleTemplate({
-  editionLabel = "NEC 2017",
   hero,
   articles,
   summary,
@@ -162,7 +258,7 @@ export default function ModuleTemplate({
             <span>Back to TOC</span>
           </Link>
           <span className="text-sm text-gray-400 bg-gray-800 px-2 py-1 rounded">
-            {editionLabel}
+            NEC 2017
           </span>
         </div>
       </div>
@@ -177,131 +273,138 @@ export default function ModuleTemplate({
           priority
         />
         <div className="absolute inset-0 bg-black/60" />
-        <div className="relative z-10 text-center px-4">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-3">
-            {hero.title}
-          </h1>
-          {hero.subtitle ? (
-            <p className="text-lg md:text-xl text-gray-300">{hero.subtitle}</p>
-          ) : null}
-          {hero.blurb ? (
-            <p className="text-base md:text-lg text-gray-300 mt-3 max-w-3xl mx-auto">
+        <Reveal delay={120} className="relative z-10 text-center">
+          <h1 className="text-5xl font-bold mb-4">{hero.title}</h1>
+          {hero.subtitle && (
+            <p className="text-xl text-gray-200 mb-2">{hero.subtitle}</p>
+          )}
+          {hero.blurb && (
+            <p className="text-lg text-gray-300 max-w-3xl mx-auto">
               {hero.blurb}
             </p>
-          ) : null}
-        </div>
+          )}
+        </Reveal>
       </section>
 
       {/* Articles */}
-      <div className="max-w-5xl mx-auto px-4">
+      <div className="max-w-5xl mx-auto px-4 py-12 space-y-16">
         {articles.map((a, idx) => (
-          <section key={a.id} className="mb-12">
-            {/* Divider */}
-            <div className="my-12">
-              <div className="flex items-center gap-4">
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent" />
-                <div className="w-2 h-2 bg-yellow-400 rounded-full" />
-                <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent" />
+          <Reveal key={a.id} delay={80 * idx}>
+            <article>
+              <div className="flex items-center gap-3 mb-6">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
+                  {a.title}
+                </h2>
               </div>
-            </div>
 
-            {/* Title */}
-            <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 bg-yellow-400/20 rounded-lg">
-                <span className="text-yellow-400 font-semibold">Article</span>
+              <div className="grid lg:grid-cols-2 gap-8">
+                {/* Body */}
+                <div className="text-white/90 leading-relaxed">{a.body}</div>
+
+                {/* Images */}
+                {a.images && a.images.length > 0 && (
+                  <div className="space-y-4">
+                    {a.images.map((img, i) => (
+                      <div
+                        key={i}
+                        className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03]"
+                      >
+                        <Image
+                          src={img.src}
+                          alt={img.alt}
+                          width={800}
+                          height={600}
+                          className="w-full h-48 object-cover rounded-lg"
+                        />
+                        {img.caption && (
+                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3">
+                            <p className="text-white text-sm font-semibold">
+                              {img.caption}
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-                {a.title}
-              </h2>
-            </div>
-
-            {/* Grid */}
-            <div className="grid lg:grid-cols-2 gap-8 items-start">
-              {/* Body */}
-              <div className="space-y-4 text-white/90 leading-relaxed">{a.body}</div>
-
-              {/* Images */}
-              <div className="space-y-4">
-                {(a.images ?? []).map((img, i) => (
-                  <figure
-                    className="relative rounded-xl border border-white/20 bg-white/[0.03] p-4 overflow-hidden"
-                    key={`${a.id}-img-${i}`}
-                  >
-                    <div className="relative w-full h-48">
-                      <Image
-                        src={img.src}
-                        alt={img.alt}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 600px"
-                        className="object-cover rounded-lg"
-                        priority={img.priority}
-                      />
-                    </div>
-                    {img.caption ? (
-                      <figcaption className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3 text-sm">
-                        {img.caption}
-                      </figcaption>
-                    ) : null}
-                  </figure>
-                ))}
-              </div>
-            </div>
-          </section>
+            </article>
+          </Reveal>
         ))}
       </div>
 
       {/* Summary */}
-      {summary && (summary.title || summary.cards?.length || summary.blurb) ? (
-        <section className="max-w-5xl mx-auto px-4 mb-12">
-          <div className="text-center mb-8">
-            {summary.title ? (
-              <h2 className="text-3xl font-bold text-white mb-2">
-                {summary.title}
-              </h2>
-            ) : null}
-            {summary.blurb ? (
-              <p className="text-gray-400 text-lg">{summary.blurb}</p>
-            ) : null}
-          </div>
+      {(summary?.cards?.length || summary?.title || summary?.blurb) && (
+        <section className="max-w-5xl mx-auto px-4 pb-12">
+          <Reveal delay={80}>
+            {summary?.title && (
+              <h3 className="text-3xl font-bold mb-2">{summary.title}</h3>
+            )}
+            {summary?.blurb && (
+              <p className="text-gray-300 mb-6">{summary.blurb}</p>
+            )}
+          </Reveal>
 
-          {summary.cards?.length ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {summary.cards.map((c, i) => (
-                <div
-                  key={`summary-card-${i}`}
-                  className="rounded-xl border border-white/20 bg-white/[0.03] p-6 text-center"
-                >
-                  {c.icon ? (
-                    <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {(summary?.cards ?? []).map((c, i) => (
+              <Reveal key={i} delay={80 * (i + 1)}>
+                <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center">
+                  {c.icon && (
+                    <div className="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mx-auto mb-4">
                       {c.icon}
                     </div>
-                  ) : null}
-                  <h3 className="font-bold text-white mb-2">{c.title}</h3>
+                  )}
+                  <h4 className="font-bold text-white mb-2">{c.title}</h4>
                   <p className="text-gray-400 text-sm">{c.text}</p>
                 </div>
-              ))}
-            </div>
-          ) : null}
+              </Reveal>
+            ))}
+          </div>
         </section>
-      ) : null}
+      )}
 
       {/* Quiz */}
-      {quiz?.length ? (
-        <section className="max-w-5xl mx-auto px-4 mb-16">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Knowledge Check
-            </h2>
-            <p className="text-gray-400 text-lg">
-              Test your understanding of this chapter
+      {quiz && quiz.length > 0 && (
+        <section className="max-w-5xl mx-auto px-4 pb-16">
+          <Reveal delay={80}>
+            <h3 className="text-3xl font-bold mb-4">Knowledge Check</h3>
+            <p className="text-gray-300 mb-6">
+              Test your understanding of this chapter.
             </p>
-          </div>
-          <Quiz questions={quiz} />
+          </Reveal>
+          <SimpleQuiz questions={quiz} />
         </section>
-      ) : null}
+      )}
 
-      {/* Footer Navigation */}
-      <FooterNav prev={prev} next={next} />
+      {/* Footer Nav */}
+      {(prev || next) && (
+        <div className="max-w-5xl mx-auto px-4 pb-12">
+          <Reveal delay={80}>
+            <div className="flex items-center justify-between">
+              {prev ? (
+                <Link
+                  href={prev.href}
+                  className="rounded-lg border border-white/15 px-4 py-2 hover:bg-white/[0.06] transition"
+                >
+                  ← {prev.label}
+                </Link>
+              ) : (
+                <span />
+              )}
+              {next ? (
+                <Link
+                  href={next.href}
+                  className="rounded-lg border border-white/15 px-4 py-2 hover:bg-white/[0.06] transition"
+                >
+                  {next.label} →
+                </Link>
+              ) : (
+                <span />
+              )}
+            </div>
+          </Reveal>
+        </div>
+      )}
     </main>
   );
 }
