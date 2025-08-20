@@ -1,30 +1,14 @@
 "use client";
 
-import {
-  AlertTriangle,
-  Zap,
-  ShieldCheck,
-  Plug,
-  Cable,
-  Building,
-  Flame,
-  Target,
-  Waypoints,
-  GitBranch,
-  Ruler,
-  BookOpen,
-  Brain,
-  CircuitBoard,
-  Wrench
-} from "lucide-react";
+import { AlertTriangle, Zap, Shield, Plug, Cable, Building, CloudLightning, Flame, Target, Waypoints, GitBranch, Ruler, BookOpen, Brain, HardHat, Droplets, CircuitBoard, Wrench, Warehouse } from "lucide-react";
 
 import ModuleTemplate from "../../components/ModuleTemplate";
-import Image from "next/image"; // only used inside helper snippets if needed
 
-// Local helper blocks (keeps pages self-contained and consistent with Module 2)
+// Enhanced highlight helpers with electrician grit
 const HL = ({ children }: { children: React.ReactNode }) => (
   <span className="font-extrabold underline decoration-yellow-400 underline-offset-4">{children}</span>
 );
+
 const WarningBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-red-500/40 bg-red-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
@@ -34,6 +18,7 @@ const WarningBox = ({ children }: { children: React.ReactNode }) => (
     <div className="text-white/90">{children}</div>
   </div>
 );
+
 const RuleBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
@@ -43,6 +28,7 @@ const RuleBox = ({ children }: { children: React.ReactNode }) => (
     <div className="text-white/90">{children}</div>
   </div>
 );
+
 const HorrorStory = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
@@ -52,6 +38,7 @@ const HorrorStory = ({ children }: { children: React.ReactNode }) => (
     <div className="text-white/90">{children}</div>
   </div>
 );
+
 const CodeBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-blue-500/40 bg-blue-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
@@ -61,199 +48,201 @@ const CodeBox = ({ children }: { children: React.ReactNode }) => (
     <div className="text-white/90">{children}</div>
   </div>
 );
+
 const DataTable = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 my-6 overflow-x-auto">
     {children}
   </div>
 );
+
 const ChartBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 my-6">
     {children}
   </div>
 );
 
-// Quiz (15) — Chapter 3 topics only
+// Quiz data - 15 questions about Chapter 3 Wiring Methods and Materials
 const quiz = [
   {
     id: 1,
-    stem: "Raceway bends between pull points are limited to a maximum cumulative angle of:",
+    stem: "Which wiring method is NOT suitable for wet locations?",
     choices: [
-      { key: "A", text: "180°" },
-      { key: "B", text: "270°" },
-      { key: "C", text: "360°" },
-      { key: "D", text: "No limit" }
+      { key: "A", text: "RMC" },
+      { key: "B", text: "PVC" },
+      { key: "C", text: "Type NM" },
+      { key: "D", text: "Type UF" },
     ],
     answer: "C",
-    why: "Most Chapter 3 raceway articles limit to 360° total (e.g., EMT 358.26, RMC 344.26)."
+    why: "Type NM cable cannot be used in wet locations per NEC 340.12. Use Type UF, PVC, or RMC for wet environments.",
   },
   {
     id: 2,
-    stem: "In general, conductors of the same circuit must be installed:",
-    choices: [
-      { key: "A", text: "In separate raceways for heat dissipation" },
-      { key: "B", text: "Together in the same raceway/cable/trench" },
-      { key: "C", text: "Neutral may be separate, hots together" },
-      { key: "D", text: "Hots separate, neutral with EGC" }
-    ],
-    answer: "B",
-    why: "NEC 300.3(B): conductors of the same circuit must be grouped together."
-  },
-  {
-    id: 3,
-    stem: "EMT (Article 358) is permitted in wet locations when:",
-    choices: [
-      { key: "A", text: "Never permitted in wet locations" },
-      { key: "B", text: "Only when encased in concrete" },
-      { key: "C", text: "Fittings and protection are listed for wet/corrosive use" },
-      { key: "D", text: "Only indoors" }
-    ],
-    answer: "C",
-    why: "EMT can be used in wet locations where protected and with listed fittings; check 358.10/358.42 and corrosion protection."
-  },
-  {
-    id: 4,
-    stem: "For more than two conductors in a raceway, the maximum permissible conductor fill is:",
-    choices: [
-      { key: "A", text: "31%" },
-      { key: "B", text: "40%" },
-      { key: "C", text: "53%" },
-      { key: "D", text: "60%" }
-    ],
-    answer: "B",
-    why: "Chapter 9, Table 1: >2 conductors → 40% fill; 1 conductor 53%; 2 conductors 31%."
-  },
-  {
-    id: 5,
-    stem: "Type NM cable belongs to which article in Chapter 3?",
-    choices: [
-      { key: "A", text: "Article 340" },
-      { key: "B", text: "Article 334" },
-      { key: "C", text: "Article 352" },
-      { key: "D", text: "Article 392" }
-    ],
-    answer: "B",
-    why: "Type NM is Article 334 (Nonmetallic-Sheathed Cable) in Chapter 3."
-  },
-  {
-    id: 6,
-    stem: "Minimum burial depth for PVC (rigid nonmetallic) under a residential driveway (not subject to truck traffic) is typically:",
+    stem: "What is the minimum burial depth for PVC conduit under a driveway?",
     choices: [
       { key: "A", text: "12 inches" },
       { key: "B", text: "18 inches" },
       { key: "C", text: "24 inches" },
-      { key: "D", text: "36 inches" }
+      { key: "D", text: "36 inches" },
     ],
     answer: "C",
-    why: "See 300.5 and related tables for minimum cover. Driveways commonly require 24\" for RNC."
+    why: "NEC 300.5(A) requires 24 inches minimum burial depth for PVC under driveways.",
+  },
+  {
+    id: 3,
+    stem: "How many current-carrying conductors can be installed in a single EMT raceway before derating is required?",
+    choices: [
+      { key: "A", text: "2" },
+      { key: "B", text: "3" },
+      { key: "C", text: "4" },
+      { key: "D", text: "5" },
+    ],
+    answer: "C",
+    why: "More than 3 current-carrying conductors require derating per NEC 310.15(B)(3)(a).",
+  },
+  {
+    id: 4,
+    stem: "What is the maximum fill percentage for conductors in a raceway?",
+    choices: [
+      { key: "A", text: "40%" },
+      { key: "B", text: "53%" },
+      { key: "C", text: "60%" },
+      { key: "D", text: "80%" },
+    ],
+    answer: "B",
+    why: "NEC Chapter 9, Table 1 shows 53% maximum fill for more than 2 conductors.",
+  },
+  {
+    id: 5,
+    stem: "Which statement about cable tray installations is correct?",
+    choices: [
+      { key: "A", text: "Cable tray can support any type of cable" },
+      { key: "B", text: "Cable tray must be bonded to ground" },
+      { key: "C", text: "Cable tray requires no supports" },
+      { key: "D", text: "Cable tray is only for industrial use" },
+    ],
+    answer: "B",
+    why: "NEC 392.60 requires cable tray to be bonded to ground for safety.",
+  }
+];  {
+    id: 6,
+    stem: "What is the minimum working space required in front of a 480V panel?",
+    choices: [
+      { key: "A", text: "24 inches" },
+      { key: "B", text: "30 inches" },
+      { key: "C", text: "36 inches" },
+      { key: "D", text: "42 inches" },
+    ],
+    answer: "C",
+    why: "NEC 110.26(A)(1) requires 36 inches minimum working space for equipment over 600V.",
   },
   {
     id: 7,
-    stem: "Type LFMC (350) requires supports at intervals not exceeding:",
+    stem: "Which wiring method is best for hazardous locations?",
     choices: [
-      { key: "A", text: "3 ft" },
-      { key: "B", text: "4.5 ft" },
-      { key: "C", text: "6 ft" },
-      { key: "D", text: "10 ft" }
+      { key: "A", text: "EMT" },
+      { key: "B", text: "RMC" },
+      { key: "C", text: "PVC" },
+      { key: "D", text: "FMC" },
     ],
     answer: "B",
-    why: "Article 350.30—LFMC support intervals commonly 4.5 ft; verify specifics by size/conditions."
+    why: "RMC (Rigid Metal Conduit) is the most robust and suitable for hazardous locations.",
   },
   {
     id: 8,
-    stem: "Parallel conductors (310) must generally be:",
+    stem: "What is the maximum number of bends allowed between pull points in a raceway?",
     choices: [
-      { key: "A", text: "Same size, length, and material" },
-      { key: "B", text: "Any size if ampacity matches" },
-      { key: "C", text: "Different insulation allowed without limits" },
-      { key: "D", text: "Installed in separate raceways" }
+      { key: "A", text: "2 bends (180° total)" },
+      { key: "B", text: "3 bends (270° total)" },
+      { key: "C", text: "4 bends (360° total)" },
+      { key: "D", text: "No limit specified" },
     ],
-    answer: "A",
-    why: "310.10(H): Same length, size, insulation material, and termination."
+    answer: "C",
+    why: "NEC 344.26 and 358.26 limit bends to 360° total between pull points.",
   },
   {
     id: 9,
-    stem: "Boxes and conduit bodies used for splices must have adequate volume per:",
+    stem: "Which conductor insulation type has the highest temperature rating?",
     choices: [
-      { key: "A", text: "Article 312" },
-      { key: "B", text: "Article 314.16" },
-      { key: "C", text: "Article 300.11" },
-      { key: "D", text: "Article 376" }
+      { key: "A", text: "THHN" },
+      { key: "B", text: "THWN" },
+      { key: "C", text: "XHHW" },
+      { key: "D", text: "USE" },
     ],
-    answer: "B",
-    why: "314.16—box fill requirements and counting rules."
+    answer: "C",
+    why: "XHHW has a 90°C rating, while THHN is 90°C, THWN is 75°C, and USE varies.",
   },
   {
     id: 10,
-    stem: "Type MC (330) permitted in wet locations:",
+    stem: "What is the purpose of a bonding jumper in a raceway system?",
     choices: [
-      { key: "A", text: "Never" },
-      { key: "B", text: "Only when specifically listed for wet locations" },
-      { key: "C", text: "Only underground" },
-      { key: "D", text: "Only outdoors above grade" }
+      { key: "A", text: "To carry neutral current" },
+      { key: "B", text: "To provide equipment grounding" },
+      { key: "C", text: "To reduce voltage drop" },
+      { key: "D", text: "To support the raceway" },
     ],
     answer: "B",
-    why: "330.10(A): MC permitted in wet locations if listed for the purpose."
+    why: "Bonding jumpers provide equipment grounding continuity in raceway systems.",
   },
   {
     id: 11,
-    stem: "ENT (362) is commonly allowed:",
+    stem: "Which wiring method requires the most frequent supports?",
     choices: [
-      { key: "A", text: "Only exposed outdoors" },
-      { key: "B", text: "In concrete slabs where listed for the use" },
-      { key: "C", text: "In hazardous locations only" },
-      { key: "D", text: "As a service raceway only" }
+      { key: "A", text: "EMT" },
+      { key: "B", text: "RMC" },
+      { key: "C", text: "FMC" },
+      { key: "D", text: "PVC" },
     ],
-    answer: "B",
-    why: "362.10—ENT permitted in concrete/slabs where listed and protected as required."
+    answer: "C",
+    why: "FMC (Flexible Metal Conduit) requires supports every 4.5 feet, more frequent than other methods.",
   },
   {
     id: 12,
-    stem: "Cable tray (392) must be:",
+    stem: "What is the minimum size equipment grounding conductor for a 200A circuit?",
     choices: [
-      { key: "A", text: "Insulated" },
-      { key: "B", text: "Bonded and supported per manufacturer/Code" },
-      { key: "C", text: "Used only for control wiring" },
-      { key: "D", text: "Filled to 60% to prevent heat rise" }
+      { key: "A", text: "6 AWG" },
+      { key: "B", text: "4 AWG" },
+      { key: "C", text: "3 AWG" },
+      { key: "D", text: "2 AWG" },
     ],
-    answer: "B",
-    why: "392—bonding and support rules are explicit; fill and ampacity follow tray type/tables."
+    answer: "A",
+    why: "NEC Table 250.122 requires 6 AWG EGC for circuits up to 200A.",
   },
   {
     id: 13,
-    stem: "Box/conduit body covers must be:",
+    stem: "Which statement about parallel conductors is correct?",
     choices: [
-      { key: "A", text: "Open to ventilate heat" },
-      { key: "B", text: "Weatherproof where required" },
-      { key: "C", text: "Painted white for visibility" },
-      { key: "D", text: "Not required if indoors" }
+      { key: "A", text: "Parallel conductors must be the same length" },
+      { key: "B", text: "Parallel conductors must be the same size" },
+      { key: "C", text: "Parallel conductors can be different types" },
+      { key: "D", text: "Parallel conductors require no special considerations" },
     ],
     answer: "B",
-    why: "Chapter 3 articles require suitable enclosures/covers matched to the environment."
+    why: "NEC 310.10(H) requires parallel conductors to be the same size, length, and type.",
   },
   {
     id: 14,
-    stem: "RMC (344) support spacing is typically:",
+    stem: "What is the purpose of a bushing on a raceway?",
     choices: [
-      { key: "A", text: "Every 3 ft" },
-      { key: "B", text: "Every 6 ft" },
-      { key: "C", text: "Every 10 ft" },
-      { key: "D", text: "No supports required if threaded" }
+      { key: "A", text: "To support the raceway" },
+      { key: "B", text: "To protect conductors from abrasion" },
+      { key: "C", text: "To reduce voltage drop" },
+      { key: "D", text: "To improve aesthetics" },
     ],
-    answer: "C",
-    why: "344.30—commonly 10 ft, with exceptions by size/termination; verify table/notes."
+    answer: "B",
+    why: "Bushings protect conductors from abrasion where they enter or exit raceways.",
   },
   {
     id: 15,
-    stem: "Surface metal/nonmetallic raceways (386/388) often used for:",
+    stem: "Which wiring method is most suitable for temporary installations?",
     choices: [
-      { key: "A", text: "Underground feeders" },
-      { key: "B", text: "Aesthetic outdoor landscaping" },
-      { key: "C", text: "Retrofit surface wiring in finished spaces" },
-      { key: "D", text: "Conductors over 35kV" }
+      { key: "A", text: "EMT" },
+      { key: "B", text: "RMC" },
+      { key: "C", text: "FMC" },
+      { key: "D", text: "PVC" },
     ],
     answer: "C",
-    why: "386/388—surface raceways are common for retrofit in existing finished interiors."
-  }
+    why: "FMC (Flexible Metal Conduit) is most suitable for temporary installations due to flexibility.",
+  },
 ];
 
 export default function Module03Page() {
@@ -261,29 +250,47 @@ export default function Module03Page() {
     <ModuleTemplate
       hero={{
         imageSrc: "/images/module-03/m03-01.jpg",
-        imageAlt: "NEC Chapter 3 Wiring Methods & Materials — raceways, cables, boxes",
-        title: "Chapter 3 — Wiring Methods and Materials",
-        subtitle: "Raceways, cables, boxes, and the field rules that keep them safe.",
-        blurb:
-          "Master EMT vs. RMC vs. PVC, box-fill math, support spacing, burial depths, and conductor rules. This is the craft—do it right, pass the exam, and wire like a pro."
+        imageAlt: "NEC Chapter 3 Wiring Methods and Materials - Various raceway systems and wiring methods",
+        title: "Chapter 3 — Wiring Methods & Materials",
+        subtitle: "The Foundation of Electrical Safety",
+        blurb: "Master the NEC requirements for raceways, conductors, and wiring methods. Learn when to use EMT vs RMC, how to calculate box fill, and the critical support and bonding requirements that keep installations safe and code-compliant."
       }}
-      articles={[
-        {
+      articles={[        {
           id: "article-300",
           title: "Article 300 — General Requirements for Wiring Methods",
           body: (
             <>
-              <p><HL>300.3(B)</HL>: Conductors of the same circuit must be installed together in the same raceway/cable/trench to control inductive heating and magnetic effects.</p>
-              <p><HL>300.5</HL>: Underground wiring—observe minimum cover requirements. Depth varies by wiring method and location (e.g., yards, driveways, streets).</p>
-              <p><HL>300.11</HL>: Securely fasten and support wiring methods; do not use ceiling grid wires unless listed for that use.</p>
-              <p><HL>300.15</HL>: Boxes/conduit bodies required at every splice, outlet, switch, junction, or pull point—no open splices.</p>
-              <CodeBox>Common memory: <strong>18 / 24 / 36</strong> inches for direct burial / residential driveways / public streets (confirm in 300.5 Table for your installation).</CodeBox>
-              <WarningBox>Burial depth questions are an exam favorite. Read the entire row/footnotes of the 300.5 table—context changes the answer.</WarningBox>
+              <p>
+                <HL>300.3</HL>: Conductors of the same circuit must be installed in the same raceway, cable, or trench. 
+                This prevents inductive heating and ensures proper circuit operation.
+              </p>
+              <p>
+                <HL>300.5</HL>: Underground installations require proper burial depth—18 inches for direct burial, 
+                24 inches under driveways, and 36 inches under public streets.
+              </p>
+              <p>
+                <HL>300.11</HL>: Raceways must be securely fastened and supported. The support intervals vary by 
+                raceway type but generally range from 3 to 10 feet.
+              </p>
+              <p>
+                <HL>300.15</HL>: Boxes or conduit bodies must be installed at each conductor splice point, 
+                outlet, switch point, junction point, or pull point.
+              </p>
+              
+              <CodeBox>
+                <strong>NEC 300.5(A):</strong> Direct burial cables must be buried at least 18 inches deep. 
+                Under driveways: 24 inches. Under public streets: 36 inches minimum.
+              </CodeBox>
+              
+              <WarningBox>
+                <strong>EXAM TRAP:</strong> The exam loves to ask about burial depths. Remember: 18" direct, 
+                24" driveways, 36" streets. Don't mix these up!
+              </WarningBox>
             </>
           ),
           images: [
-            { src: "/images/module-03/m03-02.jpg", alt: "Underground raceway trench with depth marker", caption: "Respect 300.5 burial depths" },
-            { src: "/images/module-03/m03-03.jpg", alt: "Properly supported conduit along structure", caption: "Fasten & support per 300.11" }
+            { src: "/images/module-03/m03-02.jpg", alt: "Underground raceway installation showing proper burial depth", caption: "Proper Burial Depth Required" },
+            { src: "/images/module-03/m03-03.jpg", alt: "Raceway support and fastening methods", caption: "Secure Fastening Required" }
           ]
         },
         {
@@ -291,63 +298,118 @@ export default function Module03Page() {
           title: "Article 310 — Conductors for General Wiring",
           body: (
             <>
-              <p><HL>310.10</HL>: Use conductors suitable for environment and temperature rating (60/75/90°C) and location (dry/wet).</p>
-              <p><HL>310.15</HL>: Apply ampacity adjustment (more than 3 CCC in a raceway/cable) and temperature correction (ambient &gt; 30°C/86°F) as required.</p>
-              <p><HL>310.10(H)</HL>: Parallel conductors must be same length, size, insulation, and material; terminate alike.</p>
+              <p>
+                <HL>310.10</HL>: Conductors must be suitable for the voltage, temperature, and environment. 
+                Temperature ratings range from 60°C to 90°C depending on insulation type.
+              </p>
+              <p>
+                <HL>310.15(B)(3)(a)</HL>: When more than 3 current-carrying conductors are installed in a raceway, 
+                the ampacity must be derated according to Table 310.15(B)(3)(a).
+              </p>
+              <p>
+                <HL>310.10(H)</HL>: Parallel conductors must be the same length, size, and type. 
+                They must be terminated in the same manner and installed in the same raceway.
+              </p>
+              <p>
+                <HL>310.15(B)(2)</HL>: Ambient temperature correction factors must be applied when 
+                conductors are installed in environments above 86°F (30°C).
+              </p>
+              
               <DataTable>
-                <h4 className="font-bold text-white mb-3">Common Insulation Ratings</h4>
+                <h4 className="font-bold text-white mb-4">Conductor Temperature Ratings</h4>
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-white/20">
-                      <th className="text-left p-3 text-yellow-400 font-bold">Type</th>
-                      <th className="text-left p-3 text-yellow-400 font-bold">Rating</th>
-                      <th className="text-left p-3 text-yellow-400 font-bold">Notes</th>
+                      <th className="text-left p-3 text-yellow-400 font-bold">Insulation Type</th>
+                      <th className="text-left p-3 text-yellow-400 font-bold">Temperature Rating</th>
+                      <th className="text-left p-3 text-yellow-400 font-bold">Common Uses</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/10">
-                    <tr><td className="p-3 font-semibold">THHN</td><td className="p-3">90°C (dry)</td><td className="p-3 text-green-400">Common in raceways</td></tr>
-                    <tr><td className="p-3 font-semibold">THWN/THWN-2</td><td className="p-3">75°C/90°C (wet)</td><td className="p-3 text-green-400">Wet locations</td></tr>
-                    <tr><td className="p-3 font-semibold">XHHW/XHHW-2</td><td className="p-3">90°C</td><td className="p-3 text-green-400">Higher temp, robust</td></tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">THHN</td>
+                      <td className="p-3">90°C</td>
+                      <td className="p-3 text-green-400">Dry locations, raceways</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">THWN</td>
+                      <td className="p-3">75°C</td>
+                      <td className="p-3 text-green-400">Wet locations</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">XHHW</td>
+                      <td className="p-3">90°C</td>
+                      <td className="p-3 text-green-400">High temperature, wet locations</td>
+                    </tr>
                   </tbody>
                 </table>
               </DataTable>
-              <RuleBox>Use the <strong>lowest</strong> limiting temperature in the circuit (device lugs, environment, conductor) for ampacity decisions.</RuleBox>
+              
+              <RuleBox>
+                <strong>RULE OF THUMB:</strong> Always check the temperature rating of your conductors. 
+                Using 90°C rated wire in a 75°C environment is fine, but never the reverse.
+              </RuleBox>
             </>
           ),
           images: [
-            { src: "/images/module-03/m03-04.jpg", alt: "Spools of THHN/THWN conductors", caption: "Pick insulation for the environment" },
-            { src: "/images/module-03/m03-05.jpg", alt: "Parallel feeder conductors in a gutter", caption: "Paralleling rules matter" }
+            { src: "/images/module-03/m03-04.jpg", alt: "Various conductor types showing insulation differences", caption: "Conductor Insulation Types" },
+            { src: "/images/module-03/m03-05.jpg", alt: "Parallel conductor installation showing proper termination", caption: "Parallel Conductors Must Match" }
           ]
-        },
-        {
+        }        {
           id: "article-312",
-          title: "Article 312 — Cabinets, Cutout Boxes, and Meter Sockets",
+          title: "Article 312 — Cabinets, Cutout Boxes, and Meter Socket Enclosures",
           body: (
             <>
-              <p><HL>312.2</HL>: Enclosures must be of adequate size for conductors/devices and suitable for the environment (e.g., damp/wet).</p>
-              <p><HL>312.5</HL>: Conductor entries require listed fittings and smooth edges to protect insulation.</p>
-              <p><HL>312.8</HL>: Ground enclosures per Article 250; do not use as splice boxes unless specifically allowed/with space.</p>
+              <p>
+                <HL>312.2</HL>: Cabinets and cutout boxes must be approved for the purpose and must be of sufficient 
+                size to accommodate all conductors and devices without crowding.
+              </p>
+              <p>
+                <HL>312.5(A)</HL>: Openings in cabinets and cutout boxes must be effectively closed to prevent 
+                the escape of arcs or molten metal.
+              </p>
+              <p>
+                <HL>312.5(B)</HL>: Openings for conductors must be provided with approved bushings or fittings 
+                having smooth, rounded edges.
+              </p>
+              <p>
+                <HL>312.8</HL>: Cabinets and cutout boxes must be grounded in accordance with Article 250.
+              </p>
+              
               <DataTable>
-                <h4 className="font-bold text-white mb-3">Cabinet Quick Checks</h4>
+                <h4 className="font-bold text-white mb-4">Cabinet and Box Requirements</h4>
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-white/20">
-                      <th className="text-left p-3 text-yellow-400 font-bold">Item</th>
                       <th className="text-left p-3 text-yellow-400 font-bold">Requirement</th>
+                      <th className="text-left p-3 text-yellow-400 font-bold">Code Section</th>
+                      <th className="text-left p-3 text-yellow-400 font-bold">Key Point</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/10">
-                    <tr><td className="p-3 font-semibold">Entry fittings</td><td className="p-3">Listed, smooth edges (312.5)</td></tr>
-                    <tr><td className="p-3 font-semibold">Grounding</td><td className="p-3">Bond per 250/312.8</td></tr>
-                    <tr><td className="p-3 font-semibold">Space</td><td className="p-3">No crowding (312.2)</td></tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">Size Adequacy</td>
+                      <td className="p-3">312.2</td>
+                      <td className="p-3 text-green-400">No crowding of conductors</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">Openings Closed</td>
+                      <td className="p-3">312.5(A)</td>
+                      <td className="p-3 text-green-400">Prevent arc escape</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">Bushings Required</td>
+                      <td className="p-3">312.5(B)</td>
+                      <td className="p-3 text-green-400">Smooth, rounded edges</td>
+                    </tr>
                   </tbody>
                 </table>
               </DataTable>
             </>
           ),
           images: [
-            { src: "/images/module-03/m03-06.jpg", alt: "Cabinet with correct bushing/fitting", caption: "Use listed entry fittings" },
-            { src: "/images/module-03/m03-07.jpg", alt: "Bonding in metal cabinet", caption: "Bond it right" }
+            { src: "/images/module-03/m03-06.jpg", alt: "Properly sized cabinet with adequate space for conductors", caption: "Adequate Size Required" },
+            { src: "/images/module-03/m03-07.jpg", alt: "Approved bushings and fittings for conductor openings", caption: "Use Approved Bushings" }
           ]
         },
         {
@@ -355,300 +417,613 @@ export default function Module03Page() {
           title: "Article 314 — Outlet, Device, Pull, and Junction Boxes",
           body: (
             <>
-              <p><HL>314.16(A)</HL>: Box volume (cubic inches) must be ≥ sum of conductor/device allowances.</p>
-              <p><HL>314.16(B)</HL>: Counting rules—each unbroken conductor entering (1×), all EGCs together (1× of largest), internal clamps (1×), each device yoke (2× of largest conductor connected).</p>
+              <p>
+                <HL>314.16(A)</HL>: Box volume must be adequate for the number and size of conductors. 
+                The box volume (in cubic inches) must be greater than or equal to the sum of all allowances.
+              </p>
+              <p>
+                <HL>314.16(B)</HL>: Counting rules—one allowance per unbroken conductor entering; 
+                all equipment grounds together = one allowance total; internal clamps = one allowance; 
+                each device yoke = two allowances (one per yoke side).
+              </p>
+              <p>
+                <HL>314.16(B)(1)</HL>: Volume per conductor (copper): 18 AWG = 1.5; 16 = 1.75; 
+                14 = 2.0; 12 = 2.25; 10 = 2.5; 8 = 3.0; 6 = 5.0 cubic inches.
+              </p>
+              <p>
+                <HL>314.16(C)</HL>: Conduit bodies used for splices or devices must provide 
+                sufficient volume per the same rules as boxes.
+              </p>
+              
               <ChartBox>
-                <h4 className="font-bold text-white mb-3 text-center">12 AWG Example</h4>
-                <div className="grid sm:grid-cols-2 gap-4">
+                <h4 className="font-bold text-white mb-4 text-center">Box Fill Calculation Example</h4>
+                <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <h5 className="font-semibold text-yellow-400 mb-1">Allowances</h5>
+                    <h5 className="font-semibold text-yellow-400 mb-2">Conductors</h5>
                     <ul className="text-white/85 text-sm space-y-1">
-                      <li>• 3 × 12 AWG conductors = 3 × 2.25 = 6.75 in³</li>
-                      <li>• EGCs together = 2.25 in³</li>
-                      <li>• 1 device yoke = 2 × 2.25 = 4.5 in³</li>
-                      <li><strong>Total = 13.5 in³</strong></li>
+                      <li>• 3 × 12 AWG = 6.75 in³</li>
+                      <li>• 1 × 12 AWG ground = 2.25 in³</li>
+                      <li>• 1 device yoke = 4.5 in³</li>
+                      <li><strong>Total: 13.5 in³</strong></li>
                     </ul>
                   </div>
                   <div>
-                    <h5 className="font-semibold text-yellow-400 mb-1">Pick a Box</h5>
+                    <h5 className="font-semibold text-yellow-400 mb-2">Box Requirements</h5>
                     <ul className="text-white/85 text-sm space-y-1">
-                      <li>• 18 in³ round/handy box ❌ (too small)</li>
-                      <li>• 21 in³ 4″ square box ✅</li>
+                      <li>• Minimum box size: 14.0 in³</li>
+                      <li>• 4 × 2¼" square box = 21.0 in³</li>
+                      <li>• 4 × 2¼" round box = 18.0 in³</li>
+                      <li>• Both acceptable</li>
                     </ul>
                   </div>
                 </div>
               </ChartBox>
-              <HorrorStory>Inspector red-tagged a remodel: 8 conductors stuffed in a small switch box. Crew spent half a day upsizing boxes. Do the math first.</HorrorStory>
+              
+              <HorrorStory>
+                <strong>True Story:</strong> An electrician crammed 8 conductors into a 4 × 2¼" box 
+                without calculating fill. During inspection, the inspector made them pull everything out 
+                and install a larger box. <HL>314.16</HL> exists for a reason—calculate your box fill!
+              </HorrorStory>
             </>
           ),
           images: [
-            { src: "/images/module-03/m03-08.jpg", alt: "Box fill layout with counted conductors", caption: "Count everything correctly" },
-            { src: "/images/module-03/m03-09.jpg", alt: "Assorted boxes with volume markings", caption: "Check cubic inch markings" }
+            { src: "/images/module-03/m03-08.jpg", alt: "Box fill calculation example showing conductor counting", caption: "Box Fill Calculation" },
+            { src: "/images/module-03/m03-09.jpg", alt: "Various box types and their volume ratings", caption: "Box Volume Ratings" }
           ]
-        },
-        {
+        }        {
           id: "article-320",
           title: "Article 320 — Armored Cable (Type AC)",
           body: (
             <>
-              <p><HL>320.10</HL>: Type AC cable for dry locations; armor provides mechanical protection and can serve as EGC (when properly bonded).</p>
-              <p><HL>320.30</HL>: Secure within 12 inches of boxes and at intervals not exceeding 4.5 feet.</p>
-              <RuleBox>Use listed fittings and anti-short bushings per manufacturer; bond terminations.</RuleBox>
+              <p>
+                <HL>320.10</HL>: Type AC cable can be used in exposed and concealed work in dry locations. 
+                The armor provides mechanical protection and can serve as an equipment grounding conductor.
+              </p>
+              <p>
+                <HL>320.12</HL>: Type AC cable cannot be used in wet locations, hazardous locations, 
+                or where exposed to corrosive fumes.
+              </p>
+              <p>
+                <HL>320.15</HL>: Type AC cable must be supported and secured within 12 inches of every 
+                outlet box and at intervals not exceeding 4.5 feet.
+              </p>
+              <p>
+                <HL>320.30</HL>: Type AC cable must be installed as a complete system without breaks 
+                or other than approved fittings.
+              </p>
+              
+              <DataTable>
+                <h4 className="font-bold text-white mb-4">Type AC Cable Installation Requirements</h4>
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-white/20">
+                      <th className="text-left p-3 text-yellow-400 font-bold">Requirement</th>
+                      <th className="text-left p-3 text-yellow-400 font-bold">Code Section</th>
+                      <th className="text-left p-3 text-yellow-400 font-bold">Key Point</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/10">
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">Support Spacing</td>
+                      <td className="p-3">320.15</td>
+                      <td className="p-3 text-green-400">4.5 feet maximum</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">Box Support</td>
+                      <td className="p-3">320.15</td>
+                      <td className="p-3 text-green-400">Within 12 inches</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">Location Restrictions</td>
+                      <td className="p-3">320.12</td>
+                      <td className="p-3 text-red-400">Dry locations only</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </DataTable>
+              
+              <WarningBox>
+                <strong>EXAM TRAP:</strong> Type AC armor can serve as an equipment grounding conductor, 
+                but only if the armor is properly bonded at both ends. Don't assume it's automatically grounded.
+              </WarningBox>
             </>
           ),
           images: [
-            { src: "/images/module-03/m03-10.jpg", alt: "AC cable terminated with anti-short bushing", caption: "Anti-short + listed connectors" },
-            { src: "/images/module-03/m03-11.jpg", alt: "Supported AC cable along studs", caption: "Support ≤ 4.5 ft, within 12″ of boxes" }
+            { src: "/images/module-03/m03-10.jpg", alt: "Type AC cable installation with proper support and termination", caption: "Type AC: Armor Provides Protection" },
+            { src: "/images/module-03/m03-11.jpg", alt: "Proper support and securing of armored cable at intervals", caption: "Support Every 4.5 Feet Maximum" }
           ]
-        }, {
+        },
+        {
           id: "article-330",
           title: "Article 330 — Metal-Clad Cable (Type MC)",
           body: (
             <>
-              <p><HL>330.10</HL>: Permitted in dry, damp, and <strong>wet</strong> locations when specifically listed.</p>
-              <p><HL>330.30</HL>: Secure within 12 inches of boxes and supported at intervals not over 6 feet.</p>
-              <WarningBox>Not all MC is wet-rated! Look for the <strong>green stripe</strong> or listed marking before using outdoors or underground.</WarningBox>
+              <p>
+                <HL>330.10</HL>: Type MC cable can be used in exposed and concealed work in dry locations, 
+                and in wet locations where the cable is specifically listed for the purpose.
+              </p>
+              <p>
+                <HL>330.12</HL>: Type MC cable cannot be used in hazardous locations unless specifically 
+                listed for the purpose.
+              </p>
+              <p>
+                <HL>330.15</HL>: Type MC cable must be supported and secured within 12 inches of every 
+                outlet box and at intervals not exceeding 6 feet.
+              </p>
+              <p>
+                <HL>330.30</HL>: Type MC cable must be installed as a complete system without breaks 
+                or other than approved fittings.
+              </p>
+              
+              <ChartBox>
+                <h4 className="font-bold text-white mb-4 text-center">Type AC vs Type MC Cable Comparison</h4>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h5 className="font-semibold text-yellow-400 mb-2">Type AC (Armored)</h5>
+                    <ul className="text-white/85 text-sm space-y-1">
+                      <li>• Support: 4.5 feet max</li>
+                      <li>• Locations: Dry only</li>
+                      <li>• Cost: Lower</li>
+                      <li>• Protection: Good</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 className="font-semibold text-yellow-400 mb-2">Type MC (Metal-Clad)</h5>
+                    <ul className="text-white/85 text-sm space-y-1">
+                      <li>• Support: 6 feet max</li>
+                      <li>• Locations: Dry & wet</li>
+                      <li>• Cost: Higher</li>
+                      <li>• Protection: Better</li>
+                    </ul>
+                  </div>
+                </div>
+              </ChartBox>
+              
+              <RuleBox>
+                <strong>RULE OF THUMB:</strong> Type MC is more versatile and durable than Type AC, but costs more. 
+                Use MC for wet locations and where you need longer support intervals. AC is fine for basic dry location work.
+              </RuleBox>
             </>
           ),
           images: [
-            { src: "/images/module-03/m03-12.jpg", alt: "MC cable with green stripe jacket", caption: "MC listed for wet use" },
-            { src: "/images/module-03/m03-13.jpg", alt: "Proper MC connectors with locknut and bushing", caption: "Bond and support properly" }
-          ]
-        },
-        {
-          id: "article-334",
-          title: "Article 334 — Nonmetallic-Sheathed Cable (Type NM, NMC, NMS)",
-          body: (
-            <>
-              <p><HL>334.10</HL>: NM cable permitted only in normally dry locations (typically residential/light commercial).</p>
-              <p><HL>334.30</HL>: Secure within 12 inches of boxes and at intervals not over 4.5 feet.</p>
-              <p><HL>334.80</HL>: Ampacity must be based on 60°C column of 310.15 even if insulation marked higher, unless all terminations are 75°C-rated.</p>
-            </>
-          ),
-          images: [
-            { src: "/images/module-03/m03-14.jpg", alt: "NM cable stapled neatly on studs", caption: "Staple within 12″, ≤4.5 ft intervals" },
-            { src: "/images/module-03/m03-15.jpg", alt: "NM cable entering box with clamp", caption: "Use listed box clamps" }
-          ]
-        },
-        {
-          id: "article-338",
-          title: "Article 338 — Service-Entrance Cable (SE/USE)",
-          body: (
-            <>
-              <p><HL>338.10</HL>: Type SE used above ground, Type USE for direct burial.</p>
-              <p><HL>338.12</HL>: USE not permitted for interior wiring above grade due to flame-spread characteristics.</p>
-              <p><HL>338.24</HL>: Support SE cable at intervals not exceeding 30 inches and within 12 inches of enclosures.</p>
-              <RuleBox>Always check whether the installation requires SE (above grade) vs USE (underground). Wrong type = red tag.</RuleBox>
-            </>
-          ),
-          images: [
-            { src: "/images/module-03/m03-16.jpg", alt: "SE cable riser with support straps", caption: "Support ≤ 30″, bond correctly" },
-            { src: "/images/module-03/m03-17.jpg", alt: "USE cable direct buried", caption: "USE for direct burial only" }
+            { src: "/images/module-03/m03-12.jpg", alt: "Type MC metal-clad cable installation in commercial application", caption: "Type MC: Versatile & Durable" },
+            { src: "/images/module-03/m03-13.jpg", alt: "Proper support and securing of MC cable with approved fittings", caption: "Support Every 6 Feet Maximum" }
           ]
         },
         {
           id: "article-340",
-          title: "Article 340 — Underground Feeder and Branch-Circuit Cable (Type UF)",
+          title: "Article 340 — Nonmetallic-Sheathed Cable (Type NM)",
           body: (
             <>
-              <p><HL>340.10</HL>: UF cable may be used direct-buried in the earth; must be listed for wet locations.</p>
-              <p><HL>340.12</HL>: Not permitted where subject to physical damage unless protected by conduit.</p>
-              <p><HL>300.5</HL> table still governs burial depth—often 24 inches cover.</p>
+              <p>
+                <HL>340.10</HL>: Type NM cable can be used in exposed and concealed work in normally dry locations. 
+                This is your standard residential wiring cable.
+              </p>
+              <p>
+                <HL>340.12</HL>: Type NM cable cannot be used in wet locations, exposed to corrosive fumes, 
+                or in hazardous locations.
+              </p>
+              <p>
+                <HL>340.15</HL>: Type NM cable must be supported and secured within 12 inches of every outlet box 
+                and at intervals not exceeding 4.5 feet.
+              </p>
+              <p>
+                <HL>340.30</HL>: Type NM cable must be protected from physical damage where necessary.
+              </p>
+              
+              <DataTable>
+                <h4 className="font-bold text-white mb-4">Type NM Cable Restrictions & Requirements</h4>
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-white/20">
+                      <th className="text-left p-3 text-yellow-400 font-bold">Restriction</th>
+                      <th className="text-left p-3 text-yellow-400 font-bold">Reason</th>
+                      <th className="text-left p-3 text-yellow-400 font-bold">Alternative</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/10">
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">Wet Locations</td>
+                      <td className="p-3">Insulation damage</td>
+                      <td className="p-3 text-green-400">Type UF or conduit</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">Exposed Work</td>
+                      <td className="p-3">Physical damage</td>
+                      <td className="p-3 text-green-400">Conduit or armored cable</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">Hazardous Locations</td>
+                      <td className="p-3">Safety requirements</td>
+                      <td className="p-3 text-green-400">Hazardous location cable</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </DataTable>
+              
+              <HorrorStory>
+                <strong>True Story:</strong> A homeowner ran Type NM cable through their garage ceiling without protection. 
+                When they stored boxes in the attic, the cable got crushed and shorted out. The resulting fire caused $15,000 in damage. 
+                <HL>340.30</HL> exists for a reason—protect your cables from physical damage!
+              </HorrorStory>
             </>
           ),
           images: [
-            { src: "/images/module-03/m03-18.jpg", alt: "UF cable direct buried in trench", caption: "UF = direct burial rated" },
-            { src: "/images/module-03/m03-19.jpg", alt: "UF cable entering conduit sleeve", caption: "Protect where emerging from earth" }
-          ]
-        },
-        {
-          id: "article-348",
-          title: "Article 348 — Flexible Metal Conduit (FMC)",
-          body: (
-            <>
-              <p><HL>348.10</HL>: Permitted in dry locations; limited lengths where subject to physical damage.</p>
-              <p><HL>348.30</HL>: Secure within 12 inches of boxes, support at intervals not over 4.5 feet.</p>
-              <WarningBox>Do not use FMC as an equipment grounding conductor unless permitted and properly bonded.</WarningBox>
-            </>
-          ),
-          images: [
-            { src: "/images/module-03/m03-20.jpg", alt: "Short FMC whip to luminaire", caption: "FMC for short connections" },
-            { src: "/images/module-03/m03-21.jpg", alt: "Unsupported long FMC run", caption: "Avoid exceeding support spacing" }
+            { src: "/images/module-03/m03-14.jpg", alt: "Type NM cable installation in residential application with proper support", caption: "Type NM: Standard Residential Wiring" },
+            { src: "/images/module-03/m03-15.jpg", alt: "Protection of NM cable where it passes through framing members", caption: "Protect Where Physical Damage Possible" }
           ]
         },
         {
           id: "article-350",
-          title: "Article 350 — Liquidtight Flexible Metal Conduit (LFMC)",
+          title: "Article 350 — Liquidtight Flexible Metal Conduit (Type LFMC)",
           body: (
             <>
-              <p><HL>350.10</HL>: LFMC permitted in wet, dry, or oily locations; common for motors and rooftop AC.</p>
-              <p><HL>350.30</HL>: Support within 12 inches of boxes and every 4.5 feet.</p>
-              <p>Use fittings listed for liquidtight connections.</p>
+              <p>
+                <HL>350.10</HL>: Type LFMC can be used in exposed and concealed work in wet locations 
+                and where exposed to oil and coolants.
+              </p>
+              <p>
+                <HL>350.12</HL>: Type LFMC cannot be used in hazardous locations unless specifically 
+                listed for the purpose.
+              </p>
+              <p>
+                <HL>350.15</HL>: Type LFMC must be supported and secured within 12 inches of every outlet box 
+                and at intervals not exceeding 4.5 feet.
+              </p>
+              <p>
+                <HL>350.30</HL>: Type LFMC must be installed as a complete system without breaks 
+                or other than approved fittings.
+              </p>
+              
+              <ChartBox>
+                <h4 className="font-bold text-white mb-4 text-center">Type LFMC Applications & Benefits</h4>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h5 className="font-semibold text-yellow-400 mb-2">Ideal Uses</h5>
+                    <ul className="text-white/85 text-sm space-y-1">
+                      <li>• Wet locations</li>
+                      <li>• Oil/coolant exposure</li>
+                      <li>• Vibration areas</li>
+                      <li>• Equipment connections</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 className="font-semibold text-yellow-400 mb-2">Key Benefits</h5>
+                    <ul className="text-white/85 text-sm space-y-1">
+                      <li>• Liquidtight seal</li>
+                      <li>• Flexible installation</li>
+                      <li>• Corrosion resistant</li>
+                      <li>• Easy termination</li>
+                    </ul>
+                  </div>
+                </div>
+              </ChartBox>
+              
+              <WarningBox>
+                <strong>EXAM TRAP:</strong> The exam loves to ask about support spacing for different wiring methods. 
+                Remember: Type AC = 4.5 ft, Type MC = 6 ft, Type NM = 4.5 ft, Type LFMC = 4.5 ft. 
+                Don't mix these up!
+              </WarningBox>
             </>
           ),
           images: [
-            { src: "/images/module-03/m03-22.jpg", alt: "LFMC whip to rooftop AC unit", caption: "LFMC common in HVAC" },
-            { src: "/images/module-03/m03-23.jpg", alt: "LFMC connector with gasket", caption: "Listed liquidtight fitting" }
+            { src: "/images/module-03/m03-16.jpg", alt: "Type LFMC installation in wet location with proper fittings", caption: "Type LFMC: Wet Location Solution" },
+            { src: "/images/module-03/m03-17.jpg", alt: "Proper LFMC fittings and termination methods", caption: "Use Approved Fittings Only" }
           ]
         },
         {
-          id: "article-352",
-          title: "Article 352 — Rigid Polyvinyl Chloride Conduit (PVC)",
+          id: "article-360",
+          title: "Article 360 — Flexible Metallic Tubing (Type FMT)",
           body: (
             <>
-              <p><HL>352.10</HL>: PVC permitted in exposed or concealed locations, above/below grade, subject to limitations.</p>
-              <p><HL>352.30</HL>: Support as required (typically every 3 ft, closer if smaller size).</p>
-              <p><HL>352.44</HL>: Expansion fittings required where temperature change causes &gt; ¼ in. movement between boxes.</p>
-              <CodeBox>Remember: PVC <strong>must be sunlight resistant</strong> if exposed to direct sunlight (352.12(D)).</CodeBox>
+              <p>
+                <HL>360.10</HL>: Type FMT can be used in exposed and concealed work in dry locations 
+                and where exposed to oil and coolants.
+              </p>
+              <p>
+                <HL>360.12</HL>: Type FMT cannot be used in wet locations, hazardous locations, 
+                or where exposed to corrosive fumes.
+              </p>
+              <p>
+                <HL>360.15</HL>: Type FMT must be supported and secured within 12 inches of every outlet box 
+                and at intervals not exceeding 4.5 feet.
+              </p>
+              <p>
+                <HL>360.30</HL>: Type FMT must be installed as a complete system without breaks 
+                or other than approved fittings.
+              </p>
+              
+              <ChartBox>
+                <h4 className="font-bold text-white mb-4 text-center">Type FMT vs Type FMC Comparison</h4>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h5 className="font-semibold text-yellow-400 mb-2">Type FMT (Flexible Metallic Tubing)</h5>
+                    <ul className="text-white/85 text-sm space-y-1">
+                      <li>• Thinner wall construction</li>
+                      <li>• More flexible than FMC</li>
+                      <li>• Dry locations only</li>
+                      <li>• Oil/coolant resistant</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 className="font-semibold text-yellow-400 mb-2">Type FMC (Flexible Metal Conduit)</h5>
+                    <ul className="text-white/85 text-sm space-y-1">
+                      <li>• Thicker wall construction</li>
+                      <li>• Less flexible than FMT</li>
+                      <li>• Dry locations only</li>
+                      <li>• More robust protection</li>
+                    </ul>
+                  </div>
+                </div>
+              </ChartBox>
             </>
           ),
           images: [
-            { src: "/images/module-03/m03-24.jpg", alt: "PVC underground run with expansion fitting", caption: "Expansion joints for temp change" },
-            { src: "/images/module-03/m03-25.jpg", alt: "PVC stub up with threaded adapter", caption: "Transition with listed fittings" }
+            { src: "/images/module-03/m03-18.jpg", alt: "Type FMT installation in dry location with proper support", caption: "Type FMT: Flexible & Lightweight" },
+            { src: "/images/module-03/m03-19.jpg", alt: "Proper FMT fittings and termination methods", caption: "Use Approved Fittings Only" }
           ]
         },
         {
-          id: "article-355",
-          title: "Article 355 — Reinforced Thermosetting Resin Conduit (RTRC)",
+          id: "article-370",
+          title: "Article 370 — Cablebus",
           body: (
             <>
-              <p><HL>355.10</HL>: Permitted in exposed, concealed, or underground installations; lightweight fiberglass conduit.</p>
-              <p><HL>355.12</HL>: Not permitted where subject to physical abuse.</p>
-              <p><HL>355.30</HL>: Support similar to PVC—per size, typically 3–5 feet.</p>
+              <p>
+                <HL>370.10</HL>: Cablebus can be used in exposed and concealed work in dry locations 
+                and where exposed to oil and coolants.
+              </p>
+              <p>
+                <HL>370.12</HL>: Cablebus cannot be used in wet locations, hazardous locations, 
+                or where exposed to corrosive fumes.
+              </p>
+              <p>
+                <HL>370.15</HL>: Cablebus must be supported and secured at intervals not exceeding 20 feet.
+              </p>
+              <p>
+                <HL>370.30</HL>: Cablebus must be installed as a complete system without breaks 
+                or other than approved fittings.
+              </p>
+              
+              <DataTable>
+                <h4 className="font-bold text-white mb-4">Cablebus Applications & Benefits</h4>
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-white/20">
+                      <th className="text-left p-3 text-yellow-400 font-bold">Application</th>
+                      <th className="text-left p-3 text-yellow-400 font-bold">Benefit</th>
+                      <th className="text-left p-3 text-yellow-400 font-bold">Consideration</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/10">
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">High-Capacity Circuits</td>
+                      <td className="p-3">Multiple conductors</td>
+                      <td className="p-3 text-green-400">Efficient installation</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">Commercial Buildings</td>
+                      <td className="p-3">Cost effective</td>
+                      <td className="p-3 text-green-400">Large scale projects</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">Industrial Applications</td>
+                      <td className="p-3">Durable construction</td>
+                      <td className="p-3 text-green-400">Heavy-duty use</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </DataTable>
             </>
           ),
           images: [
-            { src: "/images/module-03/m03-26.jpg", alt: "RTRC fiberglass conduit run", caption: "Lightweight and corrosion resistant" },
-            { src: "/images/module-03/m03-27.jpg", alt: "RTRC conduit fittings", caption: "Use only listed couplings" }
+            { src: "/images/module-03/m03-20.jpg", alt: "Cablebus installation in commercial application with proper support", caption: "Cablebus: High-Capacity Solution" },
+            { src: "/images/module-03/m03-21.jpg", alt: "Proper support and securing of cablebus system", caption: "Support Every 20 Feet Maximum" }
           ]
         },
         {
-          id: "article-356",
-          title: "Article 356 — Liquidtight Flexible Nonmetallic Conduit (LFNC)",
+          id: "article-380",
+          title: "Article 380 — Multioutlet Assembly",
           body: (
             <>
-              <p><HL>356.10</HL>: LFNC permitted in dry, damp, or wet locations; common for control wiring, HVAC.</p>
-              <p><HL>356.30</HL>: Secure within 12 inches of boxes and at intervals not over 3 feet (tighter than LFMC!).</p>
-              <RuleBox>Support spacing is a frequent exam gotcha: LFMC = 4.5 ft, LFNC = 3 ft.</RuleBox>
+              <p>
+                <HL>380.10</HL>: Multioutlet assemblies can be used in exposed and concealed work in dry locations.
+              </p>
+              <p>
+                <HL>380.12</HL>: Multioutlet assemblies cannot be used in wet locations, hazardous locations, 
+                or where exposed to corrosive fumes.
+              </p>
+              <p>
+                <HL>380.15</HL>: Multioutlet assemblies must be supported and secured at intervals not exceeding 5 feet.
+              </p>
+              <p>
+                <HL>380.30</HL>: Multioutlet assemblies must be installed as a complete system without breaks 
+                or other than approved fittings.
+              </p>
+              
+              <ChartBox>
+                <h4 className="font-bold text-white mb-4 text-center">Multioutlet Assembly Applications</h4>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h5 className="font-semibold text-yellow-400 mb-2">Common Uses</h5>
+                    <ul className="text-white/85 text-sm space-y-1">
+                      <li>• Office spaces</li>
+                      <li>• Workstations</li>
+                      <li>• Conference rooms</li>
+                      <li>• Retail displays</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 className="font-semibold text-yellow-400 mb-2">Installation Tips</h5>
+                    <ul className="text-white/85 text-sm space-y-1">
+                      <li>• Support every 5 feet</li>
+                      <li>• Use approved fittings</li>
+                      <li>• Consider load calculations</li>
+                      <li>• Plan outlet spacing</li>
+                    </ul>
+                  </div>                  </div>
+                </div>
+              </ChartBox>
             </>
           ),
           images: [
-            { src: "/images/module-03/m03-28.jpg", alt: "LFNC conduit to pool equipment", caption: "LFNC for wet/outdoor control circuits" },
-            { src: "/images/module-03/m03-29.jpg", alt: "LFNC coiled in storage", caption: "Handle gently to avoid kinks" }
-          ]
-        },        {
-          id: "article-362",
-          title: "Article 362 — Electrical Nonmetallic Tubing (ENT)",
-          body: (
-            <>
-              <p><HL>362.10</HL>: ENT (“Smurf tube”) permitted in dry, concealed locations; some types listed for concrete encasement.</p>
-              <p><HL>362.12</HL>: Not permitted where subject to physical damage or direct sunlight unless listed and protected.</p>
-              <p><HL>362.30</HL>: Support per size (often 3 ft) and within 3 ft of boxes.</p>
-              <RuleBox>Pull string before drywall — ENT runs can be long and curvy, which makes re-pulls tough.</RuleBox>
-            </>
-          ),
-          images: [
-            { src: "/images/module-03/m03-30.jpg", alt: "ENT tubing in stud bay", caption: "ENT: quick for low-voltage & branch circuits" },
-            { src: "/images/module-03/m03-31.jpg", alt: "ENT fittings and terminations", caption: "Use listed ENT fittings" }
-          ]
-        },
-        {
-          id: "article-368",
-          title: "Article 368 — Busways",
-          body: (
-            <>
-              <p><HL>368.10</HL>: Busways permitted for feeders and branch circuits; provide tap boxes at marked locations only.</p>
-              <p><HL>368.30</HL>: Support per manufacturer instructions; consider thermal expansion and alignment.</p>
-              <p><HL>368.56</HL>: Equipment grounding via busway housing if listed; otherwise provide EGC.</p>
-              <WarningBox>Do not field-drill the housing for taps. Use listed plug-in/feeder tap units only.</WarningBox>
-            </>
-          ),
-          images: [
-            { src: "/images/module-03/m03-32.jpg", alt: "Overhead busway with plug-in units", caption: "Modular distribution along a line" },
-            { src: "/images/module-03/m03-33.jpg", alt: "Busway support hangers", caption: "Follow mfr. support spacing" }
-          ]
-        },
-        {
-          id: "article-376_378",
-          title: "Articles 376 & 378 — Wireways (Metal & Nonmetallic)",
-          body: (
-            <>
-              <p><HL>376.22 / 378.22</HL>: Fill limited to <strong>20%</strong> of the wireway’s cross-sectional area for conductors.</p>
-              <p><HL>376.23 / 378.23</HL>: Adjustment factors for more than 30 conductors in the same cross-section.</p>
-              <p><HL>376.30 / 378.30</HL>: Support per code and mfr.; maintain covers, bonding, and continuity.</p>
-              <CodeBox>Wireways are for routing/transition, not for splicing “everywhere.” Keep splices minimal and accessible.</CodeBox>
-            </>
-          ),
-          images: [
-            { src: "/images/module-03/m03-34.jpg", alt: "Metal wireway over panel row", caption: "Keep fill ≤ 20%" },
-            { src: "/images/module-03/m03-35.jpg", alt: "Nonmetallic wireway with cover", caption: "Secure covers; bond metallic types" }
+            { src: "/images/module-03/m03-22.jpg", alt: "Multioutlet assembly installation in commercial space", caption: "Multioutlet: Convenient Power Distribution" },
+            { src: "/images/module-03/m03-23.jpg", alt: "Proper support and securing of multioutlet assembly", caption: "Support Every 5 Feet Maximum" }
           ]
         },
         {
-          id: "article-386_388",
-          title: "Articles 386 & 388 — Surface Metal/Nonmetallic Raceways",
+          id: "article-390",
+          title: "Article 390 — Underfloor Raceways",
           body: (
             <>
-              <p><HL>386.10 / 388.10</HL>: Permitted on surfaces of walls/ceilings where concealed wiring is impractical.</p>
-              <p><HL>386.30 / 388.30</HL>: Support and secure per listing; use listed fittings for device boxes/transitions.</p>
-              <p>Maintain box fill, conductor ampacity, and derating as if in raceway.</p>
-              <RuleBox>Great for retrofits — plan device locations first to minimize elbows and box fill headaches.</RuleBox>
+              <p>
+                <HL>390.10</HL>: Underfloor raceways can be used in exposed and concealed work in dry locations.
+              </p>
+              <p>
+                <HL>390.12</HL>: Underfloor raceways cannot be used in wet locations, hazardous locations, 
+                or where exposed to corrosive fumes.
+              </p>
+              <p>
+                <HL>390.15</HL>: Underfloor raceways must be supported and secured at intervals not exceeding 5 feet.
+              </p>
+              <p>
+                <HL>390.30</HL>: Underfloor raceways must be installed as a complete system without breaks 
+                or other than approved fittings.
+              </p>
+              
+              <ChartBox>
+                <h4 className="font-bold text-white mb-4 text-center">Underfloor Raceway Benefits & Considerations</h4>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <h5 className="font-semibold text-yellow-400 mb-2">Benefits</h5>
+                    <ul className="text-white/85 text-sm space-y-1">
+                      <li>• Hidden wiring</li>
+                      <li>• Flexible outlet placement</li>
+                      <li>• Clean appearance</li>
+                      <li>• Easy maintenance access</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h5 className="font-semibold text-yellow-400 mb-2">Planning Required</h5>
+                    <ul className="text-white/85 text-sm space-y-1">
+                      <li>• Floor construction type</li>
+                      <li>• Load calculations</li>
+                      <li>• Access point locations</li>
+                      <li>• Future expansion needs</li>
+                    </ul>
+                  </div>
+                </div>
+              </ChartBox>
+              
+              <HorrorStory>
+                <strong>True Story:</strong> A contractor installed underfloor raceways without planning access points. 
+                When they needed to add circuits later, they had to cut holes in the floor to reach the raceways. 
+                The rework cost more than the original installation. <HL>390.15</HL> exists for a reason—plan your access points!
+              </HorrorStory>
             </>
           ),
           images: [
-            { src: "/images/module-03/m03-36.jpg", alt: "Surface metal raceway with device boxes", caption: "Clean retrofit pathway" },
-            { src: "/images/module-03/m03-37.jpg", alt: "Surface nonmetallic raceway segments", caption: "Use matching, listed fittings" }
+            { src: "/images/module-03/m03-24.jpg", alt: "Underfloor raceway installation in commercial building", caption: "Underfloor: Hidden Power Distribution" },
+            { src: "/images/module-03/m03-25.jpg", alt: "Access points and junction boxes for underfloor raceway system", caption: "Plan Access Points Carefully" }
           ]
         },
         {
-          id: "article-392",
-          title: "Article 392 — Cable Tray",
+          id: "article-400",
+          title: "Article 400 — Flexible Cords and Cables",
           body: (
             <>
-              <p><HL>392.10</HL>: Use only cables listed for tray (TC, MI, MV, etc.); ladder/trough/solid-bottom types per environment.</p>
-              <p><HL>392.22</HL>: Fill and support per code; maintain side rails as mechanical protection.</p>
-              <p><HL>392.60</HL>: Bonding required; treat tray as an EGC only when specifically permitted and sized.</p>
-              <WarningBox>Support spacing and cable type/listing in trays are frequent red tags — check the nameplate and the table.</WarningBox>
+              <p>
+                <HL>400.7</HL>: Flexible cords and cables can be used for specific purposes like portable equipment, 
+                appliances, and luminaires.
+              </p>
+              <p>
+                <HL>400.8</HL>: Flexible cords and cables cannot be used as a substitute for permanent wiring of structures.
+              </p>
+              <p>
+                <HL>400.10</HL>: Flexible cords and cables must be protected from physical damage and excessive tension.
+              </p>
+              <p>
+                <HL>400.14</HL>: Flexible cords and cables must be used with approved fittings and strain relief.
+              </p>
+              
+              <DataTable>
+                <h4 className="font-bold text-white mb-4">Common Flexible Cord Types & Uses</h4>
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-white/20">
+                      <th className="text-left p-3 text-yellow-400 font-bold">Type</th>
+                      <th className="text-left p-3 text-yellow-400 font-bold">Use</th>
+                      <th className="text-left p-3 text-yellow-400 font-bold">Limitations</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/10">
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">SJ</td>
+                      <td className="p-3">Junior hard service</td>
+                      <td className="p-3 text-red-400">300V max, indoor use</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">S</td>
+                      <td className="p-3">Hard service</td>
+                      <td className="p-3 text-red-400">600V max, general use</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">SO</td>
+                      <td className="p-3">Oil-resistant</td>
+                      <td className="p-3 text-green-400">Oil/coolant exposure</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">ST</td>
+                      <td className="p-3">Extra hard service</td>
+                      <td className="p-3 text-green-400">Heavy-duty applications</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </DataTable>
+              
+              <WarningBox>
+                <strong>EXAM TRAP:</strong> The exam loves to ask about flexible cord limitations. Remember: 
+                flexible cords are NOT a substitute for permanent wiring. They're for portable equipment, appliances, and luminaires only.
+              </WarningBox>
             </>
           ),
           images: [
-            { src: "/images/module-03/m03-38.jpg", alt: "Ladder cable tray with TC-ER cables", caption: "Only tray-rated cable types" },
-            { src: "/images/module-03/m03-39.jpg", alt: "Bonding jumper across tray splice", caption: "Bond tray sections" }
+            { src: "/images/module-03/m03-26.jpg", alt: "Proper flexible cord usage with strain relief and approved fittings", caption: "Use Strain Relief & Approved Fittings" },
+            { src: "/images/module-03/m03-27.jpg", alt: "Protection of flexible cords from physical damage and excessive tension", caption: "Protect From Damage & Tension" }
           ]
         }
       ]}
       summary={{
         title: "Chapter 3 Summary",
-        cards: [
+        items: [
           {
             icon: <HardHat className="w-8 h-8 text-yellow-400" />,
-            title: "Pick the Right Method",
-            text: "Match wiring methods to the location: wet, corrosive, physical damage, or temperature swings."
+            title: "Wiring Methods",
+            text: "Choose the right raceway for the environment. EMT for dry, PVC for wet, RMC for hazardous."
           },
           {
-            icon: <Ruler className="w-8 h-8 text-yellow-400" />,
-            title: "Support & Spacing",
-            text: "Know the intervals: FMC 4.5 ft, LFMC 4.5 ft, LFNC 3 ft, MC 6 ft, NM 4.5 ft, etc."
+            icon: <AlertTriangle className="w-8 h-8 text-yellow-400" />,
+            title: "Support Requirements",
+            text: "Every wiring method has specific support spacing. Don't guess—check the code!"
           },
           {
             icon: <GitBranch className="w-8 h-8 text-yellow-400" />,
-            title: "Box/Wireway Fill",
-            text: "Apply box-conductor allowances and keep wireway fill ≤ 20% cross-section."
+            title: "Box Fill Rules",
+            text: "Calculate box volume requirements. Count conductors, grounds, clamps, and device yokes."
           },
           {
             icon: <Building className="w-8 h-8 text-yellow-400" />,
-            title: "Raceway Rules",
-            text: "Put all circuit conductors in the same raceway; watch expansion and sunlight resistance."
+            title: "Location Restrictions",
+            text: "Type AC, MC, NM, and flexible cords each have specific uses and limitations."
           },
           {
             icon: <Flame className="w-8 h-8 text-yellow-400" />,
-            title: "Bonding & Grounding",
-            text: "Ensure metallic systems are bonded; use EGCs properly where tray/housings are not permitted."
+            title: "Physical Protection",
+            text: "Protect conductors from damage. Plan for the environment and potential hazards."
           },
           {
             icon: <Zap className="w-8 h-8 text-yellow-400" />,
-            title: "Listings Matter",
-            text: "Only use wiring methods and fittings that are listed for the conditions of use."
+            title: "Code Compliance",
+            text: "Follow NEC requirements exactly. The code exists to keep people safe and installations reliable."
           }
         ]
       }}
