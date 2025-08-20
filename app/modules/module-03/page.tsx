@@ -2,8 +2,9 @@
 
 import { AlertTriangle, GitBranch, Building, Flame, Zap, HardHat } from "lucide-react";
 import ModuleTemplate from "../../components/ModuleTemplate";
+import type { QuizQuestion } from "../../components/ModuleTemplate";
 
-const quiz = [
+const quiz: QuizQuestion[] = [
   { id: 1, stem: "Which wiring method is NOT permitted in wet locations?", choices: [
     { key: "A", text: "PVC" }, { key: "B", text: "RMC" }, { key: "C", text: "Type NM" }, { key: "D", text: "LFMC" }
   ], answer: "C", why: "NM is dry‑location only (340.12)." },
