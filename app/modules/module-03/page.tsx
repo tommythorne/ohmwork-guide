@@ -522,5 +522,4 @@ export default function Ch3WiringMethods() {
         next={{href:"/modules/module-04",label:"Chapter 4"}} 
       />
     </main>
-  );
-}
+  )
