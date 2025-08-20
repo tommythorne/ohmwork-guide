@@ -498,7 +498,7 @@ export default function Module03Page() {
             <>
               <p><HL>352.10</HL>: PVC permitted in exposed or concealed locations, above/below grade, subject to limitations.</p>
               <p><HL>352.30</HL>: Support as required (typically every 3 ft, closer if smaller size).</p>
-              <p><HL>352.44</HL>: Expansion fittings required where temperature change causes > ¼ in. movement between boxes.</p>
+              <p><HL>352.44</HL>: Expansion fittings required where temperature change causes &gt; ¼ in. movement between boxes.</p>
               <CodeBox>Remember: PVC <strong>must be sunlight resistant</strong> if exposed to direct sunlight (352.12(D)).</CodeBox>
             </>
           ),
