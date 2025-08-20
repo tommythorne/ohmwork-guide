@@ -292,7 +292,7 @@ export default function Module03Page() {
           body: (
             <>
               <p><HL>310.10</HL>: Use conductors suitable for environment and temperature rating (60/75/90°C) and location (dry/wet).</p>
-              <p><HL>310.15</HL>: Apply ampacity adjustment (more than 3 CCC in a raceway/cable) and temperature correction (ambient >30°C/86°F) as required.</p>
+              <p><HL>310.15</HL>: Apply ampacity adjustment (more than 3 CCC in a raceway/cable) and temperature correction (ambient &gt; 30°C/86°F) as required.</p>
               <p><HL>310.10(H)</HL>: Parallel conductors must be same length, size, insulation, and material; terminate alike.</p>
               <DataTable>
                 <h4 className="font-bold text-white mb-3">Common Insulation Ratings</h4>
