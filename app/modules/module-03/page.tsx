@@ -255,14 +255,14 @@ const articles = [
     title: "Article 300 — General Requirements for Wiring Methods",
     body: (
       <>
-        <p>— <HL&gt;300.3(B)</HL>: Conductors of the same circuit must be grouped together in the same raceway, cable, or enclosure.</p>
-        <p>— <HL&gt;300.4</HL>: Protection from physical damage; use listed bushings/guarding where required.</p>
-        <p>— <HL&gt;300.5</HL>: Underground wiring — meet depth, cover, and marking rules.</p>
-        <p>— <HL&gt;300.11</HL>: Securely fasten and support wiring methods; independent of suspended-ceiling grid unless listed.</p>
+        <p>— <HL>300.3(B)</HL>: Conductors of the same circuit must be grouped together in the same raceway, cable, or enclosure.</p>
+        <p>— <HL>300.4</HL>: Protection from physical damage; use listed bushings/guarding where required.</p>
+        <p>— <HL>300.5</HL>: Underground wiring — meet depth, cover, and marking rules.</p>
+        <p>— <HL>300.11</HL>: Securely fasten and support wiring methods; independent of suspended-ceiling grid unless listed.</p>
         <WarningBox>
-          Splitting circuit conductors into different raceways violates <HL&gt;300.3(B)</HL> and causes magnetic heating issues.
+          Splitting circuit conductors into different raceways violates <HL>300.3(B)</HL> and causes magnetic heating issues.
         </WarningBox>
-        <CodeBox>See <HL&gt;300.5</HL> note tables for burial depths and derating in soil/ductbanks.</CodeBox>
+        <CodeBox>See <HL>300.5</HL> note tables for burial depths and derating in soil/ductbanks.</CodeBox>
       </>
     ),
     images: [
@@ -275,10 +275,10 @@ const articles = [
     title: "Article 310 — Conductors for General Wiring",
     body: (
       <>
-        <p>— <HL&gt;310.10</HL>: Insulation must suit environment; damp/wet/corrosive areas need suitable types.</p>
-        <p>— <HL&gt;310.15</HL>: Apply adjustment and correction factors; &gt;3 CCC requires derating.</p>
+        <p>— <HL>310.10</HL>: Insulation must suit environment; damp/wet/corrosive areas need suitable types.</p>
+        <p>— <HL>310.15</HL>: Apply adjustment and correction factors; &gt;3 CCC requires derating.</p>
         <p>— <HL>Table 310.16</HL>: Base ampacities for 60/75/90°C columns; terminals often limit to 60/75°C.</p>
-        <RuleBox>Derate for ambient temperature and for &gt;3 current-carrying conductors per <HL&gt;310.15</HL>.</RuleBox>
+        <RuleBox>Derate for ambient temperature and for &gt;3 current-carrying conductors per <HL>310.15</HL>.</RuleBox>
       </>
     ),
     images: [
@@ -291,9 +291,9 @@ const articles = [
     title: "Article 312 — Cabinets, Cutout Boxes, and Meter Sockets",
     body: (
       <>
-        <p>— <HL&gt;312.2</HL>: Enclosures must be listed and suitable for the location (dry/damp/wet).</p>
-        <p>— <HL&gt;312.5</HL>: Provide access without removing building finish/structure.</p>
-        <p>— <HL&gt;312.8</HL>: Space for conductors/splices; no crowding; bond per Article 250.</p>
+        <p>— <HL>312.2</HL>: Enclosures must be listed and suitable for the location (dry/damp/wet).</p>
+        <p>— <HL>312.5</HL>: Provide access without removing building finish/structure.</p>
+        <p>— <HL>312.8</HL>: Space for conductors/splices; no crowding; bond per Article 250.</p>
         <HorrorStory>A NEMA 1 cabinet was installed outdoors; the first storm corroded lugs. Use proper <HL>environment ratings</HL>.</HorrorStory>
       </>
     ),
@@ -307,9 +307,9 @@ const articles = [
     title: "Article 314 — Outlet, Device, Pull, and Junction Boxes",
     body: (
       <>
-        <p>— <HL&gt;314.16</HL>: Box volume must accommodate conductors, devices, and fittings (count each per table).</p>
-        <p>— <HL&gt;314.23</HL>: Support/secure boxes; ceiling-suspended devices need listed supports.</p>
-        <p>— <HL&gt;314.25</HL>: Install covers; protect live parts.</p>
+        <p>— <HL>314.16</HL>: Box volume must accommodate conductors, devices, and fittings (count each per table).</p>
+        <p>— <HL>314.23</HL>: Support/secure boxes; ceiling-suspended devices need listed supports.</p>
+        <p>— <HL>314.25</HL>: Install covers; protect live parts.</p>
         <CodeBox>
           Device yoke counts as <HL>two</HL> conductor volumes; all EGCs together count as <HL>one</HL>.
         </CodeBox>
@@ -325,9 +325,9 @@ const articles = [
     title: "Article 342 — Intermediate Metal Conduit (IMC)",
     body: (
       <>
-        <p>— <HL&gt;342.10</HL>: Suitable for dry/wet/hazardous when properly fitted; outdoors acceptable.</p>
-        <p>— <HL&gt;342.14</HL>: <HL>Threaded</HL> connections; maintain electrical continuity.</p>
-        <p>— <HL&gt;342.30</HL>: Support within 3 ft of boxes and ≤ 10 ft intervals.</p>
+        <p>— <HL>342.10</HL>: Suitable for dry/wet/hazardous when properly fitted; outdoors acceptable.</p>
+        <p>— <HL>342.14</HL>: <HL>Threaded</HL> connections; maintain electrical continuity.</p>
+        <p>— <HL>342.30</HL>: Support within 3 ft of boxes and ≤ 10 ft intervals.</p>
         <WarningBox>IMC uses <HL>threaded</HL> fittings. Threadless compression is not acceptable in hazloc.</WarningBox>
       </>
     ),
@@ -341,9 +341,9 @@ const articles = [
     title: "Article 344 — Rigid Metal Conduit (RMC)",
     body: (
       <>
-        <p>— <HL&gt;344.10</HL>: Rugged raceway for industrial/hazardous; indoor/outdoor, wet/dry.</p>
-        <p>— <HL&gt;344.30</HL>: Support within 3 ft of boxes; ≤ 10 ft spacing typical.</p>
-        <p>— <HL&gt;344.60</HL>: Bonding per Article 250; RMC may serve as EGC when permitted.</p>
+        <p>— <HL>344.10</HL>: Rugged raceway for industrial/hazardous; indoor/outdoor, wet/dry.</p>
+        <p>— <HL>344.30</HL>: Support within 3 ft of boxes; ≤ 10 ft spacing typical.</p>
+        <p>— <HL>344.60</HL>: Bonding per Article 250; RMC may serve as EGC when permitted.</p>
         <RuleBox>Use bonding bushings/jumpers where needed to ensure effective grounding continuity.</RuleBox>
       </>
     ),
@@ -357,9 +357,9 @@ const articles = [
     title: "Article 348 — Flexible Metal Conduit (FMC)",
     body: (
       <>
-        <p>— <HL&gt;348.10</HL>: Dry locations; equipment connections; vibration areas.</p>
-        <p>— <HL&gt;348.12</HL>: Not a wet-location wiring method.</p>
-        <p>— <HL&gt;348.30</HL>: Support within 12 in. of boxes; ≤ 4.5 ft intervals.</p>
+        <p>— <HL>348.10</HL>: Dry locations; equipment connections; vibration areas.</p>
+        <p>— <HL>348.12</HL>: Not a wet-location wiring method.</p>
+        <p>— <HL>348.30</HL>: Support within 12 in. of boxes; ≤ 4.5 ft intervals.</p>
         <WarningBox>Do not treat FMC as liquidtight; that’s <HL>LFMC (350)</HL>.</WarningBox>
       </>
     ),
@@ -373,9 +373,9 @@ const articles = [
     title: "Article 350 — Liquidtight Flexible Metal Conduit (LFMC)",
     body: (
       <>
-        <p>— <HL&gt;350.10</HL>: Wet locations and oil/coolant exposure when fittings are liquidtight.</p>
-        <p>— <HL&gt;350.30</HL>: Support within 12 in. of boxes; ≤ 4.5 ft between supports.</p>
-        <p>— <HL&gt;350.60</HL>: Bonding to maintain continuity per Article 250.</p>
+        <p>— <HL>350.10</HL>: Wet locations and oil/coolant exposure when fittings are liquidtight.</p>
+        <p>— <HL>350.30</HL>: Support within 12 in. of boxes; ≤ 4.5 ft between supports.</p>
+        <p>— <HL>350.60</HL>: Bonding to maintain continuity per Article 250.</p>
       </>
     ),
     images: [
@@ -388,9 +388,9 @@ const articles = [
     title: "Article 352 — Rigid Polyvinyl Chloride Conduit (PVC)",
     body: (
       <>
-        <p>— <HL&gt;352.10</HL>: Suitable for wet/corrosive/underground where listed.</p>
-        <p>— <HL&gt;352.30</HL>: Support within 3 ft of boxes; close strap spacing.</p>
-        <p>— <HL&gt;352.44</HL>: Provide <HL>expansion fittings</HL> for thermal movement outdoors.</p>
+        <p>— <HL>352.10</HL>: Suitable for wet/corrosive/underground where listed.</p>
+        <p>— <HL>352.30</HL>: Support within 3 ft of boxes; close strap spacing.</p>
+        <p>— <HL>352.44</HL>: Provide <HL>expansion fittings</HL> for thermal movement outdoors.</p>
         <CodeBox>Thermal expansion can be inches over long runs. Install per manufacturer tables.</CodeBox>
       </>
     ),
@@ -404,9 +404,9 @@ const articles = [
     title: "Article 356 — Liquidtight Flexible Nonmetallic Conduit (LFNC)",
     body: (
       <>
-        <p>— <HL&gt;356.10</HL>: Wet locations, equipment terminations, vibration.</p>
-        <p>— <HL&gt;356.30</HL>: Support within 12 in. of boxes; ≤ 3 ft intervals.</p>
-        <p>— <HL&gt;356.42</HL>: Listed fittings; complete system integrity.</p>
+        <p>— <HL>356.10</HL>: Wet locations, equipment terminations, vibration.</p>
+        <p>— <HL>356.30</HL>: Support within 12 in. of boxes; ≤ 3 ft intervals.</p>
+        <p>— <HL>356.42</HL>: Listed fittings; complete system integrity.</p>
         <RuleBox>LFNC requires the <HL>most frequent</HL> support among common raceways (≤ 3 ft).</RuleBox>
       </>
     ),
@@ -420,9 +420,9 @@ const articles = [
     title: "Article 358 — Electrical Metallic Tubing (EMT)",
     body: (
       <>
-        <p>— <HL&gt;358.10</HL>: Permitted in dry/damp/wet locations when protected against corrosion and with listed fittings.</p>
-        <p>— <HL&gt;358.26</HL>: Max total bends between pull points = <HL&gt;360°</HL>.</p>
-        <p>— <HL&gt;358.30</HL>: Support and secure as required by code and listing.</p>
+        <p>— <HL>358.10</HL>: Permitted in dry/damp/wet locations when protected against corrosion and with listed fittings.</p>
+        <p>— <HL>358.26</HL>: Max total bends between pull points = <HL>360°</HL>.</p>
+        <p>— <HL>358.30</HL>: Support and secure as required by code and listing.</p>
         <WarningBox>In wet locations, use <HL>raintight</HL> EMT fittings; standard set-screw indoors only.</WarningBox>
       </>
     ),
@@ -436,9 +436,9 @@ const articles = [
     title: "Article 368 — Busways",
     body: (
       <>
-        <p>— <HL&gt;368.10</HL>: Feeder and plug-in busways for large current distribution.</p>
-        <p>— <HL&gt;368.30</HL>: Support per listing; expansion fittings for thermal movement on long runs.</p>
-        <p>— <HL&gt;368.56</HL>: Bonding/grounding continuity through housing and fittings.</p>
+        <p>— <HL>368.10</HL>: Feeder and plug-in busways for large current distribution.</p>
+        <p>— <HL>368.30</HL>: Support per listing; expansion fittings for thermal movement on long runs.</p>
+        <p>— <HL>368.56</HL>: Bonding/grounding continuity through housing and fittings.</p>
         <CodeBox>Locate plug-in units where working clearances and short-circuit ratings are satisfied.</CodeBox>
       </>
     ),
@@ -452,9 +452,9 @@ const articles = [
     title: "Article 392 — Cable Tray",
     body: (
       <>
-        <p>— <HL&gt;392.10</HL>: Only permitted cable types in tray (e.g., TC, MI, etc.).</p>
-        <p>— <HL&gt;392.30</HL>: Support spacing per type/width/loading; maintain fill and loading limits.</p>
-        <p>— <HL&gt;392.60</HL>: Bond cable tray system; ensure continuity across splices.</p>
+        <p>— <HL>392.10</HL>: Only permitted cable types in tray (e.g., TC, MI, etc.).</p>
+        <p>— <HL>392.30</HL>: Support spacing per type/width/loading; maintain fill and loading limits.</p>
+        <p>— <HL>392.60</HL>: Bond cable tray system; ensure continuity across splices.</p>
         <RuleBox>Label tray with loading and type allowances to avoid field mistakes.</RuleBox>
       </>
     ),
