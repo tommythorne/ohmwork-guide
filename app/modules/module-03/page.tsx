@@ -334,4 +334,32 @@ export default function Module03() {
             title: "Conductors",
             text: "Sizing, insulation types, and ampacity calculations"
           },
+          {// ...existing code...
           {
+            icon: <Cable className="w-8 h-8 text-yellow-400" />,
+            title: "Conductors",
+            text: "Sizing, insulation types, and ampacity calculations"
+          },
+          {
+            icon: <Building className="w-8 h-8 text-yellow-400" />,
+            title: "Boxes",
+            text: "Box fill calculations, support, and accessibility"
+          },
+          {
+            icon: <Shield className="w-8 h-8 text-yellow-400" />,
+            title: "Protection",
+            text: "Physical damage protection and burial requirements"
+          },
+          {
+            icon: <Plug className="w-8 h-8 text-yellow-400" />,
+            title: "Cable Types",
+            text: "AC, MC, and NM cable requirements and limitations"
+          }
+        ]
+      }}
+      quizQuestions={quiz}
+      prev={{ href: "/modules/module-02", label: "Chapter 2" }}
+      next={{ href: "/modules/module-04", label: "Chapter 4" }}
+    />
+  );
+}
