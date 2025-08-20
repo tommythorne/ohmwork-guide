@@ -1,9 +1,13 @@
 "use client";
 
-import { AlertTriangle, Zap, Shield, Plug, Cable, Building, Flame, Target, Waypoints, GitBranch, Ruler, BookOpen, Brain, HardHat, Droplets, CircuitBoard, Wrench, Warehouse } from "lucide-react";
-import ModuleTemplate from "../../components/ModuleTemplate";
+import { AlertTriangle, BookOpen, Cable, CircuitBoard, ShieldCheck, Wrench, Zap, Building, Plug } from "lucide-react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import Quiz from "../../components/Quiz";
+import FooterNav from "../../components/FooterNav";
 
-/** ---------- Helpers (match Module-02) ---------- */
+// Helper Components
 const HL = ({ children }: { children: React.ReactNode }) => (
   <span className="font-extrabold underline decoration-yellow-400 underline-offset-4">{children}</span>
 );
@@ -21,7 +25,7 @@ const WarningBox = ({ children }: { children: React.ReactNode }) => (
 const RuleBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <Ruler className="w-5 h-5 text-yellow-400" aria-hidden="true" />
+      <span className="text-yellow-400 text-xl"></span>
       <span className="font-bold text-yellow-400">RULE OF THUMB</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -31,7 +35,7 @@ const RuleBox = ({ children }: { children: React.ReactNode }) => (
 const HorrorStory = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <Flame className="w-5 h-5 text-orange-400" aria-hidden="true" />
+      <span className="text-orange-400 text-xl"></span>
       <span className="font-bold text-orange-400">JOBSITE HORROR STORY</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -41,7 +45,7 @@ const HorrorStory = ({ children }: { children: React.ReactNode }) => (
 const CodeBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-blue-500/40 bg-blue-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <BookOpen className="w-5 h-5 text-blue-400" aria-hidden="true" />
+      <span className="text-blue-400 text-xl"></span>
       <span className="font-bold text-blue-400">NEC REFERENCE</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -49,473 +53,383 @@ const CodeBox = ({ children }: { children: React.ReactNode }) => (
 );
 
 const DataTable = ({ children }: { children: React.ReactNode }) => (
-  <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 my-6 overflow-x-auto">{children}</div>
+  <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 my-6 overflow-x-auto">
+    {children}
+  </div>
 );
 
 const ChartBox = ({ children }: { children: React.ReactNode }) => (
-  <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 my-6">{children}</div>
+  <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 my-6">
+    {children}
+  </div>
 );
 
-/** ---------- Quiz (15 questions, Chapter 3 only) ---------- */
-type Q = {
-  id: number;
-  stem: string;
-  choices: { key: "A" | "B" | "C" | "D"; text: string }[];
-  answer: "A" | "B" | "C" | "D";
-  why: string;
+type Article = {
+  id: string;
+  title: string;
+  icon: JSX.Element;
+  content: React.ReactNode;
+  images: Array<{
+    src: string;
+    alt: string;
+    caption: string;
+  }>;
 };
 
-const quiz: Q[] = [
+const articles: Article[] = [
   {
-    id: 1,
-    stem: "NEC 300.3 requires conductors of the same circuit be installed:",
-    choices: [
-      { key: "A", text: "In separate raceways to reduce heating" },
-      { key: "B", text: "Together in the same raceway, cable, or enclosure" },
-      { key: "C", text: "In any manner if ampacity is derated" },
-      { key: "D", text: "Only in metal raceways" },
-    ],
-    answer: "B",
-    why: "300.3(B) — Conductors of the same circuit must be grouped together."
-  },
-  {
-    id: 2,
-    stem: "Typical maximum support spacing for RMC/IMC in exposed work is:",
-    choices: [
-      { key: "A", text: "4.5 ft" },
-      { key: "B", text: "6 ft" },
-      { key: "C", text: "10 ft" },
-      { key: "D", text: "12 ft" },
-    ],
-    answer: "C",
-    why: "344.30 and 342.30 — Support within 3 ft of boxes and at intervals not exceeding 10 ft."
-  },
-  {
-    id: 3,
-    stem: "EMT may be used in wet locations when:",
-    choices: [
-      { key: "A", text: "Always prohibited in wet locations" },
-      { key: "B", text: "Protected against corrosion and with listed rain-tight fittings" },
-      { key: "C", text: "Only underground" },
-      { key: "D", text: "Only in hazardous (Class I) locations" },
-    ],
-    answer: "B",
-    why: "358.10, 358.14 — EMT allowed in wet if protected and with listed fittings."
-  },
-  {
-    id: 4,
-    stem: "LFMC support intervals generally must not exceed:",
-    choices: [
-      { key: "A", text: "3 ft" },
-      { key: "B", text: "4.5 ft" },
-      { key: "C", text: "6 ft" },
-      { key: "D", text: "10 ft" },
-    ],
-    answer: "B",
-    why: "350.30 — Support within 12 in. of boxes and at ≤ 4.5 ft intervals."
-  },
-  {
-    id: 5,
-    stem: "FMC (348) is permitted primarily in:",
-    choices: [
-      { key: "A", text: "Wet locations" },
-      { key: "B", text: "Dry locations where flexibility is needed" },
-      { key: "C", text: "Direct burial" },
-      { key: "D", text: "As service-entrance raceway" },
-    ],
-    answer: "B",
-    why: "348.10 — FMC suited to dry locations, equipment connections, vibration."
-  },
-  {
-    id: 6,
-    stem: "ENT (362) is commonly allowed:",
-    choices: [
-      { key: "A", text: "In direct sunlight without protection" },
-      { key: "B", text: "In concrete slabs and dry locations where listed" },
-      { key: "C", text: "In Class I, Division 1 by default" },
-      { key: "D", text: "As a grounding electrode conductor" },
-    ],
-    answer: "B",
-    why: "362.10 — ENT permitted in certain concrete and dry locations; limitations apply."
-  },
-  {
-    id: 7,
-    stem: "PVC (352) outdoor runs typically require:",
-    choices: [
-      { key: "A", text: "Bonding bushings" },
-      { key: "B", text: "Expansion fittings for thermal movement" },
-      { key: "C", text: "Only stainless straps" },
-      { key: "D", text: "Threaded fittings" },
-    ],
-    answer: "B",
-    why: "352.44 — Expansion fittings required where temperature change causes movement."
-  },
-  {
-    id: 8,
-    stem: "Wireway (376) maximum cross-sectional conductor fill is:",
-    choices: [
-      { key: "A", text: "20%" },
-      { key: "B", text: "30%" },
-      { key: "C", text: "40%" },
-      { key: "D", text: "53%" },
-    ],
-    answer: "C",
-    why: "376.22 — 40% max fill for wireways."
-  },
-  {
-    id: 9,
-    stem: "Cable tray (392) systems must be:",
-    choices: [
-      { key: "A", text: "Electrically isolated from ground" },
-      { key: "B", text: "Bonded and suitable for the cable types installed" },
-      { key: "C", text: "Used only with THHN in all cases" },
-      { key: "D", text: "Supported every 20 ft regardless of type" },
-    ],
-    answer: "B",
-    why: "392.60, 392.10 — Bonding and proper cable types (e.g., TC) are required."
-  },
-  {
-    id: 10,
-    stem: "Maximum total bends permitted between pull points in most raceways:",
-    choices: [
-      { key: "A", text: "180°" },
-      { key: "B", text: "270°" },
-      { key: "C", text: "360°" },
-      { key: "D", text: "No limit" },
-    ],
-    answer: "C",
-    why: "Common rule in conduit articles (e.g., 358.26, 344.26) — 360° max."
-  },
-  {
-    id: 11,
-    stem: "IMC (342) connections generally are:",
-    choices: [
-      { key: "A", text: "Set-screw only" },
-      { key: "B", text: "Threaded" },
-      { key: "C", text: "PVC glued" },
-      { key: "D", text: "Friction-fit" },
-    ],
-    answer: "B",
-    why: "342.14 — Threaded connections maintain continuity."
-  },
-  {
-    id: 12,
-    stem: "RMC (344) may serve as an equipment grounding conductor when:",
-    choices: [
-      { key: "A", text: "Always prohibited" },
-      { key: "B", text: "Specifically permitted and with effective bonding" },
-      { key: "C", text: "Only indoors" },
-      { key: "D", text: "Only underground" },
-    ],
-    answer: "B",
-    why: "344.60 with Article 250 — If installed to provide effective grounding and bonding."
-  },
-  {
-    id: 13,
-    stem: "Box fill (314.16) counts a single yoke device as:",
-    choices: [
-      { key: "A", text: "Zero allowance" },
-      { key: "B", text: "One conductor volume" },
-      { key: "C", text: "Two conductor volumes" },
-      { key: "D", text: "Three conductor volumes" },
-    ],
-    answer: "C",
-    why: "314.16(B) — One device yoke = two conductor volumes (one per yoke side)."
-  },
-  {
-    id: 14,
-    stem: "Ampacity adjustment for more than three current-carrying conductors occurs under:",
-    choices: [
-      { key: "A", text: "310.15" },
-      { key: "B", text: "300.5" },
-      { key: "C", text: "376.22" },
-      { key: "D", text: "386.10" },
-    ],
-    answer: "A",
-    why: "310.15 — Adjustment/correction factors for ampacity."
-  },
-  {
-    id: 15,
-    stem: "FMC vs LFMC: Which statement is correct?",
-    choices: [
-      { key: "A", text: "LFMC has a nonmetallic core and requires no bonding" },
-      { key: "B", text: "FMC is liquidtight and allowed in wet locations" },
-      { key: "C", text: "LFMC is liquidtight and suitable for wet locations" },
-      { key: "D", text: "Both are prohibited for equipment connections" },
-    ],
-    answer: "C",
-    why: "350 (LFMC) is liquidtight and allowed in wet locations; FMC (348) generally dry."
-  },
-];
-
-/** ---------- Articles (Chapter 3 only, 27 visuals) ---------- */
-const articles = [
-  {
-    id: "art-300",
+    id: "300",
     title: "Article 300 — General Requirements for Wiring Methods",
-    body: (
+    icon: <Zap className="w-6 h-6 text-yellow-400" />,
+    content: (
       <>
-        <p>— <HL>300.3(B)</HL>: Conductors of the same circuit must be grouped together in the same raceway, cable, or enclosure.</p>
-        <p>— <HL>300.4</HL>: Protection from physical damage; use listed bushings/guarding where required.</p>
-        <p>— <HL>300.5</HL>: Underground wiring — meet depth, cover, and marking rules.</p>
-        <p>— <HL>300.11</HL>: Securely fasten and support wiring methods; independent of suspended-ceiling grid unless listed.</p>
+        <div className="space-y-4 text-gray-300">
+          <p><HL>300.3</HL>: All conductors of the same circuit must be contained within the same raceway, cable, or enclosure.</p>
+          <p><HL>300.4</HL>: Protection against physical damage required where wiring methods are subject to damage.</p>
+          <p><HL>300.5</HL>: Minimum cover requirements for underground installations vary by location and circuit type.</p>
+          <p><HL>300.11</HL>: Wiring methods shall be securely fastened in place and supported independently of other systems.</p>
+          <p><HL>300.15</HL>: Boxes or conduit bodies required at all splice, tap, and termination points.</p>
+        </div>
         <WarningBox>
-          Splitting circuit conductors into different raceways violates <HL>300.3(B)</HL> and causes magnetic heating issues.
+          Common violation: Splitting circuit conductors between different raceways or cables. All circuit conductors must stay together!
         </WarningBox>
-        <CodeBox>See <HL>300.5</HL> note tables for burial depths and derating in soil/ductbanks.</CodeBox>
       </>
     ),
     images: [
-      { src: "/images/module-03/m03-02.jpg", alt: "Raceway grouping of circuit conductors", caption: "Keep Circuit Conductors Together" },
-      { src: "/images/module-03/m03-03.jpg", alt: "Underground wiring depth and warning tape", caption: "Respect Burial Depths" },
-    ],
+      {
+        src: "/images/module-03/m03-02.jpg",
+        alt: "Proper conductor grouping in raceway",
+        caption: "All circuit conductors grouped together"
+      },
+      {
+        src: "/images/module-03/m03-03.jpg",
+        alt: "Underground installation with proper depth markings",
+        caption: "Underground installation requirements"
+      }
+    ]
   },
   {
-    id: "art-310",
+    id: "310",
     title: "Article 310 — Conductors for General Wiring",
-    body: (
+    icon: <Cable className="w-6 h-6 text-blue-400" />,
+    content: (
       <>
-        <p>— <HL>310.10</HL>: Insulation must suit environment; damp/wet/corrosive areas need suitable types.</p>
-        <p>— <HL>310.15</HL>: Apply adjustment and correction factors; &gt;3 CCC requires derating.</p>
-        <p>— <HL>Table 310.16</HL>: Base ampacities for 60/75/90°C columns; terminals often limit to 60/75°C.</p>
-        <RuleBox>Derate for ambient temperature and for &gt;3 current-carrying conductors per <HL>310.15</HL>.</RuleBox>
+        <div className="space-y-4 text-gray-300">
+          <p><HL>310.10</HL>: Conductor construction and applications must be suitable for installation conditions.</p>
+          <p><HL>310.15</HL>: Ampacities based on ambient temperature, number of conductors, and installation method.</p>
+          <p><HL>310.104</HL>: Conductor insulation types and requirements for various applications.</p>
+        </div>
+        <DataTable>
+          <h4 className="font-bold text-white mb-4">Common Conductor Types</h4>
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-white/20">
+                <th className="text-left p-3 text-yellow-400">Type</th>
+                <th className="text-left p-3 text-yellow-400">Max Temp</th>
+                <th className="text-left p-3 text-yellow-400">Application</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/10">
+              <tr><td className="p-3">THHN</td><td className="p-3">90°C</td><td className="p-3">Dry/Damp</td></tr>
+              <tr><td className="p-3">XHHW</td><td className="p-3">90°C</td><td className="p-3">Dry/Wet</td></tr>
+              <tr><td className="p-3">THW</td><td className="p-3">75°C</td><td className="p-3">Dry/Wet</td></tr>
+            </tbody>
+          </table>
+        </DataTable>
+        <RuleBox>
+          Always consider ambient temperature and adjustment factors when determining conductor ampacity.
+        </RuleBox>
       </>
     ),
     images: [
-      { src: "/images/module-03/m03-04.jpg", alt: "Conductor insulation and ratings", caption: "Match Insulation to Environment" },
-      { src: "/images/module-03/m03-05.jpg", alt: "Ampacity table usage example", caption: "Use Correct Column & Derate" },
-    ],
+      {
+        src: "/images/module-03/m03-04.jpg",
+        alt: "Various conductor insulation types",
+        caption: "Common conductor insulation types"
+      },
+      {
+        src: "/images/module-03/m03-05.jpg",
+        alt: "Conductor ampacity calculation example",
+        caption: "Ampacity calculation factors"
+      }
+    ]
   },
   {
-    id: "art-312",
-    title: "Article 312 — Cabinets, Cutout Boxes, and Meter Sockets",
-    body: (
-      <>
-        <p>— <HL>312.2</HL>: Enclosures must be listed and suitable for the location (dry/damp/wet).</p>
-        <p>— <HL>312.5</HL>: Provide access without removing building finish/structure.</p>
-        <p>— <HL>312.8</HL>: Space for conductors/splices; no crowding; bond per Article 250.</p>
-        <HorrorStory>A NEMA 1 cabinet was installed outdoors; the first storm corroded lugs. Use proper <HL>environment ratings</HL>.</HorrorStory>
-      </>
-    ),
-    images: [
-      { src: "/images/module-03/m03-06.jpg", alt: "Outdoor-rated cabinet with gasketing", caption: "Right Enclosure for the Job" },
-      { src: "/images/module-03/m03-07.jpg", alt: "Accessible cabinet with working space", caption: "Plan Access and Space" },
-    ],
-  },
-  {
-    id: "art-314",
+    id: "314",
     title: "Article 314 — Outlet, Device, Pull, and Junction Boxes",
-    body: (
+    icon: <Building className="w-6 h-6 text-green-400" />,
+    content: (
       <>
-        <p>— <HL>314.16</HL>: Box volume must accommodate conductors, devices, and fittings (count each per table).</p>
-        <p>— <HL>314.23</HL>: Support/secure boxes; ceiling-suspended devices need listed supports.</p>
-        <p>— <HL>314.25</HL>: Install covers; protect live parts.</p>
+        <div className="space-y-4 text-gray-300">
+          <p><HL>314.16</HL>: Box fill calculations required based on conductor count, clamps, and devices.</p>
+          <p><HL>314.23</HL>: Boxes must be securely fastened and supported independently.</p>
+          <p><HL>314.25</HL>: Covers required to protect wiring and connections.</p>
+          <p><HL>314.29</HL>: Boxes must remain accessible after installation.</p>
+        </div>
+        <ChartBox>
+          <h4 className="font-bold text-white mb-4">Box Fill Calculations</h4>
+          <ul className="space-y-2 text-gray-300">
+            <li>• Each conductor counts as one volume unit</li>
+            <li>• Device counts as two volume units</li>
+            <li>• All ground wires together count as one unit</li>
+            <li>• Each internal cable clamp counts as one unit</li>
+          </ul>
+        </ChartBox>
         <CodeBox>
-          Device yoke counts as <HL>two</HL> conductor volumes; all EGCs together count as <HL>one</HL>.
+          Example: A box with four 12 AWG conductors, one device, and one clamp needs 16.5 cubic inches minimum volume.
         </CodeBox>
       </>
     ),
     images: [
-      { src: "/images/module-03/m03-08.jpg", alt: "Box fill calculation example", caption: "Calculate Box Fill" },
-      { src: "/images/module-03/m03-09.jpg", alt: "Properly supported device box", caption: "Securely Support Boxes" },
-    ],
+      {
+        src: "/images/module-03/m03-06.jpg",
+        alt: "Box fill calculation diagram",
+        caption: "Box fill requirements"
+      },
+      {
+        src: "/images/module-03/m03-07.jpg",
+        alt: "Proper box support and accessibility",
+        caption: "Box support and access"
+      }
+    ]
+  }  {
+    id: "320",
+    title: "Article 320 — Armored Cable (Type AC)",
+    icon: <Cable className="w-6 h-6 text-purple-400" />,
+    content: (
+      <>
+        <div className="space-y-4 text-gray-300">
+          <p><HL>320.10</HL>: Type AC cable permitted for feeders and branch circuits in both exposed and concealed work.</p>
+          <p><HL>320.12</HL>: Not permitted in damp/wet locations, where subject to physical damage, or in hazardous locations.</p>
+          <p><HL>320.17</HL>: Through or parallel to framing members, must be protected where needed.</p>
+          <p><HL>320.30</HL>: Secured and supported at intervals not exceeding 4.5 feet.</p>
+        </div>
+        <HorrorStory>
+          Found AC cable installed in a wet location without proper fittings. Cable became water-damaged and created a short circuit. Always check installation environment!
+        </HorrorStory>
+      </>
+    ),
+    images: [
+      {
+        src: "/images/module-03/m03-08.jpg",
+        alt: "Proper AC cable installation",
+        caption: "Armored cable support and protection"
+      },
+      {
+        src: "/images/module-03/m03-09.jpg",
+        alt: "AC cable fittings and connections",
+        caption: "Proper termination methods"
+      }
+    ]
   },
   {
-    id: "art-342",
+    id: "330",
+    title: "Article 330 — Metal-Clad Cable (Type MC)",
+    icon: <Cable className="w-6 h-6 text-yellow-400" />,
+    content: (
+      <>
+        <div className="space-y-4 text-gray-300">
+          <p><HL>330.10</HL>: Permitted in most locations, including hazardous areas when approved.</p>
+          <p><HL>330.12</HL>: Not permitted where subject to physical damage unless protected.</p>
+          <p><HL>330.24</HL>: Bending radius not less than 7 times the cable diameter.</p>
+          <p><HL>330.30</HL>: Secured within 12 inches of boxes and at intervals not exceeding 6 feet.</p>
+        </div>
+        <RuleBox>
+          MC cable offers better protection than AC cable and can be used in more locations. Great for industrial applications.
+        </RuleBox>
+      </>
+    ),
+    images: [
+      {
+        src: "/images/module-03/m03-10.jpg",
+        alt: "MC cable installation methods",
+        caption: "Proper MC cable installation"
+      },
+      {
+        src: "/images/module-03/m03-11.jpg",
+        alt: "MC cable bending and support",
+        caption: "Bending radius requirements"
+      }
+    ]
+  },
+  {
+    id: "334",
+    title: "Article 334 — Nonmetallic-Sheathed Cable (Types NM, NMC, and NMS)",
+    icon: <Cable className="w-6 h-6 text-blue-400" />,
+    content: (
+      <>
+        <div className="space-y-4 text-gray-300">
+          <p><HL>334.10</HL>: Permitted in one- and two-family dwellings and other structures.</p>
+          <p><HL>334.12</HL>: Not permitted in commercial or multi-family structures over three floors.</p>
+          <p><HL>334.15</HL>: Must be protected from physical damage and installed properly through framing.</p>
+          <p><HL>334.30</HL>: Secured every 4.5 feet and within 12 inches of each box.</p>
+        </div>
+        <WarningBox>
+          Common exam trap: NM cable is NOT permitted in wet locations or exposed commercial applications!
+        </WarningBox>
+      </>
+    ),
+    images: [
+      {
+        src: "/images/module-03/m03-12.jpg",
+        alt: "NM cable residential installation",
+        caption: "Residential NM cable installation"
+      },
+      {
+        src: "/images/module-03/m03-13.jpg",
+        alt: "NM cable protection methods",
+        caption: "Protection requirements"
+      }
+    ]
+  },
+  {
+    id: "342",
     title: "Article 342 — Intermediate Metal Conduit (IMC)",
-    body: (
+    icon: <Plug className="w-6 h-6 text-green-400" />,
+    content: (
       <>
-        <p>— <HL>342.10</HL>: Suitable for dry/wet/hazardous when properly fitted; outdoors acceptable.</p>
-        <p>— <HL>342.14</HL>: <HL>Threaded</HL> connections; maintain electrical continuity.</p>
-        <p>— <HL>342.30</HL>: Support within 3 ft of boxes and ≤ 10 ft intervals.</p>
-        <WarningBox>IMC uses <HL>threaded</HL> fittings. Threadless compression is not acceptable in hazloc.</WarningBox>
+        <div className="space-y-4 text-gray-300">
+          <p><HL>342.10</HL>: Permitted for all atmospheric conditions and occupancies.</p>
+          <p><HL>342.14</HL>: Must be listed and labeled.</p>
+          <p><HL>342.20</HL>: Size range from metric designator 16 (trade size ½) through 103 (trade size 4).</p>
+          <p><HL>342.30</HL>: Secured within 3 feet of each outlet box, junction box, cabinet, or fitting.</p>
+        </div>
+        <CodeBox>
+          IMC can be used anywhere RMC is permitted and provides excellent physical protection at a lighter weight.
+        </CodeBox>
       </>
     ),
     images: [
-      { src: "/images/module-03/m03-10.jpg", alt: "IMC threaded couplings and connectors", caption: "Threaded Only" },
-      { src: "/images/module-03/m03-11.jpg", alt: "IMC supports spaced along wall", caption: "Support ≤ 10 ft, 3 ft at Boxes" },
-    ],
-  },
-  {
-    id: "art-344",
-    title: "Article 344 — Rigid Metal Conduit (RMC)",
-    body: (
-      <>
-        <p>— <HL>344.10</HL>: Rugged raceway for industrial/hazardous; indoor/outdoor, wet/dry.</p>
-        <p>— <HL>344.30</HL>: Support within 3 ft of boxes; ≤ 10 ft spacing typical.</p>
-        <p>— <HL>344.60</HL>: Bonding per Article 250; RMC may serve as EGC when permitted.</p>
-        <RuleBox>Use bonding bushings/jumpers where needed to ensure effective grounding continuity.</RuleBox>
-      </>
-    ),
-    images: [
-      { src: "/images/module-03/m03-12.jpg", alt: "RMC industrial installation with bonding", caption: "Industrial Workhorse" },
-      { src: "/images/module-03/m03-13.jpg", alt: "RMC threaded fittings for hazloc", caption: "Hazardous Locations Require Threading" },
-    ],
-  },
-  {
-    id: "art-348",
-    title: "Article 348 — Flexible Metal Conduit (FMC)",
-    body: (
-      <>
-        <p>— <HL>348.10</HL>: Dry locations; equipment connections; vibration areas.</p>
-        <p>— <HL>348.12</HL>: Not a wet-location wiring method.</p>
-        <p>— <HL>348.30</HL>: Support within 12 in. of boxes; ≤ 4.5 ft intervals.</p>
-        <WarningBox>Do not treat FMC as liquidtight; that’s <HL>LFMC (350)</HL>.</WarningBox>
-      </>
-    ),
-    images: [
-      { src: "/images/module-03/m03-14.jpg", alt: "FMC whip to equipment", caption: "Great for Equipment Whips" },
-      { src: "/images/module-03/m03-15.jpg", alt: "FMC supports and fittings", caption: "Support ≤ 4.5 ft" },
-    ],
-  },
-  {
-    id: "art-350",
-    title: "Article 350 — Liquidtight Flexible Metal Conduit (LFMC)",
-    body: (
-      <>
-        <p>— <HL>350.10</HL>: Wet locations and oil/coolant exposure when fittings are liquidtight.</p>
-        <p>— <HL>350.30</HL>: Support within 12 in. of boxes; ≤ 4.5 ft between supports.</p>
-        <p>— <HL>350.60</HL>: Bonding to maintain continuity per Article 250.</p>
-      </>
-    ),
-    images: [
-      { src: "/images/module-03/m03-16.jpg", alt: "LFMC in wet location with liquidtight fittings", caption: "Wet Location Approved" },
-      { src: "/images/module-03/m03-17.jpg", alt: "LFMC bonding jumper at termination", caption: "Bond for Continuity" },
-    ],
-  },
-  {
-    id: "art-352",
-    title: "Article 352 — Rigid Polyvinyl Chloride Conduit (PVC)",
-    body: (
-      <>
-        <p>— <HL>352.10</HL>: Suitable for wet/corrosive/underground where listed.</p>
-        <p>— <HL>352.30</HL>: Support within 3 ft of boxes; close strap spacing.</p>
-        <p>— <HL>352.44</HL>: Provide <HL>expansion fittings</HL> for thermal movement outdoors.</p>
-        <CodeBox>Thermal expansion can be inches over long runs. Install per manufacturer tables.</CodeBox>
-      </>
-    ),
-    images: [
-      { src: "/images/module-03/m03-18.jpg", alt: "PVC outdoor run with expansion fitting", caption: "Expansion Fittings Outside" },
-      { src: "/images/module-03/m03-19.jpg", alt: "PVC underground installation", caption: "Underground Friendly" },
-    ],
-  },
-  {
-    id: "art-356",
-    title: "Article 356 — Liquidtight Flexible Nonmetallic Conduit (LFNC)",
-    body: (
-      <>
-        <p>— <HL>356.10</HL>: Wet locations, equipment terminations, vibration.</p>
-        <p>— <HL>356.30</HL>: Support within 12 in. of boxes; ≤ 3 ft intervals.</p>
-        <p>— <HL>356.42</HL>: Listed fittings; complete system integrity.</p>
-        <RuleBox>LFNC requires the <HL>most frequent</HL> support among common raceways (≤ 3 ft).</RuleBox>
-      </>
-    ),
-    images: [
-      { src: "/images/module-03/m03-20.jpg", alt: "LFNC to motor connection", caption: "Liquidtight and Flexible" },
-      { src: "/images/module-03/m03-21.jpg", alt: "LFNC frequent support straps", caption: "Support Within 3 ft" },
-    ],
-  },
-  {
-    id: "art-358",
-    title: "Article 358 — Electrical Metallic Tubing (EMT)",
-    body: (
-      <>
-        <p>— <HL>358.10</HL>: Permitted in dry/damp/wet locations when protected against corrosion and with listed fittings.</p>
-        <p>— <HL>358.26</HL>: Max total bends between pull points = <HL>360°</HL>.</p>
-        <p>— <HL>358.30</HL>: Support and secure as required by code and listing.</p>
-        <WarningBox>In wet locations, use <HL>raintight</HL> EMT fittings; standard set-screw indoors only.</WarningBox>
-      </>
-    ),
-    images: [
-      { src: "/images/module-03/m03-22.jpg", alt: "EMT vertical run with straps", caption: "EMT Strapping" },
-      { src: "/images/module-03/m03-23.jpg", alt: "EMT with raintight compression fittings", caption: "Use Raintight Fittings Outdoors" },
-    ],
-  },
-  {
-    id: "art-368",
-    title: "Article 368 — Busways",
-    body: (
-      <>
-        <p>— <HL>368.10</HL>: Feeder and plug-in busways for large current distribution.</p>
-        <p>— <HL>368.30</HL>: Support per listing; expansion fittings for thermal movement on long runs.</p>
-        <p>— <HL>368.56</HL>: Bonding/grounding continuity through housing and fittings.</p>
-        <CodeBox>Locate plug-in units where working clearances and short-circuit ratings are satisfied.</CodeBox>
-      </>
-    ),
-    images: [
-      { src: "/images/module-03/m03-24.jpg", alt: "Overhead busway with plug-in units", caption: "High-Capacity Distribution" },
-      { src: "/images/module-03/m03-25.jpg", alt: "Busway supports and expansion joint", caption: "Support & Expansion" },
-    ],
-  },
-  {
-    id: "art-392",
-    title: "Article 392 — Cable Tray",
-    body: (
-      <>
-        <p>— <HL>392.10</HL>: Only permitted cable types in tray (e.g., TC, MI, etc.).</p>
-        <p>— <HL>392.30</HL>: Support spacing per type/width/loading; maintain fill and loading limits.</p>
-        <p>— <HL>392.60</HL>: Bond cable tray system; ensure continuity across splices.</p>
-        <RuleBox>Label tray with loading and type allowances to avoid field mistakes.</RuleBox>
-      </>
-    ),
-    images: [
-      { src: "/images/module-03/m03-26.jpg", alt: "Ladder cable tray run with bonded splice", caption: "Bond Tray Sections" },
-      { src: "/images/module-03/m03-27.jpg", alt: "Cable tray with proper cable types", caption: "Use Only Permitted Cables" },
-    ],
-  },
-];
+      {
+        src: "/images/module-03/m03-14.jpg",
+        alt: "IMC installation examples",
+        caption: "IMC installation methods"
+      },
+      {
+        src: "/images/module-03/m03-15.jpg",
+        alt: "IMC fittings and connections",
+        caption: "Proper IMC connections"
+      }
+    ]// ...existing code...
 
-export default function Module03Page() {
+export default function Ch3WiringMethods() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
   return (
-    <ModuleTemplate
-      hero={{
-        imageSrc: "/images/module-03/m03-01.jpg",
-        imageAlt: "Wiring methods and materials montage from NEC Chapter 3",
-        title: "Chapter 3 — Wiring Methods and Materials",
-        subtitle: "Raceways, Cable Systems, and Installation Practices",
-        blurb:
-          "Master the raceways and wiring methods the field demands: EMT, RMC/IMC, PVC, FMC/LFMC/LFNC, cabinets, boxes, wireways, busways, and cable tray—plus the Chapter 3 rules that tie them together.",
-      }}
-      dividerDelays={["delay-300","delay-500","delay-700","delay-900"]}
-      articles={articles}
-      summary={{
-        title: "Chapter 3 Summary",
-        items: [
-          {
-            icon: <HardHat className="w-8 h-8 text-yellow-400" />,
-            title: "Threaded Where Required",
-            text: "IMC/RMC in hazloc: threaded fittings only; maintain continuity.",
-          },
-          {
-            icon: <Droplets className="w-8 h-8 text-yellow-400" />,
-            title: "Plan for Movement",
-            text: "PVC and long metallic runs need expansion/deflection solutions.",
-          },
-          {
-            icon: <Wrench className="w-8 h-8 text-yellow-400" />,
-            title: "Support Intervals",
-            text: "Know the spacing: IMC/RMC ≤ 10 ft, LFMC ≤ 4.5 ft, LFNC ≤ 3 ft.",
-          },
-          {
-            icon: <Warehouse className="w-8 h-8 text-yellow-400" />,
-            title: "Wireway Discipline",
-            text: "Respect 40% fill, conductor limits, and bonding requirements.",
-          },
-          {
-            icon: <CircuitBoard className="w-8 h-8 text-yellow-400" />,
-            title: "Surface and Tray",
-            text: "Use listed fittings and bond metallic systems like tray and busway.",
-          },
-          {
-            icon: <Zap className="w-8 h-8 text-yellow-400" />,
-            title: "Exam Mindset",
-            text: "Look for location limits, fitting types, support, and continuity.",
-          },
-        ],
-      }}
-      quiz={quiz}
-      prev={{ href: "/modules/module-02", label: "Chapter 2" }}
-      next={{ href: "/modules/module-04", label: "Chapter 4" }}
-    />
+    <main className="min-h-screen bg-gradient-to-br from-gray-900 via-yellow-900 to-gray-900 text-white">
+      {/* Top Bar */}
+      <div className="bg-black/50 backdrop-blur-sm border-b border-white/20">
+        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+          <Link href="/intro" className="text-gray-300 hover:text-white transition-colors flex items-center gap-2">
+            <span>←</span>
+            <span>Back to TOC</span>
+          </Link>
+          <span className="text-sm text-gray-400 bg-gray-800 px-2 py-1 rounded">NEC 2017</span>
+        </div>
+      </div>
+
+      {/* Hero Section */}
+      <section className="relative h-96 flex items-center justify-center overflow-hidden">
+        <Image
+          src="/images/module-03/m03-01.jpg"
+          alt="Wiring methods and materials overview"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="relative z-10 text-center">
+          <h1 className="text-5xl font-bold text-white mb-4">Chapter 3 — Wiring Methods and Materials</h1>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">Master the requirements for wiring methods, raceways, cables, and boxes</p>
+        </div>
+      </section>
+
+      {/* Stats Cards */}
+      <section className="max-w-5xl mx-auto px-4 -mt-8 mb-12">
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
+            <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <BookOpen className="w-6 h-6 text-yellow-400" />
+            </div>
+            <div className="text-2xl font-bold text-white">20+</div>
+            <div className="text-gray-400">Major Articles</div>
+          </div>
+          <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
+            <div className="w-12 h-12 bg-blue-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <Cable className="w-6 h-6 text-blue-400" />
+            </div>
+            <div className="text-2xl font-bold text-white">12+</div>
+            <div className="text-gray-400">Wiring Methods</div>
+          </div>
+          <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
+            <div className="w-12 h-12 bg-green-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <Building className="w-6 h-6 text-green-400" />
+            </div>
+            <div className="text-2xl font-bold text-white">15+</div>
+            <div className="text-gray-400">Common Rules</div>
+          </div>
+        </div>
+      </section>
+
+      {/* Articles */}
+      <div className="max-w-5xl mx-auto px-4">
+        {articles.map((article, index) => (
+          <section 
+            key={article.id}
+            className={`mb-12 transition-all duration-1000 delay-${300 + index * 200} ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <div className="grid lg:grid-cols-2 gap-8 items-start">
+              <div>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2 bg-white/[0.03] rounded-lg">
+                    {article.icon}
+                  </div>
+                  <h2 className="text-2xl font-bold text-white">{article.title}</h2>
+                </div>
+                {article.content}
+              </div>
+              <div className="space-y-4">
+                {article.images.map((image, i) => (
+                  <div key={i} className="relative">
+                    <Image
+                      src={image.src}
+                      alt={image.alt}
+                      width={400}
+                      height={300}
+                      className="rounded-xl"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                      <p className="text-sm">{image.caption}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        ))}
+      </div>
+
+      {/* Quiz Section */}
+      <section className={`mx-auto max-w-5xl mb-12 px-4 transition-all duration-1000 delay-900 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+      }`}>
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-white mb-4">Knowledge Check</h2>
+          <p className="text-gray-400 text-lg">Test your understanding of Chapter 3</p>
+        </div>
+        <Quiz questions={quiz} />
+      </section>
+
+      {/* Footer Navigation */}
+      <FooterNav 
+        prev={{href: "/modules/module-02", label: "Chapter 2"}}
+        next={{href: "/modules/module-04", label: "Chapter 4"}}
+      />
+    </main>
   );
-}
