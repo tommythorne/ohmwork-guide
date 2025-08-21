@@ -4,6 +4,9 @@ import { AlertTriangle, Zap, Shield, Plug, Cable, Building, Flame, Target, GitBr
 import ModuleTemplate, { HL, WarningBox, RuleBox, CodeBox, DataTable, ChartBox } from "../../components/ModuleTemplate";
 
 // Quiz — 15 questions (keys strictly 'A'|'B'|'C'|'D')
+import type { QuizQuestion } from "../../components/ModuleTemplate";
+
+
 const quiz = [
   {
     id: 1,
@@ -185,7 +188,7 @@ const quiz = [
     answer: "A" as const,
     why: "Article 450 has the transformer OCP/installation rules."
   }
-];
+] as const satisfies QuizQuestion[];
 
 export default function Module04Page() {
   return (
