@@ -1,263 +1,182 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { CheckCircle, XCircle, Percent, RefreshCcw, Save, Send } from "lucide-react";
-// Import the shared types from ModuleTemplate to stay consistent
-import type { QuizQuestion, QuizChoiceKey } from "./ModuleTemplate";
+import React, { useEffect, useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
+import { CheckCircle2, XCircle, RotateCcw } from "lucide-react";
 
-type Props = {
+/** ==== Types must match ModuleTemplate expectations ==== */
+export type QuizChoiceKey = "A" | "B" | "C" | "D";
+
+export type QuizQuestion = {
+  id: number;
+  stem: string;
+  choices: { key: QuizChoiceKey; text: string }[];
+  answer: QuizChoiceKey;
+  why: string;
+};
+
+type QuizProps = {
   questions: QuizQuestion[];
-  /** Optional: provide your own storage key. If omitted, the component will use the current pathname. */
+  /** Optional: override storage key if needed */
   storageKey?: string;
+  /** Optional: passing threshold; default 75 (%) */
+  passThresholdPct?: number;
 };
 
-type StoredState = {
-  selections: Record<number, QuizChoiceKey | null>;
-  submitted: boolean;
-  scorePct: number | null;
-};
+type AnswersMap = Record<number, QuizChoiceKey | undefined>;
 
-const STORAGE_VERSION = 1;
+const STORAGE_VERSION = "v1";
 
-export default function Quiz({ questions, storageKey }: Props) {
-  // Derive a stable storage key from the current route if none is provided
-  const derivedKey = useMemo(() => {
-    if (storageKey) return `quiz:${STORAGE_VERSION}:${storageKey}`;
-    if (typeof window !== "undefined") {
-      return `quiz:${STORAGE_VERSION}:${window.location.pathname}`;
+/** Small helper to safely access localStorage in Next.js */
+const safeStorage = {
+  get(key: string) {
+    if (typeof window === "undefined") return null;
+    try {
+      return window.localStorage.getItem(key);
+    } catch {
+      return null;
     }
-    return `quiz:${STORAGE_VERSION}:global`;
-  }, [storageKey]);
+  },
+  set(key: string, value: string) {
+    if (typeof window === "undefined") return;
+    try {
+      window.localStorage.setItem(key, value);
+    } catch {
+      /* ignore */
+    }
+  },
+  remove(key: string) {
+    if (typeof window === "undefined") return;
+    try {
+      window.localStorage.removeItem(key);
+    } catch {
+      /* ignore */
+    }
+  },
+};
 
-  // local state
-  const [selections, setSelections] = useState<Record<number, QuizChoiceKey | null>>(
-    () => Object.fromEntries(questions.map(q => [q.id, null]))
-  );
+export default function Quiz({
+  questions,
+  storageKey,
+  passThresholdPct = 75,
+}: QuizProps) {
+  const pathname = usePathname();
+  const resolvedKey =
+    storageKey || `quiz:${STORAGE_VERSION}:${pathname || "unknown"}`;
+
+  const [answers, setAnswers] = useState<AnswersMap>({});
   const [submitted, setSubmitted] = useState(false);
   const [scorePct, setScorePct] = useState<number | null>(null);
 
-  // Load from localStorage
+  /** Load any saved (in-progress) answers */
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(derivedKey);
-      if (raw) {
-        const parsed = JSON.parse(raw) as StoredState;
-        // Defensive: only adopt ids that exist in the current quiz
-        const allowedIds = new Set(questions.map(q => q.id));
-        const restoredSelections: Record<number, QuizChoiceKey | null> = Object.fromEntries(
-          Object.entries(parsed.selections || {}).filter(([id]) => allowedIds.has(Number(id)))
-        ) as any;
-
-        setSelections(prev => ({ ...prev, ...restoredSelections }));
-        setSubmitted(Boolean(parsed.submitted));
-        setScorePct(typeof parsed.scorePct === "number" ? parsed.scorePct : null);
+    const raw = safeStorage.get(resolvedKey);
+    if (raw) {
+      try {
+        const parsed = JSON.parse(raw) as {
+          answers?: AnswersMap;
+          submitted?: boolean;
+          scorePct?: number | null;
+        };
+        if (parsed.answers) setAnswers(parsed.answers);
+        // Always reset to not-submitted when revisiting so nothing is revealed
+        setSubmitted(false);
+        setScorePct(null);
+      } catch {
+        /* ignore */
       }
-    } catch {
-      // ignore
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [derivedKey]);
+  }, [resolvedKey]);
 
-  // Persist to localStorage whenever things change
+  /** Autosave progress whenever answers change (but not grading state) */
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const snapshot: StoredState = {
-      selections,
-      submitted,
-      scorePct,
-    };
-    try {
-      localStorage.setItem(derivedKey, JSON.stringify(snapshot));
-    } catch {
-      // ignore quota errors
-    }
-  }, [derivedKey, selections, submitted, scorePct]);
+    const payload = JSON.stringify({ answers });
+    safeStorage.set(resolvedKey, payload);
+  }, [answers, resolvedKey]);
 
   const total = questions.length;
-  const answeredCount = useMemo(
-    () => Object.values(selections).filter(Boolean).length,
-    [selections]
+
+  const numAnswered = useMemo(
+    () =>
+      questions.reduce(
+        (acc, q) => (answers[q.id] ? acc + 1 : acc),
+        0
+      ),
+    [questions, answers]
   );
 
-  const handleSelect = (qid: number, choice: QuizChoiceKey) => {
-    if (submitted) return; // lock after submit
-    setSelections(prev => ({ ...prev, [qid]: choice }));
-  };
+  const canSubmit = numAnswered === total && total > 0;
 
+  /** Grade only when the user submits */
   const handleSubmit = () => {
-    // grade
     let correct = 0;
     for (const q of questions) {
-      if (selections[q.id] === q.answer) correct++;
+      if (answers[q.id] === q.answer) correct++;
     }
     const pct = Math.round((correct / total) * 100);
     setScorePct(pct);
     setSubmitted(true);
+    // Save graded state too, so refresh shows the result panel;
+    // if you prefer not to persist the result, remove this:
+    const payload = JSON.stringify({ answers });
+    safeStorage.set(resolvedKey, payload);
   };
 
-  const handleReset = () => {
-    setSelections(Object.fromEntries(questions.map(q => [q.id, null])) as Record<
-      number,
-      QuizChoiceKey | null
-    >);
+  const handleChange = (qid: number, choice: QuizChoiceKey) => {
+    setAnswers((prev) => ({ ...prev, [qid]: choice }));
+    // If they change answers after grading, clear the result so they must submit again
+    if (submitted) {
+      setSubmitted(false);
+      setScorePct(null);
+    }
+  };
+
+  const handleRetry = () => {
+    setAnswers({});
     setSubmitted(false);
     setScorePct(null);
+    safeStorage.remove(resolvedKey);
   };
 
   return (
-    <div className="max-w-5xl mx-auto px-4">
+    <div className="space-y-8">
       {/* Header / Progress */}
-      <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
           <h3 className="text-2xl font-bold text-white">Knowledge Check</h3>
-          <p className="text-gray-400 text-sm">
-            Answer the questions below. Your progress is saved automatically.
+          <p className="text-gray-400">
+            Answer all questions, then press <span className="font-semibold">Submit Answers</span>.
           </p>
         </div>
+
         <div className="flex items-center gap-3">
-          <div className="w-40 h-2 bg-white/10 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-yellow-400 transition-all duration-300"
-              style={{ width: `${Math.round((answeredCount / total) * 100)}%` }}
-            />
+          <div className="rounded-lg border border-white/15 bg-white/5 px-4 py-2">
+            <span className="text-sm text-gray-300">
+              Progress:{" "}
+              <span className="font-semibold text-white">
+                {numAnswered}/{total}
+              </span>
+            </span>
           </div>
-          <span className="text-gray-300 text-sm">
-            {answeredCount}/{total} answered
-          </span>
+          <button
+            onClick={handleRetry}
+            className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm text-gray-200 hover:bg-white/10 transition"
+            aria-label="Reset quiz"
+          >
+            <RotateCcw className="w-4 h-4" />
+            Reset
+          </button>
         </div>
       </div>
-
-      {/* Score banner (after submit) */}
-      {submitted && (
-        <div
-          className={`mb-6 rounded-xl border p-4 ${
-            (scorePct ?? 0) >= 75
-              ? "border-emerald-500/40 bg-emerald-500/10"
-              : "border-red-500/40 bg-red-500/10"
-          }`}
-        >
-          <div className="flex items-center gap-3">
-            <Percent
-              className={`w-5 h-5 ${
-                (scorePct ?? 0) >= 75 ? "text-emerald-400" : "text-red-400"
-              }`}
-            />
-            <div className="text-white/90">
-              <div className="font-bold">
-                Score: {scorePct}% ({scorePct! >= 75 ? "Pass" : "Below 75%"})
-              </div>
-              {scorePct! < 75 ? (
-                <div className="text-sm text-red-300">
-                  Close! Review the sections above and give it another go — you’ve got this.
-                </div>
-              ) : (
-                <div className="text-sm text-emerald-300">Nice work — solid grasp of this chapter.</div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Questions */}
       <div className="space-y-6">
         {questions.map((q, idx) => {
-          const userPick = selections[q.id];
-          const showResult = submitted && userPick;
-          const isCorrect = submitted && userPick === q.answer;
+          const selected = answers[q.id];
+          const isCorrect = submitted && selected === q.answer;
+          const isIncorrect = submitted && selected && selected !== q.answer;
 
           return (
             <div
               key={q.id}
-              className={`rounded-xl border p-5 transition-colors ${
-                showResult
-                  ? isCorrect
-                    ? "border-emerald-500/40 bg-emerald-500/5"
-                    : "border-red-500/40 bg-red-500/5"
-                  : "border-white/15 bg-white/[0.03]"
-              }`}
-            >
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <div className="text-gray-400 text-xs mb-1">Question {idx + 1}</div>
-                  <div className="text-white font-semibold leading-snug">{q.stem}</div>
-                </div>
-
-                {showResult && (
-                  <div className="shrink-0">
-                    {isCorrect ? (
-                      <CheckCircle className="w-5 h-5 text-emerald-400" aria-hidden="true" />
-                    ) : (
-                      <XCircle className="w-5 h-5 text-red-400" aria-hidden="true" />
-                    )}
-                  </div>
-                )}
-              </div>
-
-              <div className="mt-4 grid gap-2">
-                {q.choices.map(c => {
-                  const checked = userPick === c.key;
-                  return (
-                    <label
-                      key={c.key}
-                      className={`flex items-center gap-3 rounded-lg border px-3 py-2 cursor-pointer transition-colors ${
-                        checked ? "border-yellow-400/60 bg-yellow-400/10" : "border-white/10"
-                      } ${submitted ? "opacity-75 cursor-default" : "hover:bg-white/[0.04]"}`}
-                    >
-                      <input
-                        type="radio"
-                        name={`q-${q.id}`}
-                        value={c.key}
-                        className="accent-yellow-400"
-                        checked={checked || false}
-                        disabled={submitted}
-                        onChange={() => handleSelect(q.id, c.key)}
-                        aria-labelledby={`q-${q.id}-choice-${c.key}`}
-                      />
-                      <span id={`q-${q.id}-choice-${c.key}`} className="text-white/90">
-                        <span className="font-mono text-yellow-300 mr-2">{c.key}.</span> {c.text}
-                      </span>
-                    </label>
-                  );
-                })}
-              </div>
-
-              {/* Explanation only AFTER submit */}
-              {submitted && (
-                <div className="mt-3 text-sm text-gray-300">
-                  <span className="font-semibold text-white">Why:</span> {q.why}
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Actions */}
-      <div className="mt-6 flex flex-col sm:flex-row gap-3">
-        <button
-          onClick={handleSubmit}
-          disabled={submitted}
-          className={`inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 font-semibold transition
-            ${submitted ? "bg-white/10 text-gray-400 cursor-not-allowed" : "bg-yellow-400 text-black hover:bg-yellow-300"}`}
-        >
-          <Send className="w-4 h-4" />
-          Submit Answers
-        </button>
-
-        <button
-          onClick={handleReset}
-          className="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2 font-semibold border border-white/20 text-white hover:bg-white/[0.06] transition"
-          title="Clear selections and try again"
-        >
-          <RefreshCcw className="w-4 h-4" />
-          Reset Quiz
-        </button>
-
-        <div className="ml-auto flex items-center gap-2 text-gray-400 text-sm">
-          <Save className="w-4 h-4" />
-          Progress autosaves
-        </div>
-      </div>
-    </div>
-  );
-}
+              className="rounded-xl border border-white/15 bg-white/[0
