@@ -1,12 +1,11 @@
 "use client";
 
 import React, { useEffect, useMemo, useState } from "react";
-import { usePathname } from "next/navigation";
-import { CheckCircle2, XCircle, RotateCcw } from "lucide-react";
 
-/** ==== Types must match ModuleTemplate expectations ==== */
+/** Choice key type used across the app */
 export type QuizChoiceKey = "A" | "B" | "C" | "D";
 
+/** Question shape used by Module pages */
 export type QuizQuestion = {
   id: number;
   stem: string;
@@ -17,155 +16,110 @@ export type QuizQuestion = {
 
 type QuizProps = {
   questions: QuizQuestion[];
-  /** Optional: override storage key if needed */
+  /** Optional unique key to persist answers per module */
   storageKey?: string;
-  /** Optional: passing threshold; default 75 (%) */
-  passThresholdPct?: number;
+  /** Optional title override */
+  title?: string;
 };
 
-type AnswersMap = Record<number, QuizChoiceKey | undefined>;
+type AnswerMap = Record<number, QuizChoiceKey | undefined>;
 
-const STORAGE_VERSION = "v1";
+/** Small helpers */
+const pct = (num: number, den: number) => (den === 0 ? 0 : Math.round((num / den) * 100));
+const LS_OK = () => typeof window !== "undefined" && "localStorage" in window;
 
-/** Small helper to safely access localStorage in Next.js */
-const safeStorage = {
-  get(key: string) {
-    if (typeof window === "undefined") return null;
-    try {
-      return window.localStorage.getItem(key);
-    } catch {
-      return null;
-    }
-  },
-  set(key: string, value: string) {
-    if (typeof window === "undefined") return;
-    try {
-      window.localStorage.setItem(key, value);
-    } catch {
-      /* ignore */
-    }
-  },
-  remove(key: string) {
-    if (typeof window === "undefined") return;
-    try {
-      window.localStorage.removeItem(key);
-    } catch {
-      /* ignore */
-    }
-  },
-};
+export default function Quiz({ questions, storageKey, title }: QuizProps) {
+  const effectiveKey =
+    storageKey ||
+    (typeof window !== "undefined"
+      ? `quiz:${window.location.pathname}`
+      : "quiz:module");
 
-export default function Quiz({
-  questions,
-  storageKey,
-  passThresholdPct = 75,
-}: QuizProps) {
-  const pathname = usePathname();
-  const resolvedKey =
-    storageKey || `quiz:${STORAGE_VERSION}:${pathname || "unknown"}`;
-
-  const [answers, setAnswers] = useState<AnswersMap>({});
+  const [answers, setAnswers] = useState<AnswerMap>({});
   const [submitted, setSubmitted] = useState(false);
-  const [scorePct, setScorePct] = useState<number | null>(null);
 
-  /** Load any saved (in-progress) answers */
+  /** Load saved answers/submitted state */
   useEffect(() => {
-    const raw = safeStorage.get(resolvedKey);
-    if (raw) {
-      try {
-        const parsed = JSON.parse(raw) as {
-          answers?: AnswersMap;
-          submitted?: boolean;
-          scorePct?: number | null;
-        };
-        if (parsed.answers) setAnswers(parsed.answers);
-        // Always reset to not-submitted when revisiting so nothing is revealed
-        setSubmitted(false);
-        setScorePct(null);
-      } catch {
-        /* ignore */
+    if (!LS_OK()) return;
+    try {
+      const raw = localStorage.getItem(effectiveKey);
+      if (raw) {
+        const data = JSON.parse(raw) as { answers: AnswerMap; submitted?: boolean };
+        setAnswers(data.answers ?? {});
+        setSubmitted(Boolean(data.submitted));
       }
+    } catch {
+      // ignore
     }
-  }, [resolvedKey]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [effectiveKey]);
 
-  /** Autosave progress whenever answers change (but not grading state) */
+  /** Persist on change (autosave) */
   useEffect(() => {
-    const payload = JSON.stringify({ answers });
-    safeStorage.set(resolvedKey, payload);
-  }, [answers, resolvedKey]);
+    if (!LS_OK()) return;
+    try {
+      localStorage.setItem(effectiveKey, JSON.stringify({ answers, submitted }));
+    } catch {
+      // ignore
+    }
+  }, [answers, submitted, effectiveKey]);
 
-  const total = questions.length;
-
-  const numAnswered = useMemo(
-    () =>
-      questions.reduce(
-        (acc, q) => (answers[q.id] ? acc + 1 : acc),
-        0
-      ),
-    [questions, answers]
-  );
-
-  const canSubmit = numAnswered === total && total > 0;
-
-  /** Grade only when the user submits */
-  const handleSubmit = () => {
+  /** Computed results (only meaningful after submit) */
+  const { correctCount, scorePct, allAnswered } = useMemo(() => {
+    const total = questions.length;
     let correct = 0;
-    for (const q of questions) {
-      if (answers[q.id] === q.answer) correct++;
-    }
-    const pct = Math.round((correct / total) * 100);
-    setScorePct(pct);
+    for (const q of questions) if (answers[q.id] === q.answer) correct += 1;
+    const complete = questions.every((q) => !!answers[q.id]);
+    return {
+      correctCount: correct,
+      scorePct: pct(correct, total),
+      allAnswered: complete,
+    };
+  }, [answers, questions]);
+
+  const onPick = (qid: number, key: QuizChoiceKey) => {
+    if (submitted) return; // lock after submit
+    setAnswers((prev) => ({ ...prev, [qid]: key }));
+  };
+
+  const onSubmit = () => {
+    if (!allAnswered) return;
     setSubmitted(true);
-    // Save graded state too, so refresh shows the result panel;
-    // if you prefer not to persist the result, remove this:
-    const payload = JSON.stringify({ answers });
-    safeStorage.set(resolvedKey, payload);
   };
 
-  const handleChange = (qid: number, choice: QuizChoiceKey) => {
-    setAnswers((prev) => ({ ...prev, [qid]: choice }));
-    // If they change answers after grading, clear the result so they must submit again
-    if (submitted) {
-      setSubmitted(false);
-      setScorePct(null);
-    }
-  };
-
-  const handleRetry = () => {
-    setAnswers({});
+  const onReset = () => {
     setSubmitted(false);
-    setScorePct(null);
-    safeStorage.remove(resolvedKey);
+    setAnswers({});
+    if (LS_OK()) localStorage.removeItem(effectiveKey);
   };
 
   return (
-    <div className="space-y-8">
-      {/* Header / Progress */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+    <div className="max-w-5xl mx-auto px-4">
+      {/* Header */}
+      <div className="mb-6 flex items-center justify-between">
         <div>
-          <h3 className="text-2xl font-bold text-white">Knowledge Check</h3>
+          <h3 className="text-3xl font-bold text-white">{title || "Knowledge Check"}</h3>
           <p className="text-gray-400">
-            Answer all questions, then press <span className="font-semibold">Submit Answers</span>.
+            Answer all questions, then press <span className="text-white">Submit</span> to see your score.
           </p>
         </div>
-
-        <div className="flex items-center gap-3">
-          <div className="rounded-lg border border-white/15 bg-white/5 px-4 py-2">
-            <span className="text-sm text-gray-300">
-              Progress:{" "}
-              <span className="font-semibold text-white">
-                {numAnswered}/{total}
-              </span>
+        <div className="hidden md:block text-sm text-gray-400">
+          {submitted ? (
+            <span className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-1 rounded-lg">
+              <span className="w-2 h-2 rounded-full bg-green-400" />
+              Graded
             </span>
-          </div>
-          <button
-            onClick={handleRetry}
-            className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm text-gray-200 hover:bg-white/10 transition"
-            aria-label="Reset quiz"
-          >
-            <RotateCcw className="w-4 h-4" />
-            Reset
-          </button>
+          ) : allAnswered ? (
+            <span className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-1 rounded-lg">
+              <span className="w-2 h-2 rounded-full bg-yellow-400" />
+              Ready to submit
+            </span>
+          ) : (
+            <span className="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-3 py-1 rounded-lg">
+              <span className="w-2 h-2 rounded-full bg-gray-400" />
+              In progress
+            </span>
+          )}
         </div>
       </div>
 
@@ -173,10 +127,113 @@ export default function Quiz({
       <div className="space-y-6">
         {questions.map((q, idx) => {
           const selected = answers[q.id];
-          const isCorrect = submitted && selected === q.answer;
-          const isIncorrect = submitted && selected && selected !== q.answer;
-
+          // We intentionally DO NOT show correct/incorrect until submitted
           return (
             <div
               key={q.id}
-              className="rounded-xl border border-white/15 bg-white/[0
+              className="rounded-xl border border-white/15 bg-white/[0.03] p-5"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <div className="text-sm text-gray-400 mb-1">Question {idx + 1}</div>
+                  <div className="text-white font-semibold">{q.stem}</div>
+                </div>
+              </div>
+
+              <div className="mt-4 grid gap-2">
+                {q.choices.map((c) => {
+                  const isChecked = selected === c.key;
+                  return (
+                    <label
+                      key={c.key}
+                      className={[
+                        "rounded-lg border p-3 cursor-pointer transition",
+                        isChecked
+                          ? "border-yellow-400/60 bg-yellow-400/5"
+                          : "border-white/10 hover:bg-white/[0.04]",
+                        submitted ? "opacity-80 cursor-not-allowed" : "",
+                      ].join(" ")}
+                    >
+                      <div className="flex items-center gap-3">
+                        <input
+                          type="radio"
+                          name={`q-${q.id}`}
+                          value={c.key}
+                          checked={isChecked}
+                          disabled={submitted}
+                          onChange={() => onPick(q.id, c.key)}
+                          className="accent-yellow-400"
+                        />
+                        <span className="text-white font-semibold">{c.key}.</span>
+                        <span className="text-gray-200">{c.text}</span>
+                      </div>
+                    </label>
+                  );
+                })}
+              </div>
+
+              {/* Explanation — hidden until submitted; does NOT reveal correct option explicitly */}
+              {submitted && (
+                <div className="mt-3 text-sm text-gray-400">
+                  {q.why}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Controls */}
+      <div className="mt-6 flex flex-col md:flex-row items-stretch md:items-center gap-3">
+        <button
+          onClick={onSubmit}
+          disabled={!allAnswered || submitted}
+          className={[
+            "px-5 py-3 rounded-xl font-semibold transition",
+            allAnswered && !submitted
+              ? "bg-yellow-500 text-black hover:bg-yellow-400"
+              : "bg-white/10 text-gray-400 cursor-not-allowed",
+          ].join(" ")}
+        >
+          Submit Answers
+        </button>
+
+        <button
+          onClick={onReset}
+          className="px-5 py-3 rounded-xl font-semibold bg-white/5 text-gray-200 hover:bg-white/10 transition"
+        >
+          Reset Quiz
+        </button>
+
+        {/* Score pill (only after submit) */}
+        {submitted && (
+          <div
+            className={[
+              "md:ml-auto px-4 py-2 rounded-lg border",
+              scorePct >= 75
+                ? "border-green-400/40 bg-green-400/10 text-green-300"
+                : "border-red-400/40 bg-red-400/10 text-red-300",
+            ].join(" ")}
+          >
+            Score: <span className="font-bold">{scorePct}%</span> ({correctCount}/{questions.length})
+          </div>
+        )}
+      </div>
+
+      {/* Pass/Fail messaging */}
+      {submitted && (
+        <div className="mt-4">
+          {scorePct >= 75 ? (
+            <div className="rounded-xl border border-green-500/40 bg-green-500/10 p-4 text-green-200">
+              Nice work — you passed! Keep the momentum going and move on when you’re ready.
+            </div>
+          ) : (
+            <div className="rounded-xl border border-red-500/40 bg-red-500/10 p-4 text-red-200">
+              You’re close. Review the sections that felt shaky and try again — aim for at least 75% to pass.
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
