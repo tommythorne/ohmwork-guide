@@ -41,7 +41,7 @@ export type ModuleTemplateProps = {
     imageAlt: string;
     title: string;
     subtitle?: string;
-    blurb: string;
+    blurb?: string;
   };
   articles: ModuleArticle[];
   summary: {
