@@ -199,8 +199,6 @@ export default function Module04Page() {
         imageAlt: "NEC Chapter 4 — Equipment for General Use: appliances, luminaires, motors, transformers",
         title: "Chapter 4 — Equipment for General Use",
         subtitle: "Appliances, Luminaires, Motors, Transformers, and More",
-        blurb:
-          "Get fluent with Chapter 4 gear: receptacles and luminaires, appliances and fixed heating, motors and A/C, panelboards, transformers, generators, and batteries. Learn the rules that keep everyday equipment safe and reliable."
       }}
       articles={[
         {
@@ -445,8 +443,6 @@ export default function Module04Page() {
       ]}
       summary={{
         title: "Chapter 4 Summary",
-        blurb:
-          "Chapter 4 ties everyday equipment to practical rules: size from nameplates and tables, provide proper disconnects, guard against damage, and match devices to the environment.",
         cards: [
           { icon: <Plug className="w-8 h-8 text-yellow-400" />, title: "Devices", text: "Receptacles/switches: TR/WR where required; proper covers and grounding." },
           { icon: <Lightbulb className="w-8 h-8 text-yellow-400" />, title: "Luminaires", text: "Support/clearances; special spaces (closets, damp/wet) matter." },
