@@ -262,7 +262,6 @@ export default function Module03Page() {
       ]}
       summary={{
         title: "Chapter 3 Summary",
-        blurb: "Pick the right wiring method, support it correctly, respect fill and bend rules, and protect terminations.",
         cards: [
           { icon: <HardHat className="w-8 h-8 text-yellow-400" />, title: "Pick the Method", text: "Match environment: EMT dry, PVC wet, RMC robust." },
           { icon: <AlertTriangle className="w-8 h-8 text-yellow-400" />, title: "Mind the Limits", text: "360° bends, 53% fill for &gt;2 conductors." },
