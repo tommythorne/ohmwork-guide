@@ -276,7 +276,7 @@ export default function Ch1General() {
           <span className="group-hover:-translate-x-1 transition-transform duration-200">←</span>
           <span>Back to TOC</span>
         </Link>
-        <span className="text-yellow-400 font-semibold">NEC 2017</span>
+        <span className="text-yellow-400 font-semibold">OhmWork™ 2025</span>
       </div>
 
       {/* Hero Section with Stunning Visual */}

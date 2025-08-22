@@ -99,7 +99,7 @@ const quiz: Q[] = [
       { key: "D", text: "25A" }
     ],
     answer: "B",
-    why: "NEC 2017 240.4(D) limits 14 AWG conductors to a maximum of 15A overcurrent protection."
+    why: "OhmWork™ 2025 240.4(D) limits 14 AWG conductors to a maximum of 15A overcurrent protection."
   },
   {
     id: 3,
@@ -111,7 +111,7 @@ const quiz: Q[] = [
       { key: "D", text: "2 AWG copper" }
     ],
     answer: "B",
-    why: "NEC 2017 250.66 requires 6 AWG copper GEC for services with 3 AWG ungrounded conductors."
+    why: "OhmWork™ 2025 250.66 requires 6 AWG copper GEC for services with 3 AWG ungrounded conductors."
   },
   {
     id: 4,
@@ -123,7 +123,7 @@ const quiz: Q[] = [
       { key: "D", text: "100% for first 2000W, 50% for remainder" }
     ],
     answer: "A",
-    why: "NEC 2017 220.42 requires 100% for first 3000W and 35% for the remainder of general lighting load."
+    why: "OhmWork™ 2025 220.42 requires 100% for first 3000W and 35% for the remainder of general lighting load."
   },
   {
     id: 5,
@@ -135,7 +135,7 @@ const quiz: Q[] = [
       { key: "D", text: "10 disconnects" }
     ],
     answer: "B",
-    why: "NEC 2017 230.71 permits up to six service disconnects in a single enclosure or group of enclosures."
+    why: "OhmWork™ 2025 230.71 permits up to six service disconnects in a single enclosure or group of enclosures."
   },
   {
     id: 6,
@@ -147,7 +147,7 @@ const quiz: Q[] = [
       { key: "D", text: "30A" }
     ],
     answer: "B",
-    why: "NEC 2017 240.4(D) limits 12 AWG conductors to a maximum of 20A overcurrent protection."
+    why: "OhmWork™ 2025 240.4(D) limits 12 AWG conductors to a maximum of 20A overcurrent protection."
   },
   {
     id: 7,
@@ -159,7 +159,7 @@ const quiz: Q[] = [
       { key: "D", text: "1/0 AWG copper" }
     ],
     answer: "B",
-    why: "NEC 2017 250.66 requires 4 AWG copper GEC for services with 4/0 ungrounded conductors."
+    why: "OhmWork™ 2025 250.66 requires 4 AWG copper GEC for services with 4/0 ungrounded conductors."
   },
   {
     id: 8,
@@ -171,7 +171,7 @@ const quiz: Q[] = [
       { key: "D", text: "65%" }
     ],
     answer: "B",
-    why: "NEC 2017 220.55 requires 75% demand factor for 2 ranges connected to the same feeder."
+    why: "OhmWork™ 2025 220.55 requires 75% demand factor for 2 ranges connected to the same feeder."
   },
   {
     id: 9,
@@ -183,7 +183,7 @@ const quiz: Q[] = [
       { key: "D", text: "15 feet" }
     ],
     answer: "B",
-    why: "NEC 2017 225.19 requires minimum 10 feet clearance above finished grade for overhead conductors."
+    why: "OhmWork™ 2025 225.19 requires minimum 10 feet clearance above finished grade for overhead conductors."
   },
   {
     id: 10,
@@ -195,7 +195,7 @@ const quiz: Q[] = [
       { key: "D", text: "8 AWG" }
     ],
     answer: "C",
-    why: "NEC 2017 250.122 requires 10 AWG EGC for circuits protected at 30A or less."
+    why: "OhmWork™ 2025 250.122 requires 10 AWG EGC for circuits protected at 30A or less."
   },
   {
     id: 11,
@@ -207,7 +207,7 @@ const quiz: Q[] = [
       { key: "D", text: "5 bends" }
     ],
     answer: "C",
-    why: "NEC 2017 300.17 requires no more than 360 degrees of bends (4 x 90°) between pull points."
+    why: "OhmWork™ 2025 300.17 requires no more than 360 degrees of bends (4 x 90°) between pull points."
   },
   {
     id: 12,
@@ -231,7 +231,7 @@ const quiz: Q[] = [
       { key: "D", text: "36 inches" }
     ],
     answer: "C",
-    why: "NEC 2017 300.5 requires conductors under driveways to be buried at least 24 inches deep for adequate protection."
+    why: "OhmWork™ 2025 300.5 requires conductors under driveways to be buried at least 24 inches deep for adequate protection."
   },
   {
     id: 14,
@@ -275,7 +275,7 @@ export default function Ch2WiringProtection() {
             <span>←</span>
             <span>Back to TOC</span>
           </Link>
-          <span className="text-sm text-gray-400 bg-gray-800 px-2 py-1 rounded">NEC 2017</span>
+          <span className="text-sm text-gray-400 bg-gray-800 px-2 py-1 rounded">OhmWork™ 2025</span>
         </div>
       </div>
 
