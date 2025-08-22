@@ -1,3 +1,4 @@
+import type { QuizQuestion } from "../../types/module";
 "use client";
 
 import { AlertTriangle, Zap, Shield, Plug, Cable, Building, Flame, Target, GitBranch, Ruler, BookOpen, Brain, Lightbulb, Fan, Refrigerator, Battery, Gauge, Wind, Cog, Component, PanelsTopLeft } from "lucide-react";

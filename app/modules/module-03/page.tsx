@@ -1,3 +1,4 @@
+import type { QuizQuestion } from "../../types/module";
 "use client";
 
 import { AlertTriangle, GitBranch, Building, Flame, Zap, HardHat } from "lucide-react";
