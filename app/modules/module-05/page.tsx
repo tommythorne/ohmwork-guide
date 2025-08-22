@@ -1,20 +1,48 @@
-import Link from "next/link";
+"use client";
+import type { QuizQuestion } from "../../types/module";
+import ModuleTemplate from "../../components/ModuleTemplate";
 
-export default function ModulePage() {
+// Minimal, ready-to-fill quiz (copy/paste to expand)
+const quiz: QuizQuestion[] = [
+  { id: 1, stem: "Placeholder question?", choices: [
+    { key: "A", text: "A" }, { key: "B", text: "B" }, { key: "C", text: "C" }, { key: "D", text: "D" }
+  ], answer: "A", why: "Explain why." },
+];
+
+export default function Module05Page() {
   return (
-    <main className="min-h-screen bg-black text-white px-6 py-12">
-      <div className="mx-auto max-w-3xl">
-        <h1 className="text-3xl md:text-4xl font-extrabold text-yellow-400">Module 5 — Conductors, Ampacity & Adjustment</h1>
-        <p className="mt-4 text-gray-200">
-          Placeholder content for Module 5 — Conductors, Ampacity & Adjustment.
-          I’ll replace this with interactive lessons, animations, and quizzes.
-        </p>
-
-        <div className="mt-10 flex gap-6">
-          <Link href="/intro" className="text-green-400 hover:underline">← Back to TOC</Link>
-          <Link href="/" className="text-green-400 hover:underline">Home</Link>
-        </div>
-      </div>
-    </main>
+    <ModuleTemplate
+      hero={{
+        imageSrc: "/images/module-05/m05-01.jpg",
+        imageAlt: "Module 5 hero image",
+        title: "Chapter 5 — Title Here",
+        subtitle: "Short hook here",
+        blurb: "One-sentence overview (optional; safe to omit now that type allows it)."
+      }}
+      articles={[
+        {
+          id: "article-XXX",
+          title: "Article XXX — Title",
+          body: (
+            <>
+              <p>Drop your content here. Use <strong>&lt;HL /&gt;</strong> etc. from Blocks if you like, or keep it simple.</p>
+            </>
+          ),
+          images: [
+            { src: "/images/module-05/m05-02.jpg", alt: "Alt text", caption: "Caption (optional)" }
+          ]
+        },
+      ]}
+      summary={{
+        title: "Chapter 5 Summary",
+        cards: [
+          { title: "Key Point 1", text: "One-liner." },
+          { title: "Key Point 2", text: "One-liner." },
+        ]
+      }}
+      quiz={quiz}
+      prev={{ href: "/modules/module-04", label: "Chapter 4" }}
+      next={{ href: "/modules/module-06", label: "Chapter 6" }}
+    />
   );
 }
