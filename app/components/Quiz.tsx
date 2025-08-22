@@ -96,29 +96,6 @@ export default function Quiz({ questions, storageKeyPrefix = "ohmwork-quiz:" }: 
         </p>
 
         {/* Result banner appears only after submit */}
-        {submitted && (
-          <div
-            className={`mt-6 rounded-xl border p-4 text-center ${
-              percent >= PASS_THRESHOLD * 100
-                ? "bg-emerald-500/10 border-emerald-400/40"
-                : "bg-red-500/10 border-red-400/40"
-            }`}
-            role="status"
-            aria-live="polite"
-          >
-            <p className="text-lg font-semibold text-white">
-              Score: <span className="text-yellow-300">{percent}%</span> ({correctCount}/{total})
-            </p>
-            {percent >= PASS_THRESHOLD * 100 ? (
-              <p className="text-emerald-300 mt-1">Nice work — you passed. 🎉</p>
-            ) : (
-              <p className="text-red-300 mt-1">
-                Score below 75%. Review the material and try again.
-              </p>
-            )}
-          </div>
-        )}
-
         {/* Questions */}
         <div className="mt-6 space-y-5">
           {questions.map((q, i) => {
@@ -205,6 +182,30 @@ export default function Quiz({ questions, storageKeyPrefix = "ohmwork-quiz:" }: 
             Submit Answers
           </button>
         </div>
+
+        {/* Result banner appears only after submit */}
+        {submitted && (
+          <div
+            className={`mt-6 rounded-xl border p-4 text-center ${
+              percent >= PASS_THRESHOLD * 100
+                ? "bg-emerald-500/10 border-emerald-400/40"
+                : "bg-red-500/10 border-red-400/40"
+            }`}
+            role="status"
+            aria-live="polite"
+          >
+            <p className="text-lg font-semibold text-white">
+              Score: <span className="text-yellow-300">{percent}%</span> ({correctCount}/{total})
+            </p>
+            {percent >= PASS_THRESHOLD * 100 ? (
+              <p className="text-emerald-300 mt-1">Nice work — you passed. 🎉</p>
+            ) : (
+              <p className="text-red-300 mt-1">
+                Score below 75%. Review the material and try again.
+              </p>
+            )}
+          </div>
+        )}
       </div>
     </section>
   );
