@@ -2,8 +2,8 @@ import type { QuizQuestion } from "../../types/module";
 "use client";
 
 import { AlertTriangle, GitBranch, Building, Flame, Zap, HardHat } from "lucide-react";
-import ModuleTemplate from "../../types";
-import type { QuizQuestion } from "../../types";
+import ModuleTemplate from "../../types/module";
+import type { QuizQuestion } from "../../types/module";
 
 const quiz: QuizQuestion[] = [
   { id: 1, stem: "Which wiring method is NOT permitted in wet locations?", choices: [

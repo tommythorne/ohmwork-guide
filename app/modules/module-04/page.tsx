@@ -2,10 +2,10 @@ import type { QuizQuestion } from "../../types/module";
 "use client";
 
 import { AlertTriangle, Zap, Shield, Plug, Cable, Building, Flame, Target, GitBranch, Ruler, BookOpen, Brain, Lightbulb, Fan, Refrigerator, Battery, Gauge, Wind, Cog, Component, PanelsTopLeft } from "lucide-react";
-import ModuleTemplate, { HL, WarningBox, RuleBox, CodeBox, DataTable, ChartBox } from "../../types";
+import ModuleTemplate, { HL, WarningBox, RuleBox, CodeBox, DataTable, ChartBox } from "../../types/module";
 
 // Quiz — 15 questions (keys strictly 'A'|'B'|'C'|'D')
-import type { QuizQuestion } from "../../types";
+import type { QuizQuestion } from "../../types/module";
 
 
 const quiz = [

@@ -18,7 +18,7 @@ export const WarningBox = ({ children }: { children: React.ReactNode }) => (
 export const RuleBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 my-4">
     <div className="flex items-center gap-2 mb-2">
-      <span className="text-yellow-400 text-xl">📏</span>
+      <span className="text-yellow-400 text-xl">��</span>
       <span className="font-bold text-yellow-400">RULE OF THUMB</span>
     </div>
     <div className="text-white/90">{children}</div>
