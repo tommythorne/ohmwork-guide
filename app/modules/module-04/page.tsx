@@ -1,11 +1,11 @@
-import type { QuizQuestion } from "../../types/module";
 "use client";
+import { HL, RuleBox, WarningBox, CodeBox, DataTable, ChartBox } from "../../components/Blocks";
+import type { QuizQuestion } from "../../types/module";
 
 import { AlertTriangle, Zap, Shield, Plug, Cable, Building, Flame, Target, GitBranch, Ruler, BookOpen, Brain, Lightbulb, Fan, Refrigerator, Battery, Gauge, Wind, Cog, Component, PanelsTopLeft } from "lucide-react";
-import ModuleTemplate, { HL, WarningBox, RuleBox, CodeBox, DataTable, ChartBox } from "../../types/module";
+import ModuleTemplate, { HL, WarningBox, RuleBox, CodeBox, DataTable, ChartBox } from "../../components/ModuleTemplate";
 
 // Quiz — 15 questions (keys strictly 'A'|'B'|'C'|'D')
-import type { QuizQuestion } from "../../types/module";
 
 
 const quiz = [
