@@ -1,5 +1,5 @@
 "use client";
-import  from "../../components/Blocks";
+import { HL, RuleBox, WarningBox, CodeBox, DataTable, ChartBox } from "../../components/Blocks";
 import type { QuizQuestion } from "../../types/module";
 
 import { AlertTriangle, Zap, Shield, Plug, Cable, Building, Flame, Target, GitBranch, Ruler, BookOpen, Brain, Lightbulb, Fan, Refrigerator, Battery, Gauge, Wind, Cog, Component, PanelsTopLeft } from "lucide-react";
