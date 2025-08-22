@@ -34,7 +34,7 @@ export default function FooterNav({
         </div>
 
         <div className="text-white/60 text-sm order-first sm:order-none">
-          OhmWork • OhmWork™ 2025
+          OhmWork™ 2025
         </div>
 
         <div>
