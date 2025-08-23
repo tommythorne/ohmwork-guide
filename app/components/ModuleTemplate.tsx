@@ -1,11 +1,26 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { ModuleTemplateProps } from "@/app/types/module";
+import Image from "next/image";
 
-// ModuleTemplate takes typed props (hero, articles, summary, quiz, prev/next)
+import Quiz from "./Quiz";
+import FooterNav from "./FooterNav";
+import type { ModuleTemplateProps } from "@/app/types/module";
+
+/**
+ * Module-02 visual baseline:
+ * - Top bar with TOC + OhmWork™ 2025 badge
+ * - Full-bleed hero image with dark overlay, title, subtitle, (optional) blurb
+ * - Article sections: 2-col layout (text left, images right)
+ * - Summary cards grid
+ * - Knowledge Check with Quiz at the very end
+ * - FooterNav (prev/next). FooterNav already prints © line; no extra footer here.
+ *
+ * NOTE: All “helper blocks” (HL, RuleBox, WarningBox, CodeBox, DataTable, ChartBox)
+ * live in app/components/Blocks.tsx and are used inside article body content.
+ * This template doesn’t declare or export any of them.
+ */
 export default function ModuleTemplate({
   hero,
   articles,
@@ -14,135 +29,136 @@ export default function ModuleTemplate({
   prev,
   next,
 }: ModuleTemplateProps) {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => setVisible(true), []);
+
   return (
-    <div className="space-y-16">
-      {/* Hero Section */}
-      <section className="text-center space-y-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          <Image
-            src={hero.imageSrc}
-            alt={hero.imageAlt}
-            width={800}
-            height={400}
-            className="mx-auto rounded-2xl shadow-lg"
-          />
-          <h1 className="text-4xl font-bold text-yellow-400 mt-6">{hero.title}</h1>
-          {hero.subtitle && <h2 className="text-2xl text-gray-300">{hero.subtitle}</h2>}
-          <p className="max-w-3xl mx-auto text-gray-400 mt-4">{hero.blurb}</p>
-        </motion.div>
+    <main className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white">
+      {/* Top Bar */}
+      <div className="bg-black/50 backdrop-blur-sm border-b border-white/20">
+        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+          <Link
+            href="/intro"
+            className="text-gray-300 hover:text-white transition-colors flex items-center gap-2"
+          >
+            <span>←</span>
+            <span>Back to TOC</span>
+          </Link>
+          <span className="text-sm text-gray-300 bg-gray-800/80 px-2 py-1 rounded">
+            OhmWork™ 2025
+          </span>
+        </div>
+      </div>
+
+      {/* Hero */}
+      <section className="relative h-96 flex items-center justify-center overflow-hidden">
+        <Image
+          src={hero.imageSrc}
+          alt={hero.imageAlt}
+          fill
+          priority
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="relative z-10 text-center px-4">
+          <h1 className="text-5xl font-bold text-white mb-4">{hero.title}</h1>
+          {hero.subtitle && (
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">{hero.subtitle}</p>
+          )}
+          {hero.blurb && (
+            <p className="text-gray-300 max-w-3xl mx-auto mt-4">{hero.blurb}</p>
+          )}
+        </div>
       </section>
 
       {/* Articles */}
-      {articles.map((article, i) => (
-        <motion.section
-          key={article.id}
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: i * 0.1 }}
-          viewport={{ once: true }}
-          className="space-y-4"
+      {articles.map((a, idx) => (
+        <section
+          key={a.id}
+          className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 ${
+            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+          style={{ transitionDelay: `${200 + idx * 100}ms` }}
         >
-          <h2 className="text-3xl font-bold text-white">{article.title}</h2>
-          <div className="prose prose-invert max-w-none">{article.body}</div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {article.images.map((img, idx) => (
-              <Image
-                key={idx}
-                src={img.src}
-                alt={img.alt}
-                width={500}
-                height={300}
-                className="rounded-lg border border-white/20"
-              />
-            ))}
+          <div className="grid lg:grid-cols-2 gap-8 items-start px-4">
+            {/* Text / Body */}
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-4">{a.title}</h2>
+              <div className="space-y-4 text-gray-300">{a.body}</div>
+            </div>
+
+            {/* Images */}
+            <div className="space-y-4">
+              {a.images.map((img, i) => (
+                <div key={i} className="relative">
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    width={480}
+                    height={320}
+                    className="rounded-xl w-full h-auto"
+                  />
+                  {(img.caption || img.alt) && (
+                    <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                      <p className="text-sm">{img.caption || img.alt}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </div>
-        </motion.section>
+        </section>
       ))}
 
       {/* Summary */}
-      <section className="space-y-6">
-        <h2 className="text-3xl font-bold text-yellow-400">{summary.title}</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {summary.cards.map((card, i) => (
-            <motion.div
+      <section
+        className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 ${
+          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        }`}
+        style={{ transitionDelay: "900ms" }}
+      >
+        <div className="text-center mb-8 px-4">
+          <h2 className="text-3xl font-bold text-white mb-2">{summary.title}</h2>
+          {/* No blurb in summary by design */}
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+          {summary.cards.map((c, i) => (
+            <div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: i * 0.1 }}
-              viewport={{ once: true }}
-              className="rounded-xl border border-white/15 bg-white/[0.02] p-6"
+              className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center"
             >
-              {card.icon && <div className="mb-4">{card.icon}</div>}
-              <h3 className="font-bold text-white mb-2">{card.title}</h3>
-              <p className="text-gray-400">{card.text}</p>
-            </motion.div>
+              {c.icon && (
+                <div className="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mx-auto mb-4">
+                  {c.icon}
+                </div>
+              )}
+              <h3 className="font-bold text-white mb-2">{c.title}</h3>
+              <p className="text-gray-400 text-sm">{c.text}</p>
+            </div>
           ))}
         </div>
       </section>
 
-      {/* Quiz */}
-      <section>
-        <h2 className="text-3xl font-bold text-yellow-400 mb-6">Quiz</h2>
-        {/* Hook into Quiz.tsx component for rendering */}
-        {/* We assume a shared <Quiz questions={quiz} /> exists */}
+      {/* Knowledge Check */}
+      <section
+        className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 ${
+          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        }`}
+        style={{ transitionDelay: "1000ms" }}
+      >
+        <div className="text-center mb-8 px-4">
+          <h2 className="text-3xl font-bold text-white mb-2">Knowledge Check</h2>
+          <p className="text-gray-400 text-lg">Test your understanding of this chapter</p>
+        </div>
+
+        <div className="px-4">
+          <Quiz questions={quiz} />
+        </div>
       </section>
 
       {/* Footer Navigation */}
-      <footer className="flex justify-between items-center mt-12">
-        <Link href={prev.href} className="text-green-400 hover:underline">
-          ← {prev.label}
-        </Link>
-        <Link href={next.href} className="text-green-400 hover:underline">
-          {next.label} →
-        </Link>
-      </footer>
-    </div>
+      <FooterNav prev={prev} next={next} />
+    </main>
   );
 }
-
-// --- Helper blocks (exported) ---
-export const HL = ({ children }: { children: React.ReactNode }) => (
-  <span className="font-extrabold underline decoration-yellow-400 underline-offset-4">{children}</span>
-);
-
-export const WarningBox = ({ children }: { children: React.ReactNode }) => (
-  <div className="rounded-xl border border-red-500/40 bg-red-500/10 p-4 my-4">
-    <div className="flex items-center gap-2 mb-2">
-      <span className="text-red-400 text-xl">⚠️</span>
-      <span className="font-bold text-red-400">EXAM TRAP</span>
-    </div>
-    <div className="text-white/90">{children}</div>
-  </div>
-);
-
-export const RuleBox = ({ children }: { children: React.ReactNode }) => (
-  <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 my-4">
-    <div className="flex items-center gap-2 mb-2">
-      <span className="text-yellow-400 text-xl">📏</span>
-      <span className="font-bold text-yellow-400">RULE OF THUMB</span>
-    </div>
-    <div className="text-white/90">{children}</div>
-  </div>
-);
-
-export const CodeBox = ({ children }: { children: React.ReactNode }) => (
-  <div className="rounded-xl border border-blue-500/40 bg-blue-500/10 p-4 my-4">
-    <div className="flex items-center gap-2 mb-2">
-      <span className="text-blue-400 text-xl">📘</span>
-      <span className="font-bold text-blue-400">NEC REFERENCE</span>
-    </div>
-    <div className="text-white/90">{children}</div>
-  </div>
-);
-
-export const DataTable = ({ children }: { children: React.ReactNode }) => (
-  <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 my-6 overflow-x-auto">{children}</div>
-);
-
-export const ChartBox = ({ children }: { children: React.ReactNode }) => (
-  <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 my-6">{children}</div>
-);
