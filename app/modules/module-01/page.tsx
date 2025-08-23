@@ -218,7 +218,7 @@ export default function Ch2WiringAndProtection() {
             <tbody className="divide-y divide-white/10">
               <tr><td className="p-3 font-semibold">ID color</td><td className="p-3">White or gray; 3 continuous white stripes on other than green insulation acceptable.</td></tr>
               <tr><td className="p-3 font-semibold">Terminations</td><td className="p-3">To identified (silver) terminals.</td></tr>
-              <tr><td className="p-3 font-semibold">Re-ID</td><td className="p-3">Not for < 4 AWG (limited allowances apply for cables).</td></tr>
+              <tr><td className="p-3 font-semibold">Re-ID</td><td className="p-3">Not for &lt; 4 AWG (limited allowances apply for cables).</td></tr>
             </tbody>
           </table>
         </DataTable>
