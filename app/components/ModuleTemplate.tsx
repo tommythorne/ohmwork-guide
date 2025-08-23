@@ -1,120 +1,169 @@
 // @ts-nocheck
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+
+// Icon set used in Module 2 look
+import {
+  BookOpen, Target, Zap, ShieldCheck, CircuitBoard, Calculator,
+  CloudLightning, AlertTriangle, Cable
+} from "lucide-react";
 
 /**
- * STABILIZED TEMPLATE (Module 2 layout, no type blow-ups)
- * - Accepts any hero fields (title, subtitle, blurb, imageSrc, etc.)
- * - Renders "Major Articles" like Module 2: Title then bullets/body with consistent spacing
- * - Accepts article.points (string | {ref,text}), article.bullets, or article.body
- * - Ignores unknown props without failing build
+ * ModuleTemplate — HARD-LOCKED to Module 2 layout:
+ * - Top bar badge
+ * - Hero (full-bleed bg image + title/subtitle)
+ * - Stats cards (3)
+ * - For each article: left = icon + title + bullets; right = two images
+ * Notes:
+ * - Accept ANY props (hero, stats, articles, quiz, etc.) without type errors
+ * - Articles may provide: title, iconName, points|bullets|body, images[{src,alt,caption}]
+ * - If stats not provided, derive: {articles, quiz length, total images}
  */
 
+const HL = ({ children }: { children: React.ReactNode }) => (
+  <span className="font-extrabold underline decoration-yellow-400 underline-offset-4">{children}</span>
+);
+
+const iconMap: Record<string, any> = {
+  BookOpen, Target, Zap, ShieldCheck, CircuitBoard, Calculator, CloudLightning, AlertTriangle, Cable
+};
+
+function getIcon(iconName?: string, className?: string) {
+  if (!iconName) return null;
+  const Ico = iconMap[iconName] || null;
+  return Ico ? <Ico className={className || "w-6 h-6"} /> : null;
+}
+
+function renderPoint(p: any, i: number) {
+  if (typeof p === "string") {
+    return <p key={i} className="text-gray-300"><HL>{p}</HL></p>;
+  }
+  const ref = p?.ref ? <HL>{p.ref}</HL> : null;
+  const text = p?.text || "";
+  return (
+    <p key={i} className="text-gray-300">
+      {ref}{ref && text ? ": " : null}{text}
+    </p>
+  );
+}
+
+function ArticleBlock({ a, delay = 300 }: { a: any; delay?: number }) {
+  const icon = getIcon(a?.iconName, "w-6 h-6 text-green-400");
+  const points = Array.isArray(a?.points) ? a.points : Array.isArray(a?.bullets) ? a.bullets : [];
+  const imgs  = Array.isArray(a?.images) ? a.images.slice(0,2) : [];
+  return (
+    <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-${delay}`}>
+      <div className="grid lg:grid-cols-2 gap-8 items-start">
+        <div>
+          <div className="flex items-center gap-3 mb-6">
+            <div className="p-2 bg-green-400/20 rounded-lg">
+              {icon || <ShieldCheck className="w-6 h-6 text-green-400" />}
+            </div>
+            <h2 className="text-2xl font-bold text-white">{a?.title || "Untitled Section"}</h2>
+          </div>
+          <div className="space-y-4">
+            {points.length > 0
+              ? points.map((p:any, i:number) => renderPoint(p, i))
+              : a?.body
+                ? <div className="prose prose-invert max-w-none">{a.body}</div>
+                : null}
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          {imgs.map((img:any, i:number) => (
+            <div className="relative" key={i}>
+              <img
+                src={img?.src || "/images/placeholder.jpg"}
+                alt={img?.alt || ""}
+                width={400}
+                height={300}
+                className="rounded-xl w-full h-auto object-cover border border-white/10"
+              />
+              {(img?.caption || img?.alt) ? (
+                <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                  <p className="text-sm">{img?.caption || img?.alt}</p>
+                </div>
+              ) : null}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function ModuleTemplate(props: any) {
+  const [isVisible, setIsVisible] = useState(false);
+  useEffect(() => setIsVisible(true), []);
+
   const hero = props?.hero || {};
   const heading = hero?.title || props?.title || "";
-  const intro = hero?.subtitle || props?.intro || "";
-  const blurb = hero?.blurb || "";
+  const subtitle = hero?.subtitle || props?.intro || "";
+  const heroImg = hero?.imageSrc || "/images/hero-default.jpg";
 
   const articles = Array.isArray(props?.articles) ? props.articles : [];
 
-  const renderPoint = (p: any, i: number) => {
-    if (typeof p === "string") {
-      return (
-        <p key={i} className="leading-relaxed text-slate-200">
-          {p}
-        </p>
-      );
-    }
-    const ref = (p?.ref || "").toString();
-    const text = (p?.text || "").toString();
-    const hasRef = ref.trim().length > 0;
-    const hasText = text.trim().length > 0;
-
-    return (
-      <p key={i} className="leading-relaxed text-slate-200">
-        {hasRef ? <span className="font-semibold text-slate-100">{ref}</span> : null}
-        {hasRef && hasText ? ": " : null}
-        {hasText ? text : null}
-      </p>
-    );
-  };
-
-  const renderArticleBody = (a: any) => {
-    // Priority: points -> bullets -> body
-    if (Array.isArray(a?.points) && a.points.length) {
-      return <div className="space-y-2">{a.points.map(renderPoint)}</div>;
-    }
-    if (Array.isArray(a?.bullets) && a.bullets.length) {
-      return (
-        <div className="space-y-2">
-          {a.bullets.map((b: any, i: number) => renderPoint(typeof b === "string" ? { text: b } : b, i))}
-        </div>
-      );
-    }
-    if (a?.body) {
-      return (
-        <div className="prose prose-invert prose-p:leading-relaxed max-w-none">
-          {a.body}
-        </div>
-      );
-    }
-    return null;
-  };
-
-  const renderArticleImages = (a: any) => {
-    if (!Array.isArray(a?.images) || !a.images.length) return null;
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-        {a.images.map((img: any, i: number) => (
-          <figure key={i} className="space-y-2">
-            <img
-              src={img?.src}
-              alt={img?.alt || ""}
-              className="rounded-md border border-white/10"
-            />
-            {img?.caption ? (
-              <figcaption className="text-xs text-slate-400">{img.caption}</figcaption>
-            ) : null}
-          </figure>
-        ))}
-      </div>
-    );
-  };
+  // Stats: use provided or derive
+  const stats = Array.isArray(props?.stats) && props.stats.length === 3
+    ? props.stats
+    : [
+        { iconName: "BookOpen", value: String(articles.length || 0), label: "Major Articles" },
+        { iconName: "Target",   value: String((props?.quiz && props.quiz.length) || props?.quizCount || 0), label: "Quiz Questions" },
+        { iconName: "Zap",      value: String(articles.reduce((n:number,a:any)=> n + (Array.isArray(a?.images)?a.images.length:0), 0)), label: "Visual Examples" },
+      ];
 
   return (
-    <main className="max-w-4xl mx-auto p-6 space-y-12 text-white">
-      {/* Hero / Title (Module 2 look) */}
-      <header className="space-y-4">
-        {hero?.imageSrc ? (
-          <img
-            src={hero.imageSrc}
-            alt={hero?.imageAlt || heading || "module hero"}
-            className="w-full rounded-lg border border-white/10"
-          />
-        ) : null}
-        {heading ? <h1 className="text-4xl font-bold">{heading}</h1> : null}
-        {intro ? <p className="text-slate-300">{intro}</p> : null}
-        {blurb ? <p className="text-slate-400">{blurb}</p> : null}
-      </header>
+    <main className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white">
+      {/* Top Bar */}
+      <div className="bg-black/50 backdrop-blur-sm border-b border-white/20">
+        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+          <Link href="/intro" className="text-gray-300 hover:text-white transition-colors flex items-center gap-2">
+            <span>←</span><span>Back to TOC</span>
+          </Link>
+          <span className="text-sm text-gray-400 bg-gray-800 px-2 py-1 rounded">OhmWork™ 2025</span>
+        </div>
+      </div>
 
-      {/* Major Articles — EXACT Module 2 structure */}
-      <section className="space-y-6">
-        <div className="text-gray-400">Major Articles</div>
-        <div className="space-y-8">
-          {articles.map((a: any, idx: number) => {
-            const key = a?.id || a?.title || idx;
+      {/* Hero Section (Module 2 look) */}
+      <section className="relative h-96 flex items-center justify-center overflow-hidden">
+        <img src={heroImg} alt={hero?.imageAlt || "module hero"} className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0 bg-black/60"></div>
+        <div className={`relative z-10 text-center transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+          <h1 className="text-5xl font-bold text-white mb-4">{heading}</h1>
+          {subtitle ? <p className="text-xl text-gray-300 max-w-2xl mx-auto">{subtitle}</p> : null}
+        </div>
+      </section>
+
+      {/* Stats Cards (3) */}
+      <section className="max-w-5xl mx-auto px-4 -mt-8 mb-12">
+        <div className="grid md:grid-cols-3 gap-6">
+          {stats.slice(0,3).map((s:any, i:number) => {
+            const Ico = iconMap[s.iconName] || [BookOpen,Target,Zap][i] || BookOpen;
+            const color = i===0?"blue":i===1?"green":"purple";
             return (
-              <div key={key} className="space-y-4">
-                {a?.title ? (
-                  <h2 className="text-2xl font-bold text-white">{a.title}</h2>
-                ) : null}
-                {renderArticleBody(a)}
-                {renderArticleImages(a)}
+              <div key={i} className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
+                <div className={`w-12 h-12 bg-${color}-400/20 rounded-lg flex items-center justify-center mx-auto mb-4`}>
+                  <Ico className={`w-6 h-6 text-${color}-400`} />
+                </div>
+                <div className="text-2xl font-bold text-white">{s.value ?? "0"}</div>
+                <div className="text-gray-400">{s.label ?? ""}</div>
               </div>
             );
           })}
         </div>
       </section>
+
+      {/* Article Sections (Module 2 two-column pattern) */}
+      <div className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        {articles.map((a:any, idx:number) => (
+          <ArticleBlock key={a?.id || a?.title || idx} a={a} delay={300 + idx*100} />
+        ))}
+      </div>
+
+      {/* Optional Footer Nav slots if the page passes them (we don't render here to avoid coupling) */}
     </main>
   );
 }
