@@ -1,6 +1,6 @@
 "use client";
 
-import { AlertTriangle, Zap, Shield, Plug, Cable, Building, CloudLightning, Flame, Target, Waypoints, GitBranch, Ruler, BookOpen, Brain } from "lucide-react";
+import { AlertTriangle, BookOpen, Cable, CircuitBoard, ShieldCheck, Wrench, Zap, Building, CloudLightning, Flame, Target, Waypoints, GitBranch, Ruler, Brain, Plug, Calculator } from "lucide-react";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
@@ -27,7 +27,7 @@ const WarningBox = ({ children }: { children: React.ReactNode }) => (
 const RuleBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <Ruler className="w-5 h-5 text-yellow-400" aria-hidden="true" />
+      <span className="text-yellow-400 text-xl"></span>
       <span className="font-bold text-yellow-400">RULE OF THUMB</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -37,7 +37,7 @@ const RuleBox = ({ children }: { children: React.ReactNode }) => (
 const HorrorStory = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <Flame className="w-5 h-5 text-orange-400" aria-hidden="true" />
+      <span className="text-orange-400 text-xl"></span>
       <span className="font-bold text-orange-400">JOBSITE HORROR STORY</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -47,7 +47,7 @@ const HorrorStory = ({ children }: { children: React.ReactNode }) => (
 const CodeBox = ({ children }: { children: React.ReactNode }) => (
   <div className="rounded-xl border border-blue-500/40 bg-blue-500/10 p-4 my-4 animate-fade-in">
     <div className="flex items-center gap-2 mb-2">
-      <BookOpen className="w-5 h-5 text-blue-400" aria-hidden="true" />
+      <span className="text-blue-400 text-xl"></span>
       <span className="font-bold text-blue-400">NEC REFERENCE</span>
     </div>
     <div className="text-white/90">{children}</div>
@@ -75,1593 +75,958 @@ type Q = {
   why: string;
 };
 
-// Quiz data - 15 questions about wiring methods and branch circuits
+// Quiz data - 15 questions about Chapter 2: Wiring and Protection
 const quiz: Q[] = [
   {
     id: 1,
-    stem: "Which wiring method is NOT suitable for wet locations?",
+    stem: "What is the primary purpose of Article 200?",
     choices: [
-      { key: "A", text: "EMT" },
-      { key: "B", text: "RMC" },
-      { key: "C", text: "PVC" },
-      { key: "D", text: "IMC" },
+      { key: "A", text: "Define branch circuits" },
+      { key: "B", text: "Identify grounded conductors" },
+      { key: "C", text: "Size feeders" },
+      { key: "D", text: "Calculate loads" }
     ],
-    answer: "A",
-    why: "EMT is not suitable for wet locations. Use PVC, RMC, or IMC for wet environments.",
+    answer: "B",
+    why: "Article 200 specifically covers the use and identification of grounded conductors."
   },
   {
     id: 2,
-    stem: "What is the minimum burial depth for PVC conduit under a driveway?",
+    stem: "What is the maximum overcurrent protection for 14 AWG conductors?",
+    choices: [
+      { key: "A", text: "10A" },
+      { key: "B", text: "15A" },
+      { key: "C", text: "20A" },
+      { key: "D", text: "25A" }
+    ],
+    answer: "B",
+    why: "OhmWork™ 2025 240.4(D) limits 14 AWG conductors to a maximum of 15A overcurrent protection."
+  },
+  {
+    id: 3,
+    stem: "What is the minimum size GEC required for a 100A service with 3 AWG copper conductors?",
+    choices: [
+      { key: "A", text: "8 AWG copper" },
+      { key: "B", text: "6 AWG copper" },
+      { key: "C", text: "4 AWG copper" },
+      { key: "D", text: "2 AWG copper" }
+    ],
+    answer: "B",
+    why: "OhmWork™ 2025 250.66 requires 6 AWG copper GEC for services with 3 AWG ungrounded conductors."
+  },
+  {
+    id: 4,
+    stem: "What is the demand factor for general lighting in a dwelling unit?",
+    choices: [
+      { key: "A", text: "100% for first 3000W, 35% for remainder" },
+      { key: "B", text: "100% for first 2000W, 35% for remainder" },
+      { key: "C", text: "100% for first 3000W, 50% for remainder" },
+      { key: "D", text: "100% for first 2000W, 50% for remainder" }
+    ],
+    answer: "A",
+    why: "OhmWork™ 2025 220.42 requires 100% for first 3000W and 35% for the remainder of general lighting load."
+  },
+  {
+    id: 5,
+    stem: "What is the maximum number of service disconnects permitted in a single enclosure?",
+    choices: [
+      { key: "A", text: "4 disconnects" },
+      { key: "B", text: "6 disconnects" },
+      { key: "C", text: "8 disconnects" },
+      { key: "D", text: "10 disconnects" }
+    ],
+    answer: "B",
+    why: "OhmWork™ 2025 230.71 permits up to six service disconnects in a single enclosure or group of enclosures."
+  },
+  {
+    id: 6,
+    stem: "What is the maximum overcurrent protection for 12 AWG conductors?",
+    choices: [
+      { key: "A", text: "15A" },
+      { key: "B", text: "20A" },
+      { key: "C", text: "25A" },
+      { key: "D", text: "30A" }
+    ],
+    answer: "B",
+    why: "OhmWork™ 2025 240.4(D) limits 12 AWG conductors to a maximum of 20A overcurrent protection."
+  },
+  {
+    id: 7,
+    stem: "What is the minimum size GEC required for a 200A service with 4/0 copper conductors?",
+    choices: [
+      { key: "A", text: "6 AWG copper" },
+      { key: "B", text: "4 AWG copper" },
+      { key: "C", text: "2 AWG copper" },
+      { key: "D", text: "1/0 AWG copper" }
+    ],
+    answer: "B",
+    why: "OhmWork™ 2025 250.66 requires 4 AWG copper GEC for services with 4/0 ungrounded conductors."
+  },
+  {
+    id: 8,
+    stem: "What is the demand factor for ranges in a dwelling unit with 2 ranges?",
+    choices: [
+      { key: "A", text: "80%" },
+      { key: "B", text: "75%" },
+      { key: "C", text: "70%" },
+      { key: "D", text: "65%" }
+    ],
+    answer: "B",
+    why: "OhmWork™ 2025 220.55 requires 75% demand factor for 2 ranges connected to the same feeder."
+  },
+  {
+    id: 9,
+    stem: "What is the minimum clearance required above finished grade for overhead conductors?",
+    choices: [
+      { key: "A", text: "8 feet" },
+      { key: "B", text: "10 feet" },
+      { key: "C", text: "12 feet" },
+      { key: "D", text: "15 feet" }
+    ],
+    answer: "B",
+    why: "OhmWork™ 2025 225.19 requires minimum 10 feet clearance above finished grade for overhead conductors."
+  },
+  {
+    id: 10,
+    stem: "What is the minimum size EGC required for a 30A circuit?",
+    choices: [
+      { key: "A", text: "14 AWG" },
+      { key: "B", text: "12 AWG" },
+      { key: "C", text: "10 AWG" },
+      { key: "D", text: "8 AWG" }
+    ],
+    answer: "C",
+    why: "OhmWork™ 2025 250.122 requires 10 AWG EGC for circuits protected at 30A or less."
+  },
+  {
+    id: 11,
+    stem: "What is the maximum number of 90-degree bends between pull points?",
+    choices: [
+      { key: "A", text: "2 bends" },
+      { key: "B", text: "3 bends" },
+      { key: "C", text: "4 bends" },
+      { key: "D", text: "5 bends" }
+    ],
+    answer: "C",
+    why: "OhmWork™ 2025 300.17 requires no more than 360 degrees of bends (4 x 90°) between pull points."
+  },
+  {
+    id: 12,
+    stem: "What is the purpose of a bonding bushing in a raceway system?",
+    choices: [
+      { key: "A", text: "To provide mechanical support" },
+      { key: "B", text: "To ensure electrical continuity between raceway and enclosure" },
+      { key: "C", text: "To prevent water entry" },
+      { key: "D", text: "To reduce noise" }
+    ],
+    answer: "B",
+    why: "Bonding bushings ensure electrical continuity between the raceway and enclosure, providing a proper fault current path."
+  },
+  {
+    id: 13,
+    stem: "What is the minimum burial depth for conductors under a driveway?",
     choices: [
       { key: "A", text: "12 inches" },
       { key: "B", text: "18 inches" },
       { key: "C", text: "24 inches" },
-      { key: "D", text: "36 inches" },
+      { key: "D", text: "36 inches" }
     ],
     answer: "C",
-    why: "NEC 300.5(A) requires 24 inches minimum burial depth for PVC under driveways.",
-  },
-  {
-    id: 3,
-    stem: "How many current-carrying conductors can be installed in a single EMT raceway before derating is required?",
-    choices: [
-      { key: "A", text: "2" },
-      { key: "B", text: "3" },
-      { key: "C", text: "4" },
-      { key: "D", text: "5" },
-    ],
-    answer: "C",
-    why: "More than 3 current-carrying conductors require derating per NEC 310.15(B)(3)(a).",
-  },
-  {
-    id: 4,
-    stem: "What is the maximum fill percentage for conductors in a raceway?",
-    choices: [
-      { key: "A", text: "40%" },
-      { key: "B", text: "53%" },
-      { key: "C", text: "60%" },
-      { key: "D", text: "80%" },
-    ],
-    answer: "B",
-    why: "NEC Chapter 9, Table 1 shows 53% maximum fill for more than 2 conductors.",
-  },
-  {
-    id: 5,
-    stem: "Which statement about cable tray installations is correct?",
-    choices: [
-      { key: "A", text: "Cable tray can support any type of cable" },
-      { key: "B", text: "Cable tray must be bonded to ground" },
-      { key: "C", text: "Cable tray requires no supports" },
-      { key: "D", text: "Cable tray is only for industrial use" },
-    ],
-    answer: "B",
-    why: "NEC 392.60 requires cable tray to be bonded to ground for safety.",
-  },
-  {
-    id: 6,
-    stem: "What is the minimum working space required in front of a 480V panel?",
-    choices: [
-      { key: "A", text: "24 inches" },
-      { key: "B", text: "30 inches" },
-      { key: "C", text: "36 inches" },
-      { key: "D", text: "42 inches" },
-    ],
-    answer: "C",
-    why: "NEC 110.26(A)(1) requires 36 inches minimum working space for equipment over 600V.",
-  },
-  {
-    id: 7,
-    stem: "Which wiring method is best for hazardous locations?",
-    choices: [
-      { key: "A", text: "EMT" },
-      { key: "B", text: "RMC" },
-      { key: "C", text: "PVC" },
-      { key: "D", text: "FMC" },
-    ],
-    answer: "B",
-    why: "RMC (Rigid Metal Conduit) is the most robust and suitable for hazardous locations.",
-  },
-  {
-    id: 8,
-    stem: "What is the maximum number of bends allowed between pull points in a raceway?",
-    choices: [
-      { key: "A", text: "2 bends (180° total)" },
-      { key: "B", text: "3 bends (270° total)" },
-      { key: "C", text: "4 bends (360° total)" },
-      { key: "D", text: "No limit specified" },
-    ],
-    answer: "C",
-    why: "NEC 344.26 and 358.26 limit bends to 360° total between pull points.",
-  },
-  {
-    id: 9,
-    stem: "Which conductor insulation type has the highest temperature rating?",
-    choices: [
-      { key: "A", text: "THHN" },
-      { key: "B", text: "THWN" },
-      { key: "C", text: "XHHW" },
-      { key: "D", text: "USE" },
-    ],
-    answer: "C",
-    why: "XHHW has a 90°C rating, while THHN is 90°C, THWN is 75°C, and USE varies.",
-  },
-  {
-    id: 10,
-    stem: "What is the purpose of a bonding jumper in a raceway system?",
-    choices: [
-      { key: "A", text: "To carry neutral current" },
-      { key: "B", text: "To provide equipment grounding" },
-      { key: "C", text: "To reduce voltage drop" },
-      { key: "D", text: "To support the raceway" },
-    ],
-    answer: "B",
-    why: "Bonding jumpers provide equipment grounding continuity in raceway systems.",
-  },
-  {
-    id: 11,
-    stem: "Which wiring method requires the most frequent supports?",
-    choices: [
-      { key: "A", text: "EMT" },
-      { key: "B", text: "RMC" },
-      { key: "C", text: "FMC" },
-      { key: "D", text: "PVC" },
-    ],
-    answer: "C",
-    why: "FMC (Flexible Metal Conduit) requires supports every 4.5 feet, more frequent than other methods.",
-  },
-  {
-    id: 12,
-    stem: "What is the minimum size equipment grounding conductor for a 200A circuit?",
-    choices: [
-      { key: "A", text: "6 AWG" },
-      { key: "B", text: "4 AWG" },
-      { key: "C", text: "3 AWG" },
-      { key: "D", text: "2 AWG" },
-    ],
-    answer: "A",
-    why: "NEC Table 250.122 requires 6 AWG EGC for circuits up to 200A.",
-  },
-  {
-    id: 13,
-    stem: "Which statement about parallel conductors is correct?",
-    choices: [
-      { key: "A", text: "Parallel conductors must be the same length" },
-      { key: "B", text: "Parallel conductors must be the same size" },
-      { key: "C", text: "Parallel conductors can be different types" },
-      { key: "D", text: "Parallel conductors require no special considerations" },
-    ],
-    answer: "B",
-    why: "NEC 310.10(H) requires parallel conductors to be the same size, length, and type.",
+    why: "OhmWork™ 2025 300.5 requires conductors under driveways to be buried at least 24 inches deep for adequate protection."
   },
   {
     id: 14,
-    stem: "What is the purpose of a bushing on a raceway?",
+    stem: "What is the purpose of a sealing fitting in a raceway system?",
     choices: [
-      { key: "A", text: "To support the raceway" },
-      { key: "B", text: "To protect conductors from abrasion" },
-      { key: "C", text: "To reduce voltage drop" },
-      { key: "D", text: "To improve aesthetics" },
+      { key: "A", text: "To prevent water entry" },
+      { key: "B", text: "To provide mechanical support" },
+      { key: "C", text: "To reduce noise" },
+      { key: "D", text: "To improve aesthetics" }
     ],
-    answer: "B",
-    why: "Bushings protect conductors from abrasion where they enter or exit raceways.",
+    answer: "A",
+    why: "Sealing fittings prevent water, gases, and vapors from entering the raceway system, maintaining system integrity."
   },
   {
     id: 15,
-    stem: "Which wiring method is most suitable for temporary installations?",
+    stem: "What is the maximum fill percentage for metal wireways?",
     choices: [
-      { key: "A", text: "EMT" },
-      { key: "B", text: "RMC" },
-      { key: "C", text: "FMC" },
-      { key: "D", text: "PVC" },
+      { key: "A", text: "20% of cross-sectional area" },
+      { key: "B", text: "30% of cross-sectional area" },
+      { key: "C", text: "40% of cross-sectional area" },
+      { key: "D", text: "50% of cross-sectional area" }
     ],
     answer: "C",
-    why: "FMC (Flexible Metal Conduit) is most suitable for temporary installations due to flexibility.",
-  },
+    why: "Metal wireways are limited to 40% fill to prevent overheating and allow for proper heat dissipation."
+  }
 ];
 
-export default function Ch2Wiring() {
-  const [open, setOpen] = useState<Record<number, boolean>>({});
+export default function Ch2WiringProtection() {
   const [isVisible, setIsVisible] = useState(false);
-  
-  const toggle = (id: number) => setOpen((s) => ({ ...s, [id]: !s[id] }));
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
   return (
-    <main className="min-h-screen bg-black text-white px-5 py-8 md:px-8 md:py-12">
+    <main className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white">
       {/* Top Bar */}
-      <div className={`mx-auto max-w-5xl flex items-center justify-between gap-4 transition-all duration-1000 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <Link href="/intro" className="text-white/70 hover:text-white transition-colors duration-200 flex items-center gap-2 group">
-          <span className="group-hover:-translate-x-1 transition-transform duration-200">←</span>
-          <span>Back to TOC</span>
-        </Link>
-        <span className="text-yellow-400 font-semibold">NEC 2017</span>
+      <div className="bg-black/50 backdrop-blur-sm border-b border-white/20">
+        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+          <Link href="/intro" className="text-gray-300 hover:text-white transition-colors flex items-center gap-2">
+            <span>←</span>
+            <span>Back to TOC</span>
+          </Link>
+          <span className="text-sm text-gray-400 bg-gray-800 px-2 py-1 rounded">OhmWork™ 2025</span>
+        </div>
       </div>
 
-      {/* Hero Section with Stunning Visual */}
-      <div className={`mx-auto max-w-5xl mt-8 md:mt-12 transition-all duration-1000 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-700 p-8 md:p-12">
-          {/* Background Image - IMAGE 1: Wiring Methods */}
-          <div className="absolute inset-0 opacity-20">
-            <Image
-              src="/images/module-02/m02-01.jpg"
-              alt="Various electrical wiring methods and raceway installations"
-              fill
-              className="object-cover"
-              priority
-              width={1200} height={800}/>
+      {/* Hero Section */}
+      <section className="relative h-96 flex items-center justify-center overflow-hidden">
+        <Image
+          src="/images/module-02/m02-01.jpg"
+          alt="Electrical panel and wiring systems"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="relative z-10 text-center">
+          <h1 className="text-5xl font-bold text-white mb-4">Chapter 2 — Wiring and Protection</h1>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">Master the fundamentals of electrical wiring, overcurrent protection, and grounding systems that form the backbone of safe electrical installations.</p>
+        </div>
+      </section>
+
+      {/* Stats Cards */}
+      <section className="max-w-5xl mx-auto px-4 -mt-8 mb-12">
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
+            <div className="w-12 h-12 bg-blue-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <BookOpen className="w-6 h-6 text-blue-400" />
+            </div>
+            <div className="text-2xl font-bold text-white">10</div>
+            <div className="text-gray-400">Major Articles</div>
           </div>
           
-          {/* Content */}
-          <div className="relative z-10">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-yellow-400 mb-6">
-              Chapter 2 — Wiring Methods & Branch Circuits
-            </h1>
-            <p className="text-xl md:text-2xl text-white/90 leading-relaxed max-w-4xl">
-              <HL>Master the Art of Installation</HL>: raceways, conductors, and the methods that keep electricity flowing safely. 
-              This is where theory meets the real world—learn it right or pay the price.
-            </p>
+          <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
+            <div className="w-12 h-12 bg-green-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <Target className="w-6 h-6 text-green-400" />
+            </div>
+            <div className="text-2xl font-bold text-white">15</div>
+            <div className="text-gray-400">Quiz Questions</div>
+          </div>
+          
+          <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
+            <div className="w-12 h-12 bg-purple-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <Zap className="w-6 h-6 text-purple-400" aria-hidden="true" />
+            </div>
+            <div className="text-2xl font-bold text-white">27</div>
+            <div className="text-gray-400">Visual Examples</div>
+          </div>
+        </div>
+      </section>
+
+      {/* Article 200 — Use and Identification of Grounded Conductors */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-green-400/20 rounded-lg">
+                <ShieldCheck className="w-6 h-6 text-green-400" />
+              </div>
+              <h2 className="text-2xl font-bold text-white">Article 200 — Use and Identification of Grounded Conductors</h2>
+            </div>
             
-            {/* Quick Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-              <div className="text-center p-4 bg-white/[0.05] rounded-xl border border-white/10">
-                <div className="text-3xl font-bold text-yellow-400">8</div>
-                <div className="text-white/80">Major Articles</div>
+            <div className="space-y-4 text-gray-300">
+              <p><HL>200.2</HL>: Grounded conductors must be identified by white or gray insulation, or by three continuous white stripes on other than green insulation.</p>
+              <p><HL>200.6</HL>: Grounded conductors must be identified throughout their length. Identification methods include white or gray insulation, three white stripes, or other approved means.</p>
+              <p><HL>200.7</HL>: White or gray insulation may be used only for grounded conductors. Exception: white insulation may be used for ungrounded conductors where permanently reidentified.</p>
+              <p><HL>200.9</HL>: Grounded conductors must not be used as ungrounded conductors. This prevents confusion and maintains system integrity.</p>
+              <p><HL>200.10</HL>: Grounded conductors must be connected to the grounded side of the system. This ensures proper grounding and safety.</p>
+            </div>
+
+            <WarningBox>
+              <strong>EXAM TRAP:</strong> Remember that white or gray insulation is reserved for grounded conductors only. The exam loves to test this fundamental rule.
+            </WarningBox>
+          </div>
+
+          <div className="space-y-4">
+            <div className="relative">
+              <Image
+                src="/images/module-02/m02-02.jpg"
+                alt="Properly identified grounded conductors with white insulation"
+                width={400}
+                height={300}
+                className="rounded-xl"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">Grounded conductor identification</p>
               </div>
-              <div className="text-center p-4 bg-white/[0.05] rounded-xl border border-white/10">
-                <div className="text-3xl font-bold text-green-400">15</div>
-                <div className="text-white/80">Quiz Questions</div>
-              </div>
-              <div className="text-center p-4 bg-white/[0.05] rounded-xl border border-white/10">
-                <div className="text-3xl font-bold text-blue-400">27</div>
-                <div className="text-white/80">Visual Examples</div>
+            </div>
+            
+            <div className="relative">
+              <Image
+                src="/images/module-02/m02-03.jpg"
+                alt="Three white stripes identification method for grounded conductors"
+                width={400}
+                height={300}
+                className="rounded-xl"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">Three white stripes method</p>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-            {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
-        <div className="flex items-center gap-4">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-          <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-        </div>
-      </div>
+            {/* Article 210 — Branch Circuits */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-blue-400/20 rounded-lg">
+                <CircuitBoard className="w-6 h-6 text-blue-400" />
+              </div>
+              <h2 className="text-2xl font-bold text-white">Article 210 — Branch Circuits</h2>
+            </div>
+            
+            <div className="space-y-4 text-gray-300">
+              <p><HL>210.8</HL>: GFCI protection required for 125V, 15A and 20A receptacles in bathrooms, garages, outdoors, crawl spaces, unfinished basements, and within 6 feet of sinks.</p>
+              <p><HL>210.11(C)</HL>: At least two 20A small appliance branch circuits required for kitchen, pantry, breakfast room, dining room, or similar areas.</p>
+              <p><HL>210.12</HL>: AFCI protection required for 120V branch circuits supplying outlets in dwelling unit bedrooms, family rooms, dining rooms, living rooms, sunrooms, recreation rooms, closets, hallways, and similar areas.</p>
+              <p><HL>210.52</HL>: Receptacle spacing: no point along wall more than 6 feet from receptacle. Wall space 2 feet or wider requires receptacle. Kitchen countertops require receptacles every 4 feet.</p>
+              <p><HL>210.4</HL>: Multiwire branch circuits must have handle ties or circuit breakers with handle ties to disconnect all ungrounded conductors simultaneously.</p>
+            </div>
 
-      {/* Article 300 — Wiring Methods */}
-      
-      {/* Article 314 — Boxes & Conduit Bodies (Box Fill) */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-
-  <div className="flex items-center gap-3 mb-6">
-    <Building className="w-8 h-8 text-yellow-400" />
-    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-      Article 314 — Boxes & Conduit Bodies (Box Fill)
-    </h2>
-  </div>
-
-  <div className="grid lg:grid-cols-2 gap-8 mb-8">
-    {/* Left Column - Text Content */}
-    <div className="space-y-4 text-white/90 leading-relaxed">
-      <p>
-        — <HL>314.16(A)</HL>: Box volume must be adequate for the number & size of conductors. The box volume (in³)
-        must be ≥ the sum of allowances.
-      </p>
-      <p>
-        — <HL>314.16(B)</HL>: Counting rules — one allowance per unbroken conductor entering; all equipment grounds
-        together = one allowance total; internal clamps = one allowance; each device yoke = two allowances (one per yoke side).
-      </p>
-      <p>
-        — <HL>Volume per conductor (Cu)</HL>: 18 AWG = 1.5; 16 = 1.75; 14 = 2.0; 12 = 2.25; 10 = 2.5; 8 = 3.0; 6 = 5.0 (in³).
-      </p>
-      <p>
-        — <HL>Conduit bodies</HL>: If used for splices or devices, they must provide sufficient volume per the same rules.
-      </p>
-    </div>
-
-    {/* Right Column - Visual Examples */}
-    <div className="space-y-4">
-      {/* IMAGE A: Box fill overview */}
-      <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
-        <Image
-          src="/images/module-02/m02-02.jpg"
-          alt="Box fill example showing conductor counting and device yoke allowances"
-          width={400}
-          height={300}
-          className="w-full h-48 object-cover rounded-lg"
-        />
-      </div>
-
-      {/* IMAGE B: Counting conductors / yokes */}
-      <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
-        <Image
-          src="/images/module-02/m02-03.jpg"
-          alt="Counting rules for conductors, grounds, clamps and yokes inside an electrical box"
-          width={400}
-          height={300}
-          className="w-full h-48 object-cover rounded-lg"
-        />
-      </div>
-    </div>
-  </div>
-
-  {/* Quick Reference Table */}
-  <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 my-6 overflow-x-auto">
-    <table className="w-full text-sm">
-      <thead>
-        <tr className="border-b border-white/20">
-          <th className="text-left p-3 text-yellow-400 font-bold">Item</th>
-          <th className="text-left p-3 text-yellow-400 font-bold">Allowance</th>
-          <th className="text-left p-3 text-yellow-400 font-bold">Notes</th>
-        </tr>
-      </thead>
-      <tbody className="divide-y divide-white/10">
-        <tr className="hover:bg-white/[0.02] transition-colors">
-          <td className="p-3 font-semibold">Unbroken Conductor</td>
-          <td className="p-3">1× volume of its AWG</td>
-          <td className="p-3 text-green-400">Each entering conductor</td>
-        </tr>
-        <tr className="hover:bg-white/[0.02] transition-colors">
-          <td className="p-3 font-semibold">All Equipment Grounds</td>
-          <td className="p-3">1× of largest ground</td>
-          <td className="p-3 text-green-400">All grounds count as one total</td>
-        </tr>
-        <tr className="hover:bg-white/[0.02] transition-colors">
-          <td className="p-3 font-semibold">Internal Clamp</td>
-          <td className="p-3">1× of largest conductor</td>
-          <td className="p-3 text-green-400">If integral to the box</td>
-        </tr>
-        <tr className="hover:bg-white/[0.02] transition-colors">
-          <td className="p-3 font-semibold">Device Yoke</td>
-          <td className="p-3">2× of largest conductor</td>
-          <td className="p-3 text-green-400">One per yoke (both sides)</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-</section>
-
-
-            {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
-        <div className="flex items-center gap-4">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-        </div>
-      </div>
-
-      {/* Article 320 — Armored Cable (Type AC) */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex items-center gap-3 mb-6">
-          <Shield className="w-8 h-8 text-yellow-400" />
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 320 — Armored Cable (Type AC)
-          </h2>
-        </div>
-        
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {/* Left Column - Text Content */}
-          <div className="space-y-4 text-white/90 leading-relaxed">
-            <p>
-              — <HL>320.10</HL>: Type AC cable can be used in exposed and concealed work in dry locations. 
-              The armor provides mechanical protection.
-            </p>
-            <p>
-              — <HL>320.12</HL>: Type AC cable cannot be used in wet locations, hazardous locations, or where exposed to corrosive fumes.
-            </p>
-            <p>
-              — <HL>320.15</HL>: Type AC cable must be supported and secured within 12 inches of every outlet box and at intervals not exceeding 4.5 feet.
-            </p>
-            <p>
-              — <HL>320.30</HL>: Type AC cable must be installed as a complete system without breaks or other than approved fittings.
-            </p>
+            <RuleBox>
+              <strong>RULE OF THUMB:</strong> Think "6-4-2" for receptacle spacing: 6 feet max spacing, 4 feet for kitchen counters, 2 feet minimum wall space.
+            </RuleBox>
           </div>
-          
-          {/* Right Column - Visual Examples */}
+
           <div className="space-y-4">
-            {/* IMAGE 6: Armored Cable Installation */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+            <div className="relative">
               <Image
                 src="/images/module-02/m02-04.jpg"
-                alt="Type AC armored cable installation with proper support and termination"
+                alt="GFCI receptacle installation in bathroom showing proper protection"
                 width={400}
                 height={300}
-                className="w-full h-48 object-cover rounded-lg"
+                className="rounded-xl"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Type AC: Armor Provides Protection</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">GFCI protection required</p>
               </div>
             </div>
             
-            {/* IMAGE 7: AC Cable Support */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+            <div className="relative">
               <Image
                 src="/images/module-02/m02-05.jpg"
-                alt="Proper support and securing of armored cable at intervals"
+                alt="Kitchen small appliance circuits showing 20A dedicated circuits"
                 width={400}
                 height={300}
-                className="w-full h-48 object-cover rounded-lg"
+                className="rounded-xl"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Support Every 4.5 Feet Maximum</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">Small appliance circuits</p>
               </div>
             </div>
           </div>
         </div>
-
-        {/* AC Cable Requirements Table */}
-        <DataTable>
-          <h4 className="font-bold text-white mb-4">Type AC Cable Installation Requirements</h4>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-white/20">
-                  <th className="text-left p-3 text-yellow-400 font-bold">Requirement</th>
-                  <th className="text-left p-3 text-yellow-400 font-bold">Code Section</th>
-                  <th className="text-left p-3 text-yellow-400 font-bold">Key Point</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/10">
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">Support Spacing</td>
-                  <td className="p-3">320.15</td>
-                  <td className="p-3 text-green-400">4.5 feet maximum</td>
-                </tr>
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">Box Support</td>
-                  <td className="p-3">320.15</td>
-                  <td className="p-3 text-green-400">Within 12 inches</td>
-                </tr>
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">Location Restrictions</td>
-                  <td className="p-3">320.12</td>
-                  <td className="p-3 text-red-400">Dry locations only</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </DataTable>
       </section>
 
-      {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-900 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
-        <div className="flex items-center gap-4">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-        </div>
-      </div>
+      {/* Article 215 — Feeders */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-purple-400/20 rounded-lg">
+                <Cable className="w-6 h-6 text-purple-400" />
+              </div>
+              <h2 className="text-2xl font-bold text-white">Article 215 — Feeders</h2>
+            </div>
+            
+            <div className="space-y-4 text-gray-300">
+              <p><HL>215.2</HL>: Feeder conductors must have an ampacity not less than required to supply the load. Ampacity must be calculated based on connected load.</p>
+              <p><HL>215.3</HL>: Feeders must be protected by overcurrent protection device. OCPD rating must not exceed conductor ampacity.</p>
+              <p><HL>215.9</HL>: Grounded conductors must be identified per Article 200. White or gray insulation required for grounded conductors.</p>
+              <p><HL>215.12</HL>: Feeders must have a disconnecting means. Disconnect must be readily accessible and properly labeled.</p>
+              <p><HL>215.15</HL>: Feeders must be grounded per Article 250. Proper grounding ensures safety and system integrity.</p>
+            </div>
 
-      {/* Article 330 — Metal-Clad Cable (Type MC) */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex items-center gap-3 mb-6">
-          <Cable className="w-8 h-8 text-yellow-400" />
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 330 — Metal-Clad Cable (Type MC)
-          </h2>
-        </div>
-        
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {/* Left Column - Text Content */}
-          <div className="space-y-4 text-white/90 leading-relaxed">
-            <p>
-              — <HL>330.10</HL>: Type MC cable can be used in exposed and concealed work in dry locations, and in wet locations where the cable is specifically listed for the purpose.
-            </p>
-            <p>
-              — <HL>330.12</HL>: Type MC cable cannot be used in hazardous locations unless specifically listed for the purpose.
-            </p>
-            <p>
-              — <HL>330.15</HL>: Type MC cable must be supported and secured within 12 inches of every outlet box and at intervals not exceeding 6 feet.
-            </p>
-            <p>
-              — <HL>330.30</HL>: Type MC cable must be installed as a complete system without breaks or other than approved fittings.
-            </p>
+            <CodeBox>
+              <strong>NEC REFERENCE:</strong> Feeder sizing follows the same principles as branch circuits but serves multiple branch circuits instead of individual loads.
+            </CodeBox>
           </div>
-          
-          {/* Right Column - Visual Examples */}
+
           <div className="space-y-4">
-            {/* IMAGE 8: MC Cable Installation */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+            <div className="relative">
               <Image
                 src="/images/module-02/m02-06.jpg"
-                alt="Type MC metal-clad cable installation in commercial application"
+                alt="Feeder panel showing proper conductor sizing and overcurrent protection"
                 width={400}
                 height={300}
-                className="w-full h-48 object-cover rounded-lg"
+                className="rounded-xl"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Type MC: Versatile & Durable</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">Feeder panel installation</p>
               </div>
             </div>
             
-            {/* IMAGE 9: MC Cable Support */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+            <div className="relative">
               <Image
                 src="/images/module-02/m02-07.jpg"
-                alt="Proper support and securing of MC cable with approved fittings"
+                alt="Feeder disconnect showing proper labeling and accessibility"
                 width={400}
                 height={300}
-                className="w-full h-48 object-cover rounded-lg"
+                className="rounded-xl"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Support Every 6 Feet Maximum</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">Feeder disconnect</p>
               </div>
             </div>
           </div>
         </div>
-
-        {/* MC vs AC Comparison Chart */}
-        <ChartBox>
-          <h4 className="font-bold text-white mb-4 text-center">Type AC vs Type MC Cable Comparison</h4>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h5 className="font-semibold text-yellow-400 mb-2">Type AC (Armored)</h5>
-              <ul className="text-white/85 text-sm space-y-1">
-                <li>• Support: 4.5 feet max</li>
-                <li>• Locations: Dry only</li>
-                <li>• Cost: Lower</li>
-                <li>• Protection: Good</li>
-              </ul>
-            </div>
-            <div>
-              <h5 className="font-semibold text-yellow-400 mb-2">Type MC (Metal-Clad)</h5>
-              <ul className="text-white/85 text-sm space-y-1">
-                <li>• Support: 6 feet max</li>
-                <li>• Locations: Dry & wet</li>
-                <li>• Cost: Higher</li>
-                <li>• Protection: Better</li>
-              </ul>
-            </div>
-          </div>
-        </ChartBox>
-
-        {/* Rule Box */}
-        <RuleBox>
-          <strong>RULE OF THUMB:</strong> Type MC is more versatile and durable than Type AC, but costs more. 
-          Use MC for wet locations and where you need longer support intervals. AC is fine for basic dry location work.
-        </RuleBox>
       </section>
 
-      {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1100 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
-        <div className="flex items-center gap-4">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-        </div>
-      </div>
+      {/* Article 220 — Branch-Circuit, Feeder, and Service Calculations */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-yellow-400/20 rounded-lg">
+                <Calculator className="w-6 h-6 text-yellow-400" />
+              </div>
+              <h2 className="text-2xl font-bold text-white">Article 220 — Branch-Circuit, Feeder, and Service Calculations</h2>
+            </div>
+            
+            <div className="space-y-4 text-gray-300">
+              <p><HL>220.42</HL>: General lighting demand factor: 100% for first 3000W, 35% for remainder. This applies to dwelling units and similar occupancies.</p>
+              <p><HL>220.55</HL>: Range demand factors: 1 range = 80%, 2 ranges = 75%, 3 ranges = 70%, 4 ranges = 65%, 5 ranges = 60%. Maximum demand never less than 8000W.</p>
+              <p><HL>220.52</HL>: Small appliance loads: minimum 1500W per circuit. Laundry circuit: minimum 1500W. These are separate from general lighting.</p>
+              <p><HL>220.53</HL>: Fastened-in-place appliances: 75% demand factor may be applied when four or more appliances are connected to the same feeder.</p>
+              <p><HL>220.61</HL>: Neutral conductor sizing: neutral may be smaller than ungrounded conductors when maximum unbalanced load is less than total connected load.</p>
+            </div>
 
-      {/* Article 340 — Nonmetallic-Sheathed Cable (Type NM) */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex items-center gap-3 mb-6">
-          <Building className="w-8 h-8 text-yellow-400" />
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 340 — Nonmetallic-Sheathed Cable (Type NM)
-          </h2>
-        </div>
-        
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {/* Left Column - Text Content */}
-          <div className="space-y-4 text-white/90 leading-relaxed">
-            <p>
-              — <HL>340.10</HL>: Type NM cable can be used in exposed and concealed work in normally dry locations. 
-              This is your standard residential wiring cable.
-            </p>
-            <p>
-              — <HL>340.12</HL>: Type NM cable cannot be used in wet locations, exposed to corrosive fumes, or in hazardous locations.
-            </p>
-            <p>
-              — <HL>340.15</HL>: Type NM cable must be supported and secured within 12 inches of every outlet box and at intervals not exceeding 4.5 feet.
-            </p>
-            <p>
-              — <HL>340.30</HL>: Type NM cable must be protected from physical damage where necessary.
-            </p>
+            <DataTable>
+              <h4 className="font-bold text-white mb-4">Dwelling Unit Load Calculation Example</h4>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-white/20">
+                      <th className="text-left p-3 text-yellow-400 font-bold">Load Type</th>
+                      <th className="text-left p-3 text-yellow-400 font-bold">Calculation</th>
+                      <th className="text-left p-3 text-yellow-400 font-bold">Demand</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/10">
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">General Lighting</td>
+                      <td className="p-3">3000 sq ft × 3W/sq ft</td>
+                      <td className="p-3 text-green-400">9000W</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">Small Appliances</td>
+                      <td className="p-3">2 circuits × 1500W</td>
+                      <td className="p-3 text-green-400">3000W</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">Laundry</td>
+                      <td className="p-3">1 circuit × 1500W</td>
+                      <td className="p-3 text-green-400">1500W</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">Range</td>
+                      <td className="p-3">12kW × 80%</td>
+                      <td className="p-3 text-green-400">9600W</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">Total</td>
+                      <td className="p-3">Sum of all loads</td>
+                      <td className="p-3 text-green-400">23,100W</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </DataTable>
           </div>
-          
-          {/* Right Column - Visual Examples */}
+
           <div className="space-y-4">
-            {/* IMAGE 10: NM Cable Installation */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+            <div className="relative">
               <Image
                 src="/images/module-02/m02-08.jpg"
-                alt="Type NM cable installation in residential application with proper support"
+                alt="Load calculation worksheet showing dwelling unit calculations"
                 width={400}
                 height={300}
-                className="w-full h-48 object-cover rounded-lg"
+                className="rounded-xl"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Type NM: Standard Residential Wiring</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">Load calculation example</p>
               </div>
             </div>
             
-            {/* IMAGE 11: NM Cable Protection */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+            <div className="relative">
               <Image
                 src="/images/module-02/m02-09.jpg"
-                alt="Protection of NM cable where it passes through framing members"
+                alt="Demand factor table showing lighting and appliance factors"
                 width={400}
                 height={300}
-                className="w-full h-48 object-cover rounded-lg"
+                className="rounded-xl"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Protect Where Physical Damage Possible</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">Demand factor application</p>
               </div>
             </div>
           </div>
         </div>
-
-        {/* NM Cable Restrictions Table */}
-        <DataTable>
-          <h4 className="font-bold text-white mb-4">Type NM Cable Restrictions & Requirements</h4>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-white/20">
-                  <th className="text-left p-3 text-yellow-400 font-bold">Restriction</th>
-                  <th className="text-left p-3 text-yellow-400 font-bold">Reason</th>
-                  <th className="text-left p-3 text-yellow-400 font-bold">Alternative</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/10">
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">Wet Locations</td>
-                  <td className="p-3">Insulation damage</td>
-                  <td className="p-3 text-green-400">Type UF or conduit</td>
-                </tr>
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">Exposed Work</td>
-                  <td className="p-3">Physical damage</td>
-                  <td className="p-3 text-green-400">Conduit or armored cable</td>
-                </tr>
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">Hazardous Locations</td>
-                  <td className="p-3">Safety requirements</td>
-                  <td className="p-3 text-green-400">Hazardous location cable</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </DataTable>
-
-        {/* Horror Story */}
-        <HorrorStory>
-          <strong>True Story:</strong> A homeowner ran Type NM cable through their garage ceiling without protection. 
-          When they stored boxes in the attic, the cable got crushed and shorted out. The resulting fire caused $15,000 in damage. 
-          <HL>340.30</HL> exists for a reason—protect your cables from physical damage!
-        </HorrorStory>
       </section>
 
-            {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1300 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
-        <div className="flex items-center gap-4">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-        </div>
-      </div>
+      {/* Article 225 — Outside Branch Circuits and Feeders */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-orange-400/20 rounded-lg">
+                <CloudLightning className="w-6 h-6 text-orange-400" />
+              </div>
+              <h2 className="text-2xl font-bold text-white">Article 225 — Outside Branch Circuits and Feeders</h2>
+            </div>
+            
+            <div className="space-y-4 text-gray-300">
+              <p><HL>225.18</HL>: Clearances from buildings: 10 feet above roofs, 3 feet from windows, doors, porches, and fire escapes. These ensure safety and accessibility.</p>
+              <p><HL>225.19</HL>: Clearances from ground: 10 feet above finished grade, 12 feet above driveways, 15 feet above public streets. Higher clearances for vehicle traffic.</p>
+              <p><HL>225.30</HL>: Number of supplies: only one supply per building or structure. Exception: emergency systems, legally required standby systems, and optional standby systems.</p>
+              <p><HL>225.31</HL>: Disconnecting means required: must be readily accessible and properly labeled. Location must be approved by authority having jurisdiction.</p>
+              <p><HL>225.32</HL>: Location of disconnecting means: must be within sight of the building or structure served, or within sight of the controller.</p>
+            </div>
 
-      {/* Article 350 — Liquidtight Flexible Metal Conduit (Type LFMC) */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex items-center gap-3 mb-6">
-          <Zap className="w-8 h-8 text-yellow-400" />
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 350 — Liquidtight Flexible Metal Conduit (Type LFMC)
-          </h2>
-        </div>
-        
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {/* Left Column - Text Content */}
-          <div className="space-y-4 text-white/90 leading-relaxed">
-            <p>
-              — <HL>350.10</HL>: Type LFMC can be used in exposed and concealed work in wet locations and where exposed to oil and coolants.
-            </p>
-            <p>
-              — <HL>350.12</HL>: Type LFMC cannot be used in hazardous locations unless specifically listed for the purpose.
-            </p>
-            <p>
-              — <HL>350.15</HL>: Type LFMC must be supported and secured within 12 inches of every outlet box and at intervals not exceeding 4.5 feet.
-            </p>
-            <p>
-              — <HL>350.30</HL>: Type LFMC must be installed as a complete system without breaks or other than approved fittings.
-            </p>
+            <HorrorStory>
+              <strong>JOBSITE HORROR STORY:</strong> A crew installed overhead feeders with only 8 feet clearance above a driveway. When a delivery truck with a tall load came through, the conductors were damaged, causing a power outage and safety hazard. Always check clearance requirements!
+            </HorrorStory>
           </div>
-          
-          {/* Right Column - Visual Examples */}
+
           <div className="space-y-4">
-            {/* IMAGE 12: LFMC Installation */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+            <div className="relative">
               <Image
                 src="/images/module-02/m02-10.jpg"
-                alt="Type LFMC installation in wet location with proper fittings"
+                alt="Overhead feeder installation showing proper clearances from buildings"
                 width={400}
                 height={300}
-                className="w-full h-48 object-cover rounded-lg"
+                className="rounded-xl"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Type LFMC: Wet Location Solution</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">Clearance requirements</p>
               </div>
             </div>
             
-            {/* IMAGE 13: LFMC Fittings */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+            <div className="relative">
               <Image
                 src="/images/module-02/m02-11.jpg"
-                alt="Proper LFMC fittings and termination methods"
+                alt="Outside disconnect showing proper location and accessibility"
                 width={400}
                 height={300}
-                className="w-full h-48 object-cover rounded-lg"
+                className="rounded-xl"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Use Approved Fittings Only</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">Outside disconnect</p>
               </div>
             </div>
           </div>
         </div>
-
-        {/* LFMC Applications Chart */}
-        <ChartBox>
-          <h4 className="font-bold text-white mb-4 text-center">Type LFMC Applications & Benefits</h4>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h5 className="font-semibold text-yellow-400 mb-2">Ideal Uses</h5>
-              <ul className="text-white/85 text-sm space-y-1">
-                <li>• Wet locations</li>
-                <li>• Oil/coolant exposure</li>
-                <li>• Vibration areas</li>
-                <li>• Equipment connections</li>
-              </ul>
-            </div>
-            <div>
-              <h5 className="font-semibold text-yellow-400 mb-2">Key Benefits</h5>
-              <ul className="text-white/85 text-sm space-y-1">
-                <li>• Liquidtight seal</li>
-                <li>• Flexible installation</li>
-                <li>• Corrosion resistant</li>
-                <li>• Easy termination</li>
-              </ul>
-            </div>
-          </div>
-        </ChartBox>
-
-        {/* Warning Box */}
-        <WarningBox>
-          <strong>EXAM TRAP:</strong> The exam loves to ask about support spacing for different wiring methods. 
-          Remember: Type AC = 4.5 ft, Type MC = 6 ft, Type NM = 4.5 ft, Type LFMC = 4.5 ft. 
-          Don't mix these up!
-        </WarningBox>
       </section>
 
-      {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1500 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
-        <div className="flex items-center gap-4">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-        </div>
-      </div>
+            {/* Article 230 — Services */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-900 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-red-400/20 rounded-lg">
+                <Zap className="w-6 h-6 text-red-400" />
+              </div>
+              <h2 className="text-2xl font-bold text-white">Article 230 — Services</h2>
+            </div>
+            
+            <div className="space-y-4 text-gray-300">
+              <p><HL>230.70</HL>: Service disconnect location: must be readily accessible and located nearest the point of entrance of service conductors. This ensures quick emergency shutdown.</p>
+              <p><HL>230.71</HL>: Maximum number of disconnects: up to six service disconnects permitted in a single enclosure or group of enclosures. All must be grouped together.</p>
+              <p><HL>230.72</HL>: Grouping of disconnects: all service disconnects must be grouped together. Exception: emergency systems and legally required standby systems.</p>
+              <p><HL>230.79</HL>: Rating of service disconnect: must have rating sufficient for the load served. Must be able to carry the full-load current continuously.</p>
+              <p><HL>230.82</HL>: Equipment connected to supply side of service disconnect: limited to specific equipment types like surge arresters, instrument transformers, and service conductors.</p>
+            </div>
 
-      {/* Article 360 — Flexible Metallic Tubing (Type FMT) */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex items-center gap-3 mb-6">
-          <Plug className="w-8 h-8 text-yellow-400" />
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 360 — Flexible Metallic Tubing (Type FMT)
-          </h2>
-        </div>
-        
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {/* Left Column - Text Content */}
-          <div className="space-y-4 text-white/90 leading-relaxed">
-            <p>
-              — <HL>360.10</HL>: Type FMT can be used in exposed and concealed work in dry locations and where exposed to oil and coolants.
-            </p>
-            <p>
-              — <HL>360.12</HL>: Type FMT cannot be used in wet locations, hazardous locations, or where exposed to corrosive fumes.
-            </p>
-            <p>
-              — <HL>360.15</HL>: Type FMT must be supported and secured within 12 inches of every outlet box and at intervals not exceeding 4.5 feet.
-            </p>
-            <p>
-              — <HL>360.30</HL>: Type FMT must be installed as a complete system without breaks or other than approved fittings.
-            </p>
+            <ChartBox>
+              <h4 className="font-bold text-white mb-4 text-center">Service Disconnect Requirements</h4>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h5 className="font-semibold text-yellow-400 mb-2">Location Requirements</h5>
+                  <ul className="text-white/85 text-sm space-y-1">
+                    <li>• Readily accessible</li>
+                    <li>• Nearest point of entrance</li>
+                    <li>• Outside or inside building</li>
+                    <li>• Approved by AHJ</li>
+                  </ul>
+                </div>
+                <div>
+                  <h5 className="font-semibold text-yellow-400 mb-2">Number Limits</h5>
+                  <ul className="text-white/85 text-sm space-y-1">
+                    <li>• Maximum 6 disconnects</li>
+                    <li>• Must be grouped together</li>
+                    <li>• Emergency systems excluded</li>
+                    <li>• All must be accessible</li>
+                  </ul>
+                </div>
+              </div>
+            </ChartBox>
           </div>
-          
-          {/* Right Column - Visual Examples */}
+
           <div className="space-y-4">
-            {/* IMAGE 14: FMT Installation */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+            <div className="relative">
               <Image
                 src="/images/module-02/m02-12.jpg"
-                alt="Type FMT installation in dry location with proper support"
+                alt="Service panel showing multiple disconnects properly grouped together"
                 width={400}
                 height={300}
-                className="w-full h-48 object-cover rounded-lg"
+                className="rounded-xl"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Type FMT: Flexible & Lightweight</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">Multiple service disconnects</p>
               </div>
             </div>
             
-            {/* IMAGE 15: FMT Fittings */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+            <div className="relative">
               <Image
                 src="/images/module-02/m02-13.jpg"
-                alt="Proper FMT fittings and termination methods"
+                alt="Service entrance showing proper location and accessibility"
                 width={400}
                 height={300}
-                className="w-full h-48 object-cover rounded-lg"
+                className="rounded-xl"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Use Approved Fittings Only</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">Service entrance location</p>
               </div>
             </div>
           </div>
         </div>
-
-        {/* FMT vs FMC Comparison */}
-        <ChartBox>
-          <h4 className="font-bold text-white mb-4 text-center">Type FMT vs Type FMC Comparison</h4>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h5 className="font-semibold text-yellow-400 mb-2">Type FMT (Flexible Metallic Tubing)</h5>
-              <ul className="text-white/85 text-sm space-y-1">
-                <li>• Thinner wall construction</li>
-                <li>• More flexible than FMC</li>
-                <li>• Dry locations only</li>
-                <li>• Oil/coolant resistant</li>
-              </ul>
-            </div>
-            <div>
-              <h5 className="font-semibold text-yellow-400 mb-2">Type FMC (Flexible Metal Conduit)</h5>
-              <ul className="text-white/85 text-sm space-y-1">
-                <li>• Thicker wall construction</li>
-                <li>• Less flexible than FMT</li>
-                <li>• Dry locations only</li>
-                <li>• More robust protection</li>
-              </ul>
-            </div>
-          </div>
-        </ChartBox>
       </section>
 
-      {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1700 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
-        <div className="flex items-center gap-4">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-        </div>
-      </div>
+      {/* Article 240 — Overcurrent Protection */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-pink-400/20 rounded-lg">
+                <AlertTriangle className="w-6 h-6 text-pink-400" />
+              </div>
+              <h2 className="text-2xl font-bold text-white">Article 240 — Overcurrent Protection</h2>
+            </div>
+            
+            <div className="space-y-4 text-gray-300">
+              <p><HL>240.4</HL>: Protection of conductors: conductors must be protected against overcurrent in accordance with their ampacity ratings. OCPD must not exceed conductor ampacity.</p>
+              <p><HL>240.4(D)</HL>: Small conductor rule: 14 AWG limited to 15A, 12 AWG limited to 20A, 10 AWG limited to 30A. This prevents overheating and fire hazards.</p>
+              <p><HL>240.21</HL>: Location in circuit: OCPD must be located at the point where conductors receive their supply. Exception: tap conductors meeting specific conditions.</p>
+              <p><HL>240.6</HL>: Standard ampere ratings: standard ratings include 15, 20, 25, 30, 35, 40, 45, 50, 60, 70, 80, 90, 100, 110, 125, 150, 175, 200, 225, 250, 300, 350, 400, 450, 500, 600, 700, 800, 1000, 1200, 1600, 2000, 2500, 3000, 4000, 5000, and 6000A.</p>
+              <p><HL>240.15</HL>: Ungrounded conductors: each ungrounded conductor must be protected by an overcurrent device. This ensures complete circuit protection.</p>
+            </div>
 
-      {/* Article 370 — Cablebus */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex items-center gap-3 mb-6">
-          <Cable className="w-8 h-8 text-yellow-400" />
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 370 — Cablebus
-          </h2>
-        </div>
-        
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {/* Left Column - Text Content */}
-          <div className="space-y-4 text-white/90 leading-relaxed">
-            <p>
-              — <HL>370.10</HL>: Cablebus can be used in exposed and concealed work in dry locations and where exposed to oil and coolants.
-            </p>
-            <p>
-              — <HL>370.12</HL>: Cablebus cannot be used in wet locations, hazardous locations, or where exposed to corrosive fumes.
-            </p>
-            <p>
-              — <HL>370.15</HL>: Cablebus must be supported and secured at intervals not exceeding 20 feet.
-            </p>
-            <p>
-              — <HL>370.30</HL>: Cablebus must be installed as a complete system without breaks or other than approved fittings.
-            </p>
+            <DataTable>
+              <h4 className="font-bold text-white mb-4">Small Conductor Protection Limits</h4>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-white/20">
+                      <th className="text-left p-3 text-yellow-400 font-bold">Conductor Size</th>
+                      <th className="text-left p-3 text-yellow-400 font-bold">Maximum OCPD</th>
+                      <th className="text-left p-3 text-yellow-400 font-bold">Typical Use</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-white/10">
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">14 AWG</td>
+                      <td className="p-3 text-red-400">15A</td>
+                      <td className="p-3 text-green-400">Lighting circuits</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">12 AWG</td>
+                      <td className="p-3 text-red-400">20A</td>
+                      <td className="p-3 text-green-400">General purpose</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">10 AWG</td>
+                      <td className="p-3 text-red-400">30A</td>
+                      <td className="p-3 text-green-400">Heavy duty</td>
+                    </tr>
+                    <tr className="hover:bg-white/[0.02] transition-colors">
+                      <td className="p-3 font-semibold">8 AWG</td>
+                      <td className="p-3 text-green-400">40A</td>
+                      <td className="p-3 text-green-400">Feeder circuits</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </DataTable>
           </div>
-          
-          {/* Right Column - Visual Examples */}
+
           <div className="space-y-4">
-            {/* IMAGE 16: Cablebus Installation */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+            <div className="relative">
               <Image
                 src="/images/module-02/m02-14.jpg"
-                alt="Cablebus installation in commercial application with proper support"
+                alt="Circuit breaker panel showing proper overcurrent protection sizing"
                 width={400}
                 height={300}
-                className="w-full h-48 object-cover rounded-lg"
+                className="rounded-xl"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Cablebus: High-Capacity Solution</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">OCPD sizing</p>
               </div>
             </div>
             
-            {/* IMAGE 17: Cablebus Support */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+            <div className="relative">
               <Image
                 src="/images/module-02/m02-15.jpg"
-                alt="Proper support and securing of cablebus system"
+                alt="Small conductor rule application showing 14 AWG limited to 15A"
                 width={400}
                 height={300}
-                className="w-full h-48 object-cover rounded-lg"
+                className="rounded-xl"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Support Every 20 Feet Maximum</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">Small conductor protection</p>
               </div>
             </div>
           </div>
         </div>
-
-        {/* Cablebus Applications Table */}
-        <DataTable>
-          <h4 className="font-bold text-white mb-4">Cablebus Applications & Benefits</h4>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-white/20">
-                  <th className="text-left p-3 text-yellow-400 font-bold">Application</th>
-                  <th className="text-left p-3 text-yellow-400 font-bold">Benefit</th>
-                  <th className="text-left p-3 text-yellow-400 font-bold">Consideration</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/10">
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">High-Capacity Circuits</td>
-                  <td className="p-3">Multiple conductors</td>
-                  <td className="p-3 text-green-400">Efficient installation</td>
-                </tr>
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">Commercial Buildings</td>
-                  <td className="p-3">Cost effective</td>
-                  <td className="p-3 text-green-400">Large scale projects</td>
-                </tr>
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">Industrial Applications</td>
-                  <td className="p-3">Durable construction</td>
-                  <td className="p-3 text-green-400">Heavy-duty use</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </DataTable>
       </section>
 
-            {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-1900 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
-        <div className="flex items-center gap-4">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-        </div>
-      </div>
+      {/* Article 242 — Overvoltage Protection */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-indigo-400/20 rounded-lg">
+                <ShieldCheck className="w-6 h-6 text-indigo-400" />
+              </div>
+              <h2 className="text-2xl font-bold text-white">Article 242 — Overvoltage Protection</h2>
+            </div>
+            
+            <div className="space-y-4 text-gray-300">
+              <p><HL>242.1</HL>: Scope: covers surge protective devices (SPDs) installed on load side of service disconnect. This provides protection against voltage surges.</p>
+              <p><HL>242.3</HL>: Listed devices: SPDs must be listed for the purpose intended. Listing ensures proper testing and safety.</p>
+              <p><HL>242.4</HL>: Installation: SPDs must be installed per manufacturer instructions. Proper installation ensures effective operation.</p>
+              <p><HL>242.6</HL>: Grounding: SPDs must be properly grounded and bonded. This provides path for surge current.</p>
+              <p><HL>242.8</HL>: Coordination: SPDs must be coordinated with other protective devices. This prevents conflicts and ensures proper operation.</p>
+            </div>
 
-      {/* Article 380 — Multioutlet Assembly */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex items-center gap-3 mb-6">
-          <Plug className="w-8 h-8 text-yellow-400" />
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 380 — Multioutlet Assembly
-          </h2>
-        </div>
-        
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {/* Left Column - Text Content */}
-          <div className="space-y-4 text-white/90 leading-relaxed">
-            <p>
-              — <HL>380.10</HL>: Multioutlet assemblies can be used in exposed and concealed work in dry locations.
-            </p>
-            <p>
-              — <HL>380.12</HL>: Multioutlet assemblies cannot be used in wet locations, hazardous locations, or where exposed to corrosive fumes.
-            </p>
-            <p>
-              — <HL>380.15</HL>: Multioutlet assemblies must be supported and secured at intervals not exceeding 5 feet.
-            </p>
-            <p>
-              — <HL>380.30</HL>: Multioutlet assemblies must be installed as a complete system without breaks or other than approved fittings.
-            </p>
+            <RuleBox>
+              <strong>RULE OF THUMB:</strong> Install SPDs on load side of service disconnect, surge arresters on line side. This creates a coordinated protection system.
+            </RuleBox>
           </div>
-          
-          {/* Right Column - Visual Examples */}
+
           <div className="space-y-4">
-            {/* IMAGE 18: Multioutlet Assembly */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+            <div className="relative">
               <Image
                 src="/images/module-02/m02-16.jpg"
-                alt="Multioutlet assembly installation in commercial space"
+                alt="SPD installation showing proper grounding and coordination"
                 width={400}
                 height={300}
-                className="w-full h-48 object-cover rounded-lg"
+                className="rounded-xl"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Multioutlet: Convenient Power Distribution</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">SPD installation</p>
               </div>
             </div>
             
-            {/* IMAGE 19: Multioutlet Support */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+            <div className="relative">
               <Image
                 src="/images/module-02/m02-17.jpg"
-                alt="Proper support and securing of multioutlet assembly"
+                alt="Surge protection coordination showing line and load side devices"
                 width={400}
                 height={300}
-                className="w-full h-48 object-cover rounded-lg"
+                className="rounded-xl"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Support Every 5 Feet Maximum</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">Protection coordination</p>
               </div>
             </div>
           </div>
         </div>
-
-        {/* Multioutlet Uses Chart */}
-        <ChartBox>
-          <h4 className="font-bold text-white mb-4 text-center">Multioutlet Assembly Applications</h4>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h5 className="font-semibold text-yellow-400 mb-2">Common Uses</h5>
-              <ul className="text-white/85 text-sm space-y-1">
-                <li>• Office spaces</li>
-                <li>• Workstations</li>
-                <li>• Conference rooms</li>
-                <li>• Retail displays</li>
-              </ul>
-            </div>
-            <div>
-              <h5 className="font-semibold text-yellow-400 mb-2">Installation Tips</h5>
-              <ul className="text-white/85 text-sm space-y-1">
-                <li>• Support every 5 feet</li>
-                <li>• Use approved fittings</li>
-                <li>• Consider load calculations</li>
-                <li>• Plan outlet spacing</li>
-              </ul>
-            </div>
-          </div>
-        </ChartBox>
       </section>
 
-      {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-2100 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
-        <div className="flex items-center gap-4">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-        </div>
-      </div>
+      {/* Article 250 — Grounding and Bonding */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-green-400/20 rounded-lg">
+                <ShieldCheck className="w-6 h-6 text-green-400" />
+              </div>
+              <h2 className="text-2xl font-bold text-white">Article 250 — Grounding and Bonding</h2>
+            </div>
+            
+            <div className="space-y-4 text-gray-300">
+              <p><HL>250.50</HL>: Grounding electrode system must include water pipe, metal building frame, concrete-encased electrode, ground ring, or made electrodes. Multiple electrodes improve system reliability.</p>
+              <p><HL>250.66</HL>: GEC sizing based on largest ungrounded service conductor: 6 AWG for 100A, 4 AWG for 200A, 2 AWG for 400A. This ensures adequate fault current capacity.</p>
+              <p><HL>250.122</HL>: EGC sizing based on OCPD rating, not conductor size. 14 AWG for 15A, 12 AWG for 20A, 10 AWG for 30A. This provides proper fault current path.</p>
+              <p><HL>250.53</HL>: Concrete-encased electrode minimum 20 feet in length, 2 inches from edge, encased in concrete. This creates effective grounding electrode.</p>
+              <p><HL>250.104</HL>: Water pipe bonding required within 5 feet of entrance, sized per 250.66 table. This ensures electrical continuity.</p>
+            </div>
 
-      {/* Article 390 — Underfloor Raceways */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex items-center gap-3 mb-6">
-          <Building className="w-8 h-8 text-yellow-400" />
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 390 — Underfloor Raceways
-          </h2>
-        </div>
-        
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {/* Left Column - Text Content */}
-          <div className="space-y-4 text-white/90 leading-relaxed">
-            <p>
-              — <HL>390.10</HL>: Underfloor raceways can be used in exposed and concealed work in dry locations.
-            </p>
-            <p>
-              — <HL>390.12</HL>: Underfloor raceways cannot be used in wet locations, hazardous locations, or where exposed to corrosive fumes.
-            </p>
-            <p>
-              — <HL>390.15</HL>: Underfloor raceways must be supported and secured at intervals not exceeding 5 feet.
-            </p>
-            <p>
-              — <HL>390.30</HL>: Underfloor raceways must be installed as a complete system without breaks or other than approved fittings.
-            </p>
+            <WarningBox>
+              <strong>EXAM TRAP:</strong> Don't confuse GEC sizing (250.66) with EGC sizing (250.122). GEC is based on service conductor size, EGC is based on OCPD rating.
+            </WarningBox>
           </div>
-          
-          {/* Right Column - Visual Examples */}
+
           <div className="space-y-4">
-            {/* IMAGE 20: Underfloor Raceway */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+            <div className="relative">
               <Image
                 src="/images/module-02/m02-18.jpg"
-                alt="Underfloor raceway installation in commercial building"
+                alt="Grounding electrode system showing water pipe, concrete-encased electrode, and ground ring"
                 width={400}
                 height={300}
-                className="w-full h-48 object-cover rounded-lg"
+                className="rounded-xl"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Underfloor: Hidden Power Distribution</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">Grounding electrode system</p>
               </div>
             </div>
             
-            {/* IMAGE 21: Raceway Access */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+            <div className="relative">
               <Image
                 src="/images/module-02/m02-19.jpg"
-                alt="Access points and junction boxes for underfloor raceway system"
+                alt="Grounding electrode conductor installation showing proper sizing and connections"
                 width={400}
                 height={300}
-                className="w-full h-48 object-cover rounded-lg"
+                className="rounded-xl"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Plan Access Points Carefully</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">GEC installation</p>
               </div>
             </div>
           </div>
         </div>
-
-        {/* Underfloor Raceway Benefits */}
-        <ChartBox>
-          <h4 className="font-bold text-white mb-4 text-center">Underfloor Raceway Benefits & Considerations</h4>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h5 className="font-semibold text-yellow-400 mb-2">Benefits</h5>
-              <ul className="text-white/85 text-sm space-y-1">
-                <li>• Hidden wiring</li>
-                <li>• Flexible outlet placement</li>
-                <li>• Clean appearance</li>
-                <li>• Easy maintenance access</li>
-              </ul>
-            </div>
-            <div>
-              <h5 className="font-semibold text-yellow-400 mb-2">Planning Required</h5>
-              <ul className="text-white/85 text-sm space-y-1">
-                <li>• Floor construction type</li>
-                <li>• Load calculations</li>
-                <li>• Access point locations</li>
-                <li>• Future expansion needs</li>
-              </ul>
-            </div>
-          </div>
-        </ChartBox>
-
-        {/* Horror Story */}
-        <HorrorStory>
-          <strong>True Story:</strong> A contractor installed underfloor raceways without planning access points. 
-          When they needed to add circuits later, they had to cut holes in the floor to reach the raceways. 
-          The rework cost more than the original installation. <HL>390.15</HL> exists for a reason—plan your access points!
-        </HorrorStory>
       </section>
 
-      {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-2300 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
-        <div className="flex items-center gap-4">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-        </div>
-      </div>
+      {/* Article 280/285 — Surge Arresters and SPDs */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="grid lg:grid-cols-2 gap-8 items-start">
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="p-2 bg-purple-400/20 rounded-lg">
+                <Zap className="w-6 h-6 text-purple-400" />
+              </div>
+              <h2 className="text-2xl font-bold text-white">Articles 280/285 — Surge Arresters and SPDs</h2>
+            </div>
+            
+            <div className="space-y-4 text-gray-300">
+              <p><HL>280.4</HL>: Surge arresters rated for system voltage, installed on line side of service disconnect. This provides primary surge protection.</p>
+              <p><HL>285.3</HL>: SPDs installed on load side, coordinated with surge arresters for complete protection. This provides secondary protection.</p>
+              <p><HL>285.6</HL>: SPDs must be listed for purpose, installed per manufacturer instructions. This ensures proper operation.</p>
+              <p><HL>285.11</HL>: SPDs require proper grounding and bonding connections for effective operation. This provides surge current path.</p>
+            </div>
 
-      {/* Article 400 — Flexible Cords and Cables */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex items-center gap-3 mb-6">
-          <Cable className="w-8 h-8 text-yellow-400" />
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 400 — Flexible Cords and Cables
-          </h2>
-        </div>
-        
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {/* Left Column - Text Content */}
-          <div className="space-y-4 text-white/90 leading-relaxed">
-            <p>
-              — <HL>400.7</HL>: Flexible cords and cables can be used for specific purposes like portable equipment, appliances, and luminaires.
-            </p>
-            <p>
-              — <HL>400.8</HL>: Flexible cords and cables cannot be used as a substitute for permanent wiring of structures.
-            </p>
-            <p>
-              — <HL>400.10</HL>: Flexible cords and cables must be protected from physical damage and excessive tension.
-            </p>
-            <p>
-              — <HL>400.14</HL>: Flexible cords and cables must be used with approved fittings and strain relief.
-            </p>
+            <RuleBox>
+              <strong>RULE OF THUMB:</strong> Install surge arresters on line side, SPDs on load side. This creates a coordinated protection system that handles both external and internal surges.
+            </RuleBox>
           </div>
-          
-          {/* Right Column - Visual Examples */}
+
           <div className="space-y-4">
-            {/* IMAGE 22: Flexible Cord Usage */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+            <div className="relative">
               <Image
                 src="/images/module-02/m02-20.jpg"
-                alt="Proper flexible cord usage with strain relief and approved fittings"
+                alt="Surge arrester installation on line side of service disconnect"
                 width={400}
                 height={300}
-                className="w-full h-48 object-cover rounded-lg"
+                className="rounded-xl"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Use Strain Relief & Approved Fittings</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">Surge arrester installation</p>
               </div>
             </div>
             
-            {/* IMAGE 23: Cord Protection */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
+            <div className="relative">
               <Image
                 src="/images/module-02/m02-21.jpg"
-                alt="Protection of flexible cords from physical damage and excessive tension"
+                alt="SPD installation showing proper grounding and coordination"
                 width={400}
                 height={300}
-                className="w-full h-48 object-cover rounded-lg"
+                className="rounded-xl"
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Protect From Damage & Tension</p>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                <p className="text-sm">SPD coordination</p>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Flexible Cord Types Table */}
-        <DataTable>
-          <h4 className="font-bold text-white mb-4">Common Flexible Cord Types & Uses</h4>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-white/20">
-                  <th className="text-left p-3 text-yellow-400 font-bold">Type</th>
-                  <th className="text-left p-3 text-yellow-400 font-bold">Use</th>
-                  <th className="text-left p-3 text-yellow-400 font-bold">Limitations</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/10">
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">SJ</td>
-                  <td className="p-3">Junior hard service</td>
-                  <td className="p-3 text-red-400">300V max, indoor use</td>
-                </tr>
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">S</td>
-                  <td className="p-3">Hard service</td>
-                  <td className="p-3 text-red-400">600V max, general use</td>
-                </tr>
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">SO</td>
-                  <td className="p-3">Oil-resistant</td>
-                  <td className="p-3 text-green-400">Oil/coolant exposure</td>
-                </tr>
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">ST</td>
-                  <td className="p-3">Extra hard service</td>
-                  <td className="p-3 text-green-400">Heavy-duty applications</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </DataTable>
-
-        {/* Warning Box */}
-        <WarningBox>
-          <strong>EXAM TRAP:</strong> The exam loves to ask about flexible cord limitations. Remember: 
-          flexible cords are NOT a substitute for permanent wiring. They're for portable equipment, appliances, and luminaires only.
-        </WarningBox>
-      </section>
-
-      {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-2500 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
-        <div className="flex items-center gap-4">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-        </div>
-      </div>
-
-      {/* Article 402 — Fixture Wires */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex items-center gap-3 mb-6">
-          <Zap className="w-8 h-8 text-yellow-400" />
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 402 — Fixture Wires
-          </h2>
-        </div>
-        
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {/* Left Column - Text Content */}
-          <div className="space-y-4 text-white/90 leading-relaxed">
-            <p>
-              — <HL>402.5</HL>: Fixture wires can be used for internal wiring of luminaires and similar equipment.
-            </p>
-            <p>
-              — <HL>402.6</HL>: Fixture wires cannot be used as branch-circuit conductors or for general wiring.
-            </p>
-            <p>
-              — <HL>402.7</HL>: Fixture wires must be protected from physical damage and excessive tension.
-            </p>
-            <p>
-              — <HL>402.8</HL>: Fixture wires must be used with approved fittings and strain relief.
-            </p>
-          </div>
-          
-          {/* Right Column - Visual Examples */}
-          <div className="space-y-4">
-            {/* IMAGE 24: Fixture Wire Usage */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
-              <Image
-                src="/images/module-02/m02-22.jpg"
-                alt="Fixture wire usage in luminaire internal wiring"
-                width={400}
-                height={300}
-                className="w-full h-48 object-cover rounded-lg"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Fixture Wires: Internal Use Only</p>
-              </div>
-            </div>
-            
-            {/* IMAGE 25: Fixture Wire Protection */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
-              <Image
-                src="/images/module-02/m02-23.jpg"
-                alt="Protection of fixture wires from damage and proper strain relief"
-                width={400}
-                height={300}
-                className="w-full h-48 object-cover rounded-lg"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Protect & Use Strain Relief</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Fixture Wire Types Chart */}
-        <ChartBox>
-          <h4 className="font-bold text-white mb-4 text-center">Common Fixture Wire Types</h4>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h5 className="font-semibold text-yellow-400 mb-2">Type TFFN</h5>
-              <p className="text-white/85 text-sm">
-                Thermoplastic, flexible, fixture wire, nylon jacketed. 90°C rating, commonly used in luminaires.
-              </p>
-            </div>
-            <div>
-              <h5 className="font-semibold text-yellow-400 mb-2">Type TFN</h5>
-              <p className="text-white/85 text-sm">
-                Thermoplastic, flexible, fixture wire, nylon jacketed. 90°C rating, similar to TFFN.
-              </p>
-            </div>
-          </div>
-        </ChartBox>
-      </section>
-
-      {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-2700 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
-        <div className="flex items-center gap-4">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-        </div>
-      </div>
-
-      {/* Article 404 — Switches */}
-      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-2800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="flex items-center gap-3 mb-6">
-          <Plug className="w-8 h-8 text-yellow-400" />
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white">
-            Article 404 — Switches
-          </h2>
-        </div>
-        
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
-          {/* Left Column - Text Content */}
-          <div className="space-y-4 text-white/90 leading-relaxed">
-            <p>
-              — <HL>404.4</HL>: Switches must be installed so that the center of the grip of the operating handle is not more than 6 feet 7 inches above the floor.
-            </p>
-            <p>
-              — <HL>404.8</HL>: Switches must be installed in accessible locations and must be readily accessible.
-            </p>
-            <p>
-              — <HL>404.9</HL>: Switches must be grounded when required by Article 250.
-            </p>
-            <p>
-              — <HL>404.11</HL>: Switches must be marked to indicate their function and current rating.
-            </p>
-          </div>
-          
-          {/* Right Column - Visual Examples */}
-          <div className="space-y-4">
-            {/* IMAGE 26: Switch Installation */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
-              <Image
-                src="/images/module-02/m02-24.jpg"
-                alt="Proper switch installation with correct height and accessibility"
-                width={400}
-                height={300}
-                className="w-full h-48 object-cover rounded-lg"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Switches: Height & Accessibility Matter</p>
-              </div>
-            </div>
-            
-            {/* IMAGE 27: Switch Marking */}
-            <div className="relative overflow-hidden rounded-xl border border-white/20 bg-white/[0.03] p-4">
-              <Image
-                src="/images/module-02/m02-25.jpg"
-                alt="Properly marked switches with function and rating information"
-                width={400}
-                height={300}
-                className="w-full h-48 object-cover rounded-lg"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-                <p className="text-white text-sm font-semibold">Mark Function & Rating Clearly</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Switch Requirements Table */}
-        <DataTable>
-          <h4 className="font-bold text-white mb-4">Switch Installation Requirements</h4>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-white/20">
-                  <th className="text-left p-3 text-yellow-400 font-bold">Requirement</th>
-                  <th className="text-left p-3 text-yellow-400 font-bold">Code Section</th>
-                  <th className="text-left p-3 text-yellow-400 font-bold">Key Point</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/10">
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">Maximum Height</td>
-                  <td className="p-3">404.4</td>
-                  <td className="p-3 text-green-400">6'7" above floor</td>
-                </tr>
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">Accessibility</td>
-                  <td className="p-3">404.8</td>
-                  <td className="p-3 text-green-400">Readily accessible</td>
-                </tr>
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">Grounding</td>
-                  <td className="p-3">404.9</td>
-                  <td className="p-3 text-green-400">When required by 250</td>
-                </tr>
-                <tr className="hover:bg-white/[0.02] transition-colors">
-                  <td className="p-3 font-semibold">Marking</td>
-                  <td className="p-3">404.11</td>
-                  <td className="p-3 text-green-400">Function & rating</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </DataTable>
-
-        {/* Rule Box */}
-        <RuleBox>
-          <strong>RULE OF THUMB:</strong> Switches must be accessible and properly marked. Think about who will use them 
-          and make sure they can reach and understand them. Height limits exist for a reason—accessibility matters.
-        </RuleBox>
-      </section>
-
-      {/* Visual Divider */}
-      <div className={`mx-auto max-w-5xl my-12 transition-all duration-1000 delay-2900 ${isVisible ? 'opacity-100 scale-x-100' : 'opacity-0 scale-x-0'}`}>
-        <div className="flex items-center gap-4">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-          <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-yellow-400/50 to-transparent"></div>
-        </div>
-      </div>
-
-      {/* Chapter 2 Summary */}
-      <section className={`mx-auto max-w-5xl mb-16 transition-all duration-1000 delay-3000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <Target className="w-10 h-10 text-yellow-400" />
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-yellow-400">
-              Chapter 2 Summary
-            </h2>
-            <Target className="w-10 h-10 text-yellow-400" />
-          </div>
-          <p className="text-xl text-white/90 max-w-3xl mx-auto">
-            You've mastered the core wiring methods that make electrical installations safe and reliable. 
-            Remember: choose the right method for the environment, support everything properly, and protect conductors from damage.
-          </p>
-        </div>
-
-        {/* Summary Cards Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {/* Card 1 */}
-          <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-yellow-400/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-400/30 transition-colors">
-                <Waypoints className="w-8 h-8 text-yellow-400" />
-              </div>
-              <h3 className="text-lg font-bold text-white mb-2">Wiring Rules</h3>
-              <p className="text-white/80 text-sm">
-                Choose the right raceway for the environment. EMT for dry, PVC for wet, RMC for hazardous.
-              </p>
-            </div>
-          </div>
-
-          {/* Card 2 */}
-          <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-yellow-400/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-400/30 transition-colors">
-                <AlertTriangle className="w-8 h-8 text-yellow-400" />
-              </div>
-              <h3 className="text-lg font-bold text-white mb-2">Overcurrent Protection</h3>
-              <p className="text-white/80 text-sm">
-                Every wiring method has specific support spacing. Don't guess—check the code!
-              </p>
-            </div>
-          </div>
-
-          {/* Card 3 */}
-          <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-yellow-400/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-400/30 transition-colors">
-                <GitBranch className="w-8 h-8 text-yellow-400" />
-              </div>
-              <h3 className="text-lg font-bold text-white mb-2">Circuits & Feeders</h3>
-              <p className="text-white/80 text-sm">
-                Proper installation prevents future problems. Take your time, do it right.
-              </p>
-            </div>
-          </div>
-
-          {/* Card 4 */}
-          <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-yellow-400/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-400/30 transition-colors">
-                <Building className="w-8 h-8 text-yellow-400" />
-              </div>
-              <h3 className="text-lg font-bold text-white mb-2">Services</h3>
-              <p className="text-white/80 text-sm">
-                Type AC, MC, NM, and flexible cords each have specific uses and limitations.
-              </p>
-            </div>
-          </div>
-
-          {/* Card 5 */}
-          <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-yellow-400/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-400/30 transition-colors">
-                <Flame className="w-8 h-8 text-yellow-400" />
-              </div>
-              <h3 className="text-lg font-bold text-white mb-2">Surge & Arc Faults</h3>
-              <p className="text-white/80 text-sm">
-                Physical damage protection is crucial. Plan for the environment and potential hazards.
-              </p>
-            </div>
-          </div>
-
-          {/* Card 6 */}
-          <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition-all duration-300 hover:scale-105 group">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-yellow-400/20 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:bg-yellow-400/30 transition-colors">
-                <Zap className="w-8 h-8 text-yellow-400" />
-              </div>
-              <h3 className="text-lg font-bold text-white mb-2">Ground-Faults</h3>
-              <p className="text-white/80 text-sm">
-                Follow NEC requirements exactly. The code exists to keep people safe and installations reliable.
-              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Knowledge Check Quiz */}
-      <section className={`mx-auto max-w-5xl mb-16 transition-all duration-1000 delay-3200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+      {/* Chapter Summary */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <Brain className="w-8 h-8 text-yellow-400" />
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-yellow-400">
-              Knowledge Check Quiz
-            </h2>
-            <Brain className="w-8 h-8 text-yellow-400" />
-          </div>
-          <p className="text-lg text-white/90">
-            Test your understanding of Chapter 2. Get 80% or higher to prove you've mastered wiring methods!
-          </p>
+          <h2 className="text-3xl font-bold text-white mb-4">Chapter 2 Summary</h2>
+          <p className="text-gray-400 text-lg">Key takeaways from Wiring and Protection</p>
         </div>
+        
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center">
+            <div className="w-12 h-12 bg-blue-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <CircuitBoard className="w-6 h-6 text-blue-400" />
+            </div>
+            <h3 className="font-bold text-white mb-2">Branch Circuits</h3>
+            <p className="text-gray-400 text-sm">GFCI, AFCI, spacing, MWBC requirements</p>
+          </div>
+          
+          <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center">
+            <div className="w-12 h-12 bg-green-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <ShieldCheck className="w-6 h-6 text-green-400" />
+            </div>
+            <h3 className="font-bold text-white mb-2">Grounding</h3>
+            <p className="text-gray-400 text-sm">GES, GEC sizing, EGC requirements</p>
+          </div>
+          
+          <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center">
+            <div className="w-12 h-12 bg-red-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <AlertTriangle className="w-6 h-6 text-red-400" />
+            </div>
+            <h3 className="font-bold text-white mb-2">Overcurrent</h3>
+            <p className="text-gray-400 text-sm">OCPD selection, conductor protection</p>
+          </div>
+          
+          <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center">
+            <div className="w-12 h-12 bg-orange-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <CloudLightning className="w-6 h-6 text-orange-400" />
+            </div>
+            <h3 className="font-bold text-white mb-2">Services</h3>
+            <p className="text-gray-400 text-sm">Disconnect location, up-to-six rule</p>
+          </div>
+          
+          <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center">
+            <div className="w-12 h-12 bg-purple-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <Zap className="w-6 h-6 text-purple-400" />
+            </div>
+            <h3 className="font-bold text-white mb-2">Protection</h3>
+            <p className="text-gray-400 text-sm">Surge protection, coordination</p>
+          </div>
+          
+          <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center">
+            <div className="w-12 h-12 bg-yellow-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <BookOpen className="w-6 h-6 text-yellow-400" />
+            </div>
+            <h3 className="font-bold text-white mb-2">Calculations</h3>
+            <p className="text-gray-400 text-sm">Load calculations, demand factors</p>
+          </div>
+        </div>
+      </section>
 
+      {/* Quiz Section */}
+      <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold text-white mb-4">Knowledge Check</h2>
+          <p className="text-gray-400 text-lg">Test your understanding of Chapter 2</p>
+        </div>
+        
         <Quiz questions={quiz} />
       </section>
 
       {/* Footer Navigation */}
-      <FooterNav prev={{href:"/modules/module-01",label:"Chapter 1"}} next={{href:"/modules/module-03",label:"Chapter 3"}} />
+      <FooterNav 
+        prev={{href:"/modules/module-01",label:"Chapter 1"}} 
+        next={{href:"/modules/module-03",label:"Chapter 3"}} 
+      />
     </main>
   );
 }

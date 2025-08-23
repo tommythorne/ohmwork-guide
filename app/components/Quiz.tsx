@@ -1,173 +1,212 @@
-'use client';
+"use client";
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
+import type { QuizChoiceKey, QuizQuestion } from "@/app/types/module";
 
-type ChoiceKey = 'A'|'B'|'C'|'D';
-type Choice = { key: ChoiceKey; text: string };
-type Question = {
-  id: number;
-  stem: string;
-  choices: Choice[];
-  answer: ChoiceKey;
-  why: string; // brief NEC explanation
+type Props = {
+  questions: QuizQuestion[];
+  storageKeyPrefix?: string; // default "ohmwork-quiz:"
 };
 
-export default function Quiz({ questions }: { questions: Question[] }) {
-  const [selected, setSelected] = useState<Record<number, ChoiceKey | null>>({});
+const PASS_THRESHOLD = 0.75; // 75%
+type AnswersMap = Record<number, QuizChoiceKey | null>;
+
+function pct(n: number, d: number) {
+  if (d <= 0) return 0;
+  return Math.round((n / d) * 100);
+}
+
+export default function Quiz({ questions, storageKeyPrefix = "ohmwork-quiz:" }: Props) {
+  const pathname = usePathname();
+  const storageKey = useMemo(
+    () => `${storageKeyPrefix}${pathname ?? ""}`,
+    [pathname, storageKeyPrefix]
+  );
+
+  // answers[id] = 'A' | 'B' | 'C' | 'D' | null
+  const [answers, setAnswers] = useState<AnswersMap>(() => {
+    if (typeof window === "undefined") return {};
+    try {
+      const raw = localStorage.getItem(storageKey);
+      if (raw) return JSON.parse(raw) as AnswersMap;
+    } catch {}
+    const init: AnswersMap = {};
+    for (const q of questions) init[q.id] = null;
+    return init;
+  });
+
   const [submitted, setSubmitted] = useState(false);
+  const total = questions.length;
 
-  const allAnswered = useMemo(() => {
-    if (!questions?.length) return false;
-    return questions.every(q => selected[q.id] != null);
-  }, [questions, selected]);
+  // persist on change
+  useEffect(() => {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(answers));
+    } catch {}
+  }, [answers, storageKey]);
 
+  // recompute score only after submit
   const { correctCount, percent } = useMemo(() => {
-    if (!questions?.length) return { correctCount: 0, percent: 0 };
-    const right = questions.reduce((acc, q) => {
-      return acc + (selected[q.id] === q.answer ? 1 : 0);
-    }, 0);
-    return {
-      correctCount: right,
-      percent: Math.round((right / questions.length) * 100),
-    };
-  }, [questions, selected]);
+    if (!submitted) return { correctCount: 0, percent: 0 };
+    let correct = 0;
+    for (const q of questions) {
+      if (answers[q.id] === q.answer) correct++;
+    }
+    return { correctCount: correct, percent: pct(correct, total) };
+  }, [submitted, answers, questions, total]);
 
-  const submit = () => setSubmitted(true);
-  const reset = () => {
-    setSelected({});
+  function choose(qid: number, choice: QuizChoiceKey) {
+    setAnswers((prev) => ({ ...prev, [qid]: choice }));
+  }
+
+  function resetAll() {
+    const init: AnswersMap = {};
+    for (const q of questions) init[q.id] = null;
+    setAnswers(init);
     setSubmitted(false);
-  };
+    try {
+      localStorage.removeItem(storageKey);
+    } catch {}
+  }
 
-  const pick = (qid: number, key: ChoiceKey) =>
-    setSelected(prev => ({ ...prev, [qid]: key }));
+  function onSubmit() {
+    setSubmitted(true);
+    // persist the "submitted" state alongside answers
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(answers));
+    } catch {}
+  }
+
+  const allAnswered = useMemo(
+    () => questions.every((q) => !!answers[q.id]),
+    [questions, answers]
+  );
 
   return (
-    <div className="rounded-xl border border-white/10 bg-white/[0.02] p-6">
-      {/* Header / Result */}
-      <div className="flex items-center justify-between mb-4">
-        <div className="text-white/70 text-sm">
-          Questions: <span className="text-white">{questions.length}</span>
-        </div>
-        {submitted ? (
-          <div className={`text-sm font-semibold ${percent >= 70 ? 'text-green-400' : 'text-red-400'}`}>
-            Score: {correctCount}/{questions.length} ({percent}%)
-          </div>
-        ) : (
-          <div className="text-white/50 text-sm">Select answers, then submit</div>
-        )}
-      </div>
+    <section aria-labelledby="quiz-heading" className="mt-12">
+      {/* Header (no buttons at top) */}
+      <div className="rounded-2xl bg-gradient-to-b from-blue-900/60 to-indigo-900/30 border border-white/10 p-6 md:p-8 shadow-xl">
+        <h2 id="quiz-heading" className="text-2xl md:text-3xl font-extrabold text-white text-center">
+          Knowledge Check
+        </h2>
+        <p className="mt-2 text-center text-white/80">
+          Answer all questions, then click <span className="font-semibold text-yellow-300">Submit Answers</span>.
+          You’ll see your score after submitting. Nothing is graded until then.
+        </p>
 
-      {/* Guidance after submit */}
-      {submitted && (
-        <div
-          className={`mb-6 rounded-lg p-4 border transition-all duration-300 ${
-            percent >= 70
-              ? 'border-green-400/40 bg-green-400/10'
-              : 'border-red-400/40 bg-red-400/10'
-          }`}
-        >
-          {percent >= 70 ? (
-            <p className="text-white/90">
-              Nice work — <span className="text-green-400 font-bold">{percent}%</span>. You’re tracking well.
-            </p>
-          ) : (
-            <p className="text-white/90">
-              You scored <span className="text-red-400 font-bold">{percent}%</span>. Review this module and re-test.
-            </p>
-          )}
-        </div>
-      )}
-
-      {/* Questions */}
-      <div className="space-y-6">
-        {questions.map((q, i) => {
-          const picked = selected[q.id];
-          const isCorrect = submitted && picked === q.answer;
-          const isWrong = submitted && picked && picked !== q.answer;
-
-          return (
-            <div
-              key={q.id}
-              className={[
-                "rounded-xl border p-5 transition-all duration-300",
-                "bg-white/[0.02] hover:bg-white/[0.04]",
-                submitted
-                  ? isCorrect
-                    ? "border-green-400/40"
-                    : isWrong
-                    ? "border-red-400/40"
-                    : "border-white/10"
-                  : "border-white/10"
-              ].join(" ")}
-            >
-              <div className="text-white font-semibold text-lg mb-4">
-                {i + 1}. {q.stem}
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-3 mb-4">
-                {q.choices.map((c) => {
-                  const choiceIsCorrect = submitted && c.key === q.answer;
-                  const choiceIsPickedWrong = submitted && picked === c.key && picked !== q.answer;
-
-                  return (
-                    <label
-                      key={c.key}
-                      className={[
-                        "flex items-center gap-3 rounded-lg border px-4 py-3 cursor-pointer transition",
-                        "bg-white/[0.03] hover:bg-white/[0.06]",
-                        choiceIsCorrect ? "border-green-400/50 bg-green-400/10" : "",
-                        choiceIsPickedWrong ? "border-red-400/50 bg-red-400/10" : "",
-                        !choiceIsCorrect && !choiceIsPickedWrong ? "border-white/10" : ""
-                      ].join(" ")}
-                    >
-                      <input
-                        type="radio"
-                        name={`q-${q.id}`}
-                        className="accent-yellow-400"
-                        checked={picked === c.key}
-                        onChange={() => pick(q.id, c.key)}
-                        disabled={submitted} // lock after submit
-                      />
-                      <span className="font-mono text-yellow-300 font-bold">{c.key}</span>
-                      <span className="text-white/90">{c.text}</span>
-                    </label>
-                  );
-                })}
-              </div>
-
-              {/* Inline explanation for wrong answers after submit */}
-              {submitted && isWrong && (
-                <div className="mt-3 rounded-lg border border-yellow-400/40 bg-yellow-400/10 p-3">
-                  <div className="font-mono text-sm mb-1">
-                    Correct: <span className="text-green-400 font-bold">{q.answer}</span>
+        {/* Result banner appears only after submit */}
+        {/* Questions */}
+        <div className="mt-6 space-y-5">
+          {questions.map((q, i) => {
+            const chosen = answers[q.id] ?? null;
+            const showFeedback = submitted; // only after submit
+            return (
+              <div
+                key={q.id}
+                className="rounded-xl border border-white/15 bg-white/[0.03] p-4 md:p-5"
+              >
+                <div className="mb-3 flex items-start gap-3">
+                  <div className="h-8 w-8 shrink-0 rounded-full bg-yellow-500/20 border border-yellow-400/40 flex items-center justify-center text-yellow-300 font-bold">
+                    {i + 1}
                   </div>
-                  <div className="text-white/90 text-sm">{q.why}</div>
+                  <h3 className="text-white font-semibold leading-snug">{q.stem}</h3>
                 </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
 
-      {/* Actions */}
-      <div className="flex flex-wrap gap-3 mt-6">
-        {!submitted ? (
+                <div className="grid gap-2">
+                  {q.choices.map((c) => {
+                    const isSelected = chosen === c.key;
+                    const isCorrect = c.key === q.answer;
+                    // Only color after submit
+                    const stateClass = showFeedback
+                      ? isCorrect
+                        ? "border-emerald-500/40 bg-emerald-500/10"
+                        : isSelected
+                        ? "border-red-500/40 bg-red-500/10"
+                        : "border-white/10 bg-white/[0.02]"
+                      : isSelected
+                      ? "border-yellow-400/50 bg-yellow-500/10"
+                      : "border-white/10 bg-white/[0.02]";
+
+                    return (
+                      <label
+                        key={c.key}
+                        className={`rounded-lg border px-3 py-2 cursor-pointer transition-colors ${stateClass}`}
+                      >
+                        <input
+                          type="radio"
+                          name={`q-${q.id}`}
+                          value={c.key}
+                          checked={isSelected || false}
+                          onChange={() => choose(q.id, c.key)}
+                          className="hidden"
+                          aria-label={`Choice ${c.key}`}
+                        />
+                        <span className="text-white/90 font-medium mr-2">{c.key}.</span>
+                        <span className="text-white/90">{c.text}</span>
+                      </label>
+                    );
+                  })}
+                </div>
+
+                {/* Explanation only after submit */}
+                {showFeedback && (
+                  <p className="mt-3 text-sm text-white/70">
+                    <span className="font-semibold text-white/90">Explanation:</span> {q.why}
+                  </p>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Bottom controls ONLY */}
+        <div className="mt-8 flex flex-col sm:flex-row justify-end gap-3">
           <button
-            onClick={submit}
+            type="button"
+            onClick={resetAll}
+            className="px-4 py-2 rounded-lg border border-white/15 bg-white/[0.06] text-white hover:bg-white/[0.1] transition"
+          >
+            Reset
+          </button>
+          <button
+            type="button"
+            onClick={onSubmit}
             disabled={!allAnswered}
-            className="rounded-lg bg-green-500 text-black font-bold px-6 py-3 disabled:opacity-40 hover:bg-green-400 transition"
+            className={`px-4 py-2 rounded-lg font-semibold transition ${
+              allAnswered
+                ? "bg-yellow-400 text-black hover:bg-yellow-300"
+                : "bg-yellow-400/40 text-black/60 cursor-not-allowed"
+            }`}
           >
             Submit Answers
           </button>
-        ) : (
-          <button
-            onClick={reset}
-            className="rounded-lg bg-yellow-400 text-black font-bold px-6 py-3 hover:bg-yellow-300 transition"
+        </div>
+
+        {/* Result banner appears only after submit */}
+        {submitted && (
+          <div
+            className={`mt-6 rounded-xl border p-4 text-center ${
+              percent >= PASS_THRESHOLD * 100
+                ? "bg-emerald-500/10 border-emerald-400/40"
+                : "bg-red-500/10 border-red-400/40"
+            }`}
+            role="status"
+            aria-live="polite"
           >
-            Reset Quiz
-          </button>
+            <p className="text-lg font-semibold text-white">
+              Score: <span className="text-yellow-300">{percent}%</span> ({correctCount}/{total})
+            </p>
+            {percent >= PASS_THRESHOLD * 100 ? (
+              <p className="text-emerald-300 mt-1">Nice work — you passed. 🎉</p>
+            ) : (
+              <p className="text-red-300 mt-1">
+                Score below 75%. Review the material and try again.
+              </p>
+            )}
+          </div>
         )}
       </div>
-    </div>
+    </section>
   );
 }
