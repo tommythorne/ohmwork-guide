@@ -3,7 +3,8 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Quiz from "./Quiz"; // uses your existing working quiz component
+import Quiz from "./Quiz";
+import FooterNav from "./FooterNav"; // <-- footer wired here
 
 import {
   BookOpen, Target, Zap, ShieldCheck, CircuitBoard, Calculator,
@@ -16,7 +17,8 @@ import {
  * - Hero (image + title/subtitle)
  * - Stats cards (3)
  * - Article sections (2-col: text left, up to 2 images right)
- * - Knowledge Check section renders ONLY if props.quiz is provided
+ * - Knowledge Check section (only if props.quiz exists)
+ * - Footer navigation (only if props.prev or props.next provided)
  * Accepts permissive props to avoid TS blowups.
  */
 
@@ -159,7 +161,7 @@ export default function ModuleTemplate(props: any) {
         ))}
       </div>
 
-      {/* Knowledge Check (renders ONLY when props.quiz is present) */}
+      {/* Knowledge Check */}
       {Array.isArray(props?.quiz) && props.quiz.length > 0 ? (
         <section className="mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1500">
           <div className="text-center mb-8">
@@ -167,6 +169,13 @@ export default function ModuleTemplate(props: any) {
             <p className="text-gray-400 text-lg">Test your understanding of this chapter</p>
           </div>
           <Quiz questions={props.quiz} />
+        </section>
+      ) : null}
+
+      {/* Footer Navigation — renders only if prev/next provided */}
+      {(props?.prev || props?.next) ? (
+        <section className="mx-auto max-w-5xl px-4 pb-16">
+          <FooterNav prev={props.prev} next={props.next} />
         </section>
       ) : null}
     </main>
