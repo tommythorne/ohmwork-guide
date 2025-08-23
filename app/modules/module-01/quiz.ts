@@ -1,124 +1,184 @@
-// NEC-based Quiz for Module 1 (Chapter 1 — General)
+// NEC-based Quiz for Module 1 (Chapter 1 — Article 90 + core)
 const quiz = [
   {
     id: 1,
-    stem: "According to NEC Article 90.1, what is the primary purpose of the NEC?",
+    stem: "NEC 90.1(A) says the Code’s primary purpose is:",
     choices: [
-      { key: "A", text: "To maximize energy efficiency" },
-      { key: "B", text: "To ensure practical safeguarding of persons and property from electrical hazards" },
-      { key: "C", text: "To regulate electrical utility companies" },
-      { key: "D", text: "To set manufacturing standards for equipment" }
+      { key: "A", text: "Absolute safety for all conditions" },
+      { key: "B", text: "Practical safeguarding of persons and property" },
+      { key: "C", text: "OSHA enforcement rules" },
+      { key: "D", text: "Utility company standards" }
     ],
     answer: "B",
-    why: "NEC 90.1 states the Code’s purpose is practical safeguarding of persons and property."
+    why: "90.1(A): NEC provides practical safeguarding—not perfection."
   },
   {
     id: 2,
-    stem: "NEC 90.3 establishes the structure of the Code. How are requirements arranged?",
+    stem: "Per 90.1(B), the NEC is NOT intended to be:",
     choices: [
-      { key: "A", text: "Chapters 1–4 apply generally; 5–7 supplement/modify; 8 is independent" },
-      { key: "B", text: "Chapters 1–3 apply generally; 4–6 supplement; 7–9 are annexes" },
-      { key: "C", text: "Every chapter applies equally to all installations" },
-      { key: "D", text: "Only Article 100 and 110 apply universally" }
+      { key: "A", text: "A minimum safety standard" },
+      { key: "B", text: "A design specification or instruction manual" },
+      { key: "C", text: "Adopted by jurisdictions" },
+      { key: "D", text: "Used by engineers and electricians" }
     ],
-    answer: "A",
-    why: "90.3: Chapters 1–4 apply generally; 5, 6, 7 may supplement/modify; Chapter 8 is independent unless modified."
+    answer: "B",
+    why: "90.1(B): The Code isn’t a design manual."
   },
   {
     id: 3,
-    stem: "According to NEC 90.5, what is the mandatory versus permissive language distinction?",
+    stem: "90.3 explains Code arrangement. Which is correct?",
     choices: [
-      { key: "A", text: "'Shall' = mandatory; 'Should' = optional" },
-      { key: "B", text: "'Shall' = mandatory; 'May' = permissive" },
-      { key: "C", text: "'Must' = mandatory; 'May' = permissive" },
-      { key: "D", text: "'Should' = mandatory; 'Shall' = advisory" }
+      { key: "A", text: "Ch.1–4 general; 5–7 can modify/supplement; Ch.8 is independent" },
+      { key: "B", text: "Ch.1–9 all apply equally at all times" },
+      { key: "C", text: "Only Ch.1–3 apply generally" },
+      { key: "D", text: "Ch.8 overrules everything" }
     ],
-    answer: "B",
-    why: "NEC 90.5: 'Shall' indicates mandatory requirements; 'May' indicates permissive."
+    answer: "A",
+    why: "90.3 describes the hierarchy: 1–4 general, 5–7 modify, 8 independent unless modified."
   },
   {
     id: 4,
-    stem: "What does Article 100 provide?",
+    stem: "Mandatory vs permissive language per 90.5:",
     choices: [
-      { key: "A", text: "Mandatory installation rules" },
-      { key: "B", text: "Definitions used throughout the NEC" },
-      { key: "C", text: "Tables for conductor ampacities" },
-      { key: "D", text: "Procedures for field inspections" }
+      { key: "A", text: "'Shall' = permissive; 'May' = mandatory" },
+      { key: "B", text: "'Should' = mandatory; 'Shall' = advisory" },
+      { key: "C", text: "'Shall' = mandatory; 'May' = permissive" },
+      { key: "D", text: "'Must' = advisory; 'May' = mandatory" }
     ],
-    answer: "B",
-    why: "Article 100 contains all NEC definitions, essential for interpreting requirements."
+    answer: "C",
+    why: "90.5: 'Shall' is required; 'May' is permitted."
   },
   {
     id: 5,
-    stem: "Article 110 generally covers which aspect of electrical installations?",
+    stem: "Article 100 provides:",
     choices: [
-      { key: "A", text: "Grounding and bonding" },
-      { key: "B", text: "General requirements for electrical equipment and conductors" },
-      { key: "C", text: "Overcurrent protection" },
-      { key: "D", text: "Special occupancies" }
+      { key: "A", text: "General installation rules" },
+      { key: "B", text: "Definitions used throughout the NEC" },
+      { key: "C", text: "Motor rules" },
+      { key: "D", text: "Conductor ampacity tables" }
     ],
     answer: "B",
-    why: "Article 110 covers general requirements for electrical equipment, conductors, and field labeling."
+    why: "Article 100 = definitions. Exams love definition traps."
   },
   {
     id: 6,
-    stem: "What is the significance of the Informational Notes in the NEC?",
+    stem: "Informational Notes in the NEC are:",
     choices: [
-      { key: "A", text: "They are enforceable requirements" },
-      { key: "B", text: "They provide examples or explanations but are not enforceable" },
-      { key: "C", text: "They must be followed unless waived by AHJ" },
-      { key: "D", text: "They apply only to industrial facilities" }
+      { key: "A", text: "Enforceable requirements" },
+      { key: "B", text: "Explanatory, not enforceable" },
+      { key: "C", text: "Adopted only by OSHA" },
+      { key: "D", text: "Applicable only in industrial plants" }
     ],
     answer: "B",
-    why: "Informational Notes clarify requirements but are not enforceable parts of the Code."
+    why: "Notes clarify; they’re not requirements."
   },
   {
     id: 7,
-    stem: "What is the 'scope' of the NEC as outlined in Article 90.2?",
+    stem: "90.2 Scope mainly covers:",
     choices: [
-      { key: "A", text: "Applies to all electrical installations without exception" },
-      { key: "B", text: "Applies to public and private premises, including buildings, structures, and mobile homes" },
-      { key: "C", text: "Covers utility generation and transmission exclusively" },
-      { key: "D", text: "Covers only residential installations" }
+      { key: "A", text: "Utility generation and transmission only" },
+      { key: "B", text: "Manufacturing standards for equipment" },
+      { key: "C", text: "Electrical installations in public and private premises" },
+      { key: "D", text: "Telecom codes only" }
     ],
-    answer: "B",
-    why: "NEC 90.2 covers installations in buildings, structures, and other premises, public or private."
+    answer: "C",
+    why: "90.2: applies to installations in buildings/structures/premises."
   },
   {
     id: 8,
-    stem: "According to NEC, who has final authority on approval of electrical installations?",
+    stem: "Which is typically outside NEC scope per 90.2(B)?",
     choices: [
-      { key: "A", text: "Installer" },
-      { key: "B", text: "Engineer of record" },
-      { key: "C", text: "Authority Having Jurisdiction (AHJ)" },
-      { key: "D", text: "NFPA inspectors" }
+      { key: "A", text: "Utility-controlled installations" },
+      { key: "B", text: "Dwelling units" },
+      { key: "C", text: "Commercial buildings" },
+      { key: "D", text: "Industrial plants" }
     ],
-    answer: "C",
-    why: "The AHJ interprets and enforces NEC compliance."
+    answer: "A",
+    why: "Utility-owned/controlled is generally excluded."
   },
   {
     id: 9,
-    stem: "What is the meaning of 'listed' equipment as used in NEC?",
+    stem: "The AHJ is responsible for:",
     choices: [
-      { key: "A", text: "Equipment manufactured in the U.S." },
-      { key: "B", text: "Equipment identified in the NEC annexes" },
-      { key: "C", text: "Equipment included in a list published by an OSHA body" },
-      { key: "D", text: "Equipment determined suitable for use by a recognized testing lab" }
+      { key: "A", text: "Manufacturing equipment" },
+      { key: "B", text: "Enforcing and interpreting the Code locally" },
+      { key: "C", text: "Setting utility rates" },
+      { key: "D", text: "Issuing OSHA citations" }
     ],
-    answer: "D",
-    why: "NEC defines 'listed' as equipment determined suitable by a recognized testing lab (e.g., UL)."
+    answer: "B",
+    why: "Authority Having Jurisdiction enforces/approves installations."
   },
   {
     id: 10,
-    stem: "What does NEC 90.1(B) emphasize about the Code’s role?",
+    stem: "“Listed” equipment means:",
     choices: [
-      { key: "A", text: "It ensures absolute safety under all conditions" },
-      { key: "B", text: "It is not intended as a design specification or instruction manual" },
-      { key: "C", text: "It is optional unless adopted by local jurisdictions" },
-      { key: "D", text: "It applies only to electricians with licenses" }
+      { key: "A", text: "Made in the USA" },
+      { key: "B", text: "Reviewed by any engineer" },
+      { key: "C", text: "Suitable as determined by a recognized testing lab" },
+      { key: "D", text: "Mentioned in an NEC annex" }
+    ],
+    answer: "C",
+    why: "“Listed” = evaluated by a recognized testing organization (e.g., UL)."
+  },
+  {
+    id: 11,
+    stem: "Which statement best reflects NEC intent?",
+    choices: [
+      { key: "A", text: "It guarantees injury-free installations" },
+      { key: "B", text: "It’s the sole design authority" },
+      { key: "C", text: "It sets minimum safety requirements" },
+      { key: "D", text: "It’s optional guidance" }
+    ],
+    answer: "C",
+    why: "NEC is a minimum safety standard."
+  },
+  {
+    id: 12,
+    stem: "If Chapters 5–7 conflict with Chapters 1–4:",
+    choices: [
+      { key: "A", text: "1–4 always win" },
+      { key: "B", text: "5–7 modify/supplement 1–4 where they apply" },
+      { key: "C", text: "Ignore the conflict" },
+      { key: "D", text: "Defer to Article 90.1" }
     ],
     answer: "B",
-    why: "NEC 90.1(B): the Code is not a design manual but a minimum safety standard."
+    why: "90.3: 5–7 can modify/supplement the general rules."
+  },
+  {
+    id: 13,
+    stem: "Chapter 8 (Communications) is:",
+    choices: [
+      { key: "A", text: "Always subordinate to 1–7" },
+      { key: "B", text: "Independent unless modified by Chapters 1–7" },
+      { key: "C", text: "Not part of the NEC" },
+      { key: "D", text: "Only advisory" }
+    ],
+    answer: "B",
+    why: "90.3: Ch.8 stands alone unless modified."
+  },
+  {
+    id: 14,
+    stem: "Per 90.7, equipment examination/identification typically involves:",
+    choices: [
+      { key: "A", text: "Listing/labeling by qualified labs" },
+      { key: "B", text: "Self-certification by installer" },
+      { key: "C", text: "Local jury" },
+      { key: "D", text: "Only factory inspectors" }
+    ],
+    answer: "A",
+    why: "90.7 recognizes listing/labeling/testing."
+  },
+  {
+    id: 15,
+    stem: "When the NEC is adopted by a jurisdiction, enforcement occurs through:",
+    choices: [
+      { key: "A", text: "Manufacturer’s instructions only" },
+      { key: "B", text: "AHJ, permits, inspections, and approvals" },
+      { key: "C", text: "Voluntary compliance by installers" },
+      { key: "D", text: "Utility tariffs" }
+    ],
+    answer: "B",
+    why: "Local adoption → AHJ permitting/inspection framework."
   }
 ];
 export default quiz;
