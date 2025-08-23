@@ -1,180 +1,178 @@
 // @ts-nocheck
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
+import React from "react";
 import Quiz from "./Quiz";
-import FooterNav from "./FooterNav"; // <-- footer wired here
-
-import {
-  BookOpen, Target, Zap, ShieldCheck, CircuitBoard, Calculator,
-  CloudLightning, AlertTriangle, Cable
-} from "lucide-react";
+import FooterNav from "./FooterNav";
+import { BookOpen, Target, Zap } from "lucide-react";
 
 /**
- * ModuleTemplate — HARD-LOCKED to Module 2 layout:
- * - Top bar badge
- * - Hero (image + title/subtitle)
- * - Stats cards (3)
- * - Article sections (2-col: text left, up to 2 images right)
- * - Knowledge Check section (only if props.quiz exists)
- * - Footer navigation (only if props.prev or props.next provided)
- * Accepts permissive props to avoid TS blowups.
+ * MODULE-2 LOCKED TEMPLATE
+ * - Always renders: Hero -> Stats cards -> Articles -> Quiz (if provided) -> Footer nav
+ * - No "At a Glance" or stats blocks inside articles
+ * - Accepts flexible content (points | bullets | body), ignores unknown props
+ * - Auto-derives counts: articles.length, quiz.length, sum(images)
  */
 
+type AnyRec = Record<string, any>;
+
 const HL = ({ children }: { children: React.ReactNode }) => (
-  <span className="font-extrabold underline decoration-yellow-400 underline-offset-4">{children}</span>
+  <span className="font-extrabold underline decoration-yellow-400 underline-offset-4">
+    {children}
+  </span>
 );
 
-const iconMap: Record<string, any> = {
-  BookOpen, Target, Zap, ShieldCheck, CircuitBoard, Calculator, CloudLightning, AlertTriangle, Cable
-};
-
-function getIcon(iconName?: string, className?: string) {
-  if (!iconName) return null;
-  const Ico = iconMap[iconName] || null;
-  return Ico ? <Ico className={className || "w-6 h-6"} /> : null;
-}
+const Card = ({ icon, value, label }: AnyRec) => (
+  <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
+    <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center mx-auto mb-4">
+      {icon}
+    </div>
+    <div className="text-2xl font-bold text-white">{value}</div>
+    <div className="text-gray-400">{label}</div>
+  </div>
+);
 
 function renderPoint(p: any, i: number) {
-  if (typeof p === "string") return <p key={i} className="text-gray-300"><HL>{p}</HL></p>;
-  const ref = p?.ref ? <HL>{p.ref}</HL> : null;
-  const text = p?.text || "";
+  // allow string or {ref,text}
+  if (typeof p === "string") {
+    return (
+      <p key={i} className="leading-relaxed text-slate-200">
+        {p}
+      </p>
+    );
+  }
+  const ref = (p?.ref || "").toString().trim();
+  const text = (p?.text || "").toString().trim();
   return (
-    <p key={i} className="text-gray-300">
-      {ref}{ref && text ? ": " : null}{text}
+    <p key={i} className="leading-relaxed text-slate-200">
+      {ref ? <span className="font-semibold text-slate-100"><HL>{ref}</HL></span> : null}
+      {ref && text ? ": " : null}
+      {text || null}
     </p>
   );
 }
 
-function ArticleBlock({ a, delay = 300 }: { a: any; delay?: number }) {
-  const icon = getIcon(a?.iconName, "w-6 h-6 text-green-400");
-  const points = Array.isArray(a?.points) ? a.points : Array.isArray(a?.bullets) ? a.bullets : [];
-  const imgs  = Array.isArray(a?.images) ? a.images.slice(0,2) : [];
+function ArticleSection(a: AnyRec, idx: number) {
+  // Body priority: points -> bullets -> body
+  let body: React.ReactNode = null;
+  if (Array.isArray(a?.points) && a.points.length) {
+    body = <div className="space-y-3">{a.points.map(renderPoint)}</div>;
+  } else if (Array.isArray(a?.bullets) && a.bullets.length) {
+    body = (
+      <div className="space-y-3">
+        {a.bullets.map((b: any, i: number) => renderPoint(typeof b === "string" ? { text: b } : b, i))}
+      </div>
+    );
+  } else if (a?.body) {
+    body = <div className="prose prose-invert max-w-none">{a.body}</div>;
+  }
+
+  const images = Array.isArray(a?.images) ? a.images : [];
+
   return (
-    <section className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-${delay}`}>
+    <section
+      key={a?.id || a?.title || idx}
+      className={`mx-auto max-w-5xl mb-12 transition-all duration-700`}
+    >
       <div className="grid lg:grid-cols-2 gap-8 items-start">
         <div>
-          <div className="flex items-center gap-3 mb-6">
-            <div className="p-2 bg-green-400/20 rounded-lg">
-              {icon || <ShieldCheck className="w-6 h-6 text-green-400" />}
-            </div>
-            <h2 className="text-2xl font-bold text-white">{a?.title || "Untitled Section"}</h2>
-          </div>
-          <div className="space-y-4">
-            {points.length > 0
-              ? points.map((p:any, i:number) => renderPoint(p, i))
-              : a?.body
-                ? <div className="prose prose-invert max-w-none">{a.body}</div>
-                : null}
-          </div>
+          {a?.title ? (
+            <h2 className="text-2xl font-bold text-white mb-4">{a.title}</h2>
+          ) : null}
+          {body}
         </div>
 
-        <div className="space-y-4">
-          {imgs.map((img:any, i:number) => (
-            <div className="relative" key={i}>
-              <img
-                src={img?.src || "/images/placeholder.jpg"}
-                alt={img?.alt || ""}
-                width={400}
-                height={300}
-                className="rounded-xl w-full h-auto object-cover border border-white/10"
-              />
-              {(img?.caption || img?.alt) ? (
-                <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
-                  <p className="text-sm">{img?.caption || img?.alt}</p>
-                </div>
-              ) : null}
-            </div>
-          ))}
-        </div>
+        {images.length ? (
+          <div className="space-y-4">
+            {images.map((img: any, i: number) => (
+              <figure key={i} className="relative">
+                {/* using plain img keeps this component generic */}
+                <img
+                  src={img?.src}
+                  alt={img?.alt || ""}
+                  className="rounded-xl border border-white/10 w-full"
+                />
+                {(img?.caption || img?.label) ? (
+                  <figcaption className="mt-2 text-xs text-slate-400">
+                    {img?.caption || img?.label}
+                  </figcaption>
+                ) : null}
+              </figure>
+            ))}
+          </div>
+        ) : null}
       </div>
     </section>
   );
 }
 
-export default function ModuleTemplate(props: any) {
-  const [isVisible, setIsVisible] = useState(false);
-  useEffect(() => setIsVisible(true), []);
-
+export default function ModuleTemplate(props: AnyRec) {
   const hero = props?.hero || {};
-  const heading = hero?.title || props?.title || "";
+  const title = hero?.title || props?.title || "";
   const subtitle = hero?.subtitle || props?.intro || "";
-  const heroImg = hero?.imageSrc || "/images/hero-default.jpg";
+  const blurb = hero?.blurb || "";
 
-  const articles = Array.isArray(props?.articles) ? props.articles : [];
+  const articles: AnyRec[] = Array.isArray(props?.articles) ? props.articles : [];
+  const quiz: AnyRec[] = Array.isArray(props?.quiz) ? props.quiz : [];
 
-  // Stats: use provided or derive
-  const stats = Array.isArray(props?.stats) && props.stats.length === 3
-    ? props.stats
-    : [
-        { iconName: "BookOpen", value: String(articles.length || 0), label: "Major Articles" },
-        { iconName: "Target",   value: String((props?.quiz && props.quiz.length) || props?.quizCount || 0), label: "Quiz Questions" },
-        { iconName: "Zap",      value: String(articles.reduce((n:number,a:any)=> n + (Array.isArray(a?.images)?a.images.length:0), 0)), label: "Visual Examples" },
-      ];
+  // derived counts (Module‑2 stats row)
+  const visuals = articles.reduce((sum, a) => sum + (Array.isArray(a?.images) ? a.images.length : 0), 0);
+  const stats = [
+    { icon: <BookOpen className="w-6 h-6 text-blue-400" />, value: articles.length || 0, label: "Major Articles" },
+    { icon: <Target className="w-6 h-6 text-green-400" />, value: quiz.length || 0, label: "Quiz Questions" },
+    { icon: <Zap className="w-6 h-6 text-purple-400" />, value: visuals || 0, label: "Visual Examples" },
+  ];
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white">
-      {/* Top Bar */}
-      <div className="bg-black/50 backdrop-blur-sm border-b border-white/20">
-        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link href="/intro" className="text-gray-300 hover:text-white transition-colors flex items-center gap-2">
-            <span>←</span><span>Back to TOC</span>
-          </Link>
-          <span className="text-sm text-gray-400 bg-gray-800 px-2 py-1 rounded">OhmWork™ 2025</span>
-        </div>
-      </div>
+      {/* Top bar like Module 2 kept outside for pages; template focuses on inner content */}
 
-      {/* Hero */}
-      <section className="relative h-96 flex items-center justify-center overflow-hidden">
-        <img src={heroImg} alt={hero?.imageAlt || "module hero"} className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-black/60"></div>
-        <div className={`relative z-10 text-center transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-          <h1 className="text-5xl font-bold text-white mb-4">{heading}</h1>
-          {subtitle ? <p className="text-xl text-gray-300 max-w-2xl mx-auto">{subtitle}</p> : null}
+      {/* Hero (Module‑2 look) */}
+      <section className="relative h-80 md:h-96 flex items-center justify-center overflow-hidden">
+        {hero?.imageSrc ? (
+          <>
+            <img src={hero.imageSrc} alt={hero?.imageAlt || title || "module"} className="absolute inset-0 w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-black/60" />
+          </>
+        ) : (
+          <div className="absolute inset-0 bg-black/30" />
+        )}
+        <div className="relative z-10 text-center px-4">
+          {title ? <h1 className="text-4xl md:text-5xl font-bold mb-3">{title}</h1> : null}
+          {subtitle ? <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">{subtitle}</p> : null}
+          {blurb ? <p className="text-sm text-gray-400 max-w-3xl mx-auto mt-2">{blurb}</p> : null}
         </div>
       </section>
 
-      {/* Stats */}
+      {/* Stats cards */}
       <section className="max-w-5xl mx-auto px-4 -mt-8 mb-12">
         <div className="grid md:grid-cols-3 gap-6">
-          {stats.slice(0,3).map((s:any, i:number) => {
-            const Ico = iconMap[s.iconName] || [BookOpen,Target,Zap][i] || BookOpen;
-            const color = i===0?"blue":i===1?"green":"purple";
-            return (
-              <div key={i} className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
-                <div className={`w-12 h-12 bg-${color}-400/20 rounded-lg flex items-center justify-center mx-auto mb-4`}>
-                  <Ico className={`w-6 h-6 text-${color}-400`} />
-                </div>
-                <div className="text-2xl font-bold text-white">{s.value ?? "0"}</div>
-                <div className="text-gray-400">{s.label ?? ""}</div>
-              </div>
-            );
-          })}
+          {stats.map((s, i) => (
+            <Card key={i} icon={s.icon} value={s.value} label={s.label} />
+          ))}
         </div>
       </section>
 
-      {/* Articles */}
-      <div className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-        {articles.map((a:any, idx:number) => (
-          <ArticleBlock key={a?.id || a?.title || idx} a={a} delay={300 + idx*100} />
-        ))}
+      {/* Articles (Module‑2 structure; NO at‑a‑glance) */}
+      <div className="max-w-5xl mx-auto px-4">
+        <div className="text-gray-300 mb-4">Major Articles</div>
       </div>
+      {articles.map(ArticleSection)}
 
-      {/* Knowledge Check */}
-      {Array.isArray(props?.quiz) && props.quiz.length > 0 ? (
-        <section className="mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1500">
+      {/* Quiz (optional) */}
+      {quiz.length ? (
+        <section className="mx-auto max-w-5xl px-4 mb-12">
           <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-white mb-4">Knowledge Check</h2>
-            <p className="text-gray-400 text-lg">Test your understanding of this chapter</p>
+            <h2 className="text-3xl font-bold text-white mb-2">Knowledge Check</h2>
+            <p className="text-gray-400">Test your understanding</p>
           </div>
-          <Quiz questions={props.quiz} />
+          <Quiz questions={quiz} />
         </section>
       ) : null}
 
-      {/* Footer Navigation — renders only if prev/next provided */}
+      {/* Footer nav (optional) */}
       {(props?.prev || props?.next) ? (
-        <section className="mx-auto max-w-5xl px-4 pb-16">
+        <section className="mx-auto max-w-5xl px-4 mb-16">
           <FooterNav prev={props.prev} next={props.next} />
         </section>
       ) : null}
