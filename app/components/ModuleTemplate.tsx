@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo } from "react";
+import * as Icons from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -160,7 +161,13 @@ export default function ModuleTemplate({
           <div className="grid lg:grid-cols-2 gap-8 items-start px-4">
             {/* Text / Body */}
             <div>
-              <h2 className="text-2xl font-bold text-white mb-4">{a.title}</h2>
+              <div className="flex items-center gap-3 mb-4">
+    {a.iconName && (() => {
+      const Icon = (Icons as any)[a.iconName] || null;
+      return Icon ? <Icon className="w-6 h-6 text-blue-400" aria-hidden="true" /> : null;
+    })()}
+    <h2 className="text-2xl font-bold text-white">{a.title}</h2>
+  </div>
               <div className="space-y-4 text-gray-300">{a.body}</div>
 
               {!!a.bullets?.length && (
