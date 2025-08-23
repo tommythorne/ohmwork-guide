@@ -1,7 +1,6 @@
 "use client";
 
 import { AlertTriangle, BookOpen, Cable, CircuitBoard, ShieldCheck, Wrench, Zap, Building, CloudLightning, Flame, Target, Waypoints, GitBranch, Ruler, Brain, Plug, Calculator } from "lucide-react";
-import { HL, RuleBox, WarningBox, CodeBox, DataTable, ChartBox } from "../../components/Blocks";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
