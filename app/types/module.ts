@@ -11,6 +11,7 @@ export type ModuleImage = {
 export type ModuleArticle = {
   id: string;
   title: string;
+  iconName?: string;
   body: ReactNode;
   images: ModuleImage[];
   /** Optional: bullet-point key takeaways for this article */
@@ -36,6 +37,13 @@ export type ModuleSummaryCard = {
   text: string;
 };
 
+
+
+export type StatsItem = {
+  label: string;
+  value: string;
+  icon?: React.ReactNode;
+};
 /** Small statistic card (top of page) */
 export type ModuleStat = {
   label: string;   // e.g., "Major Articles"
