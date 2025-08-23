@@ -3,8 +3,8 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Quiz from "./Quiz"; // uses your existing working quiz component
 
-// Icon set used in Module 2 look
 import {
   BookOpen, Target, Zap, ShieldCheck, CircuitBoard, Calculator,
   CloudLightning, AlertTriangle, Cable
@@ -13,13 +13,11 @@ import {
 /**
  * ModuleTemplate — HARD-LOCKED to Module 2 layout:
  * - Top bar badge
- * - Hero (full-bleed bg image + title/subtitle)
+ * - Hero (image + title/subtitle)
  * - Stats cards (3)
- * - For each article: left = icon + title + bullets; right = two images
- * Notes:
- * - Accept ANY props (hero, stats, articles, quiz, etc.) without type errors
- * - Articles may provide: title, iconName, points|bullets|body, images[{src,alt,caption}]
- * - If stats not provided, derive: {articles, quiz length, total images}
+ * - Article sections (2-col: text left, up to 2 images right)
+ * - Knowledge Check section renders ONLY if props.quiz is provided
+ * Accepts permissive props to avoid TS blowups.
  */
 
 const HL = ({ children }: { children: React.ReactNode }) => (
@@ -37,9 +35,7 @@ function getIcon(iconName?: string, className?: string) {
 }
 
 function renderPoint(p: any, i: number) {
-  if (typeof p === "string") {
-    return <p key={i} className="text-gray-300"><HL>{p}</HL></p>;
-  }
+  if (typeof p === "string") return <p key={i} className="text-gray-300"><HL>{p}</HL></p>;
   const ref = p?.ref ? <HL>{p.ref}</HL> : null;
   const text = p?.text || "";
   return (
@@ -127,7 +123,7 @@ export default function ModuleTemplate(props: any) {
         </div>
       </div>
 
-      {/* Hero Section (Module 2 look) */}
+      {/* Hero */}
       <section className="relative h-96 flex items-center justify-center overflow-hidden">
         <img src={heroImg} alt={hero?.imageAlt || "module hero"} className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-black/60"></div>
@@ -137,7 +133,7 @@ export default function ModuleTemplate(props: any) {
         </div>
       </section>
 
-      {/* Stats Cards (3) */}
+      {/* Stats */}
       <section className="max-w-5xl mx-auto px-4 -mt-8 mb-12">
         <div className="grid md:grid-cols-3 gap-6">
           {stats.slice(0,3).map((s:any, i:number) => {
@@ -156,14 +152,23 @@ export default function ModuleTemplate(props: any) {
         </div>
       </section>
 
-      {/* Article Sections (Module 2 two-column pattern) */}
+      {/* Articles */}
       <div className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
         {articles.map((a:any, idx:number) => (
           <ArticleBlock key={a?.id || a?.title || idx} a={a} delay={300 + idx*100} />
         ))}
       </div>
 
-      {/* Optional Footer Nav slots if the page passes them (we don't render here to avoid coupling) */}
+      {/* Knowledge Check (renders ONLY when props.quiz is present) */}
+      {Array.isArray(props?.quiz) && props.quiz.length > 0 ? (
+        <section className="mx-auto max-w-5xl mb-12 transition-all duration-1000 delay-1500">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-white mb-4">Knowledge Check</h2>
+            <p className="text-gray-400 text-lg">Test your understanding of this chapter</p>
+          </div>
+          <Quiz questions={props.quiz} />
+        </section>
+      ) : null}
     </main>
   );
 }
