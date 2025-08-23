@@ -9,20 +9,20 @@ import FooterNav from "./FooterNav";
 import type { ModuleTemplateProps } from "@/app/types/module";
 
 /**
- * Module-02 visual baseline:
+ * Module-02 visual baseline + content density helpers:
  * - Top bar with TOC + OhmWork™ 2025 badge
- * - Full-bleed hero image with dark overlay, title, subtitle, (optional) blurb
- * - Article sections: 2-col layout (text left, images right)
+ * - Full-bleed hero image with overlay, title, subtitle, (optional) blurb
+ * - Optional Stats grid (2–4 items)
+ * - Optional "At a Glance" checklist (4–8 bullets)
+ * - Article sections: 2-col layout (text left, images right) + optional per-article bullets
  * - Summary cards grid
- * - Knowledge Check with Quiz at the very end
- * - FooterNav (prev/next). FooterNav already prints © line; no extra footer here.
- *
- * NOTE: All “helper blocks” (HL, RuleBox, WarningBox, CodeBox, DataTable, ChartBox)
- * live in app/components/Blocks.tsx and are used inside article body content.
- * This template doesn’t declare or export any of them.
+ * - Knowledge Check (Quiz) at the very end
+ * - FooterNav
  */
 export default function ModuleTemplate({
   hero,
+  stats,
+  atAGlance,
   articles,
   summary,
   quiz,
@@ -31,6 +31,28 @@ export default function ModuleTemplate({
 }: ModuleTemplateProps) {
   const [visible, setVisible] = useState(false);
   useEffect(() => setVisible(true), []);
+
+  // --- Gentle dev-only prompts if content looks thin ---
+  if (process.env.NODE_ENV !== "production") {
+    const imgCount = articles.reduce((n, a) => n + (a.images?.length || 0), 0);
+    const bulletCount = articles.reduce((n, a) => n + (a.bullets?.length || 0), 0);
+
+    if (articles.length < 4) {
+      console.warn("[ModuleTemplate] Consider adding ~6–8 articles for a fuller feel. Currently:", articles.length);
+    }
+    if (imgCount < 12) {
+      console.warn("[ModuleTemplate] Consider adding ~18–24 images across the module. Currently:", imgCount);
+    }
+    if ((atAGlance?.length || 0) < 4) {
+      console.warn("[ModuleTemplate] Consider adding 4–8 'At a Glance' bullets. Currently:", atAGlance?.length || 0);
+    }
+    if (bulletCount < articles.length * 3) {
+      console.warn("[ModuleTemplate] Consider ~3–5 key bullets per article. Currently:", bulletCount);
+    }
+    if ((stats?.length || 0) < 2) {
+      console.warn("[ModuleTemplate] Consider 2–4 top stats to set expectations. Currently:", stats?.length || 0);
+    }
+  }
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white">
@@ -71,6 +93,39 @@ export default function ModuleTemplate({
         </div>
       </section>
 
+      {/* Optional Stats */}
+      {!!stats?.length && (
+        <section className="max-w-5xl mx-auto px-4 -mt-8 mb-12">
+          <div className={`grid sm:grid-cols-2 md:grid-cols-3 gap-6 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+            {stats.map((s, i) => (
+              <div key={i} className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
+                {s.icon && (
+                  <div className="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mx-auto mb-4">
+                    {s.icon}
+                  </div>
+                )}
+                <div className="text-2xl font-bold text-white">{s.value}</div>
+                <div className="text-gray-400">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Optional At-a-Glance */}
+      {!!atAGlance?.length && (
+        <section className="max-w-5xl mx-auto px-4 mb-12">
+          <div className={`rounded-xl border border-white/15 bg-white/[0.03] p-6 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+            <h3 className="text-xl font-bold text-white mb-3">At a Glance</h3>
+            <ul className="grid md:grid-cols-2 gap-x-6 gap-y-2 list-disc list-inside text-gray-300">
+              {atAGlance.map((line, i) => (
+                <li key={i} className="marker:text-yellow-400">{line}</li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      )}
+
       {/* Articles */}
       {articles.map((a, idx) => (
         <section
@@ -85,6 +140,17 @@ export default function ModuleTemplate({
             <div>
               <h2 className="text-2xl font-bold text-white mb-4">{a.title}</h2>
               <div className="space-y-4 text-gray-300">{a.body}</div>
+
+              {!!a.bullets?.length && (
+                <div className="mt-4">
+                  <h4 className="text-white font-semibold mb-2">Key Points</h4>
+                  <ul className="list-disc list-inside text-gray-300 space-y-1">
+                    {a.bullets.map((b, i) => (
+                      <li key={i} className="marker:text-yellow-400">{b}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
 
             {/* Images */}
@@ -119,7 +185,6 @@ export default function ModuleTemplate({
       >
         <div className="text-center mb-8 px-4">
           <h2 className="text-3xl font-bold text-white mb-2">{summary.title}</h2>
-          {/* No blurb in summary by design */}
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">

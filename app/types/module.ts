@@ -13,6 +13,8 @@ export type ModuleArticle = {
   title: string;
   body: ReactNode;
   images: ModuleImage[];
+  /** Optional: bullet-point key takeaways for this article */
+  bullets?: string[];
 };
 
 // Quiz choice type (A, B, C, D)
@@ -34,6 +36,13 @@ export type ModuleSummaryCard = {
   text: string;
 };
 
+/** Small statistic card (top of page) */
+export type ModuleStat = {
+  label: string;   // e.g., "Major Articles"
+  value: string;   // e.g., "10"
+  icon?: ReactNode;
+};
+
 // Props expected by the ModuleTemplate
 export type ModuleTemplateProps = {
   hero: {
@@ -41,8 +50,13 @@ export type ModuleTemplateProps = {
     imageAlt: string;
     title: string;
     subtitle?: string;
+    /** Optional overview sentence; allowed to be omitted. */
     blurb?: string;
   };
+  /** Optional: 2–4 small stat cards shown near the top */
+  stats?: ModuleStat[];
+  /** Optional: 4–8 bullets rendered as "At a Glance" checklist */
+  atAGlance?: string[];
   articles: ModuleArticle[];
   summary: {
     title: string;
