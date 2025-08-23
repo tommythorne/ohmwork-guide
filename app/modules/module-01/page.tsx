@@ -113,7 +113,7 @@ export default function Module01Page() {
       ]}
       prev={{ href: "/modules/intro", label: "Intro" }}
       next={{ href: "/modules/module-02", label: "Chapter 2" }}
-      quiz={quiz}
+
     />
   );
 }
