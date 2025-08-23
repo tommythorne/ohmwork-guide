@@ -1,80 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 import Quiz from "./Quiz";
 import FooterNav from "./FooterNav";
 import type { ModuleTemplateProps } from "@/app/types/module";
-
-// Lucide icons used for auto-badges
-import {
-  BookOpen, Brain, Shield, ShieldCheck, CircuitBoard, Plug, Cable, Zap,
-  CloudLightning, Ruler, Tag, Wrench, AlertTriangle, Lightbulb, Cog, Battery, Calculator
-} from "lucide-react";
-
-/** Pick an icon + color for an article title (no per-module edits needed). */
-function pickBadge(title: string) {
-  const t = title.toLowerCase();
-
-  // Chapter 1 & common topics
-  if (t.includes("article 90"))           return { Icon: BookOpen,   color: "blue"   };
-  if (t.includes("article 100") || t.includes("definition")) 
-                                          return { Icon: Brain,      color: "violet" };
-  if (t.includes("110.3") || t.includes("listing") || t.includes("label"))
-                                          return { Icon: ShieldCheck,color: "green"  };
-  if (t.includes("110.14") || t.includes("termination") || t.includes("torque"))
-                                          return { Icon: Wrench,     color: "amber"  };
-  if (t.includes("110.26") || t.includes("working space") || t.includes("clearance"))
-                                          return { Icon: Ruler,      color: "yellow" };
-  if (t.includes("identification") || t.includes("marking") || t.includes("110.21") || t.includes("110.22") || t.includes("110.24"))
-                                          return { Icon: Tag,        color: "sky"    };
-
-  // Chapter 2 common
-  if (t.includes("article 200"))          return { Icon: ShieldCheck,color: "green"  };
-  if (t.includes("article 210") || t.includes("branch circuit"))
-                                          return { Icon: CircuitBoard,color: "blue"  };
-  if (t.includes("article 215") || t.includes("feeder"))
-                                          return { Icon: Cable,      color: "purple" };
-  if (t.includes("article 220") || t.includes("calculation"))
-                                          return { Icon: Calculator, color: "yellow" };
-  if (t.includes("article 225") || t.includes("outside"))
-                                          return { Icon: CloudLightning, color: "orange" };
-  if (t.includes("article 230") || t.includes("service"))
-                                          return { Icon: Zap,        color: "red"    };
-  if (t.includes("article 240") || t.includes("overcurrent"))
-                                          return { Icon: AlertTriangle, color: "pink" };
-  if (t.includes("article 242") || t.includes("overvoltage") || t.includes("spd"))
-                                          return { Icon: Shield,     color: "indigo" };
-
-  // Chapter 4 common
-  if (t.includes("article 404") || t.includes("switch")) 
-                                          return { Icon: Lightbulb,  color: "blue"   };
-  if (t.includes("article 406") || t.includes("receptacle") || t.includes("device"))
-                                          return { Icon: Plug,       color: "yellow" };
-  if (t.includes("article 410") || t.includes("luminaire") || t.includes("lamp"))
-                                          return { Icon: Lightbulb,  color: "purple" };
-  if (t.includes("article 422") || t.includes("appliance"))
-                                          return { Icon: Cog,        color: "teal"   };
-  if (t.includes("article 430") || t.includes("motor"))
-                                          return { Icon: Cog,        color: "amber"  };
-  if (t.includes("article 440") || t.includes("refrigeration") || t.includes("a/c"))
-                                          return { Icon: CloudLightning, color: "cyan" };
-  if (t.includes("article 450") || t.includes("transformer"))
-                                          return { Icon: Battery,    color: "rose"   };
-
-  // Fallback
-  return { Icon: BookOpen, color: "slate" };
-}
+import { BookOpen, Target, Zap } from "lucide-react";
 
 /**
  * Module-02 visual baseline + content density helpers:
  * - Top bar with TOC + OhmWork™ 2025 badge
- * - Full-bleed hero image with overlay, title, subtitle (no blurb render)
- * - Optional Stats grid (2–4 items)
+ * - Full-bleed hero image with overlay, title, subtitle, (optional) blurb
+ * - Stats grid (now ALWAYS shown) — auto-derived if not provided
  * - Optional "At a Glance" checklist (4–8 bullets)
- * - Article sections: 2-col layout (text left, images right) + optional bullets
+ * - Article sections: 2-col layout (text left, images right) + optional per-article bullets
  * - Summary cards grid
  * - Knowledge Check (Quiz) at the very end
  * - FooterNav
@@ -92,16 +33,68 @@ export default function ModuleTemplate({
   const [visible, setVisible] = useState(false);
   useEffect(() => setVisible(true), []);
 
-  // Dev-only density nudges
+  const totals = useMemo(() => {
+    const images = articles.reduce((n, a) => n + (a.images?.length || 0), 0);
+    const questions = quiz?.length ?? 0;
+    return {
+      articles: articles.length,
+      images,
+      questions,
+    };
+  }, [articles, quiz]);
+
+  // Normalize/derive stats so the three tiles are always shown with accurate numbers
+  const displayStats = useMemo(() => {
+    const derived = [
+      {
+        label: "Major Articles",
+        value: String(totals.articles),
+        icon: <BookOpen className="w-6 h-6 text-blue-400" aria-hidden="true" />,
+      },
+      {
+        label: "Quiz Questions",
+        value: String(totals.questions),
+        icon: <Target className="w-6 h-6 text-green-400" aria-hidden="true" />,
+      },
+      {
+        label: "Visual Examples",
+        value: String(totals.images),
+        icon: <Zap className="w-6 h-6 text-purple-400" aria-hidden="true" />,
+      },
+    ];
+
+    if (!stats || stats.length === 0) return derived;
+
+    // If stats are provided, keep icons/labels but correct the numeric values when we can infer intent.
+    const corrected = stats.map((s) => {
+      const label = s.label.toLowerCase();
+      if (label.includes("major article")) return { ...s, value: String(totals.articles) };
+      if (label.includes("quiz")) return { ...s, value: String(totals.questions) };
+      if (label.includes("visual") || label.includes("image")) return { ...s, value: String(totals.images) };
+      return s;
+    });
+
+    // Ensure we still show at least those 3 core stats
+    const haveArticles = corrected.some((s) => s.label.toLowerCase().includes("major article"));
+    const haveQuiz = corrected.some((s) => s.label.toLowerCase().includes("quiz"));
+    const haveVisuals = corrected.some((s) => s.label.toLowerCase().includes("visual") || s.label.toLowerCase().includes("image"));
+
+    const ensure = [...corrected];
+    if (!haveArticles) ensure.unshift(derived[0]);
+    if (!haveQuiz) ensure.push(derived[1]);
+    if (!haveVisuals) ensure.push(derived[2]);
+
+    // Keep it tidy: show max 3–4, prioritizing the core three
+    return ensure.slice(0, 3);
+  }, [stats, totals]);
+
+  // --- Gentle dev-only prompts if content looks thin ---
   if (process.env.NODE_ENV !== "production") {
-    const imgCount = articles.reduce((n, a) => n + (a.images?.length || 0), 0);
     const bulletCount = articles.reduce((n, a) => n + (a.bullets?.length || 0), 0);
-    if (articles.length < 4)       console.warn("[ModuleTemplate] Consider ~6–8 articles. Currently:", articles.length);
-    if (imgCount < 12)             console.warn("[ModuleTemplate] Consider ~18–24 images. Currently:", imgCount);
-    if ((atAGlance?.length||0) <4) console.warn("[ModuleTemplate] Add 4–8 'At a Glance' bullets. Currently:", atAGlance?.length||0);
-    if (bulletCount < articles.length * 3)
-                                   console.warn("[ModuleTemplate] Try 3–5 key bullets/article. Currently:", bulletCount);
-    if ((stats?.length||0) < 2)    console.warn("[ModuleTemplate] Add 2–4 top stats. Currently:", stats?.length||0);
+    if (articles.length < 4) console.warn("[ModuleTemplate] Consider ~6–8 articles. Currently:", articles.length);
+    if (totals.images < 12) console.warn("[ModuleTemplate] Consider ~18–24 images. Currently:", totals.images);
+    if ((atAGlance?.length || 0) < 4) console.warn("[ModuleTemplate] Consider 4–8 'At a Glance' bullets. Currently:", atAGlance?.length || 0);
+    if (bulletCount < articles.length * 3) console.warn("[ModuleTemplate] Consider ~3–5 bullets per article. Currently:", bulletCount);
   }
 
   return (
@@ -110,7 +103,8 @@ export default function ModuleTemplate({
       <div className="bg-black/50 backdrop-blur-sm border-b border-white/20">
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/intro" className="text-gray-300 hover:text-white transition-colors flex items-center gap-2">
-            <span>←</span><span>Back to TOC</span>
+            <span>←</span>
+            <span>Back to TOC</span>
           </Link>
           <span className="text-sm text-gray-300 bg-gray-800/80 px-2 py-1 rounded">OhmWork™ 2025</span>
         </div>
@@ -123,85 +117,80 @@ export default function ModuleTemplate({
         <div className="relative z-10 text-center px-4">
           <h1 className="text-5xl font-bold text-white mb-4">{hero.title}</h1>
           {hero.subtitle && <p className="text-xl text-gray-300 max-w-2xl mx-auto">{hero.subtitle}</p>}
-          {/* Note: no hero.blurb render by design */}
+          {hero.blurb && <p className="text-gray-300 max-w-3xl mx-auto mt-4">{hero.blurb}</p>}
         </div>
       </section>
 
-      {/* Stats */}
-      {!!stats?.length && (
-        <section className="max-w-5xl mx-auto px-4 -mt-8 mb-12">
-          <div className={`grid sm:grid-cols-2 md:grid-cols-3 gap-6 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-            {stats.map((s, i) => (
-              <div key={i} className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
-                {s.icon && <div className="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mx-auto mb-4">{s.icon}</div>}
-                <div className="text-2xl font-bold text-white">{s.value}</div>
-                <div className="text-gray-400">{s.label}</div>
+      {/* Stats (always visible, auto-corrected) */}
+      <section className="max-w-5xl mx-auto px-4 -mt-8 mb-12">
+        <div className={`grid sm:grid-cols-2 md:grid-cols-3 gap-6 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+          {displayStats.map((s, i) => (
+            <div key={i} className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
+              <div className="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center mx-auto mb-4">
+                {s.icon ?? <BookOpen className="w-6 h-6 text-blue-400" aria-hidden="true" />}
               </div>
-            ))}
-          </div>
-        </section>
-      )}
+              <div className="text-2xl font-bold text-white">{s.value}</div>
+              <div className="text-gray-400">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </section>
 
-      {/* At a Glance */}
+      {/* Optional At-a-Glance */}
       {!!atAGlance?.length && (
         <section className="max-w-5xl mx-auto px-4 mb-12">
           <div className={`rounded-xl border border-white/15 bg-white/[0.03] p-6 transition-all duration-700 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
             <h3 className="text-xl font-bold text-white mb-3">At a Glance</h3>
             <ul className="grid md:grid-cols-2 gap-x-6 gap-y-2 list-disc list-inside text-gray-300">
-              {atAGlance.map((line, i) => (<li key={i} className="marker:text-yellow-400">{line}</li>))}
+              {atAGlance.map((line, i) => (
+                <li key={i} className="marker:text-yellow-400">{line}</li>
+              ))}
             </ul>
           </div>
         </section>
       )}
 
       {/* Articles */}
-      {articles.map((a, idx) => {
-        const { Icon, color } = pickBadge(a.title);
-        const colorBg = `bg-${color}-400/20`;
-        const colorText = `text-${color}-400`;
-        return (
-          <section
-            key={a.id}
-            className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-            style={{ transitionDelay: `${200 + idx * 100}ms` }}
-          >
-            <div className="grid lg:grid-cols-2 gap-8 items-start px-4">
-              {/* Text */}
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <div className={`p-2 rounded-lg ${colorBg}`}>
-                    <Icon className={`w-6 h-6 ${colorText}`} />
-                  </div>
-                  <h2 className="text-2xl font-bold text-white">{a.title}</h2>
-                </div>
-                <div className="space-y-4 text-gray-300">{a.body}</div>
-                {!!a.bullets?.length && (
-                  <div className="mt-4">
-                    <h4 className="text-white font-semibold mb-2">Key Points</h4>
-                    <ul className="list-disc list-inside text-gray-300 space-y-1">
-                      {a.bullets.map((b, i) => (<li key={i} className="marker:text-yellow-400">{b}</li>))}
-                    </ul>
-                  </div>
-                )}
-              </div>
+      {articles.map((a, idx) => (
+        <section
+          key={a.id}
+          className={`mx-auto max-w-5xl mb-12 transition-all duration-1000 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          style={{ transitionDelay: `${200 + idx * 100}ms` }}
+        >
+          <div className="grid lg:grid-cols-2 gap-8 items-start px-4">
+            {/* Text / Body */}
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-4">{a.title}</h2>
+              <div className="space-y-4 text-gray-300">{a.body}</div>
 
-              {/* Images */}
-              <div className="space-y-4">
-                {a.images.map((img, i) => (
-                  <div key={i} className="relative">
-                    <Image src={img.src} alt={img.alt} width={480} height={320} className="rounded-xl w-full h-auto" />
-                    {(img.caption || img.alt) && (
-                      <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
-                        <p className="text-sm">{img.caption || img.alt}</p>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
+              {!!a.bullets?.length && (
+                <div className="mt-4">
+                  <h4 className="text-white font-semibold mb-2">Key Points</h4>
+                  <ul className="list-disc list-inside text-gray-300 space-y-1">
+                    {a.bullets.map((b, i) => (
+                      <li key={i} className="marker:text-yellow-400">{b}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
-          </section>
-        );
-      })}
+
+            {/* Images */}
+            <div className="space-y-4">
+              {a.images.map((img, i) => (
+                <div key={i} className="relative">
+                  <Image src={img.src} alt={img.alt} width={480} height={320} className="rounded-xl w-full h-auto" />
+                  {(img.caption || img.alt) && (
+                    <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 rounded-b-xl">
+                      <p className="text-sm">{img.caption || img.alt}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      ))}
 
       {/* Summary */}
       <section
