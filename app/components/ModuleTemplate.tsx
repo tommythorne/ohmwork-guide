@@ -143,6 +143,9 @@ export default function ModuleTemplate(props: AnyRec) {
           <div className="absolute inset-0 bg-black/30" />
         )}
         <div className="relative z-10 text-center px-4">
+  <div data-testid="tmpl-badge" className="mb-2 inline-flex items-center gap-2 rounded bg-emerald-600/20 border border-emerald-400/30 px-2 py-1 text-xs text-emerald-300">
+    TEMPLATE v2 • Module 2 replica
+  </div>
           {title ? <h1 className="text-4xl md:text-5xl font-bold mb-3">{title}</h1> : null}
           {subtitle ? <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">{subtitle}</p> : null}
           {blurb ? <p className="text-sm text-gray-400 max-w-3xl mx-auto mt-2">{blurb}</p> : null}
