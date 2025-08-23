@@ -5,7 +5,7 @@ import { quizModule01 as quiz } from "./quiz"; // if missing, template still ren
 
 export default function Module01Page() {
   return (
-    <ModuleTemplate
+    <ModuleTemplate quiz={quiz}
       hero={{
         imageSrc: "/images/module-01/m01-hero.jpg",
         imageAlt: "NEC Chapter 1 — General principles, purpose, and installation basics",
