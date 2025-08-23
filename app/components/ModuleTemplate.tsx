@@ -125,6 +125,11 @@ export default function ModuleTemplate(props: AnyRec) {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white">
+      {/* Top navigation (replicates footer) */}
+      <div className="mb-6" data-testid="top-nav">
+        <FooterNav prev={props?.prev} next={props?.next} />
+      </div>
+
       {/* Top bar like Module 2 kept outside for pages; template focuses on inner content */}
 
       {/* Hero (Module‑2 look) */}
