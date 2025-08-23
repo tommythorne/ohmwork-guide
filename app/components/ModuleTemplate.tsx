@@ -5,6 +5,8 @@ type Hero = {
   imageAlt?: string;
   title?: string;
   subtitle?: string;
+  blurb?: string;
+  [key: string]: any; // allow extra hero fields (prevents TS failures like 'blurb')
 };
 
 type ImageItem = {
@@ -27,7 +29,6 @@ type Article = {
 type NavLink = { href?: string; title?: string } | any;
 
 type ModuleTemplateProps = {
-  // Make everything optional except articles, to match existing module pages
   title?: string;        // optional: fallback to hero.title
   intro?: string;        // optional: Module 2 uses simple intro
   hero?: Hero;           // accepted by existing modules
@@ -60,10 +61,10 @@ function renderPoint(p: Point, idx: number) {
 
 /**
  * ModuleTemplate — Locked to Module 2 layout:
- * - Hero (image + title/subtitle)
+ * - Hero (image + title/subtitle/blurb)
  * - "Major Articles" label
- * - Per-article: Title then bullet/paragraph points (Module 2 card style spacing)
- * Other props (summary/quiz/prev/next) are accepted but not rendered here to avoid layout drift.
+ * - Per-article: Title then bullet/paragraph points (Module 2 spacing)
+ * Other props (summary/quiz/prev/next) are accepted but not rendered here to avoid drift.
  */
 export default function ModuleTemplate({
   title,
@@ -89,6 +90,9 @@ export default function ModuleTemplate({
           <p className="text-slate-300">{hero.subtitle}</p>
         ) : intro ? (
           <p className="text-slate-300">{intro}</p>
+        ) : null}
+        {hero?.blurb ? (
+          <p className="text-slate-400">{hero.blurb}</p>
         ) : null}
       </header>
 
