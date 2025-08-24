@@ -149,12 +149,9 @@ export default function ModuleTemplate(props: any) {
           <FooterNav prev={props?.prev || hero?.prev || props?.prev} next={props?.next || hero?.next || props?.next} />
         </div>
     
-      {/* Top Bar */}
+      
       <div className="bg-black/50 backdrop-blur-sm border-b border-white/20">
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-          <Link href="/intro" className="text-gray-300 hover:text-white transition-colors flex items-center gap-2">
-            <span>←</span><span>Back to TOC</span>
-          </Link>
           <span className="text-sm text-gray-400 bg-gray-800 px-2 py-1 rounded">OhmWork™ 2025</span>
         </div>
       </div>
