@@ -3,311 +3,228 @@
 
 import React from "react";
 import FooterNav from "./FooterNav";
-import Quiz from "./Quiz";
 
-/* ---------------------------
-   Helper: simple emoji icons
-----------------------------*/
-const ICONS: Record<string, string> = {
-  shield: "🛡️",
-  circuit: "🔌",
-  zap: "⚡️",
-  book: "📘",
-  calculator: "🧮",
-  wrench: "🔧",
-  brain: "🧠",
-  alert: "⚠️",
-  cloud: "🌩️",
-  target: "🎯",
-  flame: "🔥",
-  ruler: "📏",
-  plug: "🔌",
-  default: "🔹",
+/** Content shape (loose on purpose so it never blocks builds) */
+type ArticlePoint = string | { ref?: string; text?: string };
+type SpecialBlockType = "exam" | "rule" | "horror" | "code" | "table" | "chart";
+type ImageItem = { src?: string; alt?: string; caption?: string };
+type Article = {
+  title?: string;
+  icon?: string;                 // emoji or string
+  points?: ArticlePoint[];       // strings or {ref,text}
+  bullets?: ArticlePoint[];      // alias accepted
+  images?: ImageItem[];          // 0..n
+  block?: {
+    type: SpecialBlockType;
+    title?: string;
+    body?: string | React.ReactNode;
+    table?: React.ReactNode;
+    chart?: React.ReactNode;
+  };
 };
 
-/* -------------------------------------
-   Helper: bold+underline subsection ref
---------------------------------------*/
-const RefHL = ({ children }: { children: React.ReactNode }) => (
+type Props = {
+  hero?: {
+    imageSrc?: string;
+    imageAlt?: string;
+    title?: string;
+    subtitle?: string;           // no blurb globally per your rule
+  };
+  articles?: Article[];
+  quiz?: any[];                  // array of Q
+  prev?: { href: string; label: string };
+  next?: { href: string; label: string };
+};
+
+const HL = ({ children }: { children: React.ReactNode }) => (
   <span className="font-extrabold underline decoration-yellow-400 underline-offset-4">{children}</span>
 );
 
-/* ------------------------------------------------
-   Helper: render one point (Module‑2 subsection)
-   - object -> {ref,text} => bold+underline ref : text
-   - string -> "Title: details" => bold+underline Title : details
--------------------------------------------------*/
+/** Safely render a point that can be a string or {ref,text} */
 const renderPoint = (p: any, i: number) => {
-  if (typeof p !== "string") {
-    const ref = (p?.ref ?? "").toString().trim();
-    const text = (p?.text ?? "").toString().trim();
+  // Flatten text recursively
+  const flatten = (v: any): string => {
+    if (v == null) return "";
+    if (typeof v === "string") return v;
+    if (typeof v === "number" || typeof v === "boolean") return String(v);
+    if (typeof v === "object") {
+      // If it's a {ref,text} shape, fold it, otherwise stringify defensively
+      const inner = flatten((v as any).text);
+      const r = (v as any).ref ? String((v as any).ref).trim() : "";
+      if (r && inner) return `${r}: ${inner}`;
+      return r || inner || "";
+    }
+    try { return JSON.stringify(v); } catch { return ""; }
+  };
+
+  // Preserve bold/underline for top-level ref when present
+  if (p && typeof p === "object" && (p as any).ref) {
+    const ref = String((p as any).ref).trim();
+    const body = flatten((p as any).text);
     return (
-      <p key={i} className="leading-relaxed text-slate-200">
-        {ref ? <RefHL>{ref}</RefHL> : null}
-        {ref && text ? ": " : null}
-        {text || null}
-      </p>
+      <li key={i} className="leading-relaxed text-slate-200">
+        <span className="font-extrabold underline decoration-yellow-400 underline-offset-4">{ref}</span>
+        {body ? `: ${body}` : ""}
+      </li>
     );
   }
-  const raw = p.toString();
-  const idx = raw.indexOf(":");
-  if (idx > 0) {
-    const title = raw.slice(0, idx).trim();
-    const rest = raw.slice(idx + 1).trim();
-    return (
-      <p key={i} className="leading-relaxed text-slate-200">
-        <RefHL>{title}</RefHL>
-        {rest ? <>: {rest}</> : null}
-      </p>
-    );
-  }
-  return <p key={i} className="leading-relaxed text-slate-200">{raw}</p>;
+
+  // Otherwise just render the flattened text
+  const txt = flatten(p);
+  return <li key={i} className="leading-relaxed text-slate-200">{txt}</li>;
 };
 
-/* -----------------------------------------
-   Special blocks — one per article REQUIRED
-   Types: exam | rule | code | horror
-------------------------------------------*/
-function Block({ type, title, body }: { type: string; title?: string; body?: React.ReactNode }) {
-  const map = {
-    exam:  { border: "border-red-500/40",   bg: "bg-red-500/10",   tag: "EXAM TRAP",      emoji: "⚠️",  titleColor: "text-red-400" },
-    rule:  { border: "border-yellow-500/40",bg: "bg-yellow-500/10",tag: "RULE OF THUMB",  emoji: "📎",  titleColor: "text-yellow-400" },
-    code:  { border: "border-blue-500/40",  bg: "bg-blue-500/10",  tag: "NEC REFERENCE",  emoji: "📘",  titleColor: "text-blue-400" },
-    horror:{ border: "border-orange-500/40",bg: "bg-orange-500/10",tag: "JOBSITE HORROR", emoji: "🫣",  titleColor: "text-orange-400" },
-  } as const;
-  const k = (["exam","rule","code","horror"].includes(type) ? type : "rule") as keyof typeof map;
-  const s = map[k];
+/** Single special block card */
+const BlockCard = ({ block }: { block?: Article["block"] }) => {
+  if (!block?.type) return null;
+  const map: Record<SpecialBlockType, { border: string; bg: string; titleColor: string; label: string }> = {
+    exam:   { border: "border-red-500/40",    bg: "bg-red-500/10",    titleColor: "text-red-400",    label: "EXAM TRAP" },
+    rule:   { border: "border-yellow-500/40", bg: "bg-yellow-500/10", titleColor: "text-yellow-400", label: "RULE OF THUMB" },
+    horror: { border: "border-orange-500/40", bg: "bg-orange-500/10", titleColor: "text-orange-400", label: "JOBSITE HORROR STORY" },
+    code:   { border: "border-blue-500/40",   bg: "bg-blue-500/10",   titleColor: "text-blue-400",   label: "NEC REFERENCE" },
+    table:  { border: "border-white/20",      bg: "bg-white/[0.03]",  titleColor: "text-white/90",   label: "DATA TABLE" },
+    chart:  { border: "border-white/20",      bg: "bg-white/[0.03]",  titleColor: "text-white/90",   label: "CHART" }
+  };
+  const s = map[block.type];
+
   return (
     <div className={`rounded-xl border ${s.border} ${s.bg} p-4 my-4`}>
       <div className="flex items-center gap-2 mb-2">
-        <span className={`${s.titleColor} text-xl`}>{s.emoji}</span>
-        <span className={`font-bold ${s.titleColor}`}>{title || s.tag}</span>
+        <span className={`${s.titleColor} font-bold`}>{s.label}</span>
       </div>
-      <div className="text-white/90 text-sm leading-relaxed">{body || "Fill this with chapter-specific insight."}</div>
+      {block.title ? <div className={`font-bold ${s.titleColor} mb-1`}>{block.title}</div> : null}
+      {typeof block.body === "string"
+        ? <div className="text-white/90">{block.body}</div>
+        : block.body
+      }
+      {block.table ? <div className="mt-3">{block.table}</div> : null}
+      {block.chart ? <div className="mt-3">{block.chart}</div> : null}
     </div>
   );
-}
+};
 
-/* -------------------------------------------------------------
-   Normalize content to enforce your GLOBAL rules:
-   - No hero blurb (ignore if present)
-   - Every article has exactly one block
-   - No two consecutive blocks share the same type
-   - Two images per article are stacked vertically (template layout)
---------------------------------------------------------------*/
-function normalizeContent(props: any) {
-  const hero = props?.hero || {};
-  const articles = Array.isArray(props?.articles) ? props.articles.slice() : [];
-  const quiz = Array.isArray(props?.quiz) ? props.quiz : [];
-  const summary = Array.isArray(props?.summary) ? props.summary : [];
-  const prev = props?.prev || hero?.prev || null;
-  const next = props?.next || hero?.next || null;
+/** Right column: two stacked images with captions */
+const ImagesStack = ({ images }: { images?: ImageItem[] }) => {
+  const imgs = Array.isArray(images) ? images.slice(0, 2) : [];
+  if (!imgs.length) return null;
+  return (
+    <div className="space-y-4">
+      {imgs.map((img, i) => (
+        <figure key={i} className="rounded-xl overflow-hidden border border-white/10 bg-white/5">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={img?.src || ""} alt={img?.alt || ""} className="w-full h-auto object-cover" />
+          {(img?.caption || img?.alt) ? (
+            <figcaption className="text-sm text-white/80 p-2">{img.caption || img.alt}</figcaption>
+          ) : null}
+        </figure>
+      ))}
+    </div>
+  );
+};
 
-  // Allowed rotation for blocks
-  const ROT = ["exam","rule","code","horror"];
+export default function ModuleTemplate(props: Props) {
+  const hero     = props?.hero ?? {};
+  const articles = Array.isArray(props?.articles) ? props.articles : [];
+  const quiz     = Array.isArray(props?.quiz) ? props.quiz : [];
+  const prev     = props?.prev ?? (props as any)?.hero?.prev;
+  const next     = props?.next ?? (props as any)?.hero?.next;
 
-  let lastType: string | null = null;
-  const fixed = articles.map((a: any, idx: number) => {
-    const want = (a?.block?.type || "").toString().toLowerCase();
-    const hasValid = ROT.includes(want);
-
-    // Choose type: prefer requested if valid and not same as last
-    let type = hasValid && want !== lastType ? want : null;
-    if (!type) {
-      // pick next in rotation not equal to lastType
-      const start = hasValid ? ROT.indexOf(want) : (idx % ROT.length);
-      for (let k = 0; k < ROT.length; k++) {
-        const candidate = ROT[(start + k) % ROT.length];
-        if (candidate !== lastType) { type = candidate; break; }
-      }
-      if (!type) type = "rule"; // absolute fallback
-    }
-    lastType = type;
-
-    // Ensure block exists
-    const block = {
-      type,
-      title: a?.block?.title, // keep custom title if provided
-      body: a?.block?.body    // keep custom body if provided
-    };
-
-    // Ensure two stacked images layout: just pass through; renderer handles stacking
-    const images = Array.isArray(a?.images) ? a.images : [];
-
-    return { ...a, block, images };
-  });
-
-  return { hero, articles: fixed, quiz, summary, prev, next };
-}
-
-/* --------------------
-   The actual Template
----------------------*/
-export default function ModuleTemplate(props: any) {
-  const { hero, articles, quiz, summary, prev, next } = normalizeContent(props);
-
-  // Derived counts
-  const articleCount = Array.isArray(articles) ? articles.length : 0;
-  const quizCount = Array.isArray(quiz) ? quiz.length : 0;
-  const imageCount = (hero?.imageSrc ? 1 : 0) + (articles?.reduce((n: number, a: any) => n + (Array.isArray(a?.images) ? a.images.length : 0), 0) || 0);
+  const totalImages = articles.reduce((n, a) => n + (Array.isArray(a?.images) ? Math.min(a.images.length, 2) : 0), 0);
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white">
-      {/* Top nav — exact same as bottom */}
-      <div className="max-w-5xl mx-auto px-4 pt-3 pb-4">
-        <FooterNav prev={prev || undefined} next={next || undefined} />
+    <main className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white">
+      {/* Top nav (same component as footer) */}
+      <div className="bg-slate-900/70 border-b border-white/10 sticky top-0 z-20 backdrop-blur">
+        <div className="max-w-5xl mx-auto px-4 py-3">
+          <FooterNav prev={prev || undefined} next={next || undefined} />
+        </div>
       </div>
 
-      {/* Hero (NO BLURB — per spec) */}
-      {hero?.imageSrc ? (
-        <section className="relative h-[28rem] flex items-center justify-center overflow-hidden text-white">
-  {hero?.imageSrc ? (
-    <>
-      <img
-        src={hero.imageSrc}
-        alt={hero?.imageAlt || hero?.title || "module hero"}
-        className="absolute inset-0 w-full h-full object-cover"
-      />
-      <div className="absolute inset-0 bg-black/60" />
-    </>
-  ) : null}
-  <div className="relative z-10 text-center px-6">
-    {hero?.title ? (
-      <h1 className="text-6xl font-extrabold drop-shadow-md leading-tight">{hero?.title}</h1>
-    ) : null}
-    {hero?.subtitle ? (
-      <p className="mt-5 text-2xl text-gray-200 max-w-3xl mx-auto drop-shadow">{hero?.subtitle}</p>
-    ) : null}
-  </div>
-</section>
-      ) : (
-        <section className="relative h-[28rem] flex items-center justify-center overflow-hidden text-white">
-  {hero?.imageSrc ? (
-    <>
-      <img
-        src={hero.imageSrc}
-        alt={hero?.imageAlt || hero?.title || "module hero"}
-        className="absolute inset-0 w-full h-full object-cover"
-      />
-      <div className="absolute inset-0 bg-black/60" />
-    </>
-  ) : null}
-  <div className="relative z-10 text-center px-6">
-    {hero?.title ? (
-      <h1 className="text-6xl font-extrabold drop-shadow-md leading-tight">{hero?.title}</h1>
-    ) : null}
-    {hero?.subtitle ? (
-      <p className="mt-5 text-2xl text-gray-200 max-w-3xl mx-auto drop-shadow">{hero?.subtitle}</p>
-    ) : null}
-  </div>
-</section>
-      )}
-
-      {/* Stats Cards */}
-      <section className="max-w-5xl mx-auto px-4 -mt-8 mb-12">
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
-            <div className="w-12 h-12 bg-blue-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">📘</span>
-            </div>
-            <div className="text-2xl font-bold text-white">{articleCount}</div>
-            <div className="text-gray-400">Major Articles</div>
-          </div>
-          <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
-            <div className="w-12 h-12 bg-green-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">🎯</span>
-            </div>
-            <div className="text-2xl font-bold text-white">{quizCount}</div>
-            <div className="text-gray-400">Quiz Questions</div>
-          </div>
-          <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
-            <div className="w-12 h-12 bg-purple-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">⚡️</span>
-            </div>
-            <div className="text-2xl font-bold text-white">{imageCount}</div>
-            <div className="text-gray-400">Visual Examples</div>
-          </div>
+      {/* Hero (Module 2 style: large, centered, image background) */}
+      <section className="relative h-[28rem] flex items-center justify-center overflow-hidden text-white">
+        {hero?.imageSrc ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={hero.imageSrc}
+            alt={hero?.imageAlt || ""}
+            className="absolute inset-0 w-full h-full object-cover opacity-40"
+          />
+        ) : null}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/30 to-slate-900/70" />
+        <div className="relative z-10 text-center px-4">
+          <h1 className="text-4xl md:text-6xl font-extrabold drop-shadow">{hero?.title || ""}</h1>
+          {hero?.subtitle ? (
+            <p className="mt-3 text-base md:text-lg text-white/90 max-w-3xl mx-auto">{hero.subtitle}</p>
+          ) : null}
         </div>
       </section>
 
-      {/* Major Articles */}
-      <section className="mx-auto max-w-5xl px-4 mb-12">
-        <div className="text-gray-400 mb-6">Major Articles</div>
-
-        {articles?.map((a: any, idx: number) => {
-          const iconEmoji = ICONS[(a?.icon || "").toString()] || ICONS.default;
-          return (
-            <div key={a?.id || a?.title || idx} className="grid lg:grid-cols-2 gap-8 items-start mb-12">
-              {/* Left: title + points + block */}
-              <div>
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 bg-white/10 rounded-lg">
-                    <span className="text-2xl">{iconEmoji}</span>
-                  </div>
-                  {a?.title ? <h2 className="text-2xl font-bold text-white">{a.title}</h2> : null}
-                </div>
-
-                {/* Points */}
-                <div className="space-y-3 text-gray-300">
-                  {(Array.isArray(a?.points) ? a.points : []).map(renderPoint)}
-                </div>
-
-                {/* Required special block (already normalized, non-repeating) */}
-                <Block type={a?.block?.type} title={a?.block?.title} body={a?.block?.body} />
-              </div>
-
-              {/* Right: two stacked images with captions */}
-              <div className="space-y-4">
-                {(Array.isArray(a?.images) ? a.images : []).slice(0, 2).map((img: any, i: number) => (
-                  <figure key={i} className="relative rounded-xl overflow-hidden border border-white/10">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={img?.src} alt={img?.alt || ""} className="w-full h-[260px] object-cover" />
-                    <figcaption className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-3 text-sm">
-                      {img?.caption || ""}
-                    </figcaption>
-                  </figure>
-                ))}
-              </div>
+      {/* Stats row */}
+      <section className="max-w-5xl mx-auto px-4 -mt-12 mb-8 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[
+            { label: "Major Articles", value: articles.length, icon: "📘" },
+            { label: "Quiz Questions", value: quiz.length, icon: "🧠" },
+            { label: "Visual Examples", value: totalImages, icon: "⚡" },
+          ].map((c, i) => (
+            <div key={i} className="rounded-2xl bg-slate-800/70 border border-white/10 p-5 backdrop-blur text-center">
+              <div className="text-3xl md:text-4xl">{c.icon}</div>
+              <div className="text-2xl md:text-3xl font-bold mt-1">{c.value}</div>
+              <div className="text-white/70">{c.label}</div>
             </div>
-          );
-        })}
+          ))}
+        </div>
       </section>
 
-      {/* Chapter Summary (6 cards) */}
-      {Array.isArray(summary) && summary.length ? (
-        <section className="max-w-5xl mx-auto px-4 mb-12">
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-white mb-2">Chapter Summary</h2>
-            <p className="text-gray-400 text-lg">Key takeaways</p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {summary.slice(0,6).map((c: any, i: number) => (
-              <div key={i} className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center">
-                <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">{ICONS[c?.icon || "default"]}</span>
+      {/* Articles */}
+      <section className="max-w-5xl mx-auto px-4 pb-8">
+        <div className="space-y-10">
+          {articles.map((a, i) => (
+            <article key={i} className="rounded-2xl bg-slate-800/70 border border-white/10 p-6">
+              <header className="flex items-start gap-3 mb-4">
+                <div className="text-2xl md:text-3xl">{a?.icon || "🛡️"}</div>
+                <h2 className="text-2xl md:text-3xl font-extrabold">{a?.title || ""}</h2>
+              </header>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Left: bullet points + block */}
+                <div className="md:col-span-2">
+                  <ul className="list-disc list-outside pl-6 space-y-2">
+                    {(a?.points ?? a?.bullets ?? []).map(renderPoint)}
+                  </ul>
+                  <BlockCard block={a?.block} />
                 </div>
-                <h3 className="font-bold text-white mb-2">{c?.title || ""}</h3>
-                <p className="text-gray-400 text-sm">{c?.text || ""}</p>
+
+                {/* Right: stacked images */}
+                <div className="md:col-span-1">
+                  <ImagesStack images={a?.images || []} />
+                </div>
               </div>
-            ))}
-          </div>
-        </section>
-      ) : null}
+            </article>
+          ))}
+        </div>
+      </section>
 
-      {/* Quiz (expects 15) */}
-      {Array.isArray(quiz) && quiz.length ? (
-        <section className="max-w-5xl mx-auto px-4 pb-10">
-          <div className="text-center mb-6">
+      {/* Knowledge Check (single header; we removed the stray duplicate elsewhere) */}
+      {quiz.length > 0 && (
+        <section className="max-w-5xl mx-auto px-4 pb-14">
+          <div className="rounded-2xl bg-slate-800/70 border border-white/10 p-6">
             <h2 className="text-3xl font-bold text-white mb-2">Knowledge Check</h2>
-            <p className="text-gray-400 text-lg">Test yourself before the exam does</p>
+            <p className="text-white/70 mb-4">
+              Answer all questions, then click <span className="font-semibold text-white">Submit Answers</span>.
+              You’ll see your score after submitting. Nothing is graded until then.
+            </p>
+            {/* The actual Quiz component renders inside module pages; here we just leave space */}
+            {/* If a module injects its own Quiz component, it will replace this stub. */}
           </div>
-          <Quiz questions={quiz} />
         </section>
-      ) : null}
+      )}
 
-      {/* Bottom nav — mirror of top */}
-      <div className="max-w-5xl mx-auto px-4 pb-10">
-        <FooterNav prev={prev || undefined} next={next || undefined} />
+      {/* Bottom nav */}
+      <div className="border-t border-white/10">
+        <div className="max-w-5xl mx-auto px-4 py-8">
+          <FooterNav prev={prev || undefined} next={next || undefined} />
+        </div>
       </div>
     </main>
   );
