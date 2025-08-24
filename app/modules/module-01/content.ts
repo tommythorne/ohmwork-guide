@@ -30,17 +30,17 @@ const content = {
         {
           ref: "90.3",
           text:
-            "Arrangement: Chapters 1–4 apply generally; 5, 6, 7 modify or supplement those general rules for special occupancies, equipment, or conditions. Chapter 8 is independent (communications). Chapter 9 contains tables."
+            { ref: "Arrangement", text: "Chapters 1–4 apply generally; 5, 6, 7 modify or supplement those general rules for special occupancies, equipment, or conditions. Chapter 8 is independent (communications). Chapter 9 contains tables." }
         },
         {
           ref: "90.5",
           text:
-            "Mandatory vs permissive: **Shall** indicates a requirement; **May** is permissive; **Should** is advisory. Fine Print Notes/Informational Notes are *not enforceable*. Exams love this distinction."
+            { ref: "Mandatory vs permissive", text: "**Shall** indicates a requirement; **May** is permissive; **Should** is advisory. Fine Print Notes/Informational Notes are *not enforceable*. Exams love this distinction." }
         },
         {
           ref: "90.7",
           text:
-            "Listing and labeling: Products evaluated and labeled by an NRTL are presumed to comply with safety requirements, but they must still be *installed* and *used* per their listing and instructions."
+            { ref: "Listing and labeling", text: "Products evaluated and labeled by an NRTL are presumed to comply with safety requirements, but they must still be *installed* and *used* per their listing and instructions." }
         }
       ],
       block: {
@@ -195,17 +195,17 @@ const content = {
         {
           ref: "Depth",
           text:
-            "Working‑space depth depends on the condition: 3 ft (Condition 1) up to 4 ft (Condition 3). Measured from the live parts or enclosure to the opposing surface."
+            { ref: "Working‑space depth depends on the condition", text: "3 ft (Condition 1) up to 4 ft (Condition 3). Measured from the live parts or enclosure to the opposing surface." }
         },
         {
           ref: "Width & Height",
           text:
-            "Width: 30 in. or the width of the equipment, whichever is greater. Height: floor to 6‑1/2 ft. The space must permit hinged doors to open 90°."
+            { ref: "Width", text: "30 in. or the width of the equipment, whichever is greater. Height: floor to 6‑1/2 ft. The space must permit hinged doors to open 90°." }
         },
         {
           ref: "Dedicated Space",
           text:
-            "Above equipment to the structural ceiling: keep it clear of piping/ducts unrelated to the electrical installation. Suspended ceilings count as structural for this rule."
+            { ref: "Above equipment to the structural ceiling", text: "keep it clear of piping/ducts unrelated to the electrical installation. Suspended ceilings count as structural for this rule." }
         }
       ],
       block: {
@@ -356,7 +356,7 @@ const content = {
         {
           ref: "Be Proactive",
           text:
-            "Coordinate with other trades early: mechanical, plumbing, IT. Dedicated space and drip pans above gear are constant friction points."
+            { ref: "Coordinate with other trades early", text: "mechanical, plumbing, IT. Dedicated space and drip pans above gear are constant friction points." }
         }
       ],
       block: {
