@@ -7,11 +7,9 @@ import Image from "next/image";
 
 import Quiz from "../components/Quiz";
 import FooterNav from "../components/FooterNav";
-import {
-  BookOpen, Target, Zap, ShieldCheck, CircuitBoard, AlertTriangle,
-} from "lucide-react";
+import { BookOpen, Target, Zap, ShieldCheck } from "lucide-react";
 
-/** ===== Utility blocks (exported for optional external use) ===== */
+/* ---------- Shared blocks ---------- */
 export const HL = ({ children }: { children: React.ReactNode }) => (
   <span className="font-extrabold underline decoration-yellow-400 underline-offset-4">{children}</span>
 );
@@ -68,16 +66,7 @@ export const ChartBox = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-/** ===== Module-2 replica template =====
- * Props shape is deliberately loose; we defensively read fields.
- * Articles support:
- *   - title: string
- *   - points: Array<string | {ref?:string,text?:string}>
- *   - bullets/body (fallbacks)
- *   - images: [{src,alt,caption}]
- *   - callouts: [{type:"warning"|"rule"|"code"|"horror"|"table"|"chart", content: ReactNode|string}]
- * If callouts are missing, we render default WARNING/RULE/CODE trio per article.
- */
+/* ---------- Template ---------- */
 export default function ModuleTemplate(props: any) {
   const hero = props?.hero || {};
   const heading = hero?.title || props?.title || "";
@@ -89,7 +78,6 @@ export default function ModuleTemplate(props: any) {
   const articles: any[] = Array.isArray(props?.articles) ? props.articles : [];
   const quiz = Array.isArray(props?.quiz) ? props.quiz : null;
 
-  // Derive counts for stat cards (Module 2 behavior)
   const stats = useMemo(() => {
     const articleCount = articles.length;
     const imagesCount = articles.reduce((n, a) => n + (Array.isArray(a?.images) ? a.images.length : 0), 0);
@@ -98,9 +86,7 @@ export default function ModuleTemplate(props: any) {
   }, [articles, quiz]);
 
   const renderPoint = (p: any, i: number) => {
-    if (typeof p === "string") {
-      return <p key={i} className="leading-relaxed text-gray-200">{p}</p>;
-    }
+    if (typeof p === "string") return <p key={i} className="leading-relaxed text-gray-200">{p}</p>;
     const ref = (p?.ref || "").toString();
     const text = (p?.text || "").toString();
     return (
@@ -112,57 +98,59 @@ export default function ModuleTemplate(props: any) {
     );
   };
 
-  const renderArticleBody = (a: any) => {
+  const renderBody = (a: any) => {
     if (Array.isArray(a?.points) && a.points.length) {
       return <div className="space-y-3">{a.points.map(renderPoint)}</div>;
     }
     if (Array.isArray(a?.bullets) && a.bullets.length) {
       return <div className="space-y-3">{a.bullets.map((b: any, i: number) => renderPoint(typeof b === "string" ? { text: b } : b, i))}</div>;
     }
-    if (a?.body) {
-      return <div className="prose prose-invert max-w-none">{a.body}</div>;
-    }
+    if (a?.body) return <div className="prose prose-invert max-w-none">{a.body}</div>;
     return null;
   };
 
+  // VERTICAL image stack + robust descriptions
   const renderImages = (a: any) => {
     if (!Array.isArray(a?.images) || !a.images.length) return null;
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-        {a.images.map((img: any, i: number) => (
-          <figure key={i} className="space-y-2">
-            <Image
-              src={img?.src}
-              alt={img?.alt || ""}
-              width={640}
-              height={420}
-              className="rounded-xl border border-white/10 object-cover w-full h-auto"
-            />
-            {img?.caption ? (
-              <figcaption className="text-xs text-slate-400">{img.caption}</figcaption>
-            ) : null}
-          </figure>
-        ))}
+      <div className="space-y-4 pt-2">
+        {a.images.map((img: any, i: number) => {
+          const desc =
+            (img?.caption && String(img.caption)) ||
+            (img?.desc && String(img.desc)) ||
+            (img?.alt && String(img.alt)) ||
+            (a?.title ? `${a.title} — visual example` : "Visual example");
+          return (
+            <figure key={i} className="space-y-2">
+              <Image
+                src={img?.src}
+                alt={img?.alt || desc}
+                width={900}
+                height={560}
+                className="rounded-xl border border-white/10 object-cover w-full h-auto"
+              />
+              <figcaption className="text-sm text-slate-300">{desc}</figcaption>
+            </figure>
+          );
+        })}
       </div>
     );
   };
 
   const renderCallouts = (a: any) => {
     const callouts = Array.isArray(a?.callouts) ? a.callouts : null;
-
     const blocks = callouts && callouts.length
       ? callouts
       : [
           { type: "warning", content: "Common exam trap in this article—watch the exceptions and exact wording." },
-          { type: "rule", content: "Quick memory hook: convert the main requirement above into a 1‑liner you can recite." },
-          { type: "code", content: "Cite the specific subsections you’ll reach for on test day (e.g., 110.3(B), 210.8, 250.122)." },
+          { type: "rule", content: "Quick memory hook: compress the main rule to a 1‑liner you can recite on demand." },
+          { type: "code", content: "Anchor recall with code cites (e.g., 110.3(B), 210.8, 250.122)." },
         ];
-
     return (
       <div className="mt-4">
         {blocks.map((c, i) => {
           const body = typeof c?.content === "string" ? <span>{c.content}</span> : c?.content;
-        switch (c?.type) {
+          switch (c?.type) {
             case "warning": return <WarningBox key={i}>{body}</WarningBox>;
             case "rule":    return <RuleBox key={i}>{body}</RuleBox>;
             case "horror":  return <HorrorStory key={i}>{body}</HorrorStory>;
@@ -178,7 +166,7 @@ export default function ModuleTemplate(props: any) {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white">
-      {/* Top bar (Module 2) */}
+      {/* Top bar */}
       <div className="bg-black/50 backdrop-blur-sm border-b border-white/20">
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/intro" className="text-gray-300 hover:text-white transition-colors flex items-center gap-2">
@@ -188,7 +176,7 @@ export default function ModuleTemplate(props: any) {
         </div>
       </div>
 
-      {/* Hero (image overlay + title + subtitle, Module 2 replica) */}
+      {/* Hero */}
       <section className="relative h-96 flex items-center justify-center overflow-hidden">
         {hero?.imageSrc ? (
           <Image src={hero.imageSrc} alt={hero?.imageAlt || heading || "module hero"} fill className="object-cover" priority />
@@ -201,7 +189,7 @@ export default function ModuleTemplate(props: any) {
         </div>
       </section>
 
-      {/* Stats Cards (Module 2) */}
+      {/* Stats */}
       <section className="max-w-5xl mx-auto px-4 -mt-8 mb-12">
         <div className="grid md:grid-cols-3 gap-6">
           <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
@@ -228,13 +216,12 @@ export default function ModuleTemplate(props: any) {
         </div>
       </section>
 
-      {/* Major Articles grid — Module 2 structure (text left, images right) */}
+      {/* Articles (text left, images right stacked vertically) */}
       <section className="mx-auto max-w-5xl px-4 mb-12">
         <div className="text-gray-400 mb-4">Major Articles</div>
         <div className="space-y-12">
           {articles.map((a, idx) => (
             <div key={a?.id || a?.title || idx} className="grid lg:grid-cols-2 gap-8 items-start">
-              {/* Left column: icon + title + points + callouts */}
               <div>
                 <div className="flex items-center gap-3 mb-6">
                   <div className="p-2 bg-green-400/20 rounded-lg">
@@ -242,21 +229,16 @@ export default function ModuleTemplate(props: any) {
                   </div>
                   {a?.title ? <h2 className="text-2xl font-bold text-white">{a.title}</h2> : null}
                 </div>
-
-                {renderArticleBody(a)}
+                {renderBody(a)}
                 {renderCallouts(a)}
               </div>
-
-              {/* Right column: images */}
-              <div className="space-y-4">
-                {renderImages(a)}
-              </div>
+              <div className="space-y-4">{renderImages(a)}</div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Quiz Section (if provided) */}
+      {/* Quiz */}
       {Array.isArray(quiz) && quiz.length ? (
         <section className="mx-auto max-w-5xl px-4 mb-12">
           <div className="text-center mb-8">
@@ -267,11 +249,8 @@ export default function ModuleTemplate(props: any) {
         </section>
       ) : null}
 
-      {/* Bottom navigation (Module 2) */}
-      <FooterNav
-        prev={prev}
-        next={next || undefined}
-      />
+      {/* Bottom nav */}
+      <FooterNav prev={prev} next={next || undefined} />
     </main>
   );
 }
