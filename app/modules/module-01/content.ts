@@ -382,4 +382,6 @@ const content = {
 };
 
 // QUIZ stays wired separately via your existing quiz bridge/import.
+import quiz from "./quiz-bridge";
+(content as any).quiz = quiz;
 export default content;
