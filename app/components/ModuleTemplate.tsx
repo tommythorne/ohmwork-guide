@@ -1,189 +1,277 @@
 // @ts-nocheck
 "use client";
 
-import React from "react";
-import Quiz from "./Quiz";
-import FooterNav from "./FooterNav";
-import { BookOpen, Target, Zap } from "lucide-react";
+import React, { useMemo } from "react";
+import Link from "next/link";
+import Image from "next/image";
 
-/**
- * MODULE-2 LOCKED TEMPLATE
- * - Always renders: Hero -> Stats cards -> Articles -> Quiz (if provided) -> Footer nav
- * - No "At a Glance" or stats blocks inside articles
- * - Accepts flexible content (points | bullets | body), ignores unknown props
- * - Auto-derives counts: articles.length, quiz.length, sum(images)
- */
+import Quiz from "../components/Quiz";
+import FooterNav from "../components/FooterNav";
+import {
+  BookOpen, Target, Zap, ShieldCheck, CircuitBoard, AlertTriangle,
+} from "lucide-react";
 
-type AnyRec = Record<string, any>;
-
-const HL = ({ children }: { children: React.ReactNode }) => (
-  <span className="font-extrabold underline decoration-yellow-400 underline-offset-4">
-    {children}
-  </span>
+/** ===== Utility blocks (exported for optional external use) ===== */
+export const HL = ({ children }: { children: React.ReactNode }) => (
+  <span className="font-extrabold underline decoration-yellow-400 underline-offset-4">{children}</span>
 );
 
-const Card = ({ icon, value, label }: AnyRec) => (
-  <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
-    <div className="w-12 h-12 bg-white/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-      {icon}
+export const WarningBox = ({ children }: { children: React.ReactNode }) => (
+  <div className="rounded-xl border border-red-500/40 bg-red-500/10 p-4 my-4 animate-fade-in">
+    <div className="flex items-center gap-2 mb-2">
+      <span className="text-red-400 text-xl">⚠️</span>
+      <span className="font-bold text-red-400">EXAM TRAP</span>
     </div>
-    <div className="text-2xl font-bold text-white">{value}</div>
-    <div className="text-gray-400">{label}</div>
+    <div className="text-white/90">{children}</div>
   </div>
 );
 
-function renderPoint(p: any, i: number) {
-  // allow string or {ref,text}
-  if (typeof p === "string") {
+export const RuleBox = ({ children }: { children: React.ReactNode }) => (
+  <div className="rounded-xl border border-yellow-500/40 bg-yellow-500/10 p-4 my-4 animate-fade-in">
+    <div className="flex items-center gap-2 mb-2">
+      <span className="text-yellow-400 text-xl">📏</span>
+      <span className="font-bold text-yellow-400">RULE OF THUMB</span>
+    </div>
+    <div className="text-white/90">{children}</div>
+  </div>
+);
+
+export const HorrorStory = ({ children }: { children: React.ReactNode }) => (
+  <div className="rounded-xl border border-orange-500/40 bg-orange-500/10 p-4 my-4 animate-fade-in">
+    <div className="flex items-center gap-2 mb-2">
+      <span className="text-orange-400 text-xl">🧰</span>
+      <span className="font-bold text-orange-400">JOBSITE HORROR STORY</span>
+    </div>
+    <div className="text-white/90">{children}</div>
+  </div>
+);
+
+export const CodeBox = ({ children }: { children: React.ReactNode }) => (
+  <div className="rounded-xl border border-blue-500/40 bg-blue-500/10 p-4 my-4 animate-fade-in">
+    <div className="flex items-center gap-2 mb-2">
+      <span className="text-blue-400 text-xl">📘</span>
+      <span className="font-bold text-blue-400">NEC REFERENCE</span>
+    </div>
+    <div className="text-white/90">{children}</div>
+  </div>
+);
+
+export const DataTable = ({ children }: { children: React.ReactNode }) => (
+  <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 my-6 overflow-x-auto">
+    {children}
+  </div>
+);
+
+export const ChartBox = ({ children }: { children: React.ReactNode }) => (
+  <div className="rounded-xl border border-white/20 bg-white/[0.03] p-6 my-6">
+    {children}
+  </div>
+);
+
+/** ===== Module-2 replica template =====
+ * Props shape is deliberately loose; we defensively read fields.
+ * Articles support:
+ *   - title: string
+ *   - points: Array<string | {ref?:string,text?:string}>
+ *   - bullets/body (fallbacks)
+ *   - images: [{src,alt,caption}]
+ *   - callouts: [{type:"warning"|"rule"|"code"|"horror"|"table"|"chart", content: ReactNode|string}]
+ * If callouts are missing, we render default WARNING/RULE/CODE trio per article.
+ */
+export default function ModuleTemplate(props: any) {
+  const hero = props?.hero || {};
+  const heading = hero?.title || props?.title || "";
+  const intro = hero?.subtitle || props?.intro || "";
+  const blurb = hero?.blurb || "";
+  const prev = props?.prev || { href: "/intro", label: "Back to TOC" };
+  const next = props?.next || null;
+
+  const articles: any[] = Array.isArray(props?.articles) ? props.articles : [];
+  const quiz = Array.isArray(props?.quiz) ? props.quiz : null;
+
+  // Derive counts for stat cards (Module 2 behavior)
+  const stats = useMemo(() => {
+    const articleCount = articles.length;
+    const imagesCount = articles.reduce((n, a) => n + (Array.isArray(a?.images) ? a.images.length : 0), 0);
+    const quizCount = Array.isArray(quiz) ? quiz.length : 0;
+    return { articleCount, imagesCount, quizCount };
+  }, [articles, quiz]);
+
+  const renderPoint = (p: any, i: number) => {
+    if (typeof p === "string") {
+      return <p key={i} className="leading-relaxed text-gray-200">{p}</p>;
+    }
+    const ref = (p?.ref || "").toString();
+    const text = (p?.text || "").toString();
     return (
-      <p key={i} className="leading-relaxed text-slate-200">
-        {p}
+      <p key={i} className="leading-relaxed text-gray-200">
+        {ref ? <span className="font-semibold text-slate-100"><HL>{ref}</HL></span> : null}
+        {ref && text ? ": " : null}
+        {text}
       </p>
     );
-  }
-  const ref = (p?.ref || "").toString().trim();
-  const text = (p?.text || "").toString().trim();
-  return (
-    <p key={i} className="leading-relaxed text-slate-200">
-      {ref ? <span className="font-semibold text-slate-100"><HL>{ref}</HL></span> : null}
-      {ref && text ? ": " : null}
-      {text || null}
-    </p>
-  );
-}
+  };
 
-function ArticleSection(a: AnyRec, idx: number) {
-  // Body priority: points -> bullets -> body
-  let body: React.ReactNode = null;
-  if (Array.isArray(a?.points) && a.points.length) {
-    body = <div className="space-y-3">{a.points.map(renderPoint)}</div>;
-  } else if (Array.isArray(a?.bullets) && a.bullets.length) {
-    body = (
-      <div className="space-y-3">
-        {a.bullets.map((b: any, i: number) => renderPoint(typeof b === "string" ? { text: b } : b, i))}
+  const renderArticleBody = (a: any) => {
+    if (Array.isArray(a?.points) && a.points.length) {
+      return <div className="space-y-3">{a.points.map(renderPoint)}</div>;
+    }
+    if (Array.isArray(a?.bullets) && a.bullets.length) {
+      return <div className="space-y-3">{a.bullets.map((b: any, i: number) => renderPoint(typeof b === "string" ? { text: b } : b, i))}</div>;
+    }
+    if (a?.body) {
+      return <div className="prose prose-invert max-w-none">{a.body}</div>;
+    }
+    return null;
+  };
+
+  const renderImages = (a: any) => {
+    if (!Array.isArray(a?.images) || !a.images.length) return null;
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+        {a.images.map((img: any, i: number) => (
+          <figure key={i} className="space-y-2">
+            <Image
+              src={img?.src}
+              alt={img?.alt || ""}
+              width={640}
+              height={420}
+              className="rounded-xl border border-white/10 object-cover w-full h-auto"
+            />
+            {img?.caption ? (
+              <figcaption className="text-xs text-slate-400">{img.caption}</figcaption>
+            ) : null}
+          </figure>
+        ))}
       </div>
     );
-  } else if (a?.body) {
-    body = <div className="prose prose-invert max-w-none">{a.body}</div>;
-  }
+  };
 
-  const images = Array.isArray(a?.images) ? a.images : [];
+  const renderCallouts = (a: any) => {
+    const callouts = Array.isArray(a?.callouts) ? a.callouts : null;
 
-  return (
-    <section
-      key={a?.id || a?.title || idx}
-      className={`mx-auto max-w-5xl mb-12 transition-all duration-700`}
-    >
-      <div className="grid lg:grid-cols-2 gap-8 items-start">
-        <div>
-          {a?.title ? (
-            <h2 className="text-2xl font-bold text-white mb-4">{a.title}</h2>
-          ) : null}
-          {body}
-        </div>
+    const blocks = callouts && callouts.length
+      ? callouts
+      : [
+          { type: "warning", content: "Common exam trap in this article—watch the exceptions and exact wording." },
+          { type: "rule", content: "Quick memory hook: convert the main requirement above into a 1‑liner you can recite." },
+          { type: "code", content: "Cite the specific subsections you’ll reach for on test day (e.g., 110.3(B), 210.8, 250.122)." },
+        ];
 
-        {images.length ? (
-          <div className="space-y-4">
-            {images.map((img: any, i: number) => (
-              <figure key={i} className="relative">
-                {/* using plain img keeps this component generic */}
-                <img
-                  src={img?.src}
-                  alt={img?.alt || ""}
-                  className="rounded-xl border border-white/10 w-full"
-                />
-                {(img?.caption || img?.label) ? (
-                  <figcaption className="mt-2 text-xs text-slate-400">
-                    {img?.caption || img?.label}
-                  </figcaption>
-                ) : null}
-              </figure>
-            ))}
-          </div>
-        ) : null}
+    return (
+      <div className="mt-4">
+        {blocks.map((c, i) => {
+          const body = typeof c?.content === "string" ? <span>{c.content}</span> : c?.content;
+        switch (c?.type) {
+            case "warning": return <WarningBox key={i}>{body}</WarningBox>;
+            case "rule":    return <RuleBox key={i}>{body}</RuleBox>;
+            case "horror":  return <HorrorStory key={i}>{body}</HorrorStory>;
+            case "code":    return <CodeBox key={i}>{body}</CodeBox>;
+            case "table":   return <DataTable key={i}>{body}</DataTable>;
+            case "chart":   return <ChartBox key={i}>{body}</ChartBox>;
+            default:        return <RuleBox key={i}>{body}</RuleBox>;
+          }
+        })}
       </div>
-    </section>
-  );
-}
-
-export default function ModuleTemplate(props: AnyRec) {
-  const hero = props?.hero || {};
-  const title = hero?.title || props?.title || "";
-  const subtitle = hero?.subtitle || props?.intro || "";
-  const blurb = hero?.blurb || "";
-
-  const articles: AnyRec[] = Array.isArray(props?.articles) ? props.articles : [];
-  const quiz: AnyRec[] = Array.isArray(props?.quiz) ? props.quiz : [];
-
-  // derived counts (Module‑2 stats row)
-  const visuals = articles.reduce((sum, a) => sum + (Array.isArray(a?.images) ? a.images.length : 0), 0);
-  const stats = [
-    { icon: <BookOpen className="w-6 h-6 text-blue-400" />, value: articles.length || 0, label: "Major Articles" },
-    { icon: <Target className="w-6 h-6 text-green-400" />, value: quiz.length || 0, label: "Quiz Questions" },
-    { icon: <Zap className="w-6 h-6 text-purple-400" />, value: visuals || 0, label: "Visual Examples" },
-  ];
+    );
+  };
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white">
-      {/* Top navigation (replicates footer) */}
-      <div className="mb-6" data-testid="top-nav">
-        <FooterNav prev={props?.prev} next={props?.next} />
+      {/* Top bar (Module 2) */}
+      <div className="bg-black/50 backdrop-blur-sm border-b border-white/20">
+        <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+          <Link href="/intro" className="text-gray-300 hover:text-white transition-colors flex items-center gap-2">
+            <span>←</span><span>Back to TOC</span>
+          </Link>
+          <span className="text-sm text-gray-400 bg-gray-800 px-2 py-1 rounded">OhmWork™ 2025</span>
+        </div>
       </div>
 
-      {/* Top bar like Module 2 kept outside for pages; template focuses on inner content */}
-
-      {/* Hero (Module‑2 look) */}
-      <section className="relative h-80 md:h-96 flex items-center justify-center overflow-hidden">
+      {/* Hero (image overlay + title + subtitle, Module 2 replica) */}
+      <section className="relative h-96 flex items-center justify-center overflow-hidden">
         {hero?.imageSrc ? (
-          <>
-            <img src={hero.imageSrc} alt={hero?.imageAlt || title || "module"} className="absolute inset-0 w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-black/60" />
-          </>
-        ) : (
-          <div className="absolute inset-0 bg-black/30" />
-        )}
+          <Image src={hero.imageSrc} alt={hero?.imageAlt || heading || "module hero"} fill className="object-cover" priority />
+        ) : null}
+        <div className="absolute inset-0 bg-black/60" />
         <div className="relative z-10 text-center px-4">
-  <div data-testid="tmpl-badge" className="mb-2 inline-flex items-center gap-2 rounded bg-emerald-600/20 border border-emerald-400/30 px-2 py-1 text-xs text-emerald-300">
-    TEMPLATE v2 • Module 2 replica
-  </div>
-          {title ? <h1 className="text-4xl md:text-5xl font-bold mb-3">{title}</h1> : null}
-          {subtitle ? <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto">{subtitle}</p> : null}
-          {blurb ? <p className="text-sm text-gray-400 max-w-3xl mx-auto mt-2">{blurb}</p> : null}
+          {heading ? <h1 className="text-5xl font-bold text-white mb-4">{heading}</h1> : null}
+          {intro ? <p className="text-xl text-gray-300 max-w-2xl mx-auto">{intro}</p> : null}
+          {blurb ? <p className="text-gray-300 max-w-2xl mx-auto mt-2">{blurb}</p> : null}
         </div>
       </section>
 
-      {/* Stats cards */}
+      {/* Stats Cards (Module 2) */}
       <section className="max-w-5xl mx-auto px-4 -mt-8 mb-12">
         <div className="grid md:grid-cols-3 gap-6">
-          {stats.map((s, i) => (
-            <Card key={i} icon={s.icon} value={s.value} label={s.label} />
+          <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
+            <div className="w-12 h-12 bg-blue-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <BookOpen className="w-6 h-6 text-blue-400" />
+            </div>
+            <div className="text-2xl font-bold text-white">{stats.articleCount}</div>
+            <div className="text-gray-400">Major Articles</div>
+          </div>
+          <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
+            <div className="w-12 h-12 bg-green-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <Target className="w-6 h-6 text-green-400" />
+            </div>
+            <div className="text-2xl font-bold text-white">{stats.quizCount}</div>
+            <div className="text-gray-400">Quiz Questions</div>
+          </div>
+          <div className="bg-white/[0.03] border border-white/20 rounded-xl p-6 text-center backdrop-blur-sm">
+            <div className="w-12 h-12 bg-purple-400/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+              <Zap className="w-6 h-6 text-purple-400" />
+            </div>
+            <div className="text-2xl font-bold text-white">{stats.imagesCount}</div>
+            <div className="text-gray-400">Visual Examples</div>
+          </div>
+        </div>
+      </section>
+
+      {/* Major Articles grid — Module 2 structure (text left, images right) */}
+      <section className="mx-auto max-w-5xl px-4 mb-12">
+        <div className="text-gray-400 mb-4">Major Articles</div>
+        <div className="space-y-12">
+          {articles.map((a, idx) => (
+            <div key={a?.id || a?.title || idx} className="grid lg:grid-cols-2 gap-8 items-start">
+              {/* Left column: icon + title + points + callouts */}
+              <div>
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="p-2 bg-green-400/20 rounded-lg">
+                    <ShieldCheck className="w-6 h-6 text-green-400" />
+                  </div>
+                  {a?.title ? <h2 className="text-2xl font-bold text-white">{a.title}</h2> : null}
+                </div>
+
+                {renderArticleBody(a)}
+                {renderCallouts(a)}
+              </div>
+
+              {/* Right column: images */}
+              <div className="space-y-4">
+                {renderImages(a)}
+              </div>
+            </div>
           ))}
         </div>
       </section>
 
-      {/* Articles (Module‑2 structure; NO at‑a‑glance) */}
-      <div className="max-w-5xl mx-auto px-4">
-        <div className="text-gray-300 mb-4">Major Articles</div>
-      </div>
-      {articles.map(ArticleSection)}
-
-      {/* Quiz (optional) */}
-      {quiz.length ? (
+      {/* Quiz Section (if provided) */}
+      {Array.isArray(quiz) && quiz.length ? (
         <section className="mx-auto max-w-5xl px-4 mb-12">
           <div className="text-center mb-8">
             <h2 className="text-3xl font-bold text-white mb-2">Knowledge Check</h2>
-            <p className="text-gray-400">Test your understanding</p>
+            <p className="text-gray-400 text-lg">Test your understanding of this chapter</p>
           </div>
           <Quiz questions={quiz} />
         </section>
       ) : null}
 
-      {/* Footer nav (optional) */}
-      {(props?.prev || props?.next) ? (
-        <section className="mx-auto max-w-5xl px-4 mb-16">
-          <FooterNav prev={props.prev} next={props.next} />
-        </section>
-      ) : null}
+      {/* Bottom navigation (Module 2) */}
+      <FooterNav
+        prev={prev}
+        next={next || undefined}
+      />
     </main>
   );
 }
