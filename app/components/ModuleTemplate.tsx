@@ -144,6 +144,11 @@ export default function ModuleTemplate(props: any) {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900 text-white">
+        {/* Top nav (same as bottom) */}
+        <div data-top-nav="true">
+          <FooterNav prev={props?.prev || hero?.prev || props?.prev} next={props?.next || hero?.next || props?.next} />
+        </div>
+    
       {/* Top Bar */}
       <div className="bg-black/50 backdrop-blur-sm border-b border-white/20">
         <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
