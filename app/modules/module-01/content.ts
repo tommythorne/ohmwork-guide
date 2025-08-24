@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 const content = {
   hero: {
     imageSrc: "/images/module-01/m01-hero.jpg",
@@ -381,7 +379,7 @@ const content = {
   ]
 };
 
-// QUIZ stays wired separately via your existing quiz bridge/import.
+
 import quiz from "./quiz-bridge";
 (content as any).quiz = quiz;
 export default content;
