@@ -160,20 +160,47 @@ export default function ModuleTemplate(props: any) {
 
       {/* Hero (NO BLURB — per spec) */}
       {hero?.imageSrc ? (
-        <section className="relative h-96 flex items-center justify-center overflow-hidden">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={hero.imageSrc} alt={hero?.imageAlt || "module hero"} className="object-cover w-full h-full" />
-          <div className="absolute inset-0 bg-black/60" />
-          <div className="relative z-10 text-center px-4">
-            {hero?.title ? <h1 className="text-5xl font-bold text-white mb-4">{hero.title}</h1> : null}
-            {hero?.subtitle ? <p className="text-xl text-gray-300 max-w-2xl mx-auto">{hero.subtitle}</p> : null}
-          </div>
-        </section>
+        <section className="relative h-[28rem] flex items-center justify-center overflow-hidden text-white">
+  {hero?.imageSrc ? (
+    <>
+      <img
+        src={hero.imageSrc}
+        alt={hero?.imageAlt || hero?.title || "module hero"}
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <div className="absolute inset-0 bg-black/60" />
+    </>
+  ) : null}
+  <div className="relative z-10 text-center px-6">
+    {hero?.title ? (
+      <h1 className="text-6xl font-extrabold drop-shadow-md leading-tight">{hero?.title}</h1>
+    ) : null}
+    {hero?.subtitle ? (
+      <p className="mt-5 text-2xl text-gray-200 max-w-3xl mx-auto drop-shadow">{hero?.subtitle}</p>
+    ) : null}
+  </div>
+</section>
       ) : (
-        <header className="text-center py-10">
-          {hero?.title ? <h1 className="text-5xl font-bold text-white mb-2">{hero.title}</h1> : null}
-          {hero?.subtitle ? <p className="text-xl text-gray-300">{hero.subtitle}</p> : null}
-        </header>
+        <section className="relative h-[28rem] flex items-center justify-center overflow-hidden text-white">
+  {hero?.imageSrc ? (
+    <>
+      <img
+        src={hero.imageSrc}
+        alt={hero?.imageAlt || hero?.title || "module hero"}
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+      <div className="absolute inset-0 bg-black/60" />
+    </>
+  ) : null}
+  <div className="relative z-10 text-center px-6">
+    {hero?.title ? (
+      <h1 className="text-6xl font-extrabold drop-shadow-md leading-tight">{hero?.title}</h1>
+    ) : null}
+    {hero?.subtitle ? (
+      <p className="mt-5 text-2xl text-gray-200 max-w-3xl mx-auto drop-shadow">{hero?.subtitle}</p>
+    ) : null}
+  </div>
+</section>
       )}
 
       {/* Stats Cards */}
