@@ -5,31 +5,31 @@ import FooterNav from "./FooterNav";
 import Quiz from "./Quiz";
 import pointToJSX from "./pointToJSX";
 
+/** ------------ Types (intentionally loose to avoid TS blocking builds) ------------ */
 type Hero = {
   imageSrc?: string;
   imageAlt?: string;
-  title: string;
+  title?: string;
   subtitle?: string;
-  blurb?: string;
 };
 
-type Block = {
-  type?: "exam" | "rule" | "horror" | "code" | "table" | "chart" | "none";
-  title?: string;
-  body?: any;
-};
+type Block =
+  | { type: "exam" | "rule" | "horror" | "code" | "table" | "chart"; title?: string; body?: any; table?: any; chart?: any }
+  | { type: "none" }
+  | undefined;
 
 type ImageItem = { src: string; alt?: string; caption?: string };
 
 type Article = {
   id?: string;
-  iconName?: string;
-  title: string;
+  icon?: string;        // emoji or small icon
+  iconName?: string;    // fallback if you pass iconName instead of icon
+  title?: string;
   points?: any[];
   bullets?: any[];
   images?: ImageItem[];
   block?: Block;
-  body?: any; // fallback
+  body?: any;
 };
 
 type Summary = {
@@ -38,7 +38,6 @@ type Summary = {
 };
 
 type Nav = { href: string; label: string };
-
 type Props = {
   hero?: Hero;
   articles?: Article[];
@@ -48,48 +47,68 @@ type Props = {
   next?: Nav;
 };
 
-function BlockCard({ block }: { block?: Block }) {
+/** ------------ Special Block (one definition, fixed emojis) ------------ */
+const BlockCard: React.FC<{ block?: Block }> = ({ block }) => {
   if (!block || block.type === "none") return null;
 
-  const labels: Record<string, string> = {
-    exam: "EXAM TRAP",
-    rule: "RULE OF THUMB",
-    horror: "JOBSITE HORROR STORY",
-    code: "NEC REFERENCE",
-    table: "Quick Sheet",
-    chart: "Visual Guide",
-  };
-  const label = block.type ? labels[block.type] ?? "" : "";
+  const style = {
+    exam:   { label: "EXAM TRAP",      icon: "🎯", border: "border-red-500/50",    bg: "bg-red-900/30",    title: "text-red-300" },
+    rule:   { label: "RULE OF THUMB",  icon: "📏", border: "border-green-500/50",  bg: "bg-green-900/30",  title: "text-green-300" },
+    code:   { label: "NEC REFERENCE",  icon: "📖", border: "border-blue-500/50",   bg: "bg-blue-900/30",   title: "text-blue-300" },
+    table:  { label: "TABLE",          icon: "📊", border: "border-yellow-500/50", bg: "bg-yellow-900/30", title: "text-yellow-300" },
+    chart:  { label: "CHART",          icon: "📈", border: "border-purple-500/50", bg: "bg-purple-900/30", title: "text-purple-300" },
+    horror: { label: "JOBSITE HORROR", icon: "💀", border: "border-pink-500/50",   bg: "bg-pink-900/30",   title: "text-pink-300" },
+  } as const;
+
+  const s =
+    (block?.type && (style as any)[block.type]) ||
+    { label: "NOTE", icon: "📝", border: "border-white/20", bg: "bg-slate-800/50", title: "text-white" };
+
+  const showTitle = !!(block as any)?.title && (block as any).title !== s.label;
 
   return (
-    <div className="rounded-xl border border-white/20 bg-white/[0.04] p-4 mt-4">
-      {label ? <div className="text-yellow-400 font-bold mb-1">{label}</div> : null}
-      {block.title && block.title !== label ? (
-        <h3 className="text-white font-semibold mb-1">{block.title}</h3>
-      ) : null}
-      {block.body ? <div className="text-slate-200 text-sm">{block.body}</div> : null}
+    <div className={`rounded-xl border ${s.border} ${s.bg} p-4 my-4`}>
+      <div className="flex items-center gap-2 mb-2">
+        <span className="text-xl">{s.icon}</span>
+        <span className={`${s.title} font-bold`}>{s.label}</span>
+      </div>
+      {showTitle ? <div className={`font-bold ${s.title} mb-1`}>{(block as any).title}</div> : null}
+      {typeof (block as any).body === "string" ? (
+        <div className="text-white/90">{(block as any).body}</div>
+      ) : (
+        (block as any).body || null
+      )}
+      {(block as any).table ? <div className="mt-3">{(block as any).table}</div> : null}
+      {(block as any).chart ? <div className="mt-3">{(block as any).chart}</div> : null}
     </div>
   );
-}
+};
 
-function ImagesStack({ images = [] as ImageItem[] }) {
-  const pair = images.slice(0, 2);
+/** ------------ Right column: two stacked images w/ captions ------------ */
+const ImagesStack: React.FC<{ images?: ImageItem[] }> = ({ images = [] }) => {
+  const pair = (Array.isArray(images) ? images : []).slice(0, 2);
+  if (pair.length === 0) return null;
   return (
     <div className="space-y-4">
       {pair.map((img, i) => (
         <div key={i} className="rounded-xl border border-white/20 bg-white/[0.03] p-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={img.src} alt={img.alt || ""} className="w-full h-40 md:h-48 object-cover rounded-lg" />
           {img.caption ? <div className="text-white/70 text-sm mt-2">{img.caption}</div> : null}
         </div>
       ))}
     </div>
   );
-}
+};
 
+/** ------------ Main Template ------------ */
 export default function ModuleTemplate({ hero, articles = [], summary, quiz = [], prev, next }: Props) {
   const articleCount = articles.length;
-  const quizCount = quiz.length;
-  const visualCount = articles.reduce((n, a) => n + ((a.images?.length ?? 0) > 2 ? 2 : (a.images?.length ?? 0)), 0);
+  const quizCount = Array.isArray(quiz) ? quiz.length : 0;
+  const visualCount = articles.reduce(
+    (n, a) => n + Math.min(Array.isArray(a.images) ? a.images.length : 0, 2),
+    0
+  );
 
   const renderPointsList = (a: Article) => {
     const list = Array.isArray(a.points) && a.points.length ? a.points : Array.isArray(a.bullets) ? a.bullets : [];
@@ -99,31 +118,39 @@ export default function ModuleTemplate({ hero, articles = [], summary, quiz = []
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white">
-  {/* Top Navigation Bar */}
-  <div className="bg-slate-900/70 border-b border-white/10 sticky top-0 z-20 backdrop-blur">
-    <div className="max-w-5xl mx-auto px-5 py-3">
-      <FooterNav prev={prev || undefined} next={next || undefined} />
-    </div>
-  </div>
+      {/* Top nav (same component as bottom) */}
+      <div className="bg-slate-900/70 border-b border-white/10 sticky top-0 z-20 backdrop-blur">
+        <div className="max-w-5xl mx-auto px-5 py-3">
+          <FooterNav prev={prev || undefined} next={next || undefined} />
+        </div>
+      </div>
 
-      {/* Hero */}
+      {/* Hero (Module 2 style: large, centered, image background) */}
       <section className="relative h-[28rem] flex items-center justify-center overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/30 to-slate-900/70" />
-        
         {hero?.imageSrc ? (
           <>
-            <img src={hero.imageSrc} alt={hero.imageAlt || hero.title} className="absolute inset-0 w-full h-full object-cover opacity-30" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={hero.imageSrc}
+              alt={hero?.imageAlt || hero?.title || ""}
+              className="absolute inset-0 w-full h-full object-cover opacity-30"
+            />
             <div className="absolute inset-0 bg-black/40" />
           </>
         ) : null}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-900/30 to-slate-900/70" />
         <div className="relative z-10 text-center px-6">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-yellow-400 mb-3">{hero?.title}</h1>
-          {hero?.subtitle ? <p className="text-white/90 text-lg md:text-xl max-w-3xl mx-auto">{hero.subtitle}</p> : null}
-          {hero?.blurb ? <p className="text-white/70 text-base max-w-3xl mx-auto mt-3">{hero.blurb}</p> : null}
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-yellow-400 mb-3">
+            {hero?.title || ""}
+          </h1>
+          {hero?.subtitle ? (
+            <p className="text-white/90 text-lg md:text-xl max-w-3xl mx-auto">{hero.subtitle}</p>
+          ) : null}
+          {/* No hero blurb per global rule */}
         </div>
       </section>
 
-      {/* Stats strip */}
+      {/* Stats row */}
       <section className="max-w-5xl mx-auto px-5 -mt-10 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="rounded-xl border border-white/15 bg-white/[0.03] p-5 text-center">
@@ -145,14 +172,19 @@ export default function ModuleTemplate({ hero, articles = [], summary, quiz = []
       <section className="max-w-5xl mx-auto px-5 mt-10">
         {articles.map((a, i) => (
           <article key={a.id || a.title || i} className="mb-12">
-            <div className="flex items-center gap-3 mb-5">
+            <header className="flex items-center gap-3 mb-5">
+              <div className="text-2xl">{a.icon || a.iconName || "📘"}</div>
               <h2 className="text-2xl md:text-3xl font-bold text-white">{a.title}</h2>
-            </div>
+            </header>
+
             <div className="grid lg:grid-cols-2 gap-8 items-start">
+              {/* Left: bullet points + special block */}
               <div>
                 {renderPointsList(a)}
                 <BlockCard block={a.block} />
               </div>
+
+              {/* Right: stacked images */}
               <ImagesStack images={a.images} />
             </div>
           </article>
@@ -160,9 +192,11 @@ export default function ModuleTemplate({ hero, articles = [], summary, quiz = []
       </section>
 
       {/* Summary (optional) */}
-      {summary?.title || summary?.cards?.length ? (
+      {summary?.title || (summary?.cards && summary.cards.length) ? (
         <section className="max-w-5xl mx-auto px-5 mb-10">
-          {summary.title ? <h3 className="text-3xl font-bold text-yellow-400 text-center mb-6">{summary.title}</h3> : null}
+          {summary.title ? (
+            <h3 className="text-3xl font-bold text-yellow-400 text-center mb-6">{summary.title}</h3>
+          ) : null}
           {Array.isArray(summary.cards) && summary.cards.length ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {summary.cards.map((c, idx) => (
@@ -179,7 +213,7 @@ export default function ModuleTemplate({ hero, articles = [], summary, quiz = []
       ) : null}
 
       {/* Knowledge Check (bottom only) */}
-      {quiz.length > 0 ? (
+      {Array.isArray(quiz) && quiz.length > 0 ? (
         <section className="max-w-5xl mx-auto px-5 mb-12">
           <div className="text-center mb-6">
             <h3 className="text-3xl font-bold text-white mb-2">Knowledge Check</h3>
@@ -189,7 +223,7 @@ export default function ModuleTemplate({ hero, articles = [], summary, quiz = []
         </section>
       ) : null}
 
-      {/* Footer Navigation */}
+      {/* Bottom nav */}
       <div className="max-w-5xl mx-auto px-5 pb-10">
         <FooterNav prev={prev} next={next} />
       </div>
