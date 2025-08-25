@@ -16,6 +16,13 @@ function pct(n: number, d: number) {
   if (d <= 0) return 0;
   return Math.round((n / d) * 100);
 }
+// Normalize any choice shape to a display string
+function getChoiceLabel(c:any){
+  if (c == null) return '';
+  if (typeof c === 'string' || typeof c === 'number') return String(c);
+  return c.label ?? c.text ?? c.name ?? c.title ?? (c.value != null ? String(c.value) : '');
+}
+
 
 export default function Quiz({ questions, storageKeyPrefix = "ohmwork-quiz:" }: Props) {
   const pathname = usePathname();
@@ -98,7 +105,7 @@ export default function Quiz({ questions, storageKeyPrefix = "ohmwork-quiz:" }: 
         {/* Result banner appears only after submit */}
         {/* Questions */}
         <div className="mt-6 space-y-5">
-          {questions.map((q, i) => {
+          {(Array.isArray(questions) ? questions : []).map((q, i) => {
             const chosen = answers[q.id] ?? null;
             const showFeedback = submitted; // only after submit
             return (
