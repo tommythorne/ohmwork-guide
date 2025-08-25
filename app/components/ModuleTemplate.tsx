@@ -103,9 +103,20 @@ const ImagesStack: React.FC<{ images?: ImageItem[] }> = ({ images = [] }) => {
 
 /** ------------ Main Template ------------ */
 export default function ModuleTemplate({ hero, articles = [], summary, quiz = [], prev, next }: Props) {
-  const articleCount = articles.length;
+  
+  
+  // SAFETY: coerce possibly-undefined props to arrays to avoid .map on undefined
+  const articlesArr = Array.isArray(articles) ? articles : [];
+  const quizArr = Array.isArray(quiz) ? quiz : [];
+  const summaryObj = summary && typeof summary === 'object' ? summary : {};
+  const summaryCards = Array.isArray(summaryObj.cards) ? summaryObj.cards : [];
+// --- SAFETY COERCIONS (avoid .map on undefined) ---
+  
+  
+  
+const articleCount = articlesArr.length;
   const quizCount = Array.isArray(quiz) ? quiz.length : 0;
-  const visualCount = articles.reduce(
+  const visualCount = articlesArr.reduce(
     (n, a) => n + Math.min(Array.isArray(a.images) ? a.images.length : 0, 2),
     0
   );
@@ -225,7 +236,7 @@ const renderPointsList = (a: Article) => {
           ) : null}
           {Array.isArray(summary.cards) && summary.cards.length ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {summary.cards.map((c, idx) => (
+              {summaryCards.map((c, idx) => (
                 <div key={idx} className="rounded-xl border border-white/15 bg-white/[0.03] p-6">
                   <div className="space-y-2 text-center">
                     <h4 className="text-lg font-bold text-white">{c.title}</h4>
