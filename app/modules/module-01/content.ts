@@ -43,9 +43,9 @@ const content = {
       ],
       block: {
         type: "exam",
-        title: "EXAM TRAP",
+        // title intentionally omitted to avoid double heading
         body:
-          "“Practical safeguarding” is the correct phrase—**never** “absolute safety.” Questions often pair 90.1(A) with tempting wrong answers like “eliminate all hazards.”"
+          "Exam writers want you to say “absolute safety.” Don’t. The phrase is **practical safeguarding** (90.1(A)). Also watch the language traps: **shall** (mandatory) vs **may** (permissive), and remember **Informational Notes are not enforceable**. If a choice claims the NEC guarantees zero risk or makes a note enforceable, it’s bait."
       },
       images: [
         {
@@ -88,9 +88,8 @@ const content = {
       ],
       block: {
         type: "rule",
-        title: "RULE OF THUMB",
         body:
-          "If you’re stuck, assume the **feeder/branch boundary = final OCPD**. It unlocks many trick questions about where a requirement applies."
+          "Stuck on “feeder or branch?” Default to this: **the branch starts after the final OCPD**. Everything upstream is feeder. That single line will save you on layout questions, conductor ID, and which article applies."
       },
       images: [
         {
@@ -128,9 +127,8 @@ const content = {
       ],
       block: {
         type: "code",
-        title: "NEC REFERENCE",
         body:
-          "110.3(B): ‘The installation and use of equipment shall be in accordance with any instructions included in the listing or labeling.’ Copy this language verbatim for the exam."
+          "Memorize the spine of 110.3(B): **install and use per listing or labeling instructions**. If the label says a torque value, that’s your torque. If the manual calls for a specific accessory or orientation, that’s the rule. On the job and on the exam, **the label wins**."
       },
       images: [
         {
@@ -168,9 +166,8 @@ const content = {
       ],
       block: {
         type: "table",
-        title: "Torque Quick Sheet (Example Values — use device label!)",
         body:
-          "Breaker 15–20A copper: 25 in‑lb • Lugs #2–#6 Cu: 45–50 in‑lb • Main lugs 2/0–4/0 Cu: 180–250 in‑lb. Always defer to the actual label."
+          "Quick torque sanity (examples—**always** defer to the device label):\n• 15–20A breaker (Cu): ~25 in‑lb\n• #2–#6 Cu lugs: ~45–50 in‑lb\n• 2/0–4/0 Cu mains: ~180–250 in‑lb\nIf your label disagrees, **the label wins**. Log your torque and keep your tool calibrated."
       },
       images: [
         {
@@ -208,9 +205,8 @@ const content = {
       ],
       block: {
         type: "chart",
-        title: "110.26 Working‑Space Depth (Typical)",
         body:
-          "Cond. 1: 3 ft • Cond. 2: 3.5 ft • Cond. 3: 4 ft. Remember this trio; most questions only test the mapping."
+          "Depth memory trick: **3 / 3.5 / 4 ft** for Conditions 1–3. Most indoor panels land at 3 ft. If you see energized gear directly across or grounded surfaces that tighten the approach, your depth increases. Sketch the room—then check the condition."
       },
       images: [
         {
@@ -359,9 +355,8 @@ const content = {
       ],
       block: {
         type: "horror",
-        title: "JOBSITE HORROR STORY",
         body:
-          "A service room failed the final because a water line was routed over the switchboard after rough‑in. Rework involved draining, rerouting, and rescheduling—costing days and thousands. Protect the dedicated space early."
+          "We lost a final over a copper line routed across a new switchboard—installed after rough‑in. Result: drain, reroute, re‑inspect, re‑schedule. Thousands burned. **Lock in dedicated space** on the drawings, tag the ceiling early, and walk the room with mechanical before they hang pipe."
       },
       images: [
         {
@@ -378,7 +373,6 @@ const content = {
     }
   ]
 };
-
 
 import quiz from "./quiz-bridge";
 (content as any).quiz = quiz;
