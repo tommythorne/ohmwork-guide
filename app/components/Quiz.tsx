@@ -16,13 +16,24 @@ function pct(n: number, d: number) {
   if (d <= 0) return 0;
   return Math.round((n / d) * 100);
 }
+
 // Normalize any choice shape to a display string
-function getChoiceLabel(c:any){
-  if (c == null) return '';
-  if (typeof c === 'string' || typeof c === 'number') return String(c);
-  return c.label ?? c.text ?? c.name ?? c.title ?? (c.value != null ? String(c.value) : '');
+function getChoiceLabel(c: any) {
+  if (c == null) return "";
+  if (typeof c === "string" || typeof c === "number") return String(c);
+  return (
+    c.label ??
+    c.text ??
+    c.name ??
+    c.title ??
+    (c.value != null ? String(c.value) : "")
+  );
 }
 
+// Get a letter key (A, B, C...) for a given index
+function letterKey(idx: number): QuizChoiceKey {
+  return String.fromCharCode(65 + idx) as QuizChoiceKey;
+}
 
 export default function Quiz({ questions, storageKeyPrefix = "ohmwork-quiz:" }: Props) {
   const pathname = usePathname();
@@ -31,7 +42,6 @@ export default function Quiz({ questions, storageKeyPrefix = "ohmwork-quiz:" }: 
     [pathname, storageKeyPrefix]
   );
 
-  // answers[id] = 'A' | 'B' | 'C' | 'D' | null
   const [answers, setAnswers] = useState<AnswersMap>(() => {
     if (typeof window === "undefined") return {};
     try {
@@ -46,14 +56,12 @@ export default function Quiz({ questions, storageKeyPrefix = "ohmwork-quiz:" }: 
   const [submitted, setSubmitted] = useState(false);
   const total = questions.length;
 
-  // persist on change
   useEffect(() => {
     try {
       localStorage.setItem(storageKey, JSON.stringify(answers));
     } catch {}
   }, [answers, storageKey]);
 
-  // recompute score only after submit
   const { correctCount, percent } = useMemo(() => {
     if (!submitted) return { correctCount: 0, percent: 0 };
     let correct = 0;
@@ -79,7 +87,6 @@ export default function Quiz({ questions, storageKeyPrefix = "ohmwork-quiz:" }: 
 
   function onSubmit() {
     setSubmitted(true);
-    // persist the "submitted" state alongside answers
     try {
       localStorage.setItem(storageKey, JSON.stringify(answers));
     } catch {}
@@ -92,7 +99,6 @@ export default function Quiz({ questions, storageKeyPrefix = "ohmwork-quiz:" }: 
 
   return (
     <section aria-labelledby="quiz-heading" className="mt-12">
-      {/* Header (no buttons at top) */}
       <div className="rounded-2xl bg-gradient-to-b from-blue-900/60 to-indigo-900/30 border border-white/10 p-6 md:p-8 shadow-xl">
         <h2 id="quiz-heading" className="text-2xl md:text-3xl font-extrabold text-white text-center">
           Knowledge Check
@@ -102,17 +108,16 @@ export default function Quiz({ questions, storageKeyPrefix = "ohmwork-quiz:" }: 
           You’ll see your score after submitting. Nothing is graded until then.
         </p>
 
-        {/* Result banner appears only after submit */}
-        {/* Questions */}
         <div className="mt-6 space-y-5">
           {(Array.isArray(questions) ? questions : []).map((q, i) => {
             const chosen = answers[q.id] ?? null;
-            const showFeedback = submitted; // only after submit
+            const showFeedback = submitted;
+
+            // Ensure choices is an array; tolerate strings or objects
+            const choices = Array.isArray(q.choices) ? q.choices : [];
+
             return (
-              <div
-                key={q.id}
-                className="rounded-xl border border-white/15 bg-white/[0.03] p-4 md:p-5"
-              >
+              <div key={q.id} className="rounded-xl border border-white/15 bg-white/[0.03] p-4 md:p-5">
                 <div className="mb-3 flex items-start gap-3">
                   <div className="h-8 w-8 shrink-0 rounded-full bg-yellow-500/20 border border-yellow-400/40 flex items-center justify-center text-yellow-300 font-bold">
                     {i + 1}
@@ -121,10 +126,12 @@ export default function Quiz({ questions, storageKeyPrefix = "ohmwork-quiz:" }: 
                 </div>
 
                 <div className="grid gap-2">
-                  {q.choices.map((c) => {
-                    const isSelected = chosen === c.key;
-                    const isCorrect = c.key === q.answer;
-                    // Only color after submit
+                  {choices.map((c: any, idx: number) => {
+                    const key: QuizChoiceKey = (c && c.key) ? c.key : letterKey(idx);
+                    const label = getChoiceLabel(c);
+                    const isSelected = chosen === key;
+                    const isCorrect = key === q.answer;
+
                     const stateClass = showFeedback
                       ? isCorrect
                         ? "border-emerald-500/40 bg-emerald-500/10"
@@ -137,26 +144,25 @@ export default function Quiz({ questions, storageKeyPrefix = "ohmwork-quiz:" }: 
 
                     return (
                       <label
-                        key={c.key}
+                        key={key}
                         className={`rounded-lg border px-3 py-2 cursor-pointer transition-colors ${stateClass}`}
                       >
                         <input
                           type="radio"
                           name={`q-${q.id}`}
-                          value={c.key}
+                          value={key}
                           checked={isSelected || false}
-                          onChange={() => choose(q.id, c.key)}
+                          onChange={() => choose(q.id, key)}
                           className="hidden"
-                          aria-label={`Choice ${c.key}`}
+                          aria-label={`Choice ${key}`}
                         />
-                        <span className="text-white/90 font-medium mr-2">{c.key}.</span>
-                        <span className="text-white/90">{c.text}</span>
+                        <span className="text-white/90 font-medium mr-2">{key}.</span>
+                        <span className="text-white/90">{label}</span>
                       </label>
                     );
                   })}
                 </div>
 
-                {/* Explanation only after submit */}
                 {showFeedback && (
                   <p className="mt-3 text-sm text-white/70">
                     <span className="font-semibold text-white/90">Explanation:</span> {q.why}
@@ -167,7 +173,6 @@ export default function Quiz({ questions, storageKeyPrefix = "ohmwork-quiz:" }: 
           })}
         </div>
 
-        {/* Bottom controls ONLY */}
         <div className="mt-8 flex flex-col sm:flex-row justify-end gap-3">
           <button
             type="button"
@@ -190,7 +195,7 @@ export default function Quiz({ questions, storageKeyPrefix = "ohmwork-quiz:" }: 
           </button>
         </div>
 
-        {/* Result banner appears only after submit */}
+        {/* Result banner */}
         {submitted && (
           <div
             className={`mt-6 rounded-xl border p-4 text-center ${
@@ -207,9 +212,7 @@ export default function Quiz({ questions, storageKeyPrefix = "ohmwork-quiz:" }: 
             {percent >= PASS_THRESHOLD * 100 ? (
               <p className="text-emerald-300 mt-1">Nice work — you passed. 🎉</p>
             ) : (
-              <p className="text-red-300 mt-1">
-                Score below 75%. Review the material and try again.
-              </p>
+              <p className="text-red-300 mt-1">Score below 75%. Review the material and try again.</p>
             )}
           </div>
         )}
