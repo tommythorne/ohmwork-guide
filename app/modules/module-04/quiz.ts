@@ -1,187 +1,192 @@
-// @ts-nocheck
+export type QuizChoiceKey = "A" | "B" | "C" | "D";
+export type QuizQuestion = {
+  id: number;
+  stem: string;
+  choices: { key: QuizChoiceKey; text: string }[];
+  answer: QuizChoiceKey;
+  why: string;
+};
 
-// 15-question quiz for Chapter 4 — Wiring Methods
-// Format is the same as Module 2's quiz
-const quiz = [
+const quiz: QuizQuestion[] = [
   {
     id: 1,
-    stem: "What is the minimum burial depth for direct burial cables under residential driveways?",
+    stem: "Outdoors in a wet location, a 20A, 125V receptacle is installed on a dwelling. Which cover is required?",
     choices: [
-      { key: "A", text: "12 inches" },
-      { key: "B", text: "18 inches" },
-      { key: "C", text: "24 inches" },
-      { key: "D", text: "30 inches" }
+      { key: "A", text: "Weatherproof flap (closed when in use)" },
+      { key: "B", text: "While‑in‑use (in‑use) cover" },
+      { key: "C", text: "Standard indoor cover is fine" },
+      { key: "D", text: "No cover if WR receptacle is used" }
     ],
-    answer: "C",
-    why: "NEC 300.5 requires at least 24 inches for conductors under residential driveways."
+    answer: "B",
+    why: "406.9(B)(1): In wet locations, 15/20A 125/250V receptacles require an in‑use cover."
   },
   {
     id: 2,
-    stem: "Flexible cords must not be used as a substitute for what?",
+    stem: "A countertop requires a face‑up receptacle. Which statement is correct?",
     choices: [
-      { key: "A", text: "Branch circuit wiring" },
-      { key: "B", text: "Extension cords" },
-      { key: "C", text: "Temporary power" },
-      { key: "D", text: "Portable equipment" }
+      { key: "A", text: "Any 15/20A duplex is acceptable if GFCI protected" },
+      { key: "B", text: "Only if protected by an AFCI" },
+      { key: "C", text: "Only if a listed assembly for face‑up installation is used" },
+      { key: "D", text: "Never permitted by the NEC" }
     ],
-    answer: "A",
-    why: "NEC 400.8 prohibits flexible cords from being used as a substitute for permanent wiring."
+    answer: "C",
+    why: "406.5(E): Face‑up devices must be part of a listed assembly for that orientation."
   },
   {
     id: 3,
-    stem: "What is the maximum number of 90° bends allowed between pull points in conduit?",
+    stem: "Which best describes 'readily accessible' for a wall switch?",
     choices: [
-      { key: "A", text: "2" },
-      { key: "B", text: "3" },
-      { key: "C", text: "4" },
-      { key: "D", text: "5" }
+      { key: "A", text: "Reachable with a 6‑ft ladder" },
+      { key: "B", text: "Reachable quickly without tools or ladders" },
+      { key: "C", text: "Within 6 ft of the door" },
+      { key: "D", text: "Under a removable panel" }
     ],
-    answer: "C",
-    why: "NEC 300.17 limits to 360° of bends, equivalent to four 90° bends."
+    answer: "B",
+    why: "Article 100 definition used with 404: no tools, no ladders, no moving obstacles."
   },
   {
     id: 4,
-    stem: "What is the minimum size equipment grounding conductor required for a 60A circuit?",
+    stem: "A luminaire is supported by EMT. When is this permitted?",
     choices: [
-      { key: "A", text: "10 AWG" },
-      { key: "B", text: "8 AWG" },
-      { key: "C", text: "12 AWG" },
-      { key: "D", text: "6 AWG" }
+      { key: "A", text: "Always, EMT is rigid enough" },
+      { key: "B", text: "Only where the luminaire is very light" },
+      { key: "C", text: "Only when the raceway and luminaire are specifically listed for support" },
+      { key: "D", text: "Never permitted" }
     ],
-    answer: "A",
-    why: "NEC 250.122 requires 10 AWG copper for a 60A OCPD."
+    answer: "C",
+    why: "410.36(B): Independent support unless specifically listed for raceway support."
   },
   {
     id: 5,
-    stem: "When installing NM cable through wood framing, what must be used if within 1-1/4 inches of the face of the framing member?",
+    stem: "An appliance is 240V, 16A, fixed, and within sight. What can serve as its disconnect?",
     choices: [
-      { key: "A", text: "Plastic bushings" },
-      { key: "B", text: "Conduit sleeves" },
-      { key: "C", text: "Steel plates (nail guards)" },
-      { key: "D", text: "Staples" }
+      { key: "A", text: "Branch OCPD only" },
+      { key: "B", text: "Cord‑and‑plug if within sight" },
+      { key: "C", text: "No disconnect is needed" },
+      { key: "D", text: "Only a fused safety switch" }
     ],
-    answer: "C",
-    why: "NEC 300.4(A)(1) requires steel plates for protection."
+    answer: "B",
+    why: "422.31 and 422.33: A cord‑and‑plug can be the disconnect when within sight."
   },
   {
     id: 6,
-    stem: "Rigid metal conduit (RMC) must be supported within how many feet of each termination?",
+    stem: "Fixed electric space‑heating load is 32A continuous. Minimum circuit ampacity?",
     choices: [
-      { key: "A", text: "1 foot" },
-      { key: "B", text: "3 feet" },
-      { key: "C", text: "5 feet" },
-      { key: "D", text: "10 feet" }
+      { key: "A", text: "32A" },
+      { key: "B", text: "35A" },
+      { key: "C", text: "40A" },
+      { key: "D", text: "45A" }
     ],
-    answer: "B",
-    why: "NEC 344.30 requires RMC to be supported within 3 feet of each termination."
+    answer: "C",
+    why: "Continuous heating → 125%: 32A × 1.25 ≈ 40A (next standard)."
   },
   {
     id: 7,
-    stem: "What is the allowable fill percentage for a single conductor in a conduit?",
+    stem: "Motor branch‑circuit conductor ampacity is based on:",
     choices: [
-      { key: "A", text: "40%" },
-      { key: "B", text: "53%" },
-      { key: "C", text: "60%" },
-      { key: "D", text: "100%" }
+      { key: "A", text: "125% of the motor full‑load current" },
+      { key: "B", text: "100% of nameplate current" },
+      { key: "C", text: "150% of the OCPD" },
+      { key: "D", text: "Whatever the breaker rating is" }
     ],
-    answer: "B",
-    why: "Chapter 9, Table 1 allows 53% fill for a single conductor."
+    answer: "A",
+    why: "430.22: Conductors sized at 125% of motor FLC from the tables."
   },
   {
     id: 8,
-    stem: "Where must MC cable be supported and secured?",
+    stem: "For A/C equipment, which values control conductor/OCPD sizing?",
     choices: [
-      { key: "A", text: "Within 6 feet of every box and every 10 feet" },
-      { key: "B", text: "Within 12 inches of every box and every 6 feet" },
-      { key: "C", text: "Within 3 feet of every box and every 8 feet" },
-      { key: "D", text: "Only at terminations" }
+      { key: "A", text: "Table 310 ampacity only" },
+      { key: "B", text: "Motor Tables 430.248–250 only" },
+      { key: "C", text: "Nameplate values such as MCA and MOCP" },
+      { key: "D", text: "Whatever the installer used last time" }
     ],
-    answer: "A",
-    why: "NEC 330.30 requires MC cable to be supported within 12 inches of every box and at intervals not exceeding 6 feet."
+    answer: "C",
+    why: "440.6: Use the **nameplate** MCA/MOCP, not generic tables."
   },
   {
     id: 9,
-    stem: "What type of conduit is permitted in wet locations?",
+    stem: "Transformer primary OCPD sizing is generally taken from:",
     choices: [
-      { key: "A", text: "Electrical Metallic Tubing (EMT)" },
-      { key: "B", text: "Rigid Metal Conduit (RMC)" },
-      { key: "C", text: "Intermediate Metal Conduit (IMC)" },
-      { key: "D", text: "All of the above" }
+      { key: "A", text: "Table 450.3 based on type and voltage class" },
+      { key: "B", text: "Table 310.16 only" },
+      { key: "C", text: "432.52" },
+      { key: "D", text: "Manufacturer torque chart" }
     ],
-    answer: "D",
-    why: "NEC 358, 342, and 344 permit EMT, IMC, and RMC in wet locations when properly installed."
+    answer: "A",
+    why: "450.3(A)/(B): Maximum OCPD set by transformer type and voltage class."
   },
   {
     id: 10,
-    stem: "How must unused openings in boxes or conduit bodies be closed?",
+    stem: "A panelboard has an unused breaker opening. What’s required?",
     choices: [
-      { key: "A", text: "With electrical tape" },
-      { key: "B", text: "With threaded plugs or listed closures" },
-      { key: "C", text: "With duct seal" },
-      { key: "D", text: "Left open for ventilation" }
+      { key: "A", text: "Leave it open for ventilation" },
+      { key: "B", text: "Tape over it temporarily" },
+      { key: "C", text: "Install a **listed filler plate**" },
+      { key: "D", text: "Nothing if the room is locked" }
     ],
-    answer: "B",
-    why: "NEC 314.17 requires unused openings to be closed with listed closures."
+    answer: "C",
+    why: "408.54: Listed filler plates must cover unused openings."
   },
   {
     id: 11,
-    stem: "What is the maximum spacing between supports for EMT (1 inch trade size)?",
+    stem: "An ICP (industrial control panel) nameplate shows SCCR = 10 kA, available fault = 22 kA. Result?",
     choices: [
-      { key: "A", text: "6 feet" },
-      { key: "B", text: "8 feet" },
-      { key: "C", text: "10 feet" },
-      { key: "D", text: "12 feet" }
+      { key: "A", text: "OK if feeders are copper" },
+      { key: "B", text: "OK if upstream main is 100A" },
+      { key: "C", text: "Not compliant—the SCCR must meet/exceed the available fault current" },
+      { key: "D", text: "OK if GFCI protected" }
     ],
-    answer: "B",
-    why: "NEC 358.30 requires EMT to be supported every 10 feet, but smaller sizes often require closer spacing."
+    answer: "C",
+    why: "409.110: SCCR must be adequate for available fault current."
   },
   {
     id: 12,
-    stem: "What is the minimum cover for direct burial conductors under a residential yard?",
+    stem: "Which statement about motor branch OCPD is true?",
     choices: [
-      { key: "A", text: "6 inches" },
-      { key: "B", text: "12 inches" },
-      { key: "C", text: "18 inches" },
-      { key: "D", text: "24 inches" }
+      { key: "A", text: "It primarily protects the motor windings" },
+      { key: "B", text: "It primarily protects the circuit conductors" },
+      { key: "C", text: "It always equals 125% of FLC" },
+      { key: "D", text: "It’s always smaller than conductor ampacity" }
     ],
-    answer: "C",
-    why: "NEC 300.5 requires 18 inches for direct burial conductors under yards."
+    answer: "B",
+    why: "430.52 note: OCPD is for the **circuit**; overloads protect the motor."
   },
   {
     id: 13,
-    stem: "Which of the following wiring methods is NOT permitted in a plenum space?",
+    stem: "Closet luminaire rules generally restrict:",
     choices: [
-      { key: "A", text: "Type MC cable with plenum rating" },
-      { key: "B", text: "Type AC cable" },
-      { key: "C", text: "Rigid metal conduit" },
-      { key: "D", text: "Flexible metal conduit (FMC)" }
+      { key: "A", text: "Any LED usage" },
+      { key: "B", text: "Clearance to storage and use of enclosed or IC‑rated fixtures where required" },
+      { key: "C", text: "Switch location only" },
+      { key: "D", text: "Fixture color temperature" }
     ],
     answer: "B",
-    why: "NEC 300.22 prohibits Type AC cable in ducts or plenums."
+    why: "410.10(D): Clearance and appropriate fixture type."
   },
   {
     id: 14,
-    stem: "What marking must be visible on all listed conduit and tubing?",
+    stem: "A WR receptacle is installed outdoors but under a roof (damp location). Cover?",
     choices: [
-      { key: "A", text: "UL symbol or other listing mark" },
-      { key: "B", text: "Manufacturer name" },
-      { key: "C", text: "Trade size" },
-      { key: "D", text: "All of the above" }
+      { key: "A", text: "No cover if WR" },
+      { key: "B", text: "In‑use cover is still required because it’s outdoors" },
+      { key: "C", text: "Weatherproof cover that remains closed when **not** in use" },
+      { key: "D", text: "Standard indoor cover" }
     ],
-    answer: "D",
-    why: "NEC 110.21 requires all of the above markings for listed raceways."
+    answer: "C",
+    why: "406.9(A): Damp locations—weatherproof cover closed when not in use (in‑use required for wet)."
   },
   {
     id: 15,
-    stem: "Flexible metal conduit (FMC) may not exceed what length when used as a grounding conductor?",
+    stem: "Fixed space heating at 48A continuous—minimum OCPD (standard ratings)?",
     choices: [
-      { key: "A", text: "4 feet" },
-      { key: "B", text: "6 feet" },
-      { key: "C", text: "8 feet" },
-      { key: "D", text: "10 feet" }
+      { key: "A", text: "50A" },
+      { key: "B", text: "60A" },
+      { key: "C", text: "45A" },
+      { key: "D", text: "40A" }
     ],
     answer: "B",
-    why: "NEC 250.118 limits FMC to 6 feet if used as an equipment grounding conductor."
+    why: "48A × 125% = 60A. Next standard breaker is 60A."
   }
 ];
 
