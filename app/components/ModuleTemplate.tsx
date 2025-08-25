@@ -101,6 +101,8 @@ export default function ModuleTemplate({ hero, articles = [], summary, quiz = []
     <main className="min-h-screen bg-black text-white">
       {/* Hero */}
       <section className="relative h-[28rem] flex items-center justify-center overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/30 to-slate-900/70" />
+        
         {hero?.imageSrc ? (
           <>
             <img src={hero.imageSrc} alt={hero.imageAlt || hero.title} className="absolute inset-0 w-full h-full object-cover opacity-30" />
