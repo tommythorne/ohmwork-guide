@@ -110,7 +110,33 @@ export default function ModuleTemplate({ hero, articles = [], summary, quiz = []
     0
   );
 
-  const renderPointsList = (a: Article) => {
+  
+  // --- Ensure every article has a special block AND avoid consecutive repeats ---
+  const BLOCK_TYPES = ["exam","rule","code","table","chart","horror"] as const;
+  type BlockType = typeof BLOCK_TYPES[number];
+  let __lastType: BlockType | null = null;
+  
+  const normalizedArticles = (Array.isArray(articles) ? articles : []).map((a, idx) => {
+    // Prefer existing meaningful block; otherwise assign round‑robin
+    let blk = (a && a.block && a.block.type && a.block.type !== "none")
+      ? { ...a.block }
+      : {
+        type: BLOCK_TYPES[idx % BLOCK_TYPES.length] as BlockType,
+        title: (a?.block && typeof (a.block as any) === "object" && "title" in (a.block as any)) ? (a.block as any).title : undefined,
+        body:  (a?.block && typeof (a.block as any) === "object" && "body"  in (a.block as any)) ? (a.block as any).body  : undefined,
+      } as any;
+
+    // If this block matches the previous type, bump to the next one
+    if (blk && blk.type === __lastType) {
+      const i = Math.max(0, BLOCK_TYPES.indexOf(blk.type as BlockType));
+      blk.type = BLOCK_TYPES[(i + 1) % BLOCK_TYPES.length] as BlockType;
+    }
+
+    __lastType = blk ? blk.type : __lastType;
+    return { ...a, block: blk };
+  });
+  
+const renderPointsList = (a: Article) => {
     const list = Array.isArray(a.points) && a.points.length ? a.points : Array.isArray(a.bullets) ? a.bullets : [];
     if (!list.length) return null;
     return <ul className="list-disc list-outside pl-6 space-y-2">{list.map(pointToJSX)}</ul>;
@@ -170,7 +196,7 @@ export default function ModuleTemplate({ hero, articles = [], summary, quiz = []
 
       {/* Articles */}
       <section className="max-w-5xl mx-auto px-5 mt-10">
-        {articles.map((a, i) => (
+        { normalizedArticles.map((a, i) => (
           <article key={a.id || a.title || i} className="mb-12">
             <header className="flex items-center gap-3 mb-5">
               <div className="text-2xl">{a.icon || a.iconName || "📘"}</div>
