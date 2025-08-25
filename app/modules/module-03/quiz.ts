@@ -1,109 +1,189 @@
-// Module 3 — Wiring Methods & Materials
-// 10-question Knowledge Check, exam-style
+import type { QuizQuestion } from "@/app/types/module";
 
-type Choice = { label: string; correct?: boolean; explain?: string };
-type Question = { stem: string; ref?: string; choices: Choice[] };
-
-const quiz: Question[] = [
+/**
+ * Module 3 — Wiring Methods Knowledge Check (15 questions)
+ * Shape: { id, stem, choices:[{key,text}], answer:'A'|'B'|'C'|'D', why }
+ */
+const quiz: QuizQuestion[] = [
   {
-    stem: "EMT in a dry location is secured with straps. What is the maximum distance from each box that a strap must be located (trade size 1 in. and smaller)?",
-    ref: "NEC 358.30(A), Exception rules elsewhere",
+    id: 1,
+    stem: "EMT in a dry location is secured with straps. What is the maximum distance from each box a strap must be located (trade size 1 in. and smaller)?",
     choices: [
-      { label: "6 in." },
-      { label: "10 in." },
-      { label: "3 ft" },
-      { label: "12 in.", correct: true, explain: "EMT must be securely fastened within 3 ft of each outlet box, junction box, device box, cabinet, conduit body or other termination, and supported every 10 ft. Many exam distractors flip these numbers. (358.30(A))" }
-    ]
+      { key: "A", text: "12 in." },
+      { key: "B", text: "18 in." },
+      { key: "C", text: "24 in." },
+      { key: "D", text: "36 in." }
+    ],
+    answer: "D",
+    why: "EMT must be secured within 3 ft of each box and supported at intervals ≤10 ft (NEC 358.30)."
   },
   {
-    stem: "Nonmetallic raceways expand and contract with temperature. When is an expansion fitting required for PVC conduit (RNC)?",
-    ref: "NEC 352.44",
+    id: 2,
+    stem: "Nonmetallic raceways (PVC/RNC) expand and contract with temperature. When is an expansion fitting required?",
     choices: [
-      { label: "Always, regardless of run length" },
-      { label: "Only where exposed to sunlight" },
-      { label: "Where expected thermal expansion will cause ≥ 1/4 in. movement", correct: true, explain: "PVC runs that will see enough temperature swing to create movement must have expansion fittings to protect terminations. Use the manufacturer’s expansion chart. (352.44)" },
-      { label: "Never; PVC is flexible enough" }
-    ]
+      { key: "A", text: "Any outdoor run, regardless of length" },
+      { key: "B", text: "When expected length change is 1/4 in. or more" },
+      { key: "C", text: "Only when conduit crosses a building expansion joint" },
+      { key: "D", text: "Only when run exceeds 100 ft" }
+    ],
+    answer: "B",
+    why: "RNC needs expansion fittings where thermal movement ≥ 1/4 in. is expected between secure points (352.44)."
   },
   {
-    stem: "What’s the minimum cover for Schedule 40 PVC feeder (120/240 V) direct-buried under a residential driveway?",
-    ref: "NEC 300.5(A), Table 300.5",
+    id: 3,
+    stem: "What’s the minimum cover for Schedule 40 PVC feeder (120/240 V) direct-buried under a one‑/two‑family residential driveway?",
     choices: [
-      { label: "12 in." },
-      { label: "18 in." },
-      { label: "24 in.", correct: true, explain: "Most dwelling driveways fall under 'Residential driveways and outdoor parking areas' → 18 in. for direct-buried cable, but for RNC (PVC) with individual conductors it’s typically 18 in. if GFCI protected; otherwise 24 in. Be careful with conditions; many exams key 24 in. for general feeders. Always verify local condition in Table 300.5." },
-      { label: "30 in." }
-    ]
+      { key: "A", text: "12 in." },
+      { key: "B", text: "18 in." },
+      { key: "C", text: "24 in." },
+      { key: "D", text: "30 in." }
+    ],
+    answer: "B",
+    why: "Residential driveway cover for PVC is typically 18 in. (Table 300.5—dwelling driveways)."
   },
   {
-    stem: "Type NM cable is allowed in which of the following locations?",
-    ref: "NEC 334.10, 334.12",
+    id: 4,
+    stem: "Maximum cumulative degrees of bend permitted between pull points in a run of raceway?",
     choices: [
-      { label: "Exposed in a commercial garage" },
-      { label: "In a dwelling unit wall cavity", correct: true, explain: "NM is permitted in normally dry locations of one- and two-family and multifamily dwellings—such as stud walls. Not permitted in wet or hazardous (classified) locations, or where subject to physical damage. (334.10, 334.12)" },
-      { label: "Embedded in poured concrete (wet)" },
-      { label: "Exposed in a place of assembly where subject to damage" }
-    ]
+      { key: "A", text: "270°" },
+      { key: "B", text: "360°" },
+      { key: "C", text: "420°" },
+      { key: "D", text: "No limit if using lubricant" }
+    ],
+    answer: "B",
+    why: "Most raceways are limited to 360° total between pull points (e.g., 358.26, 342.26, 352.26)."
   },
   {
-    stem: "MC cable equipment grounding: which is true for an MC cable with an aluminum armor and a full-sized copper equipment grounding conductor (EGC) inside?",
-    ref: "NEC 330.108, 250.118(10)",
+    id: 5,
+    stem: "EMT support spacing (general) is required at intervals not exceeding:",
     choices: [
-      { label: "The armor always serves as the sole EGC" },
-      { label: "The armor is never permitted as an EGC" },
-      { label: "The internal copper EGC is the recognized EGC; armor may or may not be recognized depending on listing", correct: true, explain: "MC can be listed so that the armor qualifies as an EGC in specific constructions, but the internal copper/AL EGC is the recognized equipment grounding conductor when provided. (330.108, 250.118(10))" },
-      { label: "You must add a separate green insulated EGC outside the MC" }
-    ]
+      { key: "A", text: "4 ft" },
+      { key: "B", text: "6 ft" },
+      { key: "C", text: "8 ft" },
+      { key: "D", text: "10 ft" }
+    ],
+    answer: "D",
+    why: "Support EMT at ≤10 ft and secure within 3 ft of each box (358.30)."
   },
   {
-    stem: "Minimum bending radius for 4/0 AWG THHN copper in a raceway (building wire)?",
-    ref: "NEC 310.10(G), 300.34 (older editions), manufacturer data",
+    id: 6,
+    stem: "Flexible metal conduit (FMC): maximum interval between supports for trade sizes 1‑1/4 in. and smaller?",
     choices: [
-      { label: "Not specified; bend as needed" },
-      { label: "5 × conductor diameter", correct: true, explain: "For conductors 4 AWG and larger, bending radius is typically at least 5× the conductor diameter (check current Code section and cable type). Exams often test 5× for single conductors in raceway. Verify specific edition language. " },
-      { label: "8 × conduit trade size" },
-      { label: "12 × conductor diameter" }
-    ]
+      { key: "A", text: "3 ft" },
+      { key: "B", text: "4.5 ft" },
+      { key: "C", text: "6 ft" },
+      { key: "D", text: "10 ft" }
+    ],
+    answer: "B",
+    why: "FMC ≤1‑1/4 in. supported at ≤4.5 ft and secured within 12 in. of boxes (348.30)."
   },
   {
-    stem: "THWN-2 conductors are installed outdoors in PVC. Is this a wet location and are the conductors suitable?",
-    ref: "NEC 310.10(C), 300.9",
+    id: 7,
+    stem: "Direct‑buried UF cable for a 120 V, 20 A GFCI‑protected branch circuit in residential lawn: minimum cover?",
     choices: [
-      { label: "Not a wet location; THWN-2 is dry-location only" },
-      { label: "Wet location; THWN-2 is suitable", correct: true, explain: "Raceways in wet locations above or below grade are considered wet locations. THWN-2 is rated for wet locations. (300.9, 310.10(C))" },
-      { label: "Wet location; THWN-2 is not suitable" },
-      { label: "Depends on the conduit schedule only" }
-    ]
+      { key: "A", text: "6 in." },
+      { key: "B", text: "12 in." },
+      { key: "C", text: "18 in." },
+      { key: "D", text: "24 in." }
+    ],
+    answer: "B",
+    why: "GFCI 120 V, 20 A residential branch circuits may be at 12 in. (Table 300.5 Note conditions)."
   },
   {
-    stem: "Allowed maximum conductor fill in a single raceway (more than 2 conductors)?",
-    ref: "NEC Chapter 9, Table 1; Annex C for specific raceways",
+    id: 8,
+    stem: "Allowed maximum conductor fill in a single raceway (more than two conductors)?",
     choices: [
-      { label: "40%" },
-      { label: "53%" },
-      { label: "60%" },
-      { label: "40% for one conductor, 31% for two, 40% *area* for over two; use Tables", correct: true, explain: "Chapter 9, Table 1 sets the rules: 53% for one conductor, 31% for two, and 40% of the cross-sectional area for over two. Exams love to mix these numbers—memorize the trio." }
-    ]
+      { key: "A", text: "40%" },
+      { key: "B", text: "53%" },
+      { key: "C", text: "60%" },
+      { key: "D", text: "31%" }
+    ],
+    answer: "A",
+    why: "Chapter 9, Table 1: One conductor 53%; two conductors 31%; over two conductors 40% fill."
   },
   {
-    stem: "Flexible metal conduit (FMC) support: what is the maximum interval between supports for trade sizes 1-1/4 in. and smaller?",
-    ref: "NEC 348.30(A)",
+    id: 9,
+    stem: "Rigid metal conduit (RMC) under a residential driveway: minimum cover?",
     choices: [
-      { label: "3 ft" },
-      { label: "4.5 ft", correct: true, explain: "FMC must be secured within 12 in. of each box and supported at intervals not exceeding 4.5 ft for 1-1/4 in. and smaller, unless otherwise permitted. (348.30(A))" },
-      { label: "6 ft" },
-      { label: "10 ft" }
-    ]
+      { key: "A", text: "6 in." },
+      { key: "B", text: "12 in." },
+      { key: "C", text: "18 in." },
+      { key: "D", text: "24 in." }
+    ],
+    answer: "A",
+    why: "RMC/IMC generally permitted at 6 in. of cover under residential driveways (Table 300.5)."
   },
   {
-    stem: "ENT (smurf tube) is proposed for a boiler room with frequent washdowns (wet location, possible physical damage). Is ENT permitted exposed?",
-    ref: "NEC 362.12, 362.10",
+    id: 10,
+    stem: "At what number of current‑carrying conductors in a raceway do you begin ampacity adjustment (derating)?",
     choices: [
-      { label: "Yes, ENT is permitted exposed everywhere" },
-      { label: "No; ENT is not permitted where subject to physical damage or in wet locations unless specifically allowed", correct: true, explain: "ENT has limitations—generally not permitted where subject to physical damage and with restrictions in wet locations. Check 362.12 and 362.10 for exact conditions and exceptions." },
-      { label: "Only if Schedule 80 ENT is used" },
-      { label: "Only if painted to match the wall color" }
-    ]
+      { key: "A", text: "More than 3" },
+      { key: "B", text: "5 or more" },
+      { key: "C", text: "7 or more" },
+      { key: "D", text: "10 or more" }
+    ],
+    answer: "A",
+    why: "Adjustment factors apply when there are more than three current‑carrying conductors (310.15)."
+  },
+  {
+    id: 11,
+    stem: "RNC (PVC) support spacing for sizes 1 in. and smaller (horizontal runs)?",
+    choices: [
+      { key: "A", text: "3 ft" },
+      { key: "B", text: "4 ft" },
+      { key: "C", text: "5 ft" },
+      { key: "D", text: "10 ft" }
+    ],
+    answer: "A",
+    why: "Support RNC at ≤3 ft for 1 in. and smaller; larger sizes often ≤5 ft (352.30)."
+  },
+  {
+    id: 12,
+    stem: "MC cable must be secured within ____ of every box and supported at intervals not exceeding ____.",
+    choices: [
+      { key: "A", text: "6 in.; 3 ft" },
+      { key: "B", text: "12 in.; 6 ft" },
+      { key: "C", text: "18 in.; 10 ft" },
+      { key: "D", text: "24 in.; 10 ft" }
+    ],
+    answer: "B",
+    why: "Secure within 12 in. of boxes and support at ≤6 ft intervals (330.30)."
+  },
+  {
+    id: 13,
+    stem: "LFMC (liquidtight flexible metal conduit) in wet locations requires:",
+    choices: [
+      { key: "A", text: "No special fittings" },
+      { key: "B", text: "Only thread sealant" },
+      { key: "C", text: "Fittings listed for wet locations" },
+      { key: "D", text: "PVC jacket over any fitting" }
+    ],
+    answer: "C",
+    why: "Use fittings listed/identified for wet locations (350.42, 350.6)."
+  },
+  {
+    id: 14,
+    stem: "Maximum cumulative degrees of bend permitted between pull points in FMC?",
+    choices: [
+      { key: "A", text: "270°" },
+      { key: "B", text: "360°" },
+      { key: "C", text: "450°" },
+      { key: "D", text: "No limit if length < 6 ft" }
+    ],
+    answer: "B",
+    why: "Same 360° rule applies (348.26)."
+  },
+  {
+    id: 15,
+    stem: "When a raceway crosses a building expansion/settlement joint, use:",
+    choices: [
+      { key: "A", text: "Standard coupling with thread sealant" },
+      { key: "B", text: "Expansion/deflection fitting listed for the raceway" },
+      { key: "C", text: "No fitting—strap tightly on both sides" },
+      { key: "D", text: "A bonding bushing only" }
+    ],
+    answer: "B",
+    why: "Provide a listed expansion/deflection fitting to accommodate movement (common across raceway articles)."
   }
 ];
 
