@@ -220,5 +220,7 @@ const content = {
     ]
   }
 };
+import quiz from "./quiz";
+(content as any).quiz = quiz;
 
 export default content;
