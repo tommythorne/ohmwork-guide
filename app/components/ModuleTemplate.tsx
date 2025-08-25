@@ -98,7 +98,7 @@ export default function ModuleTemplate({ hero, articles = [], summary, quiz = []
   };
 
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white">
       {/* Hero */}
       <section className="relative h-[28rem] flex items-center justify-center overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-b from-slate-900/30 to-slate-900/70" />
