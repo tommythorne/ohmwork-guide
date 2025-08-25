@@ -236,8 +236,11 @@ const content = {
           text:
             "Where electrical equipment rooms contain exposed live parts, doors must swing out and have panic hardware if the equipment is over 1200A and more than 6 ft wide."
         }
-      ],
-      images: [
+      ], block: {
+  "type": "exam",
+  "title": "EXAM TRAP — 50V is the line",
+  "body": "Guarding kicks in at **50V** and up. Acceptable guarding = enclosures/covers, location (height), or rooms under lock. Big-gear rooms (≥1200A and >6 ft wide) need outward-swing doors with panic hardware—don’t miss that combo on tests."
+}, images: [
         {
           src: "/images/module-01/m01-guard-01.jpg",
           alt: "Barrier guarding around open conductors",
@@ -265,8 +268,11 @@ const content = {
           text:
             "Each disconnecting means must be legibly **marked to indicate its purpose** unless located and arranged so the purpose is obvious."
         }
-      ],
-      images: [
+      ], block: {
+  "type": "rule",
+  "title": "RULE OF THUMB — Labels that survive",
+  "body": "If the space is hot, wet, or oily, paper labels won’t last. Use UV/chemical‑resistant markers and place them where techs can see them **with doors closed**. If it peels or fades, expect red tags."
+}, images: [
         {
           src: "/images/module-01/m01-mark-01.jpg",
           alt: "Arc-flash and shock warning labels on gear",
@@ -294,8 +300,11 @@ const content = {
           text:
             "For equipment rated 1200A or more and over 6 ft wide, provide **two** means of egress from the working space unless an exception applies."
         }
-      ],
-      images: [
+      ], block: {
+  "type": "code",
+  "title": "NEC REFERENCE",
+  "body": "110.26(E) requires **fixed** lighting in working spaces—portables don’t count. 110.26(C) drives **two egress paths** for equipment ≥1200A and over 6 ft wide unless an exception applies. Know when the exception saves you."
+}, images: [
         {
           src: "/images/module-01/m01-light-01.jpg",
           alt: "Ceiling lights over electrical gear",
@@ -323,8 +332,11 @@ const content = {
           text:
             "Obtain fault current data from the utility or use an engineered study. Labels should be updated if available fault current changes."
         }
-      ],
-      images: [
+      ], block: {
+  "type": "table",
+  "title": "SCCR Quick Checks",
+  "body": "1) Get available fault current (from utility or study). 2) Verify **equipment SCCR ≥ AFC**. 3) Series‑rating only if documented/listed for the exact combo. 4) **Update labels** if service or utility changes bump fault current."
+}, images: [
         {
           src: "/images/module-01/m01-sccr-01.jpg",
           alt: "Label showing available fault current",
