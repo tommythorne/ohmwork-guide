@@ -450,4 +450,7 @@ const content = {
   quiz: []
 };
 
+import quiz from "./quiz-bridge";
+(content as any).quiz = quiz;
+
 export default content;
