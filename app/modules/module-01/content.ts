@@ -165,10 +165,17 @@ const content = {
         }
       ],
       block: {
-        type: "table",
-        body:
-          "Quick torque sanity (examples—**always** defer to the device label):\n• 15–20A breaker (Cu): ~25 in‑lb\n• #2–#6 Cu lugs: ~45–50 in‑lb\n• 2/0–4/0 Cu mains: ~180–250 in‑lb\nIf your label disagrees, **the label wins**. Log your torque and keep your tool calibrated."
-      },
+  type: "table",
+  title: "Torque Quick Sheet (Examples — always use device label)",
+  table: [
+    ["Connection", "Conductor", "Typical Torque (in-lb)"],
+    ["15–20A breaker lugs", "Cu #14–#12", "20–30"],
+    ["Breaker lugs", "Cu #10–#8", "30–45"],
+    ["Mechanical lugs", "Cu #6–#2", "45–50"],
+    ["Main lugs", "Cu 2/0–4/0", "180–250"]
+  ],
+  body: "Reference only — defer to the actual product label and instructions."
+},
       images: [
         {
           src: "/images/module-01/m01-110-14-01.jpg",
@@ -204,10 +211,15 @@ const content = {
         }
       ],
       block: {
-        type: "chart",
-        body:
-          "Depth memory trick: **3 / 3.5 / 4 ft** for Conditions 1–3. Most indoor panels land at 3 ft. If you see energized gear directly across or grounded surfaces that tighten the approach, your depth increases. Sketch the room—then check the condition."
-      },
+  type: "chart",
+  title: "110.26 Working-Space Depth (inches)",
+  chart: [
+    { label: "Cond. 1", value: 36 },
+    { label: "Cond. 2", value: 42 },
+    { label: "Cond. 3", value: 48 }
+  ],
+  body: "Depth is measured from live parts/enclosure to the opposing surface. Know which condition you’re in."
+},
       images: [
         {
           src: "/images/module-01/m01-110-26-01.jpg",
