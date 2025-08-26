@@ -94,7 +94,7 @@ const ImagesStack: React.FC<{ images?: ImageItem[] }> = ({ images = [] }) => {
         <div key={i} className="rounded-xl border border-white/20 bg-white/[0.03] p-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={img.src} alt={img.alt || ""} className="w-full h-40 md:h-48 object-cover rounded-lg" />
-          {img.caption ? <div className="text-white/70 text-sm mt-2">{img.caption}</div> : null}
+          {img.caption ? <div className="text-white/70 text-[13px] md:text-sm mt-2">{img.caption}</div> : null}
         </div>
       ))}
     </div>
