@@ -26,7 +26,7 @@ const content = {
       ],
       block: {
         type: "exam",
-        title: "EXAM TRAP — Next Size Up",
+        title: "EXAM TRAP — NEXT SIZE UP",
         body: "240.4(B) doesn’t apply to every circuit. It’s limited to specific small conductor cases. If a question asks about rounding up on #2 AWG, the answer is **no**."
       },
       images: [
@@ -47,8 +47,18 @@ const content = {
       ],
       block: {
         type: "table",
-        title: "Quick Sheet — 75°C Copper (Common)",
-        body: "#12 = 25A • #10 = 35A • #8 = 50A • #6 = 65A • #4 = 85A • #3 = 100A • #2 = 115A (before derating). Always confirm with 310.16."
+        title: "QUICK SHEET — 75°C COPPER (COMMON)",
+        table: [
+          ["Conductor (Cu)", "75°C Ampacity (A)"],
+          ["#12", "25"],
+          ["#10", "35"],
+          ["#8", "50"],
+          ["#6", "65"],
+          ["#4", "85"],
+          ["#3", "100"],
+          ["#2", "115"]
+        ],
+        body: "Examples before any derating. Always confirm in 310.16 and apply ambient/bundling factors."
       },
       images: [
         { src: "/images/module-02/m02-310-01.jpg", alt: "Ampacity table highlight", caption: "310.16: memorize the key conductor sizes." },
@@ -89,7 +99,7 @@ const content = {
       ],
       block: {
         type: "rule",
-        title: "RULE OF THUMB — Use What’s There",
+        title: "RULE OF THUMB — USE WHAT’S THERE",
         body: "If concrete-encased rebar (Ufer) exists, you must use it. Ground rods aren’t first choice—they’re backup electrodes."
       },
       images: [
@@ -110,7 +120,7 @@ const content = {
       ],
       block: {
         type: "horror",
-        title: "JOBSITE HORROR — Hidden Splice",
+        title: "JOBSITE HORROR STORY — HIDDEN SPLICE",
         body: "A free splice hidden behind drywall caused intermittent faults for years before a fire exposed it. All splices must be inside approved boxes with covers."
       },
       images: [
@@ -130,9 +140,17 @@ const content = {
         { ref: "210.19", text: "Conductors must be sized for continuous load at 125%. Voltage drop recommendations also apply (3% branch, 5% feeder+branch)." }
       ],
       block: {
-        type: "chart",
-        title: "Kitchen/Laundry Quick Map",
-        body: "Two small appliance circuits minimum for kitchens/dining. Laundry requires its own 20A. Apply GFCI/AFCI per the latest cycle."
+        type: "table",
+        title: "KITCHEN/LAUNDRY QUICK MAP",
+        table: [
+          ["Location / Item", "Requirement"],
+          ["Kitchen/Dining Small-Appliance", "2 × 20A circuits (minimum)"],
+          ["Laundry", "1 × 20A dedicated"],
+          ["Countertops", "6 ft / 12 ft spacing rule applies"],
+          ["GFCI", "Per 210.8 locations (kitchen, bath, outdoors, etc.)"],
+          ["AFCI", "Most habitable rooms; see 210.12"]
+        ],
+        body: "Plan these on your one-line and layout before rough-in."
       },
       images: [
         { src: "/images/module-02/m02-210-01.jpg", alt: "Kitchen outlets", caption: "Spacing rules and GFCI protection are strictly enforced." },
@@ -151,8 +169,14 @@ const content = {
       ],
       block: {
         type: "table",
-        title: "Overhead Clearances (Quick Sheet)",
-        body: "Pedestrian = 10 ft • Residential driveway = 12 ft • Public street = 18 ft. Memorize these three numbers."
+        title: "OVERHEAD CLEARANCES (QUICK SHEET)",
+        table: [
+          ["Area", "Minimum Clearance"],
+          ["Pedestrian walkway", "10 ft"],
+          ["Residential driveway", "12 ft"],
+          ["Public street", "18 ft"]
+        ],
+        body: "Heights vary with conditions and voltage—this hits the common exam set."
       },
       images: [
         { src: "/images/module-02/m02-225-01.jpg", alt: "Outside disconnects", caption: "Grouped and labeled disconnects at building entry." },
@@ -171,7 +195,7 @@ const content = {
       ],
       block: {
         type: "exam",
-        title: "EXAM TRAP — 125% Means What?",
+        title: "EXAM TRAP — 125% MEANS WHAT?",
         body: "Don’t confuse conductor ampacity sizing with OCPD rating. Questions often twist the 125% rule to trip you up."
       },
       images: [
@@ -191,7 +215,7 @@ const content = {
       ],
       block: {
         type: "rule",
-        title: "RULE — Math Wins",
+        title: "RULE — MATH WINS",
         body: "Box fill and bending space are not guesses. They’re measured and calculated. Errors = failed inspection."
       },
       images: [
@@ -205,14 +229,20 @@ const content = {
       icon: "🪵",
       title: "240/225 — Disconnecting Means",
       points: [
-        { ref: "230.71", text: "Service disconnects limited to 6 per service (before 2020). Newer code cycles limit to 2 service disconnects in many cases." },
+        { ref: "230.71", text: "Service disconnects historically limited to 6; newer cycles often limit to 2 service disconnects—verify local adoption." },
         { ref: "225.33", text: "Feeder disconnects must be grouped and clearly marked." },
-        { ref: "230.82", text: "Only specific equipment may be connected ahead of service disconnects." }
+        { ref: "225.32", text: "Outside building disconnect location: at the building served and readily accessible." }
       ],
       block: {
-        type: "chart",
-        title: "Disconnect Quick Map",
-        body: "Service disconnect vs feeder disconnect vs outside building disconnect. Draw them out on your one-line diagram."
+        type: "table",
+        title: "DISCONNECT QUICK MAP",
+        table: [
+          ["Item", "Rule of Thumb / Reference"],
+          ["Service disconnect(s)", "Legacy 6; newer cycles often 2 — check local 230.71 adoption"],
+          ["Feeder disconnect(s)", "Must be grouped and labeled (225.33)"],
+          ["Outside-building disconnect", "At building served; readily accessible (225.32)"]
+        ],
+        body: "Sketch these on your one-line so the differences stick."
       },
       images: [
         { src: "/images/module-02/m02-disco-01.jpg", alt: "Grouped disconnects", caption: "Group disconnects together in one location." },
