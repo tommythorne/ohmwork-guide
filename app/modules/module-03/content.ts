@@ -268,7 +268,7 @@ const content = {
     // 9) Bends, Fill, Pull Points (CODE)
     {
       icon: "📐",
-      title: "Bends, Fill, and Pull Points",
+      title: "300 — Bends, Fill, and Pull Points",
       points: [
         { ref: "Max 360°", text: "Limit to 360° of total bends between pull points. Add a box if you need more turns." },
         { ref: "Bend radius", text: "Respect minimum radius per wiring method and conductor — tight bends overheat and damage insulation." },
