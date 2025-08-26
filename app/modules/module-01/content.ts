@@ -166,15 +166,14 @@ const content = {
       ],
       block: {
   type: "table",
-  title: "Torque Quick Sheet (Examples — always use device label)",
+  title: "Torque & Common Termination Values (examples — always use the device label)",
   table: [
-    ["Connection", "Conductor", "Typical Torque (in-lb)"],
-    ["15–20A breaker lugs", "Cu #14–#12", "20–30"],
-    ["Breaker lugs", "Cu #10–#8", "30–45"],
-    ["Mechanical lugs", "Cu #6–#2", "45–50"],
-    ["Main lugs", "Cu 2/0–4/0", "180–250"]
+    ["Item", "Conductor / Range", "Typical Torque (in-lb)"],
+    ["Breaker terminal", "15–20A Cu", "25"],
+    ["Lug", "#2–#6 Cu", "45–50"],
+    ["Main lugs", "2/0–4/0 Cu", "180–250"]
   ],
-  body: "Reference only — defer to the actual product label and instructions."
+  body: "Examples only. Inspectors expect the **exact** value from the product label or instructions."
 },
       images: [
         {
@@ -219,8 +218,7 @@ const content = {
     { label: "Cond. 3", value: 48 }
   ],
   body: "Depth is measured from live parts/enclosure to the opposing surface. Know which condition you’re in."
-},
-      images: [
+}, images: [
         {
           src: "/images/module-01/m01-110-26-01.jpg",
           alt: "Tape measure showing 36 inches clearance in front of panel",
@@ -344,11 +342,7 @@ const content = {
           text:
             "Obtain fault current data from the utility or use an engineered study. Labels should be updated if available fault current changes."
         }
-      ], block: {
-  "type": "table",
-  "title": "SCCR Quick Checks",
-  "body": "1) Get available fault current (from utility or study). 2) Verify **equipment SCCR ≥ AFC**. 3) Series‑rating only if documented/listed for the exact combo. 4) **Update labels** if service or utility changes bump fault current."
-}, images: [
+      ], block: { type: "none" }, images: [
         {
           src: "/images/module-01/m01-sccr-01.jpg",
           alt: "Label showing available fault current",
