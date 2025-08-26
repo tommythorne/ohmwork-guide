@@ -214,10 +214,10 @@ const content = {
     ["Topic", "Rule of Thumb"],
     ["Expansion", "Use listed expansion fittings; anchor one end, guide the other"],
     ["Support", "Closer spacing than EMT; add hangers where sag shows"],
-    ["Burial", "Follow Table 300.5; cover depth by location/voltage"],
+    ["Burial", "Follow Table 300.5; cover depth varies by location/voltage"],
     ["Solvent-Weld", "Use listed cement/primer; respect cure times"]
   ],
-  body: "Examples for study. **Always** check the manufacturer’s instructions and the NEC table/notes for the exact job conditions."
+  body: "Study helper only. **Always** confirm with the manufacturer’s instructions and the applicable NEC tables/notes."
 },
       images: [
         {
@@ -301,11 +301,16 @@ const content = {
         }
       ],
       block: {
-        type: "exam",
-        title: "EXAM TRAP — Device = 2 conductors (often)",
-        body:
-          "If a yoke holds a device that connects to the circuit, count **two** conductor equivalents of the largest size connected. Easy points if you remember it; easy miss if you don’t."
-      },
+  type: "chart",
+  title: "Common MC Types — Where They Fit",
+  chart: [
+    { label: "Standard MC — dry/damp; EGC in armor or conductor", value: 1 },
+    { label: "MC-WET/WET-LOC — listed for wet locations", value: 2 },
+    { label: "HCF MC — hospital-grade patient care spaces", value: 3 },
+    { label: "Fire-rated MC — 2-hour circuits (per listing)", value: 4 }
+  ],
+  body: "Bar height is illustrative only. Use the labels to know **where each MC type is permitted**; always verify the product listing and local Code adoption."
+},
       images: [
         {
           src: "/images/module-03/m03-314-01.jpg",
