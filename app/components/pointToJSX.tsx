@@ -1,6 +1,21 @@
 /* @ts-nocheck */
 import React from "react";
 
+/** Minimal inline Markdown -> HTML (bold, italic, code).
+ *  We escape HTML first, then add tags. Content is trusted (author-provided). */
+export function md(s: string = ""): string {
+  const esc = s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+  // code first to avoid touching ** inside code
+  const withCode = esc.replace(/`([^`]+)`/g, "<code class=\"px-1 rounded bg-white\\/10 text-white/90\">$1</code>");
+  const withBold = withCode.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  const withItal = withBold.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+  return withItal;
+}
+
+/** Render a single bullet as <li>, accepting strings or {ref|key,text} (and nested text). */
 export default function pointToJSX(p: any, i: number) {
   const text =
     typeof p === "string" ? p :
@@ -18,7 +33,8 @@ export default function pointToJSX(p: any, i: number) {
           {prefix}
         </span>
       ) : null}
-      {text}
+      {/* inline markdown: bold/italic/code */}
+      <span dangerouslySetInnerHTML={{ __html: md(String(text)) }} />
     </li>
   );
 }
