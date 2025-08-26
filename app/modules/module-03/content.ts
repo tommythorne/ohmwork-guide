@@ -208,16 +208,15 @@ const content = {
         }
       ],
       block: {
-  type: "table",
-  title: "PVC Quick Sheet (Examples — verify manufacturer & Code)",
-  table: [
-    ["Topic", "Rule of Thumb"],
-    ["Expansion", "Use listed expansion fittings; anchor one end, guide the other"],
-    ["Support", "Closer spacing than EMT; add hangers where sag shows"],
-    ["Burial", "Follow Table 300.5; cover depth varies by location/voltage"],
-    ["Solvent-Weld", "Use listed cement/primer; respect cure times"]
+  type: "chart",
+  title: "Common MC Types — Where They Fit",
+  chart: [
+    { label: "Standard MC — dry/damp; EGC in armor or conductor", value: 1 },
+    { label: "MC-WET/WET-LOC — listed for wet locations", value: 2 },
+    { label: "HCF MC — hospital-grade patient care spaces", value: 3 },
+    { label: "Fire-rated MC — 2-hour circuits (per listing)", value: 4 }
   ],
-  body: "Study helper only. **Always** confirm with the manufacturer’s instructions and the applicable NEC tables/notes."
+  body: "Bar height is illustrative only. Read the labels for **where each MC type is permitted**; always verify the listing and local Code adoption."
 },
       images: [
         {
@@ -254,17 +253,7 @@ const content = {
             "Respect manufacturer minimum bend radius; crushed flex overheats conductors and fails fast."
         }
       ],
-      block: {
-  type: "chart",
-  title: "Common MC Types — Where They Fit",
-  chart: [
-    { label: "Standard MC — dry/damp; EGC in armor or conductor", value: 1 },
-    { label: "MC-WET/WET-LOC — listed for wet locations", value: 2 },
-    { label: "HCF MC — hospital-grade patient care spaces", value: 3 },
-    { label: "Fire-rated MC — 2-hour circuits (per listing)", value: 4 }
-  ],
-  body: "Bar height is illustrative only. Read the labels for **where each MC type is permitted**; always verify the listing and local Code adoption."
-},
+      block: { type: "none" },
       images: [
         {
           src: "/images/module-03/m03-350-01.jpg",
