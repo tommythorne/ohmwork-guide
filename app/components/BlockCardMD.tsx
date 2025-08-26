@@ -30,7 +30,7 @@ const STYLE: Record<string, { label: string; icon: string; border: string; bg: s
   code:   { label: "NEC REFERENCE",  icon: "📖", border: "border-blue-500/50",   bg: "bg-blue-900/30",   title: "text-blue-300"  },
   table:  { label: "TABLE",          icon: "📋", border: "border-yellow-500/50", bg: "bg-yellow-900/30", title: "text-yellow-300"},
   chart:  { label: "CHART",          icon: "📈", border: "border-purple-500/50", bg: "bg-purple-900/30", title: "text-purple-300"},
-  horror: { label: "JOBSITE HORROR", icon: "💀", border: "border-pink-500/50",   bg: "bg-pink-900/30",   title: "text-pink-300"  },
+  horror: { label: "Jobsite Horror Story", icon: "💀", border: "border-pink-500/50",   bg: "bg-pink-900/30",   title: "text-pink-300"  },
   none:   { label: "NOTE",           icon: "📝", border: "border-white/20",      bg: "bg-slate-800/50",  title: "text-white"     },
 };
 
