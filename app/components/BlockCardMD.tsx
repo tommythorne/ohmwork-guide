@@ -11,6 +11,19 @@ type Block = {
   chart?: Array<{ label: string; value: number }>;
 };
 
+/** Minimal inline markdown: **bold**, *italic*, `code` */
+function mdInline(input: any): string {
+  if (input == null) return "";
+  let t = String(input);
+  // escape first
+  t = t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  // code -> bold -> italic
+  t = t.replace(/`([^`]+?)`/g, '<code class="px-1 py-0.5 rounded bg-white/10 border border-white/20 text-white">$1</code>');
+  t = t.replace(/\*\*([^*]+?)\*\*/g, "<strong>$1</strong>");
+  t = t.replace(/\*([^*]+?)\*/g, "<em>$1</em>");
+  return t;
+}
+
 const STYLE: Record<string, { label: string; icon: string; border: string; bg: string; title: string }> = {
   exam:   { label: "EXAM TRAP",      icon: "🎯", border: "border-red-500/50",    bg: "bg-red-900/30",    title: "text-red-300"   },
   rule:   { label: "RULE OF THUMB",  icon: "📏", border: "border-green-500/50",  bg: "bg-green-900/30",  title: "text-green-300" },
@@ -53,7 +66,7 @@ function TableBox({ rows }: { rows?: Array<Array<string|number>> }) {
   );
 }
 
-/** Readable “stat tiles” chart: big numbers + labels (no duplicate headers) */
+/** Readable stat tiles for charts */
 function StatTiles({ data }: { data?: Array<{label: string; value: number}> }) {
   const safe = Array.isArray(data) ? data : [];
   if (!safe.length) return null;
@@ -91,19 +104,25 @@ export default function BlockCardMD({ block }: { block?: Block }) {
         <span className={`${s.title} font-bold tracking-wide`}>{s.label}</span>
       </div>
 
-      {/* single title line (no duplicates) */}
-      {block.title ? <div className={`font-bold ${s.title} mb-2`}>{block.title}</div> : null}
+      {/* title with inline markdown */}
+      {block.title ? (
+        <div
+          className={`font-bold ${s.title} mb-2`}
+          dangerouslySetInnerHTML={{ __html: mdInline(block.title) }}
+        />
+      ) : null}
 
       {/* visuals */}
       {hasChart ? <StatTiles data={block.chart} /> : null}
       {hasTable ? <TableBox rows={block.table} /> : null}
 
-      {/* body note (only if provided) */}
-      {block.body && (
-        <div className="text-white/80 text-sm mt-3">
-          {typeof block.body === "string" ? block.body : block.body}
-        </div>
-      )}
+      {/* body with inline markdown */}
+      {block.body ? (
+        <div
+          className="text-white/80 text-sm mt-3"
+          dangerouslySetInnerHTML={{ __html: mdInline(block.body) }}
+        />
+      ) : null}
     </div>
   );
 }
