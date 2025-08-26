@@ -296,11 +296,16 @@ const content = {
         { ref: "Bonding", text: "Tray systems must be bonded; use listed splice plates, hardware, and jumpers to keep the fault path continuous." }
       ],
       block: {
-        type: "chart",
-        title: "Tray Snapshot",
-        body:
-          "• Ladder tray ≈ best cooling & drainage\n• Solid ≈ shielding/containment, but hotter\n• Support per manufacturer spacing & load charts\n• Use TC/TC-ER/ITC/PLTC as listed"
-      },
+  type: "chart",
+  title: "Tray Snapshot",
+  chart: [
+    { label: "Ladder tray — best cooling & drainage", value: 3 },
+    { label: "Solid tray — shielding/containment, but hotter", value: 2 },
+    { label: "Support per manufacturer spacing & load charts", value: 2 },
+    { label: "Use TC/TC-ER/ITC/PLTC as listed", value: 1 }
+  ],
+  body: "Values are illustrative for comparison only. Follow the **manufacturer’s charts** for spacing, fill, and ratings."
+},
       images: [
         { src: "/images/module-03/m03-392-01.jpg", alt: "Ladder cable tray with power circuits", caption: "Respect fill and support spans — use the manufacturer chart." },
         { src: "/images/module-03/m03-392-02.jpg", alt: "Tray bonding jumper across a splice", caption: "Bond splices to keep a low-impedance fault path." }
