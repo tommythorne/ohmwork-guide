@@ -1,23 +1,44 @@
 /* @ts-nocheck */
 import React from "react";
 
-/** Minimal inline Markdown -> HTML (bold, italic, code).
- *  We escape HTML first, then add tags. Content is trusted (author-provided). */
-export function md(s: string = ""): string {
-  const esc = s
+/** Escape HTML, then apply minimal inline markdown:
+ *  - **bold**   -> <strong>
+ *  - *italic*   -> <em>
+ *  - `code`     -> <code>
+ * Also normalizes smart quotes to straight quotes so authors can paste from docs.
+ * This runs ONLY on bullet text, not on arbitrary HTML blocks.
+ */
+function mdInline(input: string): string {
+  if (typeof input !== "string") return "";
+  // Normalize smart quotes/dashes that often sneak in from docs
+  let s = input
+    .replace(/[“”]/g, '"')
+    .replace(/[‘’]/g, "'")
+    .replace(/–/g, "-")
+    .replace(/—/g, "—"); // keep em-dash as is
+
+  // Escape HTML first
+  s = s
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-  // code first to avoid touching ** inside code
-  const withCode = esc.replace(/`([^`]+)`/g, "<code class=\"px-1 rounded bg-white\\/10 text-white/90\">$1</code>");
-  const withBold = withCode.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-  const withItal = withBold.replace(/\*([^*]+)\*/g, "<em>$1</em>");
-  return withItal;
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+
+  // Then apply very small inline markdown
+  // **bold**
+  s = s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+  // *italic*  (ensure it doesn't catch already-bolded inner *)
+  s = s.replace(/(^|[\s(])\*(?!\s)([^*]+?)\*(?=[\s).,!?:;]|$)/g, "$1<em>$2</em>");
+  // `code`
+  s = s.replace(/`([^`]+?)`/g, "<code class=\"px-1 py-0.5 rounded bg-white\/10 border border-white\/20 text-white\">$1</code>");
+
+  return s;
 }
 
-/** Render a single bullet as <li>, accepting strings or {ref|key,text} (and nested text). */
+/** Single bullet normalizer: accepts string or objects with {ref|key, text} */
 export default function pointToJSX(p: any, i: number) {
-  const text =
+  const rawText =
     typeof p === "string" ? p :
     (typeof p?.text === "string" ? p.text :
     (typeof p?.label === "string" ? p.label :
@@ -34,7 +55,7 @@ export default function pointToJSX(p: any, i: number) {
         </span>
       ) : null}
       {/* inline markdown: bold/italic/code */}
-      <span dangerouslySetInnerHTML={{ __html: md(String(text)) }} />
+      <span dangerouslySetInnerHTML={{ __html: mdInline(String(rawText)) }} />
     </li>
   );
 }
