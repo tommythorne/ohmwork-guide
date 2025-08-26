@@ -268,3 +268,111 @@ const renderPointsList = (a: Article) => {
     </main>
   );
 }
+
+/** -----------------------------------------------------------------------
+ *  ChartBox & TableBox + BlockCard2
+ *  - Renders chart from: chart: Array<{ label: string; value: number }>
+ *  - Renders table from: table: Array<Array<string|number>>
+ *  - Shows label strip (icon + label), then block.title ONCE, then content, then body
+ * ----------------------------------------------------------------------- */
+
+function ChartBox({ data }: { data: Array<{label: string; value: number}> }) {
+  const safe = Array.isArray(data) ? data.filter(d => d && typeof d.value === 'number') : [];
+  const max = safe.reduce((m, d) => Math.max(m, d.value), 0) || 1;
+  return (
+    <div className="rounded-xl border border-white/15 bg-white/[0.03] p-4 mt-2">
+      <div className="grid grid-cols-3 gap-3 items-end min-h-[120px]">
+        {safe.map((d, i) => {
+          const pct = Math.max(0, Math.min(100, (d.value / max) * 100));
+          return (
+            <div key={i} className="flex flex-col items-center">
+              <div
+                className="w-full rounded-t-md bg-yellow-400/80"
+                style={{ height: `${pct}%`, minHeight: '10px' }}
+                aria-label={`${d.label}: ${d.value}`}
+                title={`${d.label}: ${d.value}`}
+              />
+              <div className="mt-2 text-center text-xs text-white/80">{d.label}</div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function TableBox({ rows }: { rows: Array<Array<string|number>> }) {
+  const safe = Array.isArray(rows) ? rows : [];
+  if (safe.length === 0) return null;
+  const [header, ...body] = safe;
+  return (
+    <div className="rounded-xl border border-white/15 bg-white/[0.03] p-4 mt-2 overflow-x-auto">
+      <table className="min-w-full text-sm">
+        {Array.isArray(header) && header.length > 0 && (
+          <thead>
+            <tr>
+              {header.map((h, i) => (
+                <th key={i} className="text-left text-white/80 font-semibold pb-2 pr-4 whitespace-nowrap">
+                  {String(h)}
+                </th>
+              ))}
+            </tr>
+          </thead>
+        )}
+        <tbody>
+          {body.map((r, ri) => (
+            <tr key={ri} className="border-t border-white/10">
+              {r.map((c, ci) => (
+                <td key={ci} className="text-white/90 py-2 pr-4 whitespace-nowrap">{String(c)}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+type _BlockShape = { type?: "exam" | "rule" | "code" | "table" | "chart" | "horror" | "none"; title?: string; body?: any; table?: any; chart?: any };
+
+const _BLOCK_STYLE: Record<string, { label: string; icon: string; border: string; bg: string; title: string }> = {
+  exam:   { label: "EXAM TRAP",      icon: "🎯", border: "border-red-500/50",    bg: "bg-red-900/30",    title: "text-red-300" },
+  rule:   { label: "RULE OF THUMB",  icon: "📏", border: "border-green-500/50",  bg: "bg-green-900/30",  title: "text-green-300" },
+  code:   { label: "NEC REFERENCE",  icon: "📖", border: "border-blue-500/50",   bg: "bg-blue-900/30",   title: "text-blue-300" },
+  table:  { label: "TABLE",          icon: "📊", border: "border-yellow-500/50", bg: "bg-yellow-900/30", title: "text-yellow-300" },
+  chart:  { label: "CHART",          icon: "📈", border: "border-purple-500/50", bg: "bg-purple-900/30", title: "text-purple-300" },
+  horror: { label: "JOBSITE HORROR", icon: "💀", border: "border-pink-500/50",   bg: "bg-pink-900/30",   title: "text-pink-300" },
+};
+
+function BlockCard2({ block }: { block?: _BlockShape }) {
+  if (!block || block.type === "none") return null;
+  const s = _BLOCK_STYLE[block.type || ""] || { label: "NOTE", icon: "📝", border: "border-white/20", bg: "bg-slate-800/50", title: "text-white" };
+
+  const hasChart = Array.isArray((block as any).chart) && (block as any).chart.length > 0;
+  const hasTable = Array.isArray((block as any).table) && (block as any).table.length > 0;
+
+  return (
+    <div className={`rounded-xl border ${s.border} ${s.bg} p-4 my-4`}>
+      {/* Label strip (only once) */}
+      <div className="flex items-center gap-2 mb-2">
+        <span className="text-xl" aria-hidden="true">{s.icon}</span>
+        <span className={`${s.title} font-bold tracking-wide`}>{s.label}</span>
+      </div>
+
+      {/* Title (only once) */}
+      {block.title ? <div className={`font-bold ${s.title} mb-2`}>{block.title}</div> : null}
+
+      {/* Content */}
+      {hasChart ? <ChartBox data={(block as any).chart} /> : null}
+      {hasTable ? <TableBox rows={(block as any).table} /> : null}
+      {!hasChart && !hasTable && block.body ? (
+        <div className="text-white/90">{typeof block.body === 'string' ? block.body : block.body}</div>
+      ) : null}
+
+      {/* Body note under visual if supplied */}
+      {(hasChart || hasTable) && block.body ? (
+        <div className="text-white/80 text-sm mt-3">{typeof block.body === 'string' ? block.body : block.body}</div>
+      ) : null}
+    </div>
+  );
+}
