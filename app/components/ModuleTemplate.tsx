@@ -53,13 +53,13 @@ const BlockCard: React.FC<{ block?: Block }> = ({ block }) => {
   if (!block || block.type === "none") return null;
 
   const style = {
-    exam:   { label: "EXAM TRAP",      icon: "🎯", border: "border-red-500/50",    bg: "bg-red-900/30",    title: "text-red-300" },
-    rule:   { label: "RULE OF THUMB",  icon: "📏", border: "border-green-500/50",  bg: "bg-green-900/30",  title: "text-green-300" },
-    code:   { label: "NEC REFERENCE",  icon: "📖", border: "border-blue-500/50",   bg: "bg-blue-900/30",   title: "text-blue-300" },
-    table:  { label: "TABLE",          icon: "📊", border: "border-yellow-500/50", bg: "bg-yellow-900/30", title: "text-yellow-300" },
-    chart:  { label: "CHART",          icon: "📈", border: "border-purple-500/50", bg: "bg-purple-900/30", title: "text-purple-300" },
-    horror: { label: "JOBSITE HORROR", icon: "💀", border: "border-pink-500/50",   bg: "bg-pink-900/30",   title: "text-pink-300" },
-  } as const;
+  exam:   { label: "EXAM TRAP",      icon: "🎯", border: "border-red-500/50",    bg: "bg-red-900/30",    title: "text-red-300" },
+  rule:   { label: "RULE OF THUMB",  icon: "📏", border: "border-green-500/50",  bg: "bg-green-900/30",  title: "text-green-300" },
+  code:   { label: "NEC REFERENCE",  icon: "📖", border: "border-blue-500/50",   bg: "bg-blue-900/30",   title: "text-blue-300" },
+  table:  { label: "TABLE",          icon: "📋", border: "border-yellow-500/50", bg: "bg-yellow-900/30", title: "text-yellow-300" },
+  chart:  { label: "CHART",          icon: "📊", border: "border-purple-500/50", bg: "bg-purple-900/30", title: "text-purple-300" },
+  horror: { label: "JOBSITE HORROR", icon: "💀", border: "border-pink-500/50",   bg: "bg-pink-900/30",   title: "text-pink-300" }
+} as const;
 
   const s =
     (block?.type && (style as any)[block.type]) ||
@@ -339,9 +339,9 @@ const _BLOCK_STYLE: Record<string, { label: string; icon: string; border: string
   exam:   { label: "EXAM TRAP",      icon: "🎯", border: "border-red-500/50",    bg: "bg-red-900/30",    title: "text-red-300" },
   rule:   { label: "RULE OF THUMB",  icon: "📏", border: "border-green-500/50",  bg: "bg-green-900/30",  title: "text-green-300" },
   code:   { label: "NEC REFERENCE",  icon: "📖", border: "border-blue-500/50",   bg: "bg-blue-900/30",   title: "text-blue-300" },
-  table:  { label: "TABLE",          icon: "📊", border: "border-yellow-500/50", bg: "bg-yellow-900/30", title: "text-yellow-300" },
-  chart:  { label: "CHART",          icon: "📈", border: "border-purple-500/50", bg: "bg-purple-900/30", title: "text-purple-300" },
-  horror: { label: "JOBSITE HORROR", icon: "💀", border: "border-pink-500/50",   bg: "bg-pink-900/30",   title: "text-pink-300" },
+  table:  { label: "TABLE",          icon: "📋", border: "border-yellow-500/50", bg: "bg-yellow-900/30", title: "text-yellow-300" },
+  chart:  { label: "CHART",          icon: "📊", border: "border-purple-500/50", bg: "bg-purple-900/30", title: "text-purple-300" },
+  horror: { label: "JOBSITE HORROR", icon: "💀", border: "border-pink-500/50",   bg: "bg-pink-900/30",   title: "text-pink-300" }
 };
 
 function BlockCard2({ block }: { block?: _BlockShape }) {
