@@ -4,6 +4,7 @@ import React from "react";
 import FooterNav from "./FooterNav";
 import Quiz from "./Quiz";
 import pointToJSX from "./pointToJSX";
+import BlockCardMD from "./BlockCardMD";
 
 /** ------------ Types (intentionally loose to avoid TS blocking builds) ------------ */
 type Hero = {
@@ -218,7 +219,7 @@ const renderPointsList = (a: Article) => {
               {/* Left: bullet points + special block */}
               <div>
                 {renderPointsList(a)}
-                <BlockCard block={a.block} />
+                <BlockCardMD block={a.block} />
               </div>
 
               {/* Right: stacked images */}
