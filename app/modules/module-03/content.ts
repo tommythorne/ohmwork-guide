@@ -208,11 +208,17 @@ const content = {
         }
       ],
       block: {
-        type: "chart",
-        title: "Common MC Types — Where They Fit",
-        body:
-          "• Standard MC: dry/damp; EGC in armor or conductor.\n• MC‑WET/WT: listed for wet locations.\n• HCF MC: hospital‑grade patient care spaces.\n• Fire‑rated MC: 2‑hour circuits (per listing)."
-      },
+  type: "table",
+  title: "PVC Quick Sheet (Examples — verify manufacturer & Code)",
+  table: [
+    ["Topic", "Rule of Thumb"],
+    ["Expansion", "Use listed expansion fittings; anchor one end, guide the other"],
+    ["Support", "Closer spacing than EMT; add hangers where sag shows"],
+    ["Burial", "Follow Table 300.5; cover depth by location/voltage"],
+    ["Solvent-Weld", "Use listed cement/primer; respect cure times"]
+  ],
+  body: "Examples for study. **Always** check the manufacturer’s instructions and the NEC table/notes for the exact job conditions."
+},
       images: [
         {
           src: "/images/module-03/m03-330-01.jpg",
@@ -249,11 +255,16 @@ const content = {
         }
       ],
       block: {
-        type: "horror",
-        title: "JOBSITE HORROR — The 30‑ft ‘temporary’ flex",
-        body:
-          "A long LFMC whip fed rooftop units ‘temporarily’. It sagged, filled with water, and corroded fittings. Two compressors died and the rework blew the budget. Keep flex short, supported, and listed for the location."
-      },
+  type: "chart",
+  title: "Common MC Types — Where They Fit",
+  chart: [
+    { label: "Standard MC — dry/damp; EGC in armor or conductor", value: 1 },
+    { label: "MC-WET/WET-LOC — listed for wet locations", value: 2 },
+    { label: "HCF MC — hospital-grade patient care spaces", value: 3 },
+    { label: "Fire-rated MC — 2-hour circuits (per listing)", value: 4 }
+  ],
+  body: "Bar height is illustrative only. Read the labels for **where each MC type is permitted**; always verify the listing and local Code adoption."
+},
       images: [
         {
           src: "/images/module-03/m03-350-01.jpg",
