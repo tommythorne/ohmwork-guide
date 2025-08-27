@@ -111,11 +111,16 @@ const content = {
         { ref: "424.9", text: "Follow **clearances** from combustibles per instructions/listing." }
       ],
       block: {
-        type: "table",
-        title: "Heater Sizing Snapshot",
-        body:
-          "Continuous space‑heating loads → 125% factor. Example: 32A nameplate → 40A circuit (next standard). Always check the device instructions."
-      },
+  type: "table",
+  title: "Heater Sizing Snapshot",
+  table: [
+    ["Nameplate Load", "125% Factor", "OCPD (next standard)"],
+    ["32A", "40A", "40A Breaker"],
+    ["40A", "50A", "50A Breaker"],
+    ["48A", "60A", "60A Breaker"]
+  ],
+  body: "Continuous fixed space-heating loads must be sized at **125%**. Always verify with unit instructions and Code."
+},
       images: [
         { src: "/images/module-04/m04-424-01.jpg", alt: "Wall heater", caption: "Continuous load → 125% sizing." },
         { src: "/images/module-04/m04-424-02.jpg", alt: "Ceiling unit heater disconnect", caption: "Provide a disconnecting means within sight or lockable." }
