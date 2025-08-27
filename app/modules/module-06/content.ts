@@ -223,10 +223,16 @@ const content = {
       ],
       block: {
         type: "chart",
-        body:
-          "Power path sketch: Service/Source → Fire Pump Controller (listed) → Fire Pump. Keep OCPD/feeder choices aligned with **reliability** over convenience."
+        title: "Fire Pump Power Path",
+        chart: [
+          { label: "Service/Source → Fire Pump Controller (listed)", value: 1 },
+          { label: "Controller → Fire Pump (motor)", value: 1 },
+          { label: "Normal + Alternate Source (as required)", value: 1 },
+          { label: "OCPD/Feeder arranged so pump keeps running", value: 1 }
+        ],
+        body: "Keep OCPD/feeder choices aligned with **reliability** over convenience."
       },
-      images: [
+images: [
         { src: "/images/module-06/m06-695-01.jpg", alt: "Fire pump controller", caption: "Labeling and source arrangement matter." },
         { src: "/images/module-06/m06-695-02.jpg", alt: "Service tap to fire pump", caption: "Follow 695 tap and OCPD specifics." }
       ]
