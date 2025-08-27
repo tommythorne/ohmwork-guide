@@ -110,7 +110,13 @@ const content = {
       block: {
         type: "chart",
         title: "Stage Area Cables — Allowed vs Banned",
-        body: "SOOW/SEOOW etc. allowed where identified; NM? typically **no** in stage spaces. Check 520 tables/notes."
+        chart: [
+          { label: "SOOW / SEOOW — extra-hard usage", value: 100 },
+          { label: "SC — stage cable", value: 100 },
+          { label: "NM — nonmetallic-sheathed", value: 10 },
+          { label: "UF — underground feeder", value: 10 }
+        ],
+        body: "Use **only** listed extra-hard usage portable cables in stage spaces. See NEC 520 tables & notes."
       },
       images: [
         { src: "/images/module-05/m05-520-01.jpg", alt: "Theater rigging", caption: "Rigging & cabling must match 520 methods." },
