@@ -19,9 +19,7 @@ const content = {
         { ref: "600.3", text: "All sign equipment must be **listed** and installed per the **label/instructions**." },
         { ref: "Disconnect", text: "Provide a **readily accessible disconnect** within sight of the sign/outline lighting." }
       ],
-      block: {
-  type: "exam",
-  title: "EXAM TRAP",
+      block: { type: "exam",
   body: "If it’s a sign circuit, it’s dedicated. Don’t share with lighting/receptacles."
 },
       images: [
@@ -39,9 +37,7 @@ const content = {
         { ref: "620.22", text: "**Lighting/receptacle** circuits separated from **power/drive** circuits per 620 rules." },
         { ref: "600V", text: "Bonding, clearances, and wiring methods align with listed equipment instructions and 620 specifics." }
       ],
-      block: {
-  type: "rule",
-  title: "RULE OF THUMB",
+      block: { type: "rule",
   body: "Keep elevator car lights/recepts separate from drive power. Disconnects must be lockable."
 },
       images: [
@@ -59,9 +55,7 @@ const content = {
         { ref: "625.42", text: "EVSE is a **continuous load** — size conductors/OCPD at 125% of nameplate." },
         { ref: "625.54", text: "Receptacles/cord sets must be **listed** for EV use; follow ventilation/cord rules." }
       ],
-      block: {
-  type: "code",
-  title: "NEC REFERENCE",
+      block: { type: "code",
   body: "Treat EVSE as continuous. 40A EVSE → 50A breaker (125%)."
 },
       images: [
@@ -79,9 +73,7 @@ const content = {
         { ref: "OCPD", text: "OCPD/conductor sizing can differ from normal branch rules — use 630 multipliers." },
         { ref: "Receptacles", text: "Use proper receptacle/device configuration and durable wiring method." }
       ],
-      block: {
-  type: "table",
-  title: "TABLE",
+      block: { type: "table",
   table: [
     ["Duty Cycle", "Multiplier (≈)"],
     ["100%", "1.00 × rated current"],
@@ -106,9 +98,7 @@ const content = {
           { ref: "Circuits", text: "Power circuits to racks/amps sized per nameplate; ventilation/heat is a safety issue." },
           { ref: "Grounding", text: "Bonding/grounding minimizes hum and shock hazards; follow manufacturer." }
         ],
-        block: {
-  type: "chart",
-  title: "CHART",
+        block: { type: "chart",
   chart: [
     { label: "Line-level (balanced)", value: 1 },
     { label: "Speaker-level (amps → speakers)", value: 2 },
@@ -131,9 +121,7 @@ const content = {
         { ref: "Plenum", text: "Cable types, underfloor spaces, and plenum ratings must match the environment." },
         { ref: "Fire", text: "Coordination with fire suppression and emergency procedures is required." }
       ],
-      block: {
-  type: "horror",
-  title: "JOBSITE HORROR STORY",
+      block: { type: "horror",
   body: "Underfloor cabling not listed for plenum led to a failed inspection and full re-pull."
 },
       images: [
@@ -151,9 +139,7 @@ const content = {
         { ref: "Equipotential", text: "Equipotential bonding grid around the pool deck — huge inspection point." },
         { ref: "Luminaires", text: "Wet-niche luminaires need proper niches, bonding, and listed transformers." }
       ],
-      block: {
-  type: "exam",
-  title: "EXAM TRAP",
+      block: { type: "exam",
   body: "Missed equipotential bonding is a classic failure. Bond the steel, rails, and deck."
 },
       images: [
@@ -171,9 +157,7 @@ const content = {
         { ref: "690.8", text: "Conductor/OCPD sizing uses **125%** of max current; check temperature and grouping." },
         { ref: "Labels", text: "Placards/labels at service equipment and PV disconnects are mandatory." }
       ],
-      block: {
-  type: "code",
-  title: "NEC REFERENCE",
+      block: { type: "code",
   body: "Use 125% for PV source/outputs; verify with module/inverter data and conditions of use."
 },
       images: [
@@ -191,9 +175,7 @@ const content = {
         { ref: "Documentation", text: "Detailed plans, protection schemes, and coordination are required." },
         { ref: "Grounding", text: "Grounding/bonding follow engineered methods and equipment listings." }
       ],
-      block: {
-  type: "table",
-  title: "TABLE",
+      block: { type: "table",
   table: [
     ["Topic", "690 (Building PV)", "691 (Utility-Scale)"],
     ["Scope", "Typical building-scale PV", "Large utility PV plants"],
@@ -218,9 +200,7 @@ const content = {
         { ref: "OCPD", text: "Overcurrent protection arranged so the fire pump runs — different than typical feeder protection." },
         { ref: "Conductors", text: "Routing and physical protection have elevated requirements." }
       ],
-      block: {
-  type: "chart",
-  title: "CHART",
+      block: { type: "chart",
   chart: [
     { label: "Service → FP controller (permitted tap)", value: 3 },
     { label: "Alternate/Emergency source → controller", value: 3 },
