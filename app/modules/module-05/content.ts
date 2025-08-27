@@ -133,7 +133,7 @@ const content = {
       ],
       block: {
         type: "horror",
-        title: "JOBSITE HORROR — Rain + Cable = Shutdown",
+        title: "Rain + Cable = Shutdown",
         body: "A fair lost power after rain pooled over unprotected cable runs. Trip hazards, ground faults, and damaged insulation ended the night early."
       },
       images: [
