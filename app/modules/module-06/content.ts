@@ -1,9 +1,11 @@
+// app/modules/module-06/content.ts
 const content = {
   hero: {
     imageSrc: "/images/module-06/m06-hero.jpg",
     imageAlt: "NEC Chapter 6 — Special Equipment overview",
     title: "Chapter 6 — Special Equipment",
-    subtitle: "PV, EV, signs, welders, elevators, pools, IT rooms, fire pumps — gear with its own rules."
+    subtitle:
+      "PV, EV, signs, welders, elevators, pools, IT rooms, fire pumps — gear with its own rules."
   },
 
   prev: { href: "/modules/module-05", label: "Chapter 5" },
@@ -15,15 +17,19 @@ const content = {
       icon: "🪧",
       title: "Art. 600 — Electric Signs & Outline Lighting",
       points: [
-        { ref: "600.5", text: "A sign must have a **dedicated branch circuit** (often 20A, 120V). No other loads." },
-        { ref: "600.3", text: "All sign equipment must be **listed** and installed per the **label/instructions**." },
-        { ref: "Disconnect", text: "Provide a **readily accessible disconnect** within sight of the sign/outline lighting." }
+        { ref: "600.5(A)", text: "Provide a **dedicated branch circuit** (typically 20A, 120V) to each sign/outline lighting system—no other loads permitted." },
+        { ref: "600.6(A)(1)", text: "A **readily accessible disconnect** must be within sight of the sign or outline lighting system unless exceptions apply." },
+        { ref: "600.3", text: "All sign equipment must be **listed/identified** and installed per the **label and instructions** (mounting, conductors, environmental limits)." },
+        { ref: "300/600 blend", text: "Follow Chapter 3 wiring method rules; use **wet/damp-rated** fittings where exposed to weather." },
+        { ref: "Grounding/Bonding", text: "Bond metallic sign enclosures and raceways; maintain a low-impedance fault path back to the source." }
       ],
-      block: { type: "exam",
-  body: "If it’s a sign circuit, it’s dedicated. Don’t share with lighting/receptacles."
-},
+      block: {
+        type: "exam",
+        body:
+          "If it’s a sign circuit, it’s **dedicated**. Don’t add receptacles/lighting. Disconnect must be within sight unless a permitted exception is met."
+      },
       images: [
-        { src: "/images/module-06/m06-600-01.jpg", alt: "Sign disconnect within sight", caption: "Local disconnect = required and labeled." },
+        { src: "/images/module-06/m06-600-01.jpg", alt: "Sign disconnect within sight", caption: "Local disconnect: labeled and readily accessible." },
         { src: "/images/module-06/m06-600-02.jpg", alt: "Listed sign power supply", caption: "Use listed components and follow markings." }
       ]
     },
@@ -33,31 +39,39 @@ const content = {
       icon: "🛗",
       title: "Art. 620 — Elevators, Escalators, Platform Lifts",
       points: [
-        { ref: "620.51", text: "**Means for disconnecting** with lockable capability; often in machine room or control space." },
-        { ref: "620.22", text: "**Lighting/receptacle** circuits separated from **power/drive** circuits per 620 rules." },
-        { ref: "600V", text: "Bonding, clearances, and wiring methods align with listed equipment instructions and 620 specifics." }
+        { ref: "620.51", text: "**Means for disconnecting** with lock-open capability for driving machines, controllers, and machinery spaces." },
+        { ref: "620.22", text: "Separate **lighting/receptacle** circuits from **power/drive** circuits per 620; don’t mix them." },
+        { ref: "620.53", text: "Car-light/receptacle circuits often require GFCI and dedicated supply; check adopted cycle details." },
+        { ref: "620.37/620.21", text: "Use wiring methods **identified** for the spaces (hoistway, machinery room, pit). Moisture, movement, and service access matter." },
+        { ref: "Labeling", text: "Controllers and disconnects must be **labeled** clearly; AHJ will look for consistency with drawings and O&M docs." }
       ],
-      block: { type: "rule",
-  body: "Keep elevator car lights/recepts separate from drive power. Disconnects must be lockable."
-},
+      block: {
+        type: "rule",
+        body:
+          "Keep elevator **car lights/recepts** separate from **drive power**. Disconnects must be lockable and located where required."
+      },
       images: [
         { src: "/images/module-06/m06-620-01.jpg", alt: "Elevator machine room disconnect", caption: "Lockable disconnect within the room." },
-        { src: "/images/module-06/m06-620-02.jpg", alt: "Controller cabinet with labeling", caption: "Follow controller labeling and 620 references." }
+        { src: "/images/module-06/m06-620-02.jpg", alt: "Controller cabinet with labeling", caption: "Follow controller labeling and 620 specifics." }
       ]
     },
 
-    // 3) Article 625 — Electric Vehicle Power Transfer (CODE)
+    // 3) Article 625 — Electric Vehicle Supply Equipment (CODE)
     {
       icon: "🚗",
       title: "Art. 625 — Electric Vehicle Supply Equipment (EVSE)",
       points: [
-        { ref: "625.41", text: "**GFCI** protection integral to EVSE or upstream where required by listing." },
-        { ref: "625.42", text: "EVSE is a **continuous load** — size conductors/OCPD at 125% of nameplate." },
-        { ref: "625.54", text: "Receptacles/cord sets must be **listed** for EV use; follow ventilation/cord rules." }
+        { ref: "625.41", text: "**GFCI**/ground-fault protection often integral to EVSE; understand how upstream protection interacts." },
+        { ref: "625.42", text: "EVSE is a **continuous load** — size conductors and OCPD at **125%** of nameplate." },
+        { ref: "625.44/625.46", text: "Follow rules for cord-and-plug vs hard-wired EVSE, cord lengths, and mounting heights." },
+        { ref: "Labeling", text: "Placards for **maximum output**/rating and circuit requirements help techs and inspectors verify compliance." },
+        { ref: "Ventilation", text: "Some legacy equipment requires ventilation; modern listed EVSE may waive it—check the **listing**." }
       ],
-      block: { type: "code",
-  body: "Treat EVSE as continuous. 40A EVSE → 50A breaker (125%)."
-},
+      block: {
+        type: "code",
+        body:
+          "Treat EVSE as **continuous**. Example: 40A nameplate → 50A breaker (125%) with conductors to match."
+      },
       images: [
         { src: "/images/module-06/m06-625-01.jpg", alt: "Wall-mounted EVSE", caption: "Confirm continuous-load sizing and GFCI behavior." },
         { src: "/images/module-06/m06-625-02.jpg", alt: "EVSE nameplate close-up", caption: "Size to nameplate × 125%." }
@@ -69,97 +83,105 @@ const content = {
       icon: "🧰",
       title: "Art. 630 — Electric Welders",
       points: [
-        { ref: "Duty Cycle", text: "Welder input current depends on **duty cycle**; use Art. 630 tables/notes." },
-        { ref: "OCPD", text: "OCPD/conductor sizing can differ from normal branch rules — use 630 multipliers." },
-        { ref: "Receptacles", text: "Use proper receptacle/device configuration and durable wiring method." }
+        { ref: "Duty Cycle", text: "Welder input current depends on **duty cycle**; use 630 tables/notes instead of generic branch rules." },
+        { ref: "OCPD", text: "OCPD/conductor sizing can be **smaller or larger** than standard due to 630 multipliers—follow the table math." },
+        { ref: "Receptacles", text: "Use the correct configuration/rating; verify cord caps match receptacle/branch rating." },
+        { ref: "Feeder Impact", text: "Groups of welders can be **diversified** per 630; don’t oversize blindly." },
+        { ref: "Nameplate", text: "When in doubt, the **nameplate + Article 630** drive the design—don’t ‘average’ ratings." }
       ],
-      block: { type: "table",
-  table: [
-    ["Duty Cycle", "Multiplier (≈)"],
-    ["100%", "1.00 × rated current"],
-    ["60%",  "0.80 × rated current"],
-    ["40%",  "0.63 × rated current"],
-    ["20%",  "0.45 × rated current"]
-  ],
-  body: "Examples only — verify with Art. 630 nameplate and tables."
-},
+      block: {
+        type: "table",
+        body:
+          "Quick Sheet — Example multipliers (illustrative): 60% duty ≈ 0.8 × rated input; 50% ≈ 0.71; 30% ≈ 0.55. Always confirm with Art. 630 tables/nameplate."
+      },
       images: [
         { src: "/images/module-06/m06-630-01.jpg", alt: "Shop welder circuit", caption: "Size branch/OCPD using 630 rules." },
         { src: "/images/module-06/m06-630-02.jpg", alt: "Nameplate with duty cycle", caption: "Nameplate + 630 tables drive sizing." }
       ]
     },
 
-    // 5) Article 640 — Audio Signal Processing & Amplification (CHART)
+    // 5) Article 640 — Audio Systems (CHART)
     {
-        icon: "🎚️",
-        title: "Art. 640 — Audio Systems",
-        points: [
-          { ref: "640.9", text: "Equipment must be **listed/identified**; follow low-voltage wiring separations and support." },
-          { ref: "Circuits", text: "Power circuits to racks/amps sized per nameplate; ventilation/heat is a safety issue." },
-          { ref: "Grounding", text: "Bonding/grounding minimizes hum and shock hazards; follow manufacturer." }
-        ],
-        block: { type: "chart",
-  chart: [
-    { label: "Line-level (balanced)", value: 1 },
-    { label: "Speaker-level (amps → speakers)", value: 2 },
-    { label: "Powered speakers (AC feed to speaker)", value: 3 }
-  ],
-  body: "Separate LV audio from AC where required; follow 640 listings and clearances."
-},
-        images: [
-          { src: "/images/module-06/m06-640-01.jpg", alt: "Audio rack power/ventilation", caption: "Ventilation and branch sizing matter." },
-          { src: "/images/module-06/m06-640-02.jpg", alt: "LV cable management", caption: "Keep LV and AC separated as specified." }
-        ]
+      icon: "🎚️",
+      title: "Art. 640 — Audio Systems",
+      points: [
+        { ref: "640.9", text: "Use **listed/identified** equipment and cable types; support low-voltage per manufacturer and Code." },
+        { ref: "Separation", text: "Maintain separation between AC power and LV audio/data as required to reduce noise and hazards." },
+        { ref: "Branch Sizing", text: "Size power for racks/amps to **nameplate**; account for ventilation and heat loads." },
+        { ref: "Grounding", text: "Bonding/grounding per manufacturer reduces hum and shock risk; avoid bootleg grounds." },
+        { ref: "Connectorization", text: "Use proper terminations (barrier strips, speakON, locking inlets) where listed; strain reliefs matter." }
+      ],
+      block: {
+        type: "chart",
+        body:
+          "Audio topologies at a glance: Line-level (shielded LV) • Speaker-level (higher current) • Powered speakers (AC + signal). Keep LV away from AC unless listed for proximity."
+      },
+      images: [
+        { src: "/images/module-06/m06-640-01.jpg", alt: "Audio rack power/ventilation", caption: "Ventilation and branch sizing matter." },
+        { src: "/images/module-06/m06-640-02.jpg", alt: "LV cable management", caption: "Keep LV and AC separated as specified." }
+      ]
     },
 
-    // 6) Article 645 — Information Technology Equipment Rooms (HORROR)
+    // 6) Article 645 — IT Equipment Rooms (HORROR)
     {
       icon: "💻",
       title: "Art. 645 — IT Equipment Rooms",
       points: [
-        { ref: "645.10", text: "Disconnecting means for **electronic equipment power** and HVAC when 645 rules are applied." },
-        { ref: "Plenum", text: "Cable types, underfloor spaces, and plenum ratings must match the environment." },
-        { ref: "Fire", text: "Coordination with fire suppression and emergency procedures is required." }
+        { ref: "645.10", text: "Provide a **disconnecting means** for electronic equipment power (and HVAC when 645 rules are used)." },
+        { ref: "Spaces", text: "Underfloor plenums require **plenum-rated** cable; identify pathways and penetrations correctly." },
+        { ref: "Fire Integration", text: "Coordinate with **fire detection/suppression**; signage and EPO (if used) must be obvious." },
+        { ref: "Wiring Methods", text: "Support, secure, and protect cabling per Chapter 3—no free-air spaghetti under raised floors." },
+        { ref: "Documentation", text: "Label circuits, racks, and panel schedules; IT changes constantly—make maintenance safe and traceable." }
       ],
-      block: { type: "horror",
-  body: "Underfloor cabling not listed for plenum led to a failed inspection and full re-pull."
-},
+      block: {
+        type: "horror",
+        body:
+          "A raised-floor job failed when non-plenum data cable went everywhere. Result: rip-out and replace under a production outage window."
+      },
       images: [
         { src: "/images/module-06/m06-645-01.jpg", alt: "IT room underfloor cabling", caption: "Use listed plenum/raised-floor cabling." },
         { src: "/images/module-06/m06-645-02.jpg", alt: "EPO / disconnect station", caption: "Know the shutdown sequence and labeling." }
       ]
     },
 
-    // 7) Article 680 — Swimming Pools, Fountains, Spas (EXAM)
+    // 7) Article 680 — Pools, Fountains, Spas (EXAM)
     {
       icon: "🏊",
       title: "Art. 680 — Pools, Fountains, Spas",
       points: [
-        { ref: "680.21", text: "Pool **pump motors**: GFCI protection (scope depends on edition/listing)." },
-        { ref: "Equipotential", text: "Equipotential bonding grid around the pool deck — huge inspection point." },
-        { ref: "Luminaires", text: "Wet-niche luminaires need proper niches, bonding, and listed transformers." }
+        { ref: "680.21(A)", text: "Pool **pump motors** require **GFCI** (scope varies by edition); verify local adoption." },
+        { ref: "680.26", text: "**Equipotential bonding** grid: bond reinforcing steel, metal components, and perimeter surfaces." },
+        { ref: "680.23", text: "Wet-niche luminaires: follow listing for niches, bonding, and **transformers** (where used)." },
+        { ref: "Wiring Methods", text: "Use **corrosion-resistant**/wet-location wiring methods; seal fittings where required." },
+        { ref: "Clearances", text: "Respect **setbacks** from pools for panels, receptacles, and equipment (distances vary by type)." }
       ],
-      block: { type: "exam",
-  body: "Missed equipotential bonding is a classic failure. Bond the steel, rails, and deck."
-},
+      block: {
+        type: "exam",
+        body:
+          "Equipotential bonding is a make-or-break inspection item. Bond the steel, rails, and deck surfaces properly."
+      },
       images: [
         { src: "/images/module-06/m06-680-01.jpg", alt: "Pool pump with GFCI", caption: "Expect GFCI on pump motors." },
         { src: "/images/module-06/m06-680-02.jpg", alt: "Equipotential bonding grid", caption: "Bonding ties metallic parts together." }
       ]
     },
 
-    // 8) Article 690 — PV Systems (CODE)
+    // 8) Article 690 — Photovoltaic Systems (CODE)
     {
       icon: "🔋",
       title: "Art. 690 — Photovoltaic Systems",
       points: [
-        { ref: "690.12", text: "**Rapid Shutdown** where required — label it and verify boundaries." },
-        { ref: "690.8", text: "Conductor/OCPD sizing uses **125%** of max current; check temperature and grouping." },
-        { ref: "Labels", text: "Placards/labels at service equipment and PV disconnects are mandatory." }
+        { ref: "690.12", text: "**Rapid shutdown** where required; label boundaries and verify device operation." },
+        { ref: "690.8(A)/(B)", text: "**125%** current factors for source/outputs; apply temperature correction and conduit fill derating." },
+        { ref: "690.13/690.15", text: "Provide required **disconnects** for PV equipment and specify locations clearly." },
+        { ref: "Labeling", text: "Placards at service equipment and PV points of isolation; firefighters rely on these." },
+        { ref: "Grounding", text: "Use listed **bonding jumpers/clips** for module rails and metallic raceways; continuity is critical." }
       ],
-      block: { type: "code",
-  body: "Use 125% for PV source/outputs; verify with module/inverter data and conditions of use."
-},
+      block: {
+        type: "code",
+        body:
+          "Use **125%** for PV max current, then apply conditions of use (temperature/derating). Don’t skip the label package."
+      },
       images: [
         { src: "/images/module-06/m06-690-01.jpg", alt: "PV inverter/disconnect labeling", caption: "Placards where first responders expect them." },
         { src: "/images/module-06/m06-690-02.jpg", alt: "Rooftop PV with raceways", caption: "Mind temperature and grouping corrections." }
@@ -171,22 +193,19 @@ const content = {
       icon: "🌞",
       title: "Art. 691 — Large-Scale PV (Utility-Scale)",
       points: [
-        { ref: "Scope", text: "Applies to **large utility** PV not covered by 690; engineering supervision assumed." },
-        { ref: "Documentation", text: "Detailed plans, protection schemes, and coordination are required." },
-        { ref: "Grounding", text: "Grounding/bonding follow engineered methods and equipment listings." }
+        { ref: "Scope", text: "Applies to utility-scale PV where **engineering supervision** is assumed; 691 modifies 690 for scale." },
+        { ref: "Docs/Studies", text: "Short-circuit/coordination studies, relay settings, arc-flash and grounding methods are engineered." },
+        { ref: "Equipment", text: "Medium-voltage collection, GIS/transformers, and switchgear—follow **manufacturer** and utility requirements." },
+        { ref: "Grounding", text: "Grounding/bonding systems are **designed**; soil conditions and corrosion control are addressed in the plan set." },
+        { ref: "Labeling/Access", text: "Access control, signage, and emergency response plans scale with the site footprint." }
       ],
-      block: { type: "table",
-  table: [
-    ["Topic", "690 (Building PV)", "691 (Utility-Scale)"],
-    ["Scope", "Typical building-scale PV", "Large utility PV plants"],
-    ["Approach", "Prescriptive Code rules", "Engineering supervision & documentation"],
-    ["Protection", "Standard OCP/ground-fault per 690", "Engineered protection schemes"],
-    ["Labeling", "Standard PV placards", "Site-specific documentation & coordination"]
-  ],
-  body: "Use 691 when the installation meets the large-scale/utility criteria and is under engineering oversight."
-},
+      block: {
+        type: "table",
+        body:
+          "690 vs 691 (quick view): 690 = building-scale PV with prescriptive rules; 691 = utility-scale under engineering control (performance-based, utility-coordinated)."
+      },
       images: [
-        { src: "/images/module-06/m06-691-01.jpg", alt: "Utility-scale PV field", caption: "Different scale, different ruleset." },
+        { src: "/images/module-06/m06-691-01.jpg", alt: "Utility-scale PV field", caption: "Different scale, different rule structure." },
         { src: "/images/module-06/m06-691-02.jpg", alt: "Collector station gear", caption: "Coordination and documentation drive approvals." }
       ]
     },
@@ -196,19 +215,17 @@ const content = {
       icon: "🚒",
       title: "Art. 695 — Fire Pumps",
       points: [
-        { ref: "Reliability", text: "**Normal/emergency** sources must be arranged for reliability; tap rules are specific." },
-        { ref: "OCPD", text: "Overcurrent protection arranged so the fire pump runs — different than typical feeder protection." },
-        { ref: "Conductors", text: "Routing and physical protection have elevated requirements." }
+        { ref: "695.3", text: "**Reliability**: arrange normal and alternate sources for continuity—utility + generator or alternate service." },
+        { ref: "695.4", text: "Feed directly to the **fire pump controller** with permitted taps; minimize tripping opportunities." },
+        { ref: "695.5/695.6", text: "Overcurrent protection set so the pump **keeps running**—different than typical feeder protection." },
+        { ref: "Routing", text: "Protect conductors physically (encased, MI cable, or dedicated pathways) per 695 and local amendments." },
+        { ref: "Controller", text: "Listed controller, signage, and lock-open isolation where required; keep the path simple and serviceable." }
       ],
-      block: { type: "chart",
-  chart: [
-    { label: "Service → FP controller (permitted tap)", value: 3 },
-    { label: "Alternate/Emergency source → controller", value: 3 },
-    { label: "Controller → Fire pump", value: 2 },
-    { label: "Reliability priority (OCPD arrangement)", value: 4 }
-  ],
-  body: "Power path prioritizes reliability over convenience; follow 695 tap and OCPD specifics."
-},
+      block: {
+        type: "chart",
+        body:
+          "Power path sketch: Service/Source → Fire Pump Controller (listed) → Fire Pump. Keep OCPD/feeder choices aligned with **reliability** over convenience."
+      },
       images: [
         { src: "/images/module-06/m06-695-01.jpg", alt: "Fire pump controller", caption: "Labeling and source arrangement matter." },
         { src: "/images/module-06/m06-695-02.jpg", alt: "Service tap to fire pump", caption: "Follow 695 tap and OCPD specifics." }
@@ -221,7 +238,7 @@ const content = {
     cards: [
       { iconName: "🪧", title: "Signs", text: "Dedicated circuit + local disconnect." },
       { iconName: "🛗", title: "Elevators", text: "Lockable disconnect; separate lighting vs power." },
-      { iconName: "🚗", title: "EVSE", text: "Continuous load — 125% sizing." },
+      { iconName: "🚗", title: "EVSE", text: "Continuous load — size at 125%." },
       { iconName: "🏊", title: "Pools", text: "Bond that deck. Expect GFCI." },
       { iconName: "🔋", title: "PV", text: "Rapid shutdown + labels." },
       { iconName: "🚒", title: "Fire Pumps", text: "Reliability beats convenience." }
