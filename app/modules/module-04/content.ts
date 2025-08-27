@@ -86,11 +86,15 @@ const content = {
         { ref: "422.5(A)", text: "GFCI protection for certain appliances (e.g., drinking fountains, vending machines) per listing/locations." }
       ],
       block: {
-        type: "chart",
-        title: "Common Appliance Disconnect Rules (Quick View)",
-        body:
-          "• ≥300 VA: disconnect required. • If not within sight → lockable. • Cord‑and‑plug can be the disconnect when in sight."
-      },
+  type: "chart",
+  title: "Common Appliance Disconnect Rules (Quick View)",
+  chart: [
+    { label: "≥300 VA — disconnect required", value: 1 },
+    { label: "If not within sight — must be lockable", value: 1 },
+    { label: "Cord-and-plug may serve as the disconnect when in sight", value: 1 }
+  ],
+  body: "Quick visual reminder only. Verify specifics in 422.31(B) and equipment listings."
+},
       images: [
         { src: "/images/module-04/m04-422-01.jpg", alt: "Washer disconnect", caption: "A cord‑and‑plug within sight can serve as the disconnect." },
         { src: "/images/module-04/m04-422-02.jpg", alt: "Nameplate close‑up", caption: "Always honor the nameplate: it’s part of the listing." }
