@@ -23,7 +23,7 @@ const content = {
       ],
       block: {
         type: "exam",
-        title: "EXAM TRAP — 'Readily accessible'",
+        title: "'Readily accessible'",
         body:
           "If you need a ladder or must move obstacles, it’s **not** readily accessible. Article 100 definition + 404 questions are a classic pairing."
       },
@@ -45,7 +45,7 @@ const content = {
       ],
       block: {
         type: "rule",
-        title: "RULE OF THUMB — Outdoors = in‑use cover",
+        title: "Outdoors = in‑use cover",
         body:
           "If water can hit it **while a plug is inserted**, it needs an in‑use cover. That answer wins most 406.9 questions instantly."
       },
@@ -66,7 +66,7 @@ const content = {
       ],
       block: {
         type: "code",
-        title: "NEC REFERENCE",
+        title: "",
         body:
           "410.36(B) requires independent support. Don’t hang luminaires by EMT unless the product is listed for it."
       },
@@ -138,7 +138,7 @@ const content = {
       ],
       block: {
         type: "rule",
-        title: "RULE OF THUMB — OCPD protects the wiring",
+        title: "OCPD protects the wiring",
         body:
           "Motor branch OCPD often looks 'large'—that’s normal. The motor is protected by its **overload** device; the OCPD is for the **conductors**."
       },
@@ -159,7 +159,7 @@ const content = {
       ],
       block: {
         type: "exam",
-        title: "EXAM TRAP — Nameplate rules",
+        title: "Nameplate rules",
         body:
           "If the nameplate gives **MCA/MOCP**, that’s your sizing. Don’t override with Article 310 ampacity or generic motor tables."
       },
@@ -180,7 +180,7 @@ const content = {
       ],
       block: {
         type: "code",
-        title: "NEC REFERENCE",
+        title: "",
         body:
           "Table 450.3 sets maximum overcurrent protection for transformers by type and voltage class. Check the notes—lots of exam points live there."
       },
@@ -222,7 +222,7 @@ const content = {
       ],
       block: {
         type: "rule",
-        title: "RULE OF THUMB — Label speaks first",
+        title: "Label speaks first",
         body:
           "On ICP questions, read the **nameplate** and SCCR first. If the system’s available fault current is higher, you’re not compliant."
       },
