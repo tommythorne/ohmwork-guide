@@ -208,10 +208,16 @@ const content = {
         { ref: "GFCI", text: "Robust GFCI requirements for construction receptacles & portable distribution." }
       ],
       block: {
-        type: "table",
-        title: "Temp Power Quick Sheet",
-        body: "GFCI on construction receptacles; protect runs; listed assemblies; remove when done."
-      },
+  type: "table",
+  title: "Temp Power Quick Sheet",
+  table: [
+    ["Item", "Rule"],
+    ["GFCI", "Required on all construction receptacles"],
+    ["Protection", "Cover/elevate cords & cables where subject to damage or traffic"],
+    ["Assemblies", "Use only listed temporary power distribution equipment"],
+    ["Removal", "Remove all temporary wiring when the job is complete"]
+  ]
+},
       images: [
         { src: "/images/module-05/m05-590-01.jpg", alt: "Temp power distro", caption: "Use listed distribution gear with GFCI." },
         { src: "/images/module-05/m05-590-02.jpg", alt: "Cable ramps", caption: "Protect cords from vehicles & foot traffic." }
