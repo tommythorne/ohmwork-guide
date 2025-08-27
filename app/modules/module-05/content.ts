@@ -83,10 +83,16 @@ const content = {
         { ref: "Bonding", text: "Equipotential bonding in patient care areas (verify listed assemblies and methods)." }
       ],
       block: {
-        type: "table",
-        title: "517 Quick Sheet — Essential System Branches",
-        body: "Life Safety = egress/alarms; Critical = patient care/task loads; Equipment = mechanicals. Keep separation per 517 wiring requirements."
-      },
+  type: "table",
+  title: "517 Quick Sheet — Essential System Branches",
+  table: [
+    ["Branch", "Purpose / Typical Loads", "Examples"],
+    ["Life Safety", "Egress, alarms, fire protection; operates during emergency", "Egress lighting, fire alarm, exit signs"],
+    ["Critical", "Patient care & task loads; continuity of care", "Bed receptacles, monitors, task lighting"],
+    ["Equipment", "Building services & mechanical systems", "HVAC units, pumps, selected elevators"]
+  ],
+  body: "Keep separation and wiring ID per 517; follow the ATS/transfer scheme for each branch."
+},
       images: [
         { src: "/images/module-05/m05-517-01.jpg", alt: "Hospital headwall circuits", caption: "Life Safety and Critical circuits are managed separately." },
         { src: "/images/module-05/m05-517-02.jpg", alt: "ATS lineups", caption: "Branch separation often reflected physically and by labeling." }
