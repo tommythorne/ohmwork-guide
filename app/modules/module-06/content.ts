@@ -20,10 +20,10 @@ const content = {
         { ref: "Disconnect", text: "Provide a **readily accessible disconnect** within sight of the sign/outline lighting." }
       ],
       block: {
-        type: "exam",
-        title: "EXAM TRAP — Dedicated Circuit",
-        body: "If it’s a sign circuit, it’s dedicated. Don’t share with lighting/receptacles."
-      },
+  type: "exam",
+  title: "EXAM TRAP",
+  body: "If it’s a sign circuit, it’s dedicated. Don’t share with lighting/receptacles."
+},
       images: [
         { src: "/images/module-06/m06-600-01.jpg", alt: "Sign disconnect within sight", caption: "Local disconnect = required and labeled." },
         { src: "/images/module-06/m06-600-02.jpg", alt: "Listed sign power supply", caption: "Use listed components and follow markings." }
@@ -40,10 +40,10 @@ const content = {
         { ref: "600V", text: "Bonding, clearances, and wiring methods align with listed equipment instructions and 620 specifics." }
       ],
       block: {
-        type: "rule",
-        title: "RULE OF THUMB — Separate It",
-        body: "Keep elevator car lights/recepts separate from drive power. Disconnects must be lockable."
-      },
+  type: "rule",
+  title: "RULE OF THUMB",
+  body: "Keep elevator car lights/recepts separate from drive power. Disconnects must be lockable."
+},
       images: [
         { src: "/images/module-06/m06-620-01.jpg", alt: "Elevator machine room disconnect", caption: "Lockable disconnect within the room." },
         { src: "/images/module-06/m06-620-02.jpg", alt: "Controller cabinet with labeling", caption: "Follow controller labeling and 620 references." }
@@ -60,10 +60,10 @@ const content = {
         { ref: "625.54", text: "Receptacles/cord sets must be **listed** for EV use; follow ventilation/cord rules." }
       ],
       block: {
-        type: "code",
-        title: "NEC REFERENCE — Continuous Load",
-        body: "Treat EVSE as continuous. 40A EVSE → 50A breaker (125%)."
-      },
+  type: "code",
+  title: "NEC REFERENCE",
+  body: "Treat EVSE as continuous. 40A EVSE → 50A breaker (125%)."
+},
       images: [
         { src: "/images/module-06/m06-625-01.jpg", alt: "Wall-mounted EVSE", caption: "Confirm continuous-load sizing and GFCI behavior." },
         { src: "/images/module-06/m06-625-02.jpg", alt: "EVSE nameplate close-up", caption: "Size to nameplate × 125%." }
@@ -80,10 +80,17 @@ const content = {
         { ref: "Receptacles", text: "Use proper receptacle/device configuration and durable wiring method." }
       ],
       block: {
-        type: "table",
-        title: "Quick Sheet — Duty Cycle Multipliers",
-        body: "60% duty cycle → ~0.8 × rated current; check actual 630 tables and nameplate."
-      },
+  type: "table",
+  title: "TABLE",
+  table: [
+    ["Duty Cycle", "Multiplier (≈)"],
+    ["100%", "1.00 × rated current"],
+    ["60%",  "0.80 × rated current"],
+    ["40%",  "0.63 × rated current"],
+    ["20%",  "0.45 × rated current"]
+  ],
+  body: "Examples only — verify with Art. 630 nameplate and tables."
+},
       images: [
         { src: "/images/module-06/m06-630-01.jpg", alt: "Shop welder circuit", caption: "Size branch/OCPD using 630 rules." },
         { src: "/images/module-06/m06-630-02.jpg", alt: "Nameplate with duty cycle", caption: "Nameplate + 630 tables drive sizing." }
@@ -100,10 +107,15 @@ const content = {
           { ref: "Grounding", text: "Bonding/grounding minimizes hum and shock hazards; follow manufacturer." }
         ],
         block: {
-          type: "chart",
-          title: "Audio Circuits — Common Topologies",
-          body: "Line-level vs speaker-level vs powered speakers; keep LV away from AC runs where required."
-        },
+  type: "chart",
+  title: "CHART",
+  chart: [
+    { label: "Line-level (balanced)", value: 1 },
+    { label: "Speaker-level (amps → speakers)", value: 2 },
+    { label: "Powered speakers (AC feed to speaker)", value: 3 }
+  ],
+  body: "Separate LV audio from AC where required; follow 640 listings and clearances."
+},
         images: [
           { src: "/images/module-06/m06-640-01.jpg", alt: "Audio rack power/ventilation", caption: "Ventilation and branch sizing matter." },
           { src: "/images/module-06/m06-640-02.jpg", alt: "LV cable management", caption: "Keep LV and AC separated as specified." }
@@ -120,10 +132,10 @@ const content = {
         { ref: "Fire", text: "Coordination with fire suppression and emergency procedures is required." }
       ],
       block: {
-        type: "horror",
-        title: "JOBSITE HORROR — Trip the Data Floor",
-        body: "Underfloor cabling not listed for plenum led to a failed inspection and full re-pull."
-      },
+  type: "horror",
+  title: "JOBSITE HORROR STORY",
+  body: "Underfloor cabling not listed for plenum led to a failed inspection and full re-pull."
+},
       images: [
         { src: "/images/module-06/m06-645-01.jpg", alt: "IT room underfloor cabling", caption: "Use listed plenum/raised-floor cabling." },
         { src: "/images/module-06/m06-645-02.jpg", alt: "EPO / disconnect station", caption: "Know the shutdown sequence and labeling." }
@@ -140,10 +152,10 @@ const content = {
         { ref: "Luminaires", text: "Wet-niche luminaires need proper niches, bonding, and listed transformers." }
       ],
       block: {
-        type: "exam",
-        title: "EXAM TRAP — Bond That Deck",
-        body: "Missed equipotential bonding is a classic failure. Bond the steel, rails, and deck."
-      },
+  type: "exam",
+  title: "EXAM TRAP",
+  body: "Missed equipotential bonding is a classic failure. Bond the steel, rails, and deck."
+},
       images: [
         { src: "/images/module-06/m06-680-01.jpg", alt: "Pool pump with GFCI", caption: "Expect GFCI on pump motors." },
         { src: "/images/module-06/m06-680-02.jpg", alt: "Equipotential bonding grid", caption: "Bonding ties metallic parts together." }
@@ -160,10 +172,10 @@ const content = {
         { ref: "Labels", text: "Placards/labels at service equipment and PV disconnects are mandatory." }
       ],
       block: {
-        type: "code",
-        title: "NEC REFERENCE — 125% PV Current",
-        body: "Use 125% for PV source/outputs; verify with module/inverter data and conditions of use."
-      },
+  type: "code",
+  title: "NEC REFERENCE",
+  body: "Use 125% for PV source/outputs; verify with module/inverter data and conditions of use."
+},
       images: [
         { src: "/images/module-06/m06-690-01.jpg", alt: "PV inverter/disconnect labeling", caption: "Placards where first responders expect them." },
         { src: "/images/module-06/m06-690-02.jpg", alt: "Rooftop PV with raceways", caption: "Mind temperature and grouping corrections." }
@@ -180,10 +192,17 @@ const content = {
         { ref: "Grounding", text: "Grounding/bonding follow engineered methods and equipment listings." }
       ],
       block: {
-        type: "table",
-        title: "Quick Sheet — 690 vs 691",
-        body: "690 = typical building PV; 691 = utility-scale with engineered practices."
-      },
+  type: "table",
+  title: "TABLE",
+  table: [
+    ["Topic", "690 (Building PV)", "691 (Utility-Scale)"],
+    ["Scope", "Typical building-scale PV", "Large utility PV plants"],
+    ["Approach", "Prescriptive Code rules", "Engineering supervision & documentation"],
+    ["Protection", "Standard OCP/ground-fault per 690", "Engineered protection schemes"],
+    ["Labeling", "Standard PV placards", "Site-specific documentation & coordination"]
+  ],
+  body: "Use 691 when the installation meets the large-scale/utility criteria and is under engineering oversight."
+},
       images: [
         { src: "/images/module-06/m06-691-01.jpg", alt: "Utility-scale PV field", caption: "Different scale, different ruleset." },
         { src: "/images/module-06/m06-691-02.jpg", alt: "Collector station gear", caption: "Coordination and documentation drive approvals." }
@@ -200,10 +219,16 @@ const content = {
         { ref: "Conductors", text: "Routing and physical protection have elevated requirements." }
       ],
       block: {
-        type: "chart",
-        title: "Fire Pump Power Path",
-        body: "Service → fire pump controller with permitted taps/OC — keep reliability the priority."
-      },
+  type: "chart",
+  title: "CHART",
+  chart: [
+    { label: "Service → FP controller (permitted tap)", value: 3 },
+    { label: "Alternate/Emergency source → controller", value: 3 },
+    { label: "Controller → Fire pump", value: 2 },
+    { label: "Reliability priority (OCPD arrangement)", value: 4 }
+  ],
+  body: "Power path prioritizes reliability over convenience; follow 695 tap and OCPD specifics."
+},
       images: [
         { src: "/images/module-06/m06-695-01.jpg", alt: "Fire pump controller", caption: "Labeling and source arrangement matter." },
         { src: "/images/module-06/m06-695-02.jpg", alt: "Service tap to fire pump", caption: "Follow 695 tap and OCPD specifics." }
