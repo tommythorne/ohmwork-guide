@@ -201,7 +201,7 @@ const content = {
       ],
       block: {
         type: "horror",
-        title: "JOBSITE HORROR — The 'temporary' tape cover",
+        title: "The 'temporary' tape cover",
         body:
           "An inspector found tape over a breaker space where a filler should’ve been. Failed the floor and delayed energization by a week. Keep filler plates on hand."
       },
