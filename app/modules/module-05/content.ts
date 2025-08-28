@@ -23,7 +23,10 @@ const content = {
         { ref: "Class II", text: "Combustible dusts (grain/metal). Same Div 1/2 concept." },
         { ref: "Class III", text: "Ignitable fibers/flyings—surface accumulations & handling areas." },
         { ref: "Selection", text: "Equipment must be **identified** for class/division & group; seals, enclosures, wiring methods vary accordingly." }
-      ],
+      ,
+{ ref: "501.15", text: "Sealing requirements: install explosionproof seals where required at boundaries and where the wiring method demands it—placement follows 501.15 notes." },
+        { ref: "T-Codes", text: "Equipment temperature codes (T-ratings) must be suitable for the ignitable material—verify against the area’s gas/dust group and temperature class." }
+],
       block: {
         type: "exam",
         title: "EXAM TRAP — Class vs Division",
@@ -43,7 +46,10 @@ const content = {
         { ref: "Enclosures", text: "Use dust‑tight enclosures; keep gaskets and covers intact." },
         { ref: "Wiring Method", text: "Rigid metal conduit or identified systems; flex only if **identified** for the location." },
         { ref: "Surface Temp", text: "Equipment surface temperature must stay below dust ignition temps." }
-      ],
+      ,
+{ ref: "Seals/Breathers", text: "Use identified dust-tight seals or breathers where pressure equalization is needed—don’t defeat enclosure ratings." },
+        { ref: "Maintenance", text: "Housekeeping and maintenance are part of safety: keep covers/gaskets intact and avoid opening enclosures in active dusty operations." }
+],
       block: {
         type: "rule",
         title: "RULE OF THUMB — Dust wins",
@@ -62,7 +68,10 @@ const content = {
         { ref: "Zones", text: "Gases: Zone 0/1/2; Dusts: Zone 20/21/22 — likelihood‑based like Divisions but different cut lines." },
         { ref: "Markings", text: "Use equipment **marked/listed** for the Zone/Group; you may see EPL (Equipment Protection Level) on labels." },
         { ref: "Docs", text: "Maintain classification drawings; boundaries drive wiring methods and seals." }
-      ],
+      ,
+{ ref: "505.25", text: "Conversions: division-classified equipment may be acceptable in Zones when permitted—follow conversion rules and listing limitations." },
+        { ref: "Cable Glands", text: "Select Ex e / Ex d glands and wiring components that match the Zone and equipment type; terminations are a common inspection failure." }
+],
       block: {
         type: "code",
         title: "NEC REFERENCE — Zone labeling",
@@ -81,7 +90,10 @@ const content = {
         { ref: "Branches", text: "Essential system branches: **Life Safety**, **Critical**, **Equipment**—each with permitted loads." },
         { ref: "Receptacles", text: "Patient care spaces have minimum counts and **hospital‑grade** devices where required." },
         { ref: "Bonding", text: "Equipotential bonding in patient care areas (verify listed assemblies and methods)." }
-      ],
+      ,
+{ ref: "517.16", text: "Isolated grounding permitted in patient-care spaces but **not** a substitute for required bonding—follow 517 bonding methods." },
+        { ref: "Testing/Marking", text: "Hospital-grade receptacles, required counts, and periodic testing—document device locations and branch separation on as-builts." }
+],
       block: {
   type: "table",
   title: "517 Quick Sheet — Essential System Branches",
@@ -106,7 +118,10 @@ const content = {
         { ref: "Cables", text: "Stage/production spaces allow specific **portable cable types**; others are prohibited." },
         { ref: "Heat/Scenery", text: "Consider heat near drapes and scenery—location/shielding can be mandated." },
         { ref: "Disconnects", text: "Stage lighting/hoists often require **readily accessible** disconnecting means." }
-      ],
+      ,
+{ ref: "Strain Relief", text: "Provide listed strain reliefs at battens/trusses; avoid sharp bends and abrasion—stage cabling moves and flexes." },
+        { ref: "Portable Distro Bonding", text: "Bond and ground portable distribution per 520; keep neutrals isolated where required and verify GFCI where mandated." }
+],
       block: {
         type: "chart",
         title: "Stage Area Cables — Allowed vs Banned",
@@ -130,7 +145,10 @@ const content = {
       points: [
         { ref: "GFCI", text: "Broad **GFCI** requirements for receptacles and certain equipment—inspectors enforce hard." },
         { ref: "Protection", text: "Protect portable cables from traffic, moisture, and physical damage—covers, elevation, or trenches." }
-      ],
+      ,
+{ ref: "Bonding", text: "Bond noncurrent-carrying metal parts of rides/structures—portable systems need the same continuity as permanent installs." },
+        { ref: "Cords/Use", text: "Use **hard/extra-hard usage** listed cords; protect from vehicles and foot traffic with ramps or elevation—wet-location fittings where needed." }
+],
       block: {
         type: "horror",
         title: "Rain + Cable = Shutdown",
@@ -149,7 +167,10 @@ const content = {
         { ref: "Listing", text: "Factory wiring is under listing; field connections must honor the **manufacturer’s instructions** and label." },
         { ref: "Service/Feeder", text: "Pedestal often = **service**. Conductors to the home often = **feeder**; bonding/neutral rules change." },
         { ref: "Dwelling Rules", text: "Spacing and GFCI/AFCI mirror dwelling rules with extra location specifics." }
-      ],
+      ,
+{ ref: "550.33", text: "Four-wire feeder with isolated neutral to the home—bonding occurs only at service equipment, not downstream." },
+        { ref: "Protection/Access", text: "Protect under-home wiring from damage; keep junctions accessible and use listed transition fittings at the pedestal." }
+],
       block: {
         type: "exam",
         title: "EXAM TRAP — Service vs Feeder",
@@ -168,7 +189,10 @@ const content = {
         { ref: "Corrosion", text: "Ammonia & moisture are brutal—use **corrosion‑resistant** fittings/wiring methods." },
         { ref: "Bonding", text: "Equipotential planes may be required in livestock areas; verify details in 547." },
         { ref: "Enclosures", text: "Use drip‑proof/dust‑tight where needed; mind wash‑down zones." }
-      ],
+      ,
+{ ref: "GFCI/AFCI", text: "Apply GFCI/AFCI requirements per 547 and Chapter 2—wet/corrosive zones commonly require GFCI protection." },
+        { ref: "Locations", text: "When possible, locate sensitive equipment outside corrosive/wash-down areas; use corrosion-resistant materials if it must be inside." }
+],
       block: {
         type: "rule",
         title: "RULE OF THUMB — Survive the wash",
@@ -187,7 +211,10 @@ const content = {
         { ref: "GF/ELCI", text: "Equipment **ground‑fault/ELCI** protection is a major theme—people and water don’t mix." },
         { ref: "Bonding", text: "Bond all metal parts; corrosion & stray currents require solid bonding/grounding." },
         { ref: "Marine Rated", text: "Shore‑power inlets and cord sets must be **listed** for marine use." }
-      ],
+      ,
+{ ref: "ELCI/GFCI", text: "Shore-power protection using ELCI/GFCI—expect ~30 mA trip for ELCI per listing; verify device ratings and coordination." },
+        { ref: "Equipotential", text: "Bond docks, pedestals, and conductive parts to reduce shock risk—corrosion control and continuity are both required." }
+],
       block: {
         type: "code",
         title: "NEC REFERENCE — Shock hazards",
@@ -206,7 +233,10 @@ const content = {
         { ref: "Duration", text: "Defined short‑term use; remove at job completion. ‘Temporary’ is not forever." },
         { ref: "Protection", text: "Protect cords/cables from damage; elevate or cover where subject to traffic." },
         { ref: "GFCI", text: "Robust GFCI requirements for construction receptacles & portable distribution." }
-      ],
+      ,
+{ ref: "Listed Gear", text: "Use **listed** temp power equipment and hard/extra-hard usage cords—no homemade boxes; weather ratings must match conditions." },
+        { ref: "Duration/Removal", text: "Define the time window and remove at completion; document the temp plan and route to avoid ‘permanent temporary’ installs." }
+],
       block: {
   type: "table",
   title: "Temp Power Quick Sheet",
