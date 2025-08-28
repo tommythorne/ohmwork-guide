@@ -91,10 +91,17 @@ const content = {
       ],
       block: {
         type: "table",
-        body:
-          "Quick Sheet — Example multipliers (illustrative): 60% duty ≈ 0.8 × rated input; 50% ≈ 0.71; 30% ≈ 0.55. Always confirm with Art. 630 tables/nameplate."
+        title: "Quick Sheet — Duty Cycle Multipliers",
+        table: [
+          ["Duty Cycle", "Multiplier (≈)", "Notes"],
+          ["100%", "1.00×", "Rated input current"],
+          ["60%",  "0.80×", "Common shop welder example"],
+          ["50%",  "0.71×", "Use Article 630 tables"],
+          ["30%",  "0.55×", "Use Article 630 tables"]
+        ],
+        body: "Use **Article 630** nameplate + tables for the exact multiplier, then size OCPD and conductors per 630."
       },
-      images: [
+images: [
         { src: "/images/module-06/m06-630-01.jpg", alt: "Shop welder circuit", caption: "Size branch/OCPD using 630 rules." },
         { src: "/images/module-06/m06-630-02.jpg", alt: "Nameplate with duty cycle", caption: "Nameplate + 630 tables drive sizing." }
       ]
@@ -113,10 +120,16 @@ const content = {
       ],
       block: {
         type: "chart",
-        body:
-          "Audio topologies at a glance: Line-level (shielded LV) • Speaker-level (higher current) • Powered speakers (AC + signal). Keep LV away from AC unless listed for proximity."
+        title: "Audio Circuits — Common Topologies",
+        chart: [
+          { label: "Line-Level (balanced) — XLR/TRS", value: 1 },
+          { label: "Line-Level (unbalanced) — RCA",  value: 1 },
+          { label: "Speaker-Level — amp → speaker",  value: 1 },
+          { label: "Powered Speakers — AC + signal", value: 1 }
+        ],
+        body: "Separate low-voltage signal from AC power where required; follow listings and **640** separation/support rules."
       },
-      images: [
+images: [
         { src: "/images/module-06/m06-640-01.jpg", alt: "Audio rack power/ventilation", caption: "Ventilation and branch sizing matter." },
         { src: "/images/module-06/m06-640-02.jpg", alt: "LV cable management", caption: "Keep LV and AC separated as specified." }
       ]
@@ -201,10 +214,17 @@ const content = {
       ],
       block: {
         type: "table",
-        body:
-          "690 vs 691 (quick view): 690 = building-scale PV with prescriptive rules; 691 = utility-scale under engineering control (performance-based, utility-coordinated)."
+        title: "Quick Sheet — 690 vs 691",
+        table: [
+          ["Topic", "690 (Building PV)", "691 (Utility-Scale)"],
+          ["Scope", "Typical building-connected PV", "Large utility-scale arrays"],
+          ["Design", "Prescriptive methods permitted", "Engineered systems/practices"],
+          ["Protection/Coord.", "Standard PV OCPD/labels", "Utility coordination & engineered protection"],
+          ["Documentation", "Placards & one-lines", "Detailed documentation & supervision"]
+        ],
+        body: "Use **691** when the project qualifies as utility-scale; otherwise apply **690**."
       },
-      images: [
+images: [
         { src: "/images/module-06/m06-691-01.jpg", alt: "Utility-scale PV field", caption: "Different scale, different rule structure." },
         { src: "/images/module-06/m06-691-02.jpg", alt: "Collector station gear", caption: "Coordination and documentation drive approvals." }
       ]
