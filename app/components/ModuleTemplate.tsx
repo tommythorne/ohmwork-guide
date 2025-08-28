@@ -103,6 +103,13 @@ const ImagesStack: React.FC<{ images?: ImageItem[] }> = ({ images = [] }) => {
 };
 
 /** ------------ Main Template ------------ */
+function __validateArticlePoints(articles:any[]){
+  if (process.env.NODE_ENV === 'production') return;
+  try {
+    const bad = (articles||[]).map((a:any,i:number)=>({i,title:a?.title||`Article ${i+1}`, n:(a?.points||[]).length})).filter(x=>x.n<5);
+    if (bad.length) console.warn('[ModuleTemplate] Articles with <5 points:', bad);
+  } catch {}
+}
 export default function ModuleTemplate({ hero, articles = [], summary, quiz = [], prev, next }: Props) {
   
   
