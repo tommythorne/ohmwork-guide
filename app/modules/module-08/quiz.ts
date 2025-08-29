@@ -1,7 +1,3 @@
-# From repo root
-rm -f app/modules/module-08/quiz.ts
-
-cat > app/modules/module-08/quiz.ts <<'TS'
 // Quiz — Chapter 8 (Communications) — 15 questions
 const quiz = [
   {
@@ -186,4 +182,3 @@ const quiz = [
   }
 ];
 export default quiz;
-TS
