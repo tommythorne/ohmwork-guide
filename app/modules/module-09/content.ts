@@ -3,7 +3,7 @@ const content = {
   hero: {
     imageSrc: "/images/module-09/m09-hero.jpg",
     imageAlt: "Conduit, conductors, and calculation tables",
-    title: "📘 Chapter 9 — Tables & Raceway Sizing",
+    title: "Chapter 9 — Tables & Raceway Sizing",
     subtitle:
       "Turn tables into answers: conduit fill, conductor dimensions, compact conductors, and impedance—exactly how the exam tests it."
   },
@@ -17,7 +17,7 @@ const content = {
     // 1) Orientation
     {
       icon: "🧭",
-      title: "📘 What’s in Chapter 9 (and Why it Matters)",
+      title: "What’s in Chapter 9 (and Why it Matters)",
       points: [
         { ref: "Table Map", text: "Exam workhorses: **Table 1** (percent fill), **Table 4** (raceway dimensions/areas), **Table 5/5A** (conductor dimensions), **Tables 8 & 9** (resistance/impedance)." },
         { ref: "Workflow", text: "Most sizing questions = Table 5/5A to get areas → Table 1 percent → Table 4 to pick trade size." },
@@ -26,7 +26,7 @@ const content = {
       ],
       block: {
         type: "rule",
-        title: "📘 Use the Right Trio",
+        title: "Use the Right Trio",
         body: "For insulated conductors in raceway: **Table 5/5A → Table 1 → Table 4**. That trio answers 80% of exam sizing prompts."
       },
       images: [
@@ -38,7 +38,7 @@ const content = {
     // 2) Table 1 percent fill
     {
       icon: "📊",
-      title: "📘 Table 1 — Percent Fill (The Gatekeeper)",
+      title: "Table 1 — Percent Fill (The Gatekeeper)",
       points: [
         { ref: "Table 1", text: "1 conductor: **53%**; 2 conductors: **31%**; **>2 conductors: 40%** of the raceway cross-sectional area." },
         { ref: "EGC Counts", text: "Equipment grounding conductors **count** as conductors for fill." },
@@ -47,7 +47,7 @@ const content = {
       ],
       block: {
         type: "chart",
-        title: "📘 Percent Fill Quick Chart",
+        title: "Percent Fill Quick Chart",
         chart: [
           { label: "1 Conductor", value: 53 },
           { label: "2 Conductors", value: 31 },
@@ -64,7 +64,7 @@ const content = {
     // 3) Table 4 + Table 5/5A workflow
     {
       icon: "🧮",
-      title: "📘 Using Tables 4 and 5/5A Together",
+      title: "Using Tables 4 and 5/5A Together",
       points: [
         { ref: "Step 1", text: "Use **Table 5** for **insulated conductor** dimensions/areas (THHN, XHHW, etc.). Use **Table 5A** for **compact** conductors." },
         { ref: "Step 2", text: "Sum the areas (or use largest as required for given conductor count/type)." },
@@ -73,7 +73,7 @@ const content = {
       ],
       block: {
         type: "code",
-        title: "📘 Match the Raceway Type",
+        title: "Match the Raceway Type",
         body: "Table 4 has separate columns by raceway type and size. Use the correct material (EMT vs PVC) and the right **allowable area** column."
       },
       images: [
@@ -85,7 +85,7 @@ const content = {
     // 4) Notes — nipple rule and rounding
     {
       icon: "📝",
-      title: "📘 Critical Notes — Nipples & Rounding",
+      title: "Critical Notes — Nipples & Rounding",
       points: [
         { ref: "Nipple ≤24 in", text: "Raceway **24 in or less** (a ‘nipple’) may be filled to **60%** of its area—connectors/couplings **don’t count** toward that 24 in length." },
         { ref: "Rounding Conductors", text: "When converting decimals to a conductor count, **≥ 0.8 rounds up**. Exams bait with 0.79 vs 0.8." },
@@ -94,7 +94,7 @@ const content = {
       ],
       block: {
         type: "exam",
-        title: "📘 Nipple 60% & 0.8 Rounding",
+        title: "Nipple 60% & 0.8 Rounding",
         body: "If it’s truly a ≤24 in nipple, **60%** is allowed. If your decimal is **≥0.8**, round **up** the conductor count. Two classic exam traps."
       },
       images: [
@@ -105,8 +105,8 @@ const content = {
 
     // 5) Compact conductors (Table 5A)
     {
-      icon: "📘",
-      title: "📘 Compact Conductors — Table 5A",
+      icon: "🧵",
+      title: "Compact Conductors — Table 5A",
       points: [
         { ref: "Compact ≠ THHN", text: "Compact strands have **smaller diameter** for same AWG. Use **Table 5A** dimensions/areas, not the standard Table 5 values." },
         { ref: "Listings", text: "Your conductor type (e.g., XHHW-2 compact) defines which row applies. Manufacturer/catalog + Table 5A must align." },
@@ -115,7 +115,7 @@ const content = {
       ],
       block: {
         type: "rule",
-        title: "📘 Only Compact When Stated",
+        title: "Only Compact When Stated",
         body: "Don’t ‘upgrade’ to compact values unless the question, drawings, or label clearly say **compact**."
       },
       images: [
@@ -127,7 +127,7 @@ const content = {
     // 6) Cables in raceway
     {
       icon: "🧯",
-      title: "📘 Cables in Raceway — Use Overall Diameter",
+      title: "Cables in Raceway — Use Overall Diameter",
       points: [
         { ref: "Overall OD", text: "For **MC/TC/communications cables** in raceway, compute area from the **overall cable diameter**, then apply Table 1 percent." },
         { ref: "One vs Multiple", text: "1 cable → 53%, 2 cables → 31%, >2 cables → 40% (same percent rules by count)." },
@@ -135,7 +135,7 @@ const content = {
       ],
       block: {
         type: "table",
-        title: "📘 Cable in Raceway — Percent Map",
+        title: "Cable in Raceway — Percent Map",
         table: [
           ["# of Cables in Raceway", "Percent Fill"],
           ["1", "53%"],
@@ -152,8 +152,8 @@ const content = {
 
     // 7) Worked example
     {
-      icon: "📘",
-      title: "📘 Worked Example — Mixed THHN in EMT",
+      icon: "✏️",
+      title: "Worked Example — Mixed THHN in EMT",
       points: [
         { ref: "Given", text: "Three 3/0 Cu THHN + one #6 Cu THHN + one #8 Cu THHN in **EMT**." },
         { ref: "Step A", text: "Table 5: pull areas for 3/0, #6, #8 THHN; **sum** the areas." },
@@ -162,7 +162,7 @@ const content = {
       ],
       block: {
         type: "code",
-        title: "📘 Answer Structure Matters",
+        title: "Answer Structure Matters",
         body: "Show table source, show math, show chosen trade size. That structure earns points even if you fat-finger a decimal."
       },
       images: [
@@ -174,7 +174,7 @@ const content = {
     // 8) Tables 8 & 9 — resistance/impedance
     {
       icon: "⚡",
-      title: "📘 Tables 8 & 9 — Resistance and Impedance",
+      title: "Tables 8 & 9 — Resistance and Impedance",
       points: [
         { ref: "Table 8", text: "**DC resistance** (and some 1-phase AC at unity PF). Used for VD calcs where DC or simple cases apply." },
         { ref: "Table 9", text: "**AC impedance** data for 60 Hz 3-phase conductors (R and X). Use for AC VD calcs with **power factor** considerations." },
@@ -182,7 +182,7 @@ const content = {
       ],
       block: {
         type: "table",
-        title: "📘 Which Table for Voltage Drop?",
+        title: "Which Table for Voltage Drop?",
         table: [
           ["Scenario", "Use"],
           ["DC / simple case", "Table 8 (resistance)"],
@@ -199,7 +199,7 @@ const content = {
     // 9) Common exam mistakes
     {
       icon: "🚫",
-      title: "📘 Five Common Exam Traps",
+      title: "Five Common Exam Traps",
       points: [
         { ref: "Wrong Percent", text: "Using 40% for two conductors (should be 31%)." },
         { ref: "Ignoring Notes", text: "Missing the ≤24 in nipple at 60%." },
@@ -209,7 +209,7 @@ const content = {
       ],
       block: {
         type: "exam",
-        title: "📘 Fast Trap Check",
+        title: "Fast Trap Check",
         body: "Percent? Notes? Raceway type? Compact? Cable vs singles? — Clear these five and most Chapter 9 problems fall in line."
       },
       images: [
@@ -221,7 +221,7 @@ const content = {
     // 10) Field horror
     {
       icon: "💀",
-      title: "📘 Jobsite Horror — The Unpullable Conduit",
+      title: "Jobsite Horror — The Unpullable Conduit",
       points: [
         { ref: "Overfill", text: "Over 40% fill with >2 conductors leads to jammed pulls, damaged insulation, and failed inspections." },
         { ref: "Wrong Material", text: "Sizing from EMT column but installing PVC = you picked the wrong allowable area." },
@@ -229,7 +229,7 @@ const content = {
       ],
       block: {
         type: "horror",
-        title: "📘 Pull Planning Beats Re-Pulls",
+        title: "Pull Planning Beats Re-Pulls",
         body: "Do the Chapter 9 math **before** bending pipe. It’s faster to size right than to explain why the wire won’t pull."
       },
       images: [
@@ -241,14 +241,14 @@ const content = {
 
   // Summary — short, exam-oriented
   summary: {
-    title: "📘 Chapter 9 — Exam Quick Hits",
+    title: "Chapter 9 — Exam Quick Hits",
     cards: [
-      { iconName: "📊", title: "📘 Percent Fill", text: "1→53%, 2→31%, >2→40% (Table 1)." },
-      { iconName: "🧮", title: "📘 Sizing Flow", text: "Table 5/5A → Table 1 → Table 4." },
-      { iconName: "📝", title: "📘 Notes Matter", text: "≤24 in nipples at 60%; decimals ≥0.8 round up." },
-      { iconName: "🧵", title: "📘 Compact Only If Stated", text: "Use 5A only for compact conductors." },
-      { iconName: "⚡", title: "📘 VD Tables", text: "DC → Table 8; 3-phase+PF → Table 9." },
-      { iconName: "🚫", title: "📘 Trap Check", text: "Percent, Notes, Raceway type, Compact, Cable vs singles." }
+      { iconName: "📊", title: "Percent Fill", text: "1→53%, 2→31%, >2→40% (Table 1)." },
+      { iconName: "🧮", title: "Sizing Flow", text: "Table 5/5A → Table 1 → Table 4." },
+      { iconName: "📝", title: "Notes Matter", text: "≤24 in nipples at 60%; decimals ≥0.8 round up." },
+      { iconName: "🧵", title: "Compact Only If Stated", text: "Use 5A only for compact conductors." },
+      { iconName: "⚡", title: "VD Tables", text: "DC → Table 8; 3-phase+PF → Table 9." },
+      { iconName: "🚫", title: "Trap Check", text: "Percent, Notes, Raceway type, Compact, Cable vs singles." }
     ]
   }
 };
