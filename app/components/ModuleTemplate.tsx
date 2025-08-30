@@ -1,3 +1,5 @@
+# From repo root
+cat > app/components/ModuleTemplate.tsx <<'TS'
 "use client";
 
 import React from "react";
@@ -48,43 +50,6 @@ type Props = {
   next?: Nav;
 };
 
-/** ------------ Special Block (one definition, fixed emojis) ------------ */
-const BlockCard: React.FC<{ block?: Block }> = ({ block }) => {
-  if (!block || block.type === "none") return null;
-
-  const style = {
-  exam:   { label: "EXAM TRAP",      icon: "🎯", border: "border-red-500/50",    bg: "bg-red-900/30",    title: "text-red-300" },
-  rule:   { label: "RULE OF THUMB",  icon: "📏", border: "border-green-500/50",  bg: "bg-green-900/30",  title: "text-green-300" },
-  code:   { label: "NEC REFERENCE",  icon: "📖", border: "border-blue-500/50",   bg: "bg-blue-900/30",   title: "text-blue-300" },
-  table:  { label: "TABLE",          icon: "📋", border: "border-yellow-500/50", bg: "bg-yellow-900/30", title: "text-yellow-300" },
-  chart:  { label: "CHART",          icon: "📊", border: "border-purple-500/50", bg: "bg-purple-900/30", title: "text-purple-300" },
-  horror: { label: "JOBSITE HORROR", icon: "💀", border: "border-pink-500/50",   bg: "bg-pink-900/30",   title: "text-pink-300" }
-} as const;
-
-  const s =
-    (block?.type && (style as any)[block.type]) ||
-    { label: "NOTE", icon: "📝", border: "border-white/20", bg: "bg-slate-800/50", title: "text-white" };
-
-  const showTitle = !!(block as any)?.title && (block as any).title !== s.label;
-
-  return (
-    <div className={`rounded-xl border ${s.border} ${s.bg} p-4 my-4`}>
-      <div className="flex items-center gap-2 mb-2">
-        <span className="text-xl">{s.icon}</span>
-        <span className={`${s.title} font-bold`}>{s.label}</span>
-      </div>
-      {showTitle ? <div className={`font-bold ${s.title} mb-1`}>{(block as any).title}</div> : null}
-      {typeof (block as any).body === "string" ? (
-        <div className="text-white/90">{(block as any).body}</div>
-      ) : (
-        (block as any).body || null
-      )}
-      {(block as any).table ? <div className="mt-3">{(block as any).table}</div> : null}
-      {(block as any).chart ? <div className="mt-3">{(block as any).chart}</div> : null}
-    </div>
-  );
-};
-
 /** ------------ Right column: two stacked images w/ captions ------------ */
 const ImagesStack: React.FC<{ images?: ImageItem[] }> = ({ images = [] }) => {
   const pair = (Array.isArray(images) ? images : []).slice(0, 2);
@@ -102,7 +67,6 @@ const ImagesStack: React.FC<{ images?: ImageItem[] }> = ({ images = [] }) => {
   );
 };
 
-/** ------------ Main Template ------------ */
 function __validateArticlePoints(articles:any[]){
   if (process.env.NODE_ENV === 'production') return;
   try {
@@ -110,52 +74,44 @@ function __validateArticlePoints(articles:any[]){
     if (bad.length) console.warn('[ModuleTemplate] Articles with <5 points:', bad);
   } catch {}
 }
+
 export default function ModuleTemplate({ hero, articles = [], summary, quiz = [], prev, next }: Props) {
-  
-  
-  // SAFETY: coerce possibly-undefined props to arrays to avoid .map on undefined
+  // SAFETY coercions
   const articlesArr = Array.isArray(articles) ? articles : [];
   const quizArr = Array.isArray(quiz) ? quiz : [];
   const summaryObj = summary && typeof summary === 'object' ? summary : {};
   const summaryCards = Array.isArray(summaryObj.cards) ? summaryObj.cards : [];
-// --- SAFETY COERCIONS (avoid .map on undefined) ---
-  
-  
-  
-const articleCount = articlesArr.length;
-  const quizCount = Array.isArray(quiz) ? quiz.length : 0;
+
+  const articleCount = articlesArr.length;
+  const quizCount = quizArr.length;
   const visualCount = articlesArr.reduce(
     (n, a) => n + Math.min(Array.isArray(a.images) ? a.images.length : 0, 2),
     0
   );
 
-  
-  // --- Ensure every article has a special block AND avoid consecutive repeats ---
+  // Ensure every article has a special block AND avoid consecutive repeats
   const BLOCK_TYPES = ["exam","rule","code","table","chart","horror"] as const;
   type BlockType = typeof BLOCK_TYPES[number];
   let __lastType: BlockType | null = null;
-  
-  const normalizedArticles = (Array.isArray(articles) ? articles : []).map((a, idx) => {
-    // Prefer existing meaningful block; otherwise assign round‑robin
-    let blk = (a && a.block && a.block.type && a.block.type !== "none")
-      ? { ...a.block }
-      : {
-        type: BLOCK_TYPES[idx % BLOCK_TYPES.length] as BlockType,
-        title: (a?.block && typeof (a.block as any) === "object" && "title" in (a.block as any)) ? (a.block as any).title : undefined,
-        body:  (a?.block && typeof (a.block as any) === "object" && "body"  in (a.block as any)) ? (a.block as any).body  : undefined,
-      } as any;
 
-    // If this block matches the previous type, bump to the next one
+  const normalizedArticles = (Array.isArray(articles) ? articles : []).map((a, idx) => {
+    let blk = (a && a.block && (a.block as any).type && (a.block as any).type !== "none")
+      ? { ...(a.block as any) }
+      : {
+          type: BLOCK_TYPES[idx % BLOCK_TYPES.length] as BlockType,
+          title: undefined,
+          body: undefined,
+        } as any;
+
     if (blk && blk.type === __lastType) {
       const i = Math.max(0, BLOCK_TYPES.indexOf(blk.type as BlockType));
       blk.type = BLOCK_TYPES[(i + 1) % BLOCK_TYPES.length] as BlockType;
     }
-
-    __lastType = blk ? blk.type : __lastType;
+    __lastType = blk ? (blk.type as BlockType) : __lastType;
     return { ...a, block: blk };
   });
-  
-const renderPointsList = (a: Article) => {
+
+  const renderPointsList = (a: Article) => {
     const list = Array.isArray(a.points) && a.points.length ? a.points : Array.isArray(a.bullets) ? a.bullets : [];
     if (!list.length) return null;
     return <ul className="list-disc list-outside pl-6 space-y-2">{list.map(pointToJSX)}</ul>;
@@ -163,15 +119,12 @@ const renderPointsList = (a: Article) => {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white">
-      {
-    /* Top nav (static, thin, matches bottom style — no bg/border) */
-    </* keep comment anchor */>
-    <div className="max-w-5xl mx-auto px-5 pt-4">
-      <FooterNav prev={prev || undefined} next={next || undefined} />
-    </div>
-  
+      {/* Top nav — thin, static, borderless (matches bottom feel) */}
+      <div className="max-w-5xl mx-auto px-5 pt-4">
+        <FooterNav prev={prev || undefined} next={next || undefined} />
+      </div>
 
-      {/* Hero (Module 2 style: large, centered, image background) */}
+      {/* Hero */}
       <section className="relative h-[28rem] flex items-center justify-center overflow-hidden">
         {hero?.imageSrc ? (
           <>
@@ -192,7 +145,6 @@ const renderPointsList = (a: Article) => {
           {hero?.subtitle ? (
             <p className="text-white/90 text-lg md:text-xl max-w-3xl mx-auto">{hero.subtitle}</p>
           ) : null}
-          {/* No hero blurb per global rule */}
         </div>
       </section>
 
@@ -243,7 +195,7 @@ const renderPointsList = (a: Article) => {
           {summary.title ? (
             <h3 className="text-3xl font-bold text-yellow-400 text-center mb-6">{summary.title}</h3>
           ) : null}
-          {Array.isArray(summary.cards) && summary.cards.length ? (
+          {Array.isArray(summaryCards) && summaryCards.length ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {summaryCards.map((c, idx) => (
                 <div key={idx} className="rounded-xl border border-white/15 bg-white/[0.03] p-6">
@@ -259,13 +211,13 @@ const renderPointsList = (a: Article) => {
       ) : null}
 
       {/* Knowledge Check (bottom only) */}
-      {Array.isArray(quiz) && quiz.length > 0 ? (
+      {Array.isArray(quizArr) && quizArr.length > 0 ? (
         <section className="max-w-5xl mx-auto px-5 mb-12">
           <div className="text-center mb-6">
             <h3 className="text-3xl font-bold text-white mb-2">Knowledge Check</h3>
             <p className="text-white/80">Answer the questions below. Target 80%+ to move on.</p>
           </div>
-          <Quiz questions={quiz} />
+          <Quiz questions={quizArr} />
         </section>
       ) : null}
 
@@ -276,111 +228,4 @@ const renderPointsList = (a: Article) => {
     </main>
   );
 }
-
-/** -----------------------------------------------------------------------
- *  ChartBox & TableBox + BlockCard2
- *  - Renders chart from: chart: Array<{ label: string; value: number }>
- *  - Renders table from: table: Array<Array<string|number>>
- *  - Shows label strip (icon + label), then block.title ONCE, then content, then body
- * ----------------------------------------------------------------------- */
-
-function ChartBox({ data }: { data: Array<{label: string; value: number}> }) {
-  const safe = Array.isArray(data) ? data.filter(d => d && typeof d.value === 'number') : [];
-  const max = safe.reduce((m, d) => Math.max(m, d.value), 0) || 1;
-  return (
-    <div className="rounded-xl border border-white/15 bg-white/[0.03] p-4 mt-2">
-      <div className="grid grid-cols-3 gap-3 items-end min-h-[120px]">
-        {safe.map((d, i) => {
-          const pct = Math.max(0, Math.min(100, (d.value / max) * 100));
-          return (
-            <div key={i} className="flex flex-col items-center">
-              <div
-                className="w-full rounded-t-md bg-yellow-400/80"
-                style={{ height: `${pct}%`, minHeight: '10px' }}
-                aria-label={`${d.label}: ${d.value}`}
-                title={`${d.label}: ${d.value}`}
-              />
-              <div className="mt-2 text-center text-xs text-white/80">{d.label}</div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-function TableBox({ rows }: { rows: Array<Array<string|number>> }) {
-  const safe = Array.isArray(rows) ? rows : [];
-  if (safe.length === 0) return null;
-  const [header, ...body] = safe;
-  return (
-    <div className="rounded-xl border border-white/15 bg-white/[0.03] p-4 mt-2 overflow-x-auto">
-      <table className="min-w-full text-sm">
-        {Array.isArray(header) && header.length > 0 && (
-          <thead>
-            <tr>
-              {header.map((h, i) => (
-                <th key={i} className="text-left text-white/80 font-semibold pb-2 pr-4 whitespace-nowrap">
-                  {String(h)}
-                </th>
-              ))}
-            </tr>
-          </thead>
-        )}
-        <tbody>
-          {body.map((r, ri) => (
-            <tr key={ri} className="border-t border-white/10">
-              {r.map((c, ci) => (
-                <td key={ci} className="text-white/90 py-2 pr-4 whitespace-nowrap">{String(c)}</td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
-
-type _BlockShape = { type?: "exam" | "rule" | "code" | "table" | "chart" | "horror" | "none"; title?: string; body?: any; table?: any; chart?: any };
-
-const _BLOCK_STYLE: Record<string, { label: string; icon: string; border: string; bg: string; title: string }> = {
-  exam:   { label: "EXAM TRAP",      icon: "🎯", border: "border-red-500/50",    bg: "bg-red-900/30",    title: "text-red-300" },
-  rule:   { label: "RULE OF THUMB",  icon: "📏", border: "border-green-500/50",  bg: "bg-green-900/30",  title: "text-green-300" },
-  code:   { label: "NEC REFERENCE",  icon: "📖", border: "border-blue-500/50",   bg: "bg-blue-900/30",   title: "text-blue-300" },
-  table:  { label: "TABLE",          icon: "📋", border: "border-yellow-500/50", bg: "bg-yellow-900/30", title: "text-yellow-300" },
-  chart:  { label: "CHART",          icon: "📊", border: "border-purple-500/50", bg: "bg-purple-900/30", title: "text-purple-300" },
-  horror: { label: "JOBSITE HORROR", icon: "💀", border: "border-pink-500/50",   bg: "bg-pink-900/30",   title: "text-pink-300" }
-};
-
-function BlockCard2({ block }: { block?: _BlockShape }) {
-  if (!block || block.type === "none") return null;
-  const s = _BLOCK_STYLE[block.type || ""] || { label: "NOTE", icon: "📝", border: "border-white/20", bg: "bg-slate-800/50", title: "text-white" };
-
-  const hasChart = Array.isArray((block as any).chart) && (block as any).chart.length > 0;
-  const hasTable = Array.isArray((block as any).table) && (block as any).table.length > 0;
-
-  return (
-    <div className={`rounded-xl border ${s.border} ${s.bg} p-4 my-4`}>
-      {/* Label strip (only once) */}
-      <div className="flex items-center gap-2 mb-2">
-        <span className="text-xl" aria-hidden="true">{s.icon}</span>
-        <span className={`${s.title} font-bold tracking-wide`}>{s.label}</span>
-      </div>
-
-      {/* Title (only once) */}
-      {block.title ? <div className={`font-bold ${s.title} mb-2`}>{block.title}</div> : null}
-
-      {/* Content */}
-      {hasChart ? <ChartBox data={(block as any).chart} /> : null}
-      {hasTable ? <TableBox rows={(block as any).table} /> : null}
-      {!hasChart && !hasTable && block.body ? (
-        <div className="text-white/90">{typeof block.body === 'string' ? block.body : block.body}</div>
-      ) : null}
-
-      {/* Body note under visual if supplied */}
-      {(hasChart || hasTable) && block.body ? (
-        <div className="text-white/80 text-sm mt-3">{typeof block.body === 'string' ? block.body : block.body}</div>
-      ) : null}
-    </div>
-  );
-}
+TS
