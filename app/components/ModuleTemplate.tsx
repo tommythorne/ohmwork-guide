@@ -1,5 +1,3 @@
-# From repo root
-cat > app/components/ModuleTemplate.tsx <<'TS'
 "use client";
 
 import React from "react";
@@ -228,4 +226,3 @@ export default function ModuleTemplate({ hero, articles = [], summary, quiz = []
     </main>
   );
 }
-TS
