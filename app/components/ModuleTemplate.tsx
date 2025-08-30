@@ -163,12 +163,13 @@ const renderPointsList = (a: Article) => {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white">
-      {/* Top nav (same component as bottom) */}
-      <div className="bg-slate-900/70 border-b border-white/10 sticky top-0 z-20 backdrop-blur">
-        <div className="max-w-5xl mx-auto px-5 py-3">
-          <FooterNav prev={prev || undefined} next={next || undefined} />
-        </div>
-      </div>
+      {
+    /* Top nav (static, thin, matches bottom style — no bg/border) */
+    </* keep comment anchor */>
+    <div className="max-w-5xl mx-auto px-5 pt-4">
+      <FooterNav prev={prev || undefined} next={next || undefined} />
+    </div>
+  
 
       {/* Hero (Module 2 style: large, centered, image background) */}
       <section className="relative h-[28rem] flex items-center justify-center overflow-hidden">
