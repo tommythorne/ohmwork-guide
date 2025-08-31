@@ -1,302 +1,254 @@
-// app/modules/module-03/content.ts
-
 const content = {
   hero: {
     imageSrc: "/images/module-03/m03-hero.jpg",
-    imageAlt: "Conduit, cable, and boxes — core wiring methods and materials",
+    imageAlt: "Assorted wiring methods: EMT, PVC, MC, tray",
     title: "Chapter 3 — Wiring Methods & Materials",
     subtitle:
-      "Raceways, cables, boxes, fittings, and the rules that keep them supported, protected, and serviceable."
-    // (No blurb — template ignores it by rule)
+      "Pick the right wiring method, support it, bond it, and mind the details—this is most of what you do on real jobs."
   },
 
   // NAV
   prev: { href: "/modules/module-02", label: "Chapter 2" },
   next: { href: "/modules/module-04", label: "Chapter 4" },
 
-  // 10 major articles
+  // ARTICLES — 10 total
   articles: [
-    // 1) 300 — General (EXAM)
+    // 1) 300 — General Requirements
     {
-      icon: "📚",
+      icon: "🧭",
       title: "300 — General Requirements for Wiring Methods",
       points: [
-        {
-          ref: "Protection from damage",
-          text:
-            "Where subject to physical damage, wiring methods must be guarded or relocated. Think: columns, loading zones, or low ceilings where carts live."
-        },
-        {
-          ref: "Dry / damp / wet",
-          text:
-            "The location drives the wiring method. Wet locations (yes, most outdoors) require materials listed for wet use including fittings and conductors with wet ratings."
-        },
-        {
-          ref: "Corrosion & support",
-          text:
-            "Use corrosion-resistant materials where needed, and follow the support/securement rules for the wiring method — not ‘good enough’ zip ties."
-        },
-        {
-          ref: "Workmanship counts",
-          text:
-            "Raceways reamed, bushings where required, and fittings fully made up. Sloppy work fails fast (and inspections faster)."
-        }
+        { ref: "300.4/5", text: "Protection from physical damage; burial depths vary by method and occupancy." },
+        { ref: "300.10", text: "Metal raceways must be **electrically continuous** and effectively bonded." },
+        { ref: "300.15", text: "All splices/terminations in boxes or fittings—no loose splices in raceways." }
       ],
       block: {
         type: "exam",
         title: "EXAM TRAP — Location governs method",
         body:
-          "Questions love to hide a **wet location** in the setup. If it’s wet, everything — raceway, fittings, conductors — must be listed for wet use. Don’t miss the conductor insulation rating."
+          "Dry vs damp vs wet changes **everything**: allowed methods, fittings, and conductor ratings. Identify the space first; choose the method second."
       },
       images: [
-        {
-          src: "/images/module-03/m03-300-01.jpg",
-          alt: "Outdoor conduit with raintight fittings",
-          caption: "Wet location means wet-rated fittings and conductor insulation."
-        },
-        {
-          src: "/images/module-03/m03-300-02.jpg",
-          alt: "Conduit run protected from forklift damage",
-          caption: "Guard wiring where physical damage is likely."
-        }
+        { src: "/images/module-03/m03-300-01.jpg", alt: "Raceway run through mixed-use areas", caption: "Method changes when the environment changes." },
+        { src: "/images/module-03/m03-300-02.jpg", alt: "Bonding bushing on raceway", caption: "Maintain a continuous fault-return path." }
       ]
     },
 
-    // 2) 358 — EMT (RULE)
+    // 2) 358 — EMT
     {
-      icon: "🧰",
+      icon: "📎",
       title: "358 — EMT: The Everyday Raceway",
       points: [
-        {
-          ref: "Use & fittings",
-          text:
-            "Use listed EMT fittings; set-screw vs compression must be suitable for the location. Compression is the go-to for wet."
-        },
-        {
-          ref: "Secure & support",
-          text:
-            "Support per Code and manufacturer. Keep straps at required intervals and within the first few feet of boxes — not wherever looks nice."
-        },
-        {
-          ref: "EGC path",
-          text:
-            "Made-up metallic raceway with listed fittings can serve as the equipment grounding path. Paint, corrosion, or loose locknuts break that path."
-        }
+        { ref: "358.12", text: "Not permitted where subject to severe physical damage or in some corrosive environments unless protected." },
+        { ref: "358.30", text: "Support within 3 ft of each box and at required intervals (check local adoption)." },
+        { ref: "358.26", text: "Total bends ≤ **360°** between pull points." }
       ],
       block: {
         type: "rule",
         title: "RULE OF THUMB — Strap the ends",
         body:
-          "Strap EMT within the first few feet of a box and at regular intervals after. If you’re wondering ‘is this too far?’, it probably is."
+          "Strap within the first few feet of boxes and keep runs straight—inspectors look for **support near terminations** every time."
       },
       images: [
-        {
-          src: "/images/module-03/m03-358-01.jpg",
-          alt: "Compression EMT connectors in wet location",
-          caption: "Compression fittings for wet locations; tighten to spec."
-        },
-        {
-          src: "/images/module-03/m03-358-02.jpg",
-          alt: "EMT run neatly supported",
-          caption: "Consistent spacing and straps near enclosures pass cleanly."
-        }
+        { src: "/images/module-03/m03-358-01.jpg", alt: "EMT neatly strapped and aligned", caption: "Straight, supported, and bonded." },
+        { src: "/images/module-03/m03-358-02.jpg", alt: "Close-up EMT set-screw fitting", caption: "Use fittings listed for EMT—wet-location where required." }
       ]
     },
 
-    // 3) 342/344 — IMC/RMC (CODE)
+    // 3) 342/344 — IMC / RMC
     {
-      icon: "🔩",
+      icon: "🧱",
       title: "342 & 344 — IMC / RMC: Heavy-Duty Metal Conduit",
       points: [
-        {
-          ref: "Threaded raceways",
-          text:
-            "Cut, ream, and fully thread. Use thread seal where required, but don’t rely on goop to fix a bad thread."
-        },
-        {
-          ref: "Corrosion",
-          text:
-            "Use galvanized or corrosion-resistant coatings; add PVC-coated systems or sleeves in harsh areas like wash-downs and coastal sites."
-        },
-        {
-          ref: "Grounding",
-          text:
-            "Properly made-up IMC/RMC is an acceptable EGC path. Use bonding bushings or jumpers where concentric/eccentric knockouts break continuity."
-        }
+        { ref: "342/344.10", text: "Permitted in most locations, including outdoor and where subject to physical damage." },
+        { ref: "Bonding", text: "Use bonding bushings/fittings where raceway continuity could be interrupted." },
+        { ref: "Corrosion", text: "Field cuts need ream and corrosion protection; use proper thread compound." }
       ],
       block: {
         type: "code",
         title: "NEC REFERENCE — Bonding fittings",
         body:
-          "When concentric or eccentric knockouts are used on service or fault-level gear, use bonding bushings/jumpers to maintain the fault path. The inspector will look."
+          "Where concentric/eccentric knockouts or nonmetallic raceway interrupt continuity, use **bonding bushings/jumpers** to preserve the fault path."
       },
       images: [
-        {
-          src: "/images/module-03/m03-344-01.jpg",
-          alt: "RMC with threaded hubs and bonding bushing",
-          caption: "Bonding bushings keep the fault path solid through KO rings."
-        },
-        {
-          src: "/images/module-03/m03-344-02.jpg",
-          alt: "IMC run in a corrosive environment",
-          caption: "Coatings and fittings must match the environment."
-        }
+        { src: "/images/module-03/m03-344-01.jpg", alt: "RMC service with bonding bushings", caption: "Bonding jumpers across concentric KOs." },
+        { src: "/images/module-03/m03-344-02.jpg", alt: "IMC riser outdoors", caption: "Right method for exposed, tough locations." }
       ]
     },
 
-    // 4) 352 — PVC (TABLE)
+    // 4) 352 — PVC
     {
-      icon: "🧪",
+      icon: "🧰",
       title: "352 — PVC: Nonmetallic Workhorse",
       points: [
-        { ref: "Expansion", text: "Long outdoor runs need expansion fittings. Calculate movement from temperature swing and anchor properly." },
-        { ref: "Support", text: "PVC needs closer supports than steel. Sag tells on you; support to manufacturer and Code spacing." },
-        { ref: "Burial", text: "Meet minimum cover and use listed glue/primer. Transition to sunlight-resistant where exposed." }
+        { ref: "352.10", text: "Permitted in wet locations; use **sunlight-resistant** types where exposed to sun." },
+        { ref: "352.44", text: "Provide **expansion fittings** where thermal movement is expected (roofs/long runs)." },
+        { ref: "352.30", text: "Support per manufacturer and Code—intervals depend on trade size and schedule." }
+      ],
+      block: {
+        type: "code",
+        title: "NEC REFERENCE — Expansion & fittings",
+        body:
+          "Calculate thermal movement and add expansion fittings with proper **gaps and guides**. Use **wet-location fittings** where required."
+      },
+      images: [
+        { src: "/images/module-03/m03-352-01.jpg", alt: "PVC with expansion fitting on a wall", caption: "Expansion fitting bridging temperature swings." },
+        { src: "/images/module-03/m03-352-02.jpg", alt: "PVC underground stub-ups", caption: "Protect emerging PVC where subject to damage." }
+      ]
+   (),
+
+    // 5) 330 — MC Cable
+    {
+      icon: "🧵",
+      title: "330 — MC Cable: Types & Uses",
+      points: [
+        { ref: "330.10", text: "MC is allowed in many occupancies; check listing for **wet locations**, **health care (HCF)**, or **fire-rated** assemblies." },
+        { ref: "Support", text: "Secure near terminations and at required intervals; avoid crushing or over-bending." },
+        { ref: "Terminations", text: "Use **listed connectors**; anti-shorts as required by the connector/listing." }
       ],
       block: {
         type: "grid",
-                icon: "🧵",
-title: "Common MC Types — Where They Fit",
+        title: "MC Types at a Glance",
         grid: [
-          ["Standard MC", "Dry/damp; EGC in armor or conductor"],
+          ["Standard MC", "Dry/damp; EGC via armor or conductor"],
           ["MC-WET/WET-LOC", "Listed for wet locations"],
           ["HCF MC", "Hospital-grade patient care spaces"],
-          ["Fire-rated MC", "2-hour circuits (per listing)"]
+          ["Fire-rated MC", "2-hour circuits (per assembly listing)"]
         ],
-        body: "Read the **labels** for where each MC type is permitted; always verify product listing and local Code adoption."
+        body: "Always read the **product label** and local adoption. Don’t assume any MC works everywhere."
       },
       images: [
-        { src: "/images/module-03/m03-330-01.jpg", alt: "MC cable neatly strapped", caption: "Strap near terminations and keep runs straight." },
-        { src: "/images/module-03/m03-330-02.jpg", alt: "Close-up of MC connector with anti-short insert", caption: "Use the connector the listing calls for — pass inspection first try." }
-      ]},
+        { src: "/images/module-03/m03-330-01.jpg", alt: "MC cable neatly strapped", caption: "Strap near terminations; no kinks." },
+        { src: "/images/module-03/m03-330-02.jpg", alt: "MC connector with anti-short", caption: "Use the connector the listing calls for." }
+      ]
+    },
 
-    // 6) 348/350 — FMC & LFMC (JOBSITE HORROR STORY)
+    // 6) 348/350 — FMC & LFMC
     {
       icon: "🌀",
       title: "348/350 — FMC & LFMC: Flexible Done Right",
       points: [
-        { ref: "Length & support", text: "Short flexible sections relieve vibration and ease connections to equipment. Don’t turn flex into a ‘raceway’ — keep lengths reasonable and supported." },
-        { ref: "Ground path", text: "Armor continuity and listed fittings matter. LFMC in wet areas still needs wet-rated fittings and an effective EGC path." },
-        { ref: "Bend radius", text: "Respect manufacturer minimum bend radius; crushed flex overheats conductors and fails fast." }
+        { ref: "Length", text: "Short flexible sections for vibration/isolation; **don’t** run long flex in place of raceway." },
+        { ref: "EGC", text: "Armor continuity + listed fittings for a reliable fault path; LFMC in wet areas needs wet-rated fittings." },
+        { ref: "Bend radius", text: "Respect minimum bend radius—crushed whips overheat conductors." }
       ],
       block: {
-  type: "horror",
-  title: "JOBSITE HORROR STORY — Crushed Whip Cooked a Motor",
-  body: "A rooftop unit kept tripping. The LFMC whip was kinked behind a curb, crushing conductors. Result: overheated insulation, nuisance trips, and a motor replacement. Keep whips **short, supported, and with proper radius** — and use wet-rated fittings."
-},
+        type: "horror",
+        title: "JOBSITE HORROR STORY — Crushed Whip Cooked a Motor",
+        body:
+          "An LFMC whip kinked behind a curb overheated conductors and tripped a rooftop unit. Keep whips **short, supported, and with proper radius**."
+      },
       images: [
-        { src: "/images/module-03/m03-350-01.jpg", alt: "LFMC whip to rooftop unit", caption: "Short, supported whips with wet-rated fittings last." },
-        { src: "/images/module-03/m03-350-02.jpg", alt: "Crushed flexible conduit", caption: "Too-tight bends crush the spiral and damage conductors." }
+        { src: "/images/module-03/m03-350-01.jpg", alt: "LFMC whip to rooftop unit", caption: "Short, supported, wet-rated fittings." },
+        { src: "/images/module-03/m03-350-02.jpg", alt: "Crushed flexible conduit", caption: "Tight bends crush the spiral and damage insulation." }
       ]
     },
 
-    // 7) 314 — Boxes & Conduit Bodies (EXAM)
+    // 7) 314 — Boxes & Conduit Bodies
     {
       icon: "📦",
       title: "314 — Boxes & Conduit Bodies: Fill and Fit",
       points: [
-        { ref: "Box fill math", text: "Count each conductor once; equipment grounds all together as one; each internal clamp counts once; devices can count as two conductors of the largest size on that yoke." },
-        { ref: "Conduit bodies", text: "Some LBs are marked ‘for pulling only’ — no splices. Check cubic-inch (or liter) volumes and marking." },
-        { ref: "Covers & accessibility", text: "All boxes require covers and must remain accessible — don’t bury junctions behind finishes." }
+        { ref: "314.16", text: "Box-fill math: each conductor counts; all EGCs together as one; internal clamps count; devices can count as **two**." },
+        { ref: "Conduit bodies", text: "LBs marked **‘for pulling only’** don’t permit splices regardless of volume." },
+        { ref: "Covers", text: "Boxes and bodies require covers and must stay accessible." }
       ],
       block: {
-  type: "exam",
-  title: "EXAM TRAP — Box-Fill & LB Splice",
-  body: "Two common gotchas: (1) Devices can count as **two** conductors of the largest size on the yoke. (2) LBs marked **‘for pulling only’** do not allow splices regardless of volume. Read the label; do the math."
-},
+        type: "exam",
+        title: "EXAM TRAP — Box-Fill & LB Splice",
+        body:
+          "Two big misses: devices counting as **two** conductors (largest on the yoke) and **pull-only** LBs (no splices)."
+      },
       images: [
-        { src: "/images/module-03/m03-314-01.jpg", alt: "Device box with many conductors", caption: "Box-fill mistakes lead to heat and nuisance trips." },
-        { src: "/images/module-03/m03-314-02.jpg", alt: "Conduit body with volume marking", caption: "Check ‘splicing permitted’ and the cubic-inch marking." }
+        { src: "/images/module-03/m03-314-01.jpg", alt: "Device box crowded with conductors", caption: "Do the math—heat and nuisance trips come from overfill." },
+        { src: "/images/module-03/m03-314-02.jpg", alt: "Conduit body marking", caption: "Check ‘splicing permitted’ and volume." }
       ]
     },
 
-    // 8) 300.5 — Underground (RULE)
+    // 8) 300.5 — Underground
     {
       icon: "⛏️",
       title: "300.5 — Underground Wiring: Depth & Details",
       points: [
-        { ref: "Minimum cover", text: "Cover depth depends on wiring method and occupancy. Don’t guess — look it up before you dig." },
-        { ref: "Emergence", text: "Protect where raceway emerges from grade; use elbows and rigid sections to handle mechanical abuse." },
-        { ref: "Locate & mark", text: "Call before you dig, and use marking tape or tracer as required. Saves rework and keeps everyone safe." }
+        { ref: "Cover", text: "Cover depth varies by method/occupancy—PVC vs RMC vs direct-bury are different." },
+        { ref: "Emergence", text: "Protect where raceway emerges from grade; rigid elbows often required for damage protection." },
+        { ref: "Locate/mark", text: "Call before you dig; use warning tape/tracer where required." }
       ],
       block: {
         type: "rule",
-        title: "RULE OF THUMB — Depths aren’t ‘one-size’",
+        title: "RULE OF THUMB — Depths aren’t one-size",
         body:
-          "Direct-bury cable, PVC, RMC, and low-voltage lighting all have **different** cover depths. Confirm the method, then the table — every time."
+          "Direct-bury cable, PVC, RMC, and low-voltage lighting all have **different** cover depths. Confirm the method, then check the table."
       },
       images: [
-        { src: "/images/module-03/m03-3005-01.jpg", alt: "Trench with conduit at correct depth", caption: "Depth verified, bedded, and ready for backfill." },
-        { src: "/images/module-03/m03-3005-02.jpg", alt: "Warning tape above buried conduit", caption: "Marking tape helps avoid surprises later." }
+        { src: "/images/module-03/m03-3005-01.jpg", alt: "Trench with conduit at correct depth", caption: "Depth verified before backfill." },
+        { src: "/images/module-03/m03-3005-02.jpg", alt: "Warning tape in trench", caption: "Mark the run to avoid future surprises." }
       ]
     },
 
-    // 9) Bends, Fill, Pull Points (CODE)
+    // 9) 300 — Bends/Fill/Pull points
     {
       icon: "📐",
       title: "300 — Bends, Fill, and Pull Points",
       points: [
-        { ref: "Max 360°", text: "Limit to 360° of total bends between pull points. Add a box if you need more turns." },
-        { ref: "Bend radius", text: "Respect minimum radius per wiring method and conductor — tight bends overheat and damage insulation." },
-        { ref: "Conduit fill", text: "Use the Chapter 9 tables and the wiring method’s own table. Fill changes by conductor count and raceway type." }
+        { ref: "360° rule", text: "Total bends between pull points **≤ 360°**." },
+        { ref: "Bend radius", text: "Follow method-specific minimum bend radius for conductors/raceway." },
+        { ref: "Fill", text: "Use Chapter 9 tables for fill—changes by conductor count and raceway type." }
       ],
       block: {
         type: "code",
         title: "NEC REFERENCE — Add a pull point",
         body:
-          "When you’re near the 360° limit or conductors are large/long, add a pull point. The Code allows it; your shoulders will thank you."
+          "If you’ll exceed **360°** or struggle to pull, add a box or body. It saves insulation and labor."
       },
       images: [
-        { src: "/images/module-03/m03-bends-01.jpg", alt: "Bender and conduit showing proper radius", caption: "Clean bends pull easier and preserve insulation." },
-        { src: "/images/module-03/m03-bends-02.jpg", alt: "Pull box added mid-run", caption: "A pull point makes the difference on long/heavy pulls." }
+        { src: "/images/module-03/m03-300-03.jpg", alt: "Conduit run with pull point", caption: "Pull points make long runs practical." },
+        { src: "/images/module-03/m03-300-04.jpg", alt: "Tight bend radius warning", caption: "Tight bends = damaged insulation." }
       ]
     },
 
-    // 10) 392 — Cable Tray (CHART — text snapshot)
+    // 10) 392 — Cable Tray
     {
       icon: "🪜",
       title: "392 — Cable Tray: Systems, Supports, Separation",
       points: [
-        { ref: "Type & fill", text: "Ladder, ventilated, or solid-bottom tray — each has fill and support rules. Use listed tray cable types and secure per the system." },
-        { ref: "Separation", text: "Keep power and comms/data separated or divider-separated as required. Follow manufacturer load ratings." },
-        { ref: "Bonding", text: "Tray systems must be bonded; use listed splice plates, hardware, and jumpers to keep the fault path continuous." }
+        { ref: "Types", text: "Ladder vs ventilated vs solid-bottom; support per manufacturer spacing." },
+        { ref: "Fill", text: "Tray fill and ampacity depend on **type, spacing, and cable rating**." },
+        { ref: "Separation", text: "Signal/communication often require separation or barriers—check the spec." }
       ],
       block: {
-  type: "chart",
-  title: "Tray Snapshot",
-  chart: [
-    { label: "Ladder tray — best cooling & drainage", value: 3 },
-    { label: "Solid tray — shielding/containment, but hotter", value: 2 },
-    { label: "Support per manufacturer spacing & load charts", value: 2 },
-    { label: "Use TC/TC-ER/ITC/PLTC as listed", value: 1 }
-  ],
-  body: "Values are illustrative for comparison only. Follow the **manufacturer’s charts** for spacing, fill, and ratings."
-},
+        type: "table",
+        title: "Tray Snapshot",
+        table: [
+          ["Tray type", "Strength / Ventilation", "Common use"],
+          ["Ladder", "High / Excellent", "Power feeders, long spans"],
+          ["Ventilated trough", "Medium / Good", "Branch circuits, short spans"],
+          ["Solid-bottom", "Low / Poor", "Control/IT (with heat concerns)"]
+        ],
+        body:
+          "Values are illustrative—**always** follow the manufacturer’s charts for span spacing, loading, and fill."
+      },
       images: [
-        { src: "/images/module-03/m03-392-01.jpg", alt: "Ladder cable tray with power circuits", caption: "Respect fill and support spans — use the manufacturer chart." },
-        { src: "/images/module-03/m03-392-02.jpg", alt: "Tray bonding jumper across a splice", caption: "Bond splices to keep a low-impedance fault path." }
+        { src: "/images/module-03/m03-392-01.jpg", alt: "Ladder tray run", caption: "Long spans with strong rungs." },
+        { src: "/images/module-03/m03-392-02.jpg", alt: "Ventilated tray with branch circuits", caption: "Mind fill and support spacing." }
       ]
     }
   ],
 
-  // Summary
+  // SUMMARY — takeaways
   summary: {
     title: "Wiring Methods — What to Take to the Job",
     cards: [
-      { title: "Location First", text: "Dry, damp, or wet decides the wiring method, fittings, and conductor ratings." },
+      { title: "Location First", text: "Dry/damp/wet decides the method, fittings, and conductor ratings." },
       { title: "Support & Secure", text: "Strap near enclosures and at required intervals. Sag and drift fail inspections." },
       { title: "Fault Path Matters", text: "Raceways/fittings must maintain grounding/bonding continuity." },
-      { title: "Bends & Fill", text: "360° max between pull points; respect radius and fill tables." },
+      { title: "Bends & Fill", text: "≤360° between pull points; respect bend radius and fill tables." },
       { title: "Boxes & Bodies", text: "Do the box-fill math; check LB markings before you splice." },
-      { title: "Environment & Corrosion", text: "Use materials and coatings listed for the space you’re in." }
+      { title: "Environment & Corrosion", text: "Use materials/finishes listed for the space you’re in." }
     ]
-  },
-
-  // Quiz — via bridge
-  quiz: []
+  }
 };
 
 import quiz from "./quiz-bridge";
 (content as any).quiz = quiz;
-
 export default content;
