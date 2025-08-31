@@ -177,7 +177,7 @@ const BlockCardMD: React.FC<Props> = ({ title, block }) => {
   const safeChart = arr<ChartItem>(b.chart, []);
   const safeGrid = arr<string[]>(b.grid, []);
   const safeTable = arr<TableRow>(b.table, []);
-  const safeRules = arr<{ title?: string; text?: string }>(b.rules, []);
+  const safeRules = arr<{ title?: string; text?: string }>(b.rules, [] as { title?: string; text?: string }[]);
   const showBorder = bool(b.border, true);
 
   const body = text(b.body);
