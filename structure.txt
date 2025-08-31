@@ -1,0 +1,101 @@
+app/
+├── api
+│   └── deploy
+│       └── route.ts
+├── components
+│   ├── Blocks.tsx
+│   ├── FooterNav.tsx
+│   ├── ModuleTemplate.tsx
+│   ├── ModuleTemplate.tsx.bak.1756046510
+│   ├── ModuleTemplate.tsx.bak.1756046627
+│   ├── ModuleTemplate.tsx.bak.1756048711
+│   ├── ModuleTemplate.tsx.bak.1756049755
+│   ├── ModuleTemplate.tsx.bak.1756049872
+│   ├── ModuleTemplate.tsx.bak.1756049974
+│   ├── ModuleTemplate.tsx.bak.1756050138
+│   ├── ModuleTemplate.tsx.bak.1756050815
+│   ├── ModuleTemplate.tsx.bak.1756050962
+│   ├── ModuleTemplate.tsx.bak.1756051424
+│   ├── ModuleTemplate.tsx.bak.1756051531
+│   ├── ModuleTemplate.tsx.bak.1756052321
+│   ├── ModuleTemplate.tsx.bak.1756052357
+│   ├── ModuleTemplate.tsx.bak.1756052411
+│   ├── ModuleTemplate.tsx.bak.1756053310
+│   ├── ModuleTemplate.tsx.bak.1756053545
+│   ├── ModuleTemplate.tsx.bak.1756053802
+│   ├── ModuleTemplate.tsx.bak.1756134930
+│   ├── ModuleTemplate.tsx.bak.1756135293
+│   ├── ModuleTemplate.tsx.bak.1756137687
+│   ├── ModuleTemplate.tsx.bak.1756138865
+│   ├── ModuleTemplate.tsx.bak.1756139207
+│   ├── ModuleTemplate.tsx.bak.1756139344
+│   ├── ModuleTemplate.tsx.bak.1756145851
+│   ├── ModuleTemplate.tsx.bak.1756146250
+│   ├── ModuleTemplate.tsx.bak.1756146428
+│   ├── ModuleTemplate.tsx.bak.1756146740
+│   ├── Quiz.tsx
+│   └── pointToJSX.tsx
+├── content
+│   ├── articles
+│   ├── quizzes
+│   ├── summaries
+│   └── tables
+├── favicon.ico
+├── globals.css
+├── intro
+│   └── page.tsx
+├── layout.tsx
+├── modules
+│   ├── module-01
+│   │   ├── content.ts
+│   │   ├── content.ts.bak.1756052520
+│   │   ├── content.ts.bak.1756052715
+│   │   ├── content.ts.bak.1756148027
+│   │   ├── content.ts.bak.1756148108
+│   │   ├── content.ts.bak.1756148409
+│   │   ├── page.tsx
+│   │   ├── quiz-bridge.ts
+│   │   └── quiz.ts
+│   ├── module-02
+│   │   ├── page.tsx
+│   │   └── quiz.ts
+│   ├── module-03
+│   │   ├── content.ts
+│   │   ├── page.tsx
+│   │   └── quiz.ts
+│   ├── module-04
+│   │   ├── content.ts
+│   │   ├── page.tsx
+│   │   ├── page.tsx.bak.1756051811
+│   │   ├── quiz-bridge.ts
+│   │   └── quiz.ts
+│   ├── module-05
+│   │   ├── content.ts
+│   │   ├── page.tsx
+│   │   └── quiz.ts
+│   ├── module-06
+│   │   ├── page.tsx
+│   │   └── quiz.ts
+│   ├── module-07
+│   │   ├── page.tsx
+│   │   └── quiz.ts
+│   ├── module-08
+│   │   ├── page.tsx
+│   │   └── quiz.ts
+│   ├── module-09
+│   │   ├── page.tsx
+│   │   └── quiz.ts
+│   ├── module-10
+│   │   ├── page.tsx
+│   │   └── quiz.ts
+│   ├── module-11
+│   │   ├── page.tsx
+│   │   └── quiz.ts
+│   └── module-12
+│       ├── page.tsx
+│       └── quiz.ts
+├── page.tsx
+└── types
+    └── module.ts
+
+24 directories, 75 files
