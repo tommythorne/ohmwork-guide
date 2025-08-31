@@ -1,170 +1,196 @@
 "use client";
+
 import React from "react";
 
-/** Local shape to avoid external type coupling */
-type BlockShape = {
-  type?: "exam" | "rule" | "code" | "table" | "chart" | "horror" | "none";
-  title?: string;
-  body?: any;
-  table?: Array<Array<string | number>>;
-  chart?: Array<{ label: string; value: number }>;
-  // Optional feature flag to render table rows as a card grid (used for MC types)
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  asGrid?: any;
-};
+type Img = { src: string; alt: string; caption?: string };
 
-/** Tiny inline MD (bold/italic/code) for block.body */
-function mdInline(input: string) {
-  let t = input ?? "";
-  t = t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  t = t.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-  t = t.replace(/\*([^*]+)\*/g, "<em>$1</em>");
-  t = t.replace(/`([^`]+)`/g, '<code class="px-1 py-0.5 rounded bg-white/10 border border-white/20 text-white">$1</code>');
-  return t;
-}
+type Block =
+  | {
+      type: "chart";
+      title?: string;
+      body?: string;
+      chart: { label: string; value: number }[];
+      maxLabel?: string;
+    }
+  | {
+      type: "grid";
+      title?: string;
+      body?: string;
+      grid: string[][];
+    }
+  | {
+      type: "table";
+      title?: string;
+      body?: string;
+      table: string[][];
+    }
+  | {
+      // NEW: simple rule list (label → text)
+      type: "rules";
+      title?: string;
+      body?: string;
+      rules: [string, string][];
+      note?: string;
+    }
+  | {
+      type: "rule" | "exam" | "horror" | "code";
+      title?: string;
+      body: string;
+    };
 
-/** Polished bar chart (kept lightweight) */
-function ChartBox({ data }: { data?: Array<{ label: string; value: number }> }) {
-  const safe = Array.isArray(data) ? data.filter(d => d && typeof d.value === "number") : [];
-  if (safe.length === 0) return null;
-  const max = Math.max(...safe.map(d => d.value), 1);
-  return (
-    <div className="rounded-xl border border-white/15 bg-white/[0.03] p-4 mt-2">
-      <div className="text-white/80 text-sm font-semibold mb-3">Max: {max}</div>
-      <div className="space-y-3">
-        {safe.map((d, i) => {
-          const pct = Math.max(0, Math.min(100, (d.value / max) * 100));
-          return (
-            <div key={i} className="w-full">
-              <div className="flex items-center justify-between text-white/80 text-[12px] mb-1">
-                <span className="truncate">{d.label}</span>
-                <span className="ml-2 px-1.5 py-0.5 rounded bg-yellow-400/20 border border-yellow-400/40 text-yellow-200">{d.value}</span>
-              </div>
-              <div className="h-2.5 rounded bg-white/10 overflow-hidden">
-                <div className="h-full bg-yellow-400" style={{ width: `${pct}%` }} />
-              </div>
-            </div>
-          );
-        })}
-      </div>
+export default function BlockCardMD({ block }: { block: Block }) {
+  // shared card shell
+  const Card: React.FC<{ title?: string; children: React.ReactNode }> = ({
+    title,
+    children,
+  }) => (
+    <div className="rounded-2xl border border-violet-700/30 bg-violet-800/25 p-4 sm:p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
+      {title ? (
+        <div className="mb-3 text-sm font-semibold tracking-wide uppercase text-violet-200">
+          {title}
+        </div>
+      ) : null}
+      {children}
     </div>
   );
-}
 
-/** Table renderer (default) */
-function TableBox({ rows }: { rows?: Array<Array<string | number>> }) {
-  const safe = Array.isArray(rows) ? rows : [];
-  if (safe.length === 0) return null;
-  const [header, ...body] = safe;
-  return (
-    <div className="rounded-xl border border-white/15 bg-white/[0.03] p-4 mt-2 overflow-x-auto">
-      <table className="min-w-full text-sm">
-        {Array.isArray(header) && header.length > 0 && (
-          <thead>
-            <tr>
-              {header.map((h, i) => (
-                <th key={i} className="text-left text-white/80 font-semibold pb-2 pr-4 whitespace-nowrap">
-                  {String(h)}
-                </th>
-              ))}
-            </tr>
-          </thead>
-        )}
-        <tbody>
-          {body.map((r, ri) => (
-            <tr key={ri} className="border-t border-white/10">
-              {r.map((c, ci) => (
-                <td key={ci} className="text-white/90 py-2 pr-4 whitespace-nowrap">{String(c)}</td>
-              ))}
-            </tr>
+  // --- existing: bar chart (unchanged visuals) ------------------------------
+  if ((block as any).type === "chart") {
+    const b = block as Extract<Block, { type: "chart" }>;
+    const max = Math.max(1, ...b.chart.map((c) => c.value));
+    return (
+      <Card title={b.title}>
+        <div className="space-y-3">
+          {b.chart.map((row, i) => {
+            const w = Math.max(6, (row.value / max) * 100);
+            return (
+              <div key={i} className="space-y-1">
+                <div className="text-[13px] text-violet-100/85">{row.label}</div>
+                <div className="h-3 rounded-full bg-violet-900/40 relative overflow-hidden">
+                  <div
+                    className="absolute inset-y-0 left-0 rounded-full bg-yellow-300"
+                    style={{ width: `${w}%` }}
+                    aria-hidden
+                  />
+                </div>
+              </div>
+            );
+          })}
+          {b.maxLabel ? (
+            <div className="text-right text-[11px] text-violet-200/70">
+              Max: {b.maxLabel}
+            </div>
+          ) : null}
+          {b.body ? (
+            <p className="mt-1 text-[13px] text-violet-100/80">{b.body}</p>
+          ) : null}
+        </div>
+      </Card>
+    );
+  }
+
+  // --- existing: generic grid renderer -------------------------------------
+  if ((block as any).type === "grid") {
+    const b = block as Extract<Block, { type: "grid" }>;
+    return (
+      <Card title={b.title}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {b.grid.map((row, i) => (
+            <div
+              key={i}
+              className="rounded-xl bg-violet-900/30 border border-violet-700/20 p-3"
+            >
+              <div className="text-[13px] font-semibold text-violet-50">
+                {row[0]}
+              </div>
+              {row[1] ? (
+                <div className="text-[13px] text-violet-100/80 mt-1">
+                  {row[1]}
+                </div>
+              ) : null}
+            </div>
           ))}
-        </tbody>
-      </table>
-    </div>
-  );
-}
+        </div>
+        {b.body ? (
+          <p className="mt-3 text-[13px] text-violet-100/80">{b.body}</p>
+        ) : null}
+      </Card>
+    );
+  }
 
-/** NEW: Grid cards from a 2-column table (title/description). Used when block.asGrid === true */
-function GridCards({ rows }: { rows?: Array<Array<string | number>> }) {
-  const safe = Array.isArray(rows) ? rows : [];
-  if (safe.length === 0) return null;
+  // --- existing: table renderer --------------------------------------------
+  if ((block as any).type === "table") {
+    const b = block as Extract<Block, { type: "table" }>;
+    const [head, ...rows] = b.table;
+    return (
+      <Card title={b.title}>
+        <div className="overflow-x-auto">
+          <table className="w-full text-[13px]">
+            {head ? (
+              <thead>
+                <tr className="text-violet-100/90">
+                  {head.map((h, i) => (
+                    <th key={i} className="px-3 py-2 text-left font-semibold">
+                      {h}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+            ) : null}
+            <tbody>
+              {rows.map((r, i) => (
+                <tr key={i} className="[&>td]:px-3 [&>td]:py-2 border-t border-violet-700/20">
+                  {r.map((c, j) => (
+                    <td key={j} className="text-violet-100/85">
+                      {c}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {b.body ? (
+          <p className="mt-3 text-[13px] text-violet-100/80">{b.body}</p>
+        ) : null}
+      </Card>
+    );
+  }
 
-  // If first row looks like a header (strings), drop it.
-  const looksHeader = safe[0] && safe[0].length === 2 && typeof safe[0][0] === "string" && typeof safe[0][1] === "string";
-  const body = looksHeader ? safe.slice(1) : safe;
-
-  return (
-    <div className="rounded-xl border border-white/15 bg-white/[0.03] p-3 mt-2">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-        {body.slice(0, 4).map((r, i) => {
-          const [title, desc] = r;
-          return (
-            <div key={i} className="rounded-lg border border-white/15 bg-white/[0.06] p-3 md:p-4 h-full">
-              <div className="text-white font-semibold mb-1">{String(title)}</div>
-              <div className="text-white/80 text-sm">{String(desc)}</div>
+  // --- NEW: rules list (clean two-column rows) ------------------------------
+  if ((block as any).type === "rules") {
+    const b = block as Extract<Block, { type: "rules" }>;
+    return (
+      <Card title={b.title}>
+        <div className="divide-y divide-violet-700/30 rounded-xl bg-violet-900/20 border border-violet-700/30">
+          {b.rules.map(([left, right], i) => (
+            <div key={i} className="grid grid-cols-1 sm:grid-cols-3 gap-2 p-3">
+              <div className="sm:col-span-1 text-[13px] font-semibold text-violet-50">
+                {left}
+              </div>
+              <div className="sm:col-span-2 text-[13px] text-violet-100/85">
+                {right}
+              </div>
             </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
+          ))}
+        </div>
+        {b.note ? (
+          <div className="mt-2 text-[12px] text-violet-200/70">{b.note}</div>
+        ) : null}
+        {b.body ? (
+          <p className="mt-2 text-[13px] text-violet-100/80">{b.body}</p>
+        ) : null}
+      </Card>
+    );
+  }
 
-const STYLE: Record<
-  NonNullable<BlockShape["type"]>,
-  { label: string; icon: string; border: string; bg: string; title: string }
-> = {
-  exam:   { label: "EXAM TRAP",            icon: "🎯", border: "border-red-500/50",    bg: "bg-red-900/30",    title: "text-red-300" },
-  rule:   { label: "RULE OF THUMB",        icon: "📏", border: "border-green-500/50",  bg: "bg-green-900/30",  title: "text-green-300" },
-  code:   { label: "NEC REFERENCE",        icon: "📖", border: "border-blue-500/50",   bg: "bg-blue-900/30",   title: "text-blue-300" },
-  table:  { label: "TABLE",                icon: "📋", border: "border-yellow-500/50", bg: "bg-yellow-900/30", title: "text-yellow-300" },
-  chart:  { label: "CHART",                icon: "📈", border: "border-purple-500/50", bg: "bg-purple-900/30", title: "text-purple-300" },
-  horror: { label: "JOBSITE HORROR STORY", icon: "💀", border: "border-pink-500/50",   bg: "bg-pink-900/30",   title: "text-pink-300" },
-  none:   { label: "NOTE",                 icon: "📝", border: "border-white/20",      bg: "bg-slate-800/50",  title: "text-white" }
-};
-
-/** Strip duplicate label prefixes from the content title (avoid double-header lines) */
-function stripLabelPrefix(rawTitle: string | undefined, type: BlockShape["type"]) {
-  if (!rawTitle) return "";
-  const label = STYLE[(type ?? "none") as NonNullable<BlockShape["type"]>]?.label || "";
-  if (!label) return rawTitle;
-  const re = new RegExp(`^\\s*${label}\\s*[-—:]\\s*`, "i");
-  return rawTitle.replace(re, "");
-}
-
-export default function BlockCardMD({ block }: { block?: BlockShape }) {
-  if (!block || block.type === "none") return null;
-
-  const s = STYLE[(block.type ?? "none") as NonNullable<BlockShape["type"]>] ?? STYLE.none;
-  const cleanTitle = stripLabelPrefix(block.title, block.type);
-
-  const hasChart = Array.isArray(block.chart) && block.chart.length > 0;
-  const hasTable = Array.isArray(block.table) && block.table.length > 0;
-  const asGrid = !!(block as any)?.asGrid;
-
+  // --- simple text blocks (rule/exam/horror/code) ---------------------------
+  const simple = block as Extract<Block, { type: "rule" | "exam" | "horror" | "code" }>;
   return (
-    <div className={`rounded-xl border ${s.border} ${s.bg} p-4 my-4`}>
-      {/* Label strip */}
-      <div className="flex items-center gap-2 mb-2">
-        <span className="text-xl" aria-hidden="true">{s.icon}</span>
-        <span className={`${s.title} font-bold tracking-wide`}>{s.label}</span>
-      </div>
-
-      {/* Single title line */}
-      {cleanTitle ? <div className={`font-bold ${s.title} mb-2`}>{cleanTitle}</div> : null}
-
-      {/* Visuals */}
-      {hasChart ? <ChartBox data={block.chart} /> : null}
-      {hasTable && asGrid ? <GridCards rows={block.table} /> : null}
-      {hasTable && !asGrid ? <TableBox rows={block.table} /> : null}
-
-      {/* Body */}
-      {block.body && !hasChart && !hasTable ? (
-        <div className="text-white/90" dangerouslySetInnerHTML={{ __html: typeof block.body === "string" ? mdInline(block.body) : String(block.body) }} />
-      ) : null}
-      {(hasChart || hasTable) && block.body ? (
-        <div className="text-white/80 text-sm mt-3" dangerouslySetInnerHTML={{ __html: typeof block.body === "string" ? mdInline(block.body) : String(block.body) }} />
-      ) : null}
-    </div>
+    <Card title={simple.title}>
+      <p className="text-[13px] text-violet-100/85 whitespace-pre-wrap">
+        {simple.body}
+      </p>
+    </Card>
   );
 }
