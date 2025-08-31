@@ -154,63 +154,20 @@ const content = {
         { ref: "Burial", text: "Meet minimum cover and use listed glue/primer. Transition to sunlight-resistant where exposed." }
       ],
       block: {
-  type: "table",
-  title: "PVC Quick Sheet (Examples — verify manufacturer & Code)",
-  table: [
-    ["Topic", "Field Rule"],
-    ["Expansion", "Use listed expansion fittings; anchor one end, guide the other."],
-    ["Support", "Closer spacing than EMT; add hangers where sag shows."],
-    ["Burial", "Meet Table 300.5 cover; use listed cement/primer."]
-  ],
-  body: "Examples only. Always confirm with the manufacturer chart and adopted Code tables."
-},
-      images: [
-        {
-          src: "/images/module-03/m03-352-01.jpg",
-          alt: "PVC expansion fitting on long run",
-          caption: "Expansion fittings prevent buckling with temperature changes."
-        },
-        {
-          src: "/images/module-03/m03-352-02.jpg",
-          alt: "Underground PVC with proper warning tape",
-          caption: "Depth and marking tape per local adoption of Code."
-        }
-      ]
-    },
-
-    // 5) 330 — MC (CHART)
-    {
-      icon: "🧵",
-      title: "330 — MC Cable: Versatile, Not Careless",
-      points: [
-        { ref: "Uses", text: "MC is permitted in many occupancies and can include an insulated equipment grounding conductor or armor listed as EGC — verify the type." },
-        { ref: "Support & bends", text: "Support within the first few feet of boxes and at required intervals; don’t wrench bends — kinks damage conductors." },
-        { ref: "Terminations", text: "Use listed MC connectors with anti-short bushings if required by the connector/listing. Cut clean; no razor-edged armor." }
-      ],
-      block: {
-  type: "table",
-  title: "Common MC Types — Where They Fit",
-  asGrid: true,
-  table: [
-    ["MC Type", "Where it fits / key notes"],
-    ["Standard MC", "Dry/damp locations; EGC in armor or conductor (per listing)"],
-    ["MC-WET / WET-LOC", "Listed for wet locations (follow jacket/listing)"],
-    ["HCF MC", "Hospital-grade patient care spaces; see 517 specifics"],
-    ["Fire-rated MC", "2-hour circuits where listed/required; follow manufacturer details"]
-  ],
-  body: "Read the **labels** for where each MC type is permitted; always verify product listing and local adoption."
-},
-    { label: "MC-WET/WET-LOC — listed for wet locations", value: 2 },
-    { label: "HCF MC — hospital-grade patient care spaces", value: 3 },
-    { label: "Fire-rated MC — 2-hour circuits (per listing)", value: 4 }
-  ],
-  body: "Bar height is illustrative. Read the labels for **where each MC type is permitted**; always verify the listing and local Code adoption."
-},
+        type: "grid",
+        title: "Common MC Types — Where They Fit",
+        grid: [
+          ["Standard MC", "Dry/damp; EGC in armor or conductor"],
+          ["MC-WET/WET-LOC", "Listed for wet locations"],
+          ["HCF MC", "Hospital-grade patient care spaces"],
+          ["Fire-rated MC", "2-hour circuits (per listing)"]
+        ],
+        body: "Read the **labels** for where each MC type is permitted; always verify product listing and local Code adoption."
+      },
       images: [
         { src: "/images/module-03/m03-330-01.jpg", alt: "MC cable neatly strapped", caption: "Strap near terminations and keep runs straight." },
         { src: "/images/module-03/m03-330-02.jpg", alt: "Close-up of MC connector with anti-short insert", caption: "Use the connector the listing calls for — pass inspection first try." }
-      ]
-    },
+      ]},
 
     // 6) 348/350 — FMC & LFMC (JOBSITE HORROR STORY)
     {
