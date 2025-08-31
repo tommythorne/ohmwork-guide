@@ -135,7 +135,7 @@ function stripLabelPrefix(rawTitle: string | undefined, type: BlockShape["type"]
 export default function BlockCardMD({ block }: { block?: BlockShape }) {
   if (!block || block.type === "none") return null;
 
-  const s = STYLE[(block.type ?? "none") as NonNullable<BlockShape["type"]>];
+  const s = STYLE[(block.type ?? "none") as NonNullable<BlockShape["type"]>] ?? STYLE.none;
   const cleanTitle = stripLabelPrefix(block.title, block.type);
 
   const hasChart = Array.isArray(block.chart) && block.chart.length > 0;
