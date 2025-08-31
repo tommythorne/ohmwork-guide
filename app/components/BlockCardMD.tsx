@@ -8,6 +8,9 @@ type BlockShape = {
   body?: any;
   table?: Array<Array<string | number>>;
   chart?: Array<{ label: string; value: number }>;
+  // Optional feature flag to render table rows as a card grid (used for MC types)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  asGrid?: any;
 };
 
 /** Tiny inline MD (bold/italic/code) for block.body */
@@ -20,45 +23,35 @@ function mdInline(input: string) {
   return t;
 }
 
-/** POLISHED bar chart (stacked labels, rails, value badges, responsive) */
+/** Polished bar chart (kept lightweight) */
 function ChartBox({ data }: { data?: Array<{ label: string; value: number }> }) {
   const safe = Array.isArray(data) ? data.filter(d => d && typeof d.value === "number") : [];
   if (safe.length === 0) return null;
-
   const max = Math.max(...safe.map(d => d.value), 1);
   return (
     <div className="rounded-xl border border-white/15 bg-white/[0.03] p-4 mt-2">
-      <div className="space-y-4">
+      <div className="text-white/80 text-sm font-semibold mb-3">Max: {max}</div>
+      <div className="space-y-3">
         {safe.map((d, i) => {
           const pct = Math.max(0, Math.min(100, (d.value / max) * 100));
           return (
             <div key={i} className="w-full">
-              <div className="flex items-baseline justify-between mb-1">
-                <div className="text-sm text-white/90">{d.label}</div>
-                <div className="text-[11px] leading-none px-2 py-1 rounded-md bg-yellow-400/90 text-black font-semibold shadow-sm">
-                  {d.value}
-                </div>
+              <div className="flex items-center justify-between text-white/80 text-[12px] mb-1">
+                <span className="truncate">{d.label}</span>
+                <span className="ml-2 px-1.5 py-0.5 rounded bg-yellow-400/20 border border-yellow-400/40 text-yellow-200">{d.value}</span>
               </div>
-              <div className="h-3 rounded-md bg-gradient-to-r from-white/10 to-white/5 relative overflow-hidden">
-                <div className="absolute inset-0 pointer-events-none">
-                  <div className="h-full w-full opacity-20 bg-[linear-gradient(to_right,transparent_0,transparent_94%,white_94%,white_96%,transparent_96%)] bg-[length:20%_100%]" />
-                </div>
-                <div
-                  className="h-full rounded-md bg-yellow-400 shadow-[0_0_0_1px_rgba(0,0,0,0.08)_inset]"
-                  style={{ width: `${pct}%` }}
-                  aria-label={`${d.label}: ${d.value}`}
-                  title={`${d.label}: ${d.value}`}
-                />
+              <div className="h-2.5 rounded bg-white/10 overflow-hidden">
+                <div className="h-full bg-yellow-400" style={{ width: `${pct}%` }} />
               </div>
             </div>
           );
         })}
       </div>
-      <div className="mt-3 text-right text-[11px] text-white/60">Max: {max}</div>
     </div>
   );
 }
 
+/** Table renderer (default) */
 function TableBox({ rows }: { rows?: Array<Array<string | number>> }) {
   const safe = Array.isArray(rows) ? rows : [];
   if (safe.length === 0) return null;
@@ -91,19 +84,46 @@ function TableBox({ rows }: { rows?: Array<Array<string | number>> }) {
   );
 }
 
+/** NEW: Grid cards from a 2-column table (title/description). Used when block.asGrid === true */
+function GridCards({ rows }: { rows?: Array<Array<string | number>> }) {
+  const safe = Array.isArray(rows) ? rows : [];
+  if (safe.length === 0) return null;
+
+  // If first row looks like a header (strings), drop it.
+  const looksHeader = safe[0] && safe[0].length === 2 && typeof safe[0][0] === "string" && typeof safe[0][1] === "string";
+  const body = looksHeader ? safe.slice(1) : safe;
+
+  return (
+    <div className="rounded-xl border border-white/15 bg-white/[0.03] p-3 mt-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+        {body.slice(0, 4).map((r, i) => {
+          const [title, desc] = r;
+          return (
+            <div key={i} className="rounded-lg border border-white/15 bg-white/[0.06] p-3 md:p-4 h-full">
+              <div className="text-white font-semibold mb-1">{String(title)}</div>
+              <div className="text-white/80 text-sm">{String(desc)}</div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 const STYLE: Record<
   NonNullable<BlockShape["type"]>,
   { label: string; icon: string; border: string; bg: string; title: string }
 > = {
-  exam:   { label: "EXAM TRAP",             icon: "🎯", border: "border-red-500/50",    bg: "bg-red-900/30",    title: "text-red-300" },
-  rule:   { label: "RULE OF THUMB",         icon: "📏", border: "border-green-500/50",  bg: "bg-green-900/30",  title: "text-green-300" },
-  code:   { label: "NEC REFERENCE",         icon: "📖", border: "border-blue-500/50",   bg: "bg-blue-900/30",   title: "text-blue-300" },
-  table:  { label: "TABLE",                 icon: "📊", border: "border-yellow-500/50", bg: "bg-yellow-900/30", title: "text-yellow-300" },
-  chart:  { label: "CHART",                 icon: "📈", border: "border-purple-500/50", bg: "bg-purple-900/30", title: "text-purple-300" },
-  horror: { label: "JOBSITE HORROR STORY",  icon: "💀", border: "border-pink-500/50",   bg: "bg-pink-900/30",   title: "text-pink-300" },
-  none:   { label: "NOTE",                  icon: "📝", border: "border-white/20",      bg: "bg-slate-800/50",  title: "text-white" }
+  exam:   { label: "EXAM TRAP",            icon: "🎯", border: "border-red-500/50",    bg: "bg-red-900/30",    title: "text-red-300" },
+  rule:   { label: "RULE OF THUMB",        icon: "📏", border: "border-green-500/50",  bg: "bg-green-900/30",  title: "text-green-300" },
+  code:   { label: "NEC REFERENCE",        icon: "📖", border: "border-blue-500/50",   bg: "bg-blue-900/30",   title: "text-blue-300" },
+  table:  { label: "TABLE",                icon: "📋", border: "border-yellow-500/50", bg: "bg-yellow-900/30", title: "text-yellow-300" },
+  chart:  { label: "CHART",                icon: "📈", border: "border-purple-500/50", bg: "bg-purple-900/30", title: "text-purple-300" },
+  horror: { label: "JOBSITE HORROR STORY", icon: "💀", border: "border-pink-500/50",   bg: "bg-pink-900/30",   title: "text-pink-300" },
+  none:   { label: "NOTE",                 icon: "📝", border: "border-white/20",      bg: "bg-slate-800/50",  title: "text-white" }
 };
 
+/** Strip duplicate label prefixes from the content title (avoid double-header lines) */
 function stripLabelPrefix(rawTitle: string | undefined, type: BlockShape["type"]) {
   if (!rawTitle) return "";
   const label = STYLE[(type ?? "none") as NonNullable<BlockShape["type"]>]?.label || "";
@@ -120,16 +140,25 @@ export default function BlockCardMD({ block }: { block?: BlockShape }) {
 
   const hasChart = Array.isArray(block.chart) && block.chart.length > 0;
   const hasTable = Array.isArray(block.table) && block.table.length > 0;
+  const asGrid = !!(block as any)?.asGrid;
 
   return (
     <div className={`rounded-xl border ${s.border} ${s.bg} p-4 my-4`}>
+      {/* Label strip */}
       <div className="flex items-center gap-2 mb-2">
-        <span className="text-xl">{s.icon}</span>
+        <span className="text-xl" aria-hidden="true">{s.icon}</span>
         <span className={`${s.title} font-bold tracking-wide`}>{s.label}</span>
       </div>
+
+      {/* Single title line */}
       {cleanTitle ? <div className={`font-bold ${s.title} mb-2`}>{cleanTitle}</div> : null}
+
+      {/* Visuals */}
       {hasChart ? <ChartBox data={block.chart} /> : null}
-      {hasTable ? <TableBox rows={block.table} /> : null}
+      {hasTable && asGrid ? <GridCards rows={block.table} /> : null}
+      {hasTable && !asGrid ? <TableBox rows={block.table} /> : null}
+
+      {/* Body */}
       {block.body && !hasChart && !hasTable ? (
         <div className="text-white/90" dangerouslySetInnerHTML={{ __html: typeof block.body === "string" ? mdInline(block.body) : String(block.body) }} />
       ) : null}

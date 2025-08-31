@@ -188,10 +188,18 @@ const content = {
         { ref: "Terminations", text: "Use listed MC connectors with anti-short bushings if required by the connector/listing. Cut clean; no razor-edged armor." }
       ],
       block: {
-  type: "chart",
+  type: "table",
   title: "Common MC Types — Where They Fit",
-  chart: [
-    { label: "Standard MC — dry/damp; EGC in armor or conductor", value: 1 },
+  asGrid: true,
+  table: [
+    ["MC Type", "Where it fits / key notes"],
+    ["Standard MC", "Dry/damp locations; EGC in armor or conductor (per listing)"],
+    ["MC-WET / WET-LOC", "Listed for wet locations (follow jacket/listing)"],
+    ["HCF MC", "Hospital-grade patient care spaces; see 517 specifics"],
+    ["Fire-rated MC", "2-hour circuits where listed/required; follow manufacturer details"]
+  ],
+  body: "Read the **labels** for where each MC type is permitted; always verify product listing and local adoption."
+},
     { label: "MC-WET/WET-LOC — listed for wet locations", value: 2 },
     { label: "HCF MC — hospital-grade patient care spaces", value: 3 },
     { label: "Fire-rated MC — 2-hour circuits (per listing)", value: 4 }
