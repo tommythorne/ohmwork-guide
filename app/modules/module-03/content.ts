@@ -18,9 +18,12 @@ const content = {
       icon: "🧭",
       title: "300 — General Requirements for Wiring Methods",
       points: [
-        { ref: "300.4/5", text: "Protection from physical damage; burial depths vary by method and occupancy." },
+{ ref: "300.4/5", text: "Protection from physical damage; burial depths vary by method and occupancy." },
         { ref: "300.10", text: "Metal raceways must be **electrically continuous** and effectively bonded." },
         { ref: "300.15", text: "All splices/terminations in boxes or fittings—no loose splices in raceways." }
+,
+        { ref: "Damage", text: "Protect wiring methods from **physical damage**; add sleeves/guards where exposed to abuse." },
+        { ref: "Fittings", text: "Use **listed fittings** for the wiring method; don’t mix EMT and RMC fittings." }
       ],
       block: {
         type: "exam",
@@ -39,9 +42,12 @@ const content = {
       icon: "📎",
       title: "358 — EMT: The Everyday Raceway",
       points: [
-        { ref: "358.12", text: "Not permitted where subject to severe physical damage or in some corrosive environments unless protected." },
+{ ref: "358.12", text: "Not permitted where subject to severe physical damage or in some corrosive environments unless protected." },
         { ref: "358.30", text: "Support within 3 ft of each box and at required intervals (check local adoption)." },
         { ref: "358.26", text: "Total bends ≤ **360°** between pull points." }
+,
+        { ref: "Ends", text: "**Ream cut ends**; no sharp edges that can damage insulation." },
+        { ref: "Fittings", text: "Choose **compression vs set-screw** fittings by **location** (wet/damp) and spec." }
       ],
       block: {
         type: "rule",
@@ -60,9 +66,12 @@ const content = {
       icon: "🧱",
       title: "342 & 344 — IMC / RMC: Heavy-Duty Metal Conduit",
       points: [
-        { ref: "342/344.10", text: "Permitted in most locations, including outdoor and where subject to physical damage." },
+{ ref: "342/344.10", text: "Permitted in most locations, including outdoor and where subject to physical damage." },
         { ref: "Bonding", text: "Use bonding bushings/fittings where raceway continuity could be interrupted." },
         { ref: "Corrosion", text: "Field cuts need ream and corrosion protection; use proper thread compound." }
+,
+        { ref: "Threads", text: "Use **thread sealant** approved for electrical; protect threads against corrosion." },
+        { ref: "Earth/Concrete", text: "Suitable for **direct earth** and **encasement in concrete** where identified." }
       ],
       block: {
         type: "code",
@@ -81,9 +90,12 @@ const content = {
       icon: "🧰",
       title: "352 — PVC: Nonmetallic Workhorse",
       points: [
-        { ref: "352.10", text: "Permitted in wet locations; use **sunlight-resistant** types where exposed to sun." },
+{ ref: "352.10", text: "Permitted in wet locations; use **sunlight-resistant** types where exposed to sun." },
         { ref: "352.44", text: "Provide **expansion fittings** where thermal movement is expected (roofs/long runs)." },
         { ref: "352.30", text: "Support per manufacturer and Code—intervals depend on trade size and schedule." }
+,
+        { ref: "EGC", text: "Run an **equipment grounding conductor**—PVC does **not** provide a ground path." },
+        { ref: "Expansion", text: "Provide **expansion joints** for temperature movement; set the correct take-up." }
       ],
       block: {
         type: "code",
@@ -101,9 +113,12 @@ const content = {
       icon: "🧵",
       title: "330 — MC Cable: Types & Uses",
       points: [
-        { ref: "330.10", text: "MC is allowed in many occupancies; check listing for **wet locations**, **health care (HCF)**, or **fire-rated** assemblies." },
+{ ref: "330.10", text: "MC is allowed in many occupancies; check listing for **wet locations**, **health care (HCF)**, or **fire-rated** assemblies." },
         { ref: "Support", text: "Secure near terminations and at required intervals; avoid crushing or over-bending." },
         { ref: "Terminations", text: "Use **listed connectors**; anti-shorts as required by the connector/listing." }
+,
+        { ref: "ArmorEGC", text: "Some MC types allow **armor as EGC** when **marked**; otherwise include an EGC conductor." },
+        { ref: "Fittings", text: "Use **listed MC connectors**; add anti-short bushings **if required by the connector/listing**." }
       ],
       block: {
         type: "grid",
@@ -127,9 +142,12 @@ const content = {
       icon: "🌀",
       title: "348/350 — FMC & LFMC: Flexible Done Right",
       points: [
-        { ref: "Length", text: "Short flexible sections for vibration/isolation; **don’t** run long flex in place of raceway." },
+{ ref: "Length", text: "Short flexible sections for vibration/isolation; **don’t** run long flex in place of raceway." },
         { ref: "EGC", text: "Armor continuity + listed fittings for a reliable fault path; LFMC in wet areas needs wet-rated fittings." },
         { ref: "Bend radius", text: "Respect minimum bend radius—crushed whips overheat conductors." }
+,
+        { ref: "Length", text: "Keep **flex lengths short** to relieve vibration and facilitate connections (watch specific length rules)." },
+        { ref: "EGC", text: "Ensure **equipment grounding continuity** through armor/fittings or run a separate EGC." }
       ],
       block: {
         type: "horror",
@@ -148,9 +166,12 @@ const content = {
       icon: "📦",
       title: "314 — Boxes & Conduit Bodies: Fill and Fit",
       points: [
-        { ref: "314.16", text: "Box-fill math: each conductor counts; all EGCs together as one; internal clamps count; devices can count as **two**." },
+{ ref: "314.16", text: "Box-fill math: each conductor counts; all EGCs together as one; internal clamps count; devices can count as **two**." },
         { ref: "Conduit bodies", text: "LBs marked **‘for pulling only’** don’t permit splices regardless of volume." },
         { ref: "Covers", text: "Boxes and bodies require covers and must stay accessible." }
+,
+        { ref: "Volume", text: "Use **box-fill** rules: conductor volume by AWG; devices may count as **two** conductors on the yoke." },
+        { ref: "EGC Count", text: "All equipment grounding conductors **together count as one** of the largest size present." }
       ],
       block: {
         type: "exam",
@@ -169,9 +190,12 @@ const content = {
       icon: "⛏️",
       title: "300.5 — Underground Wiring: Depth & Details",
       points: [
-        { ref: "Cover", text: "Cover depth varies by method/occupancy—PVC vs RMC vs direct-bury are different." },
+{ ref: "Cover", text: "Cover depth varies by method/occupancy—PVC vs RMC vs direct-bury are different." },
         { ref: "Emergence", text: "Protect where raceway emerges from grade; rigid elbows often required for damage protection." },
         { ref: "Locate/mark", text: "Call before you dig; use warning tape/tracer where required." }
+,
+        { ref: "Cover", text: "**Cover depth** depends on method/occupancy—verify before trenching." },
+        { ref: "Backfill", text: "Provide proper **backfill/bedding** to prevent raceway damage." }
       ],
       block: {
         type: "rule",
@@ -190,9 +214,12 @@ const content = {
       icon: "📐",
       title: "300 — Bends, Fill, and Pull Points",
       points: [
-        { ref: "360° rule", text: "Total bends between pull points **≤ 360°**." },
+{ ref: "360° rule", text: "Total bends between pull points **≤ 360°**." },
         { ref: "Bend radius", text: "Follow method-specific minimum bend radius for conductors/raceway." },
         { ref: "Fill", text: "Use Chapter 9 tables for fill—changes by conductor count and raceway type." }
+,
+        { ref: "360°", text: "**Max 360°** of bends between pull points; add a box if more turns are needed." },
+        { ref: "Radius", text: "Respect **minimum bend radius** per method/conductor; tight bends overheat insulation." }
       ],
       block: {
         type: "code",
@@ -211,9 +238,12 @@ const content = {
       icon: "🪜",
       title: "392 — Cable Tray: Systems, Supports, Separation",
       points: [
-        { ref: "Types", text: "Ladder vs ventilated vs solid-bottom; support per manufacturer spacing." },
+{ ref: "Types", text: "Ladder vs ventilated vs solid-bottom; support per manufacturer spacing." },
         { ref: "Fill", text: "Tray fill and ampacity depend on **type, spacing, and cable rating**." },
         { ref: "Separation", text: "Signal/communication often require separation or barriers—check the spec." }
+,
+        { ref: "Fill", text: "Respect **tray fill** limits and side-rail height (per listing and NEMA/NEC guidance)." },
+        { ref: "Support", text: "Keep **support spans** within manufacturer’s max; add mid-span supports for heavy runs." }
       ],
       block: {
         type: "table",
