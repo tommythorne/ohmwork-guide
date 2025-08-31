@@ -155,7 +155,8 @@ const content = {
       ],
       block: {
         type: "grid",
-        title: "Common MC Types — Where They Fit",
+                icon: "🧵",
+title: "Common MC Types — Where They Fit",
         grid: [
           ["Standard MC", "Dry/damp; EGC in armor or conductor"],
           ["MC-WET/WET-LOC", "Listed for wet locations"],
