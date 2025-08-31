@@ -22,82 +22,14 @@ const content = {
         { ref: "404.10(B)", text: "Face‑up switches in countertops are not allowed unless **listed** for that use." }
       ],
       block: {
-        type: "exam",
-        title: "'Readily accessible'",
-        body:
-          "If you need a ladder or must move obstacles, it’s **not** readily accessible. Article 100 definition + 404 questions are a classic pairing."
-      },
-      images: [
-        { src: "/images/module-04/m04-404-01.jpg", alt: "Grounded switch yoke", caption: "Bond the metal yoke/box—keep fault paths low‑impedance." },
-        { src: "/images/module-04/m04-404-02.jpg", alt: "Switch placement", caption: "No fixed height in NEC; keep it consistent and accessible." }
-      ]
-    },
-
-    /* 2) 406 — Receptacles (RULE) */
-    {
-      icon: "🔌",
-      title: "406 — Receptacles, covers, and locations",
-      points: [
-        { ref: "406.4(A)", text: "Use **listed** devices suitable for the environment (WR outdoors/damp; TR in most dwelling areas)." },
-        { ref: "406.9(B)(1)", text: "Outdoors in **wet** locations: in‑use (while‑in‑use) covers for 15/20A, 125/250V receptacles." },
-        { ref: "406.5(E)", text: "Face‑up countertop receptacles must be **listed assemblies** (e.g., pop‑ups) for that orientation." },
-        { ref: "406.12", text: "Tamper‑resistant (TR) required for most dwelling 15/20A receptacles." }
-      ],
-      block: {
-        type: "rule",
-        title: "Outdoors = in‑use cover",
-        body:
-          "If water can hit it **while a plug is inserted**, it needs an in‑use cover. That answer wins most 406.9 questions instantly."
-      },
-      images: [
-        { src: "/images/module-04/m04-406-01.jpg", alt: "In‑use cover", caption: "Protects the cord connection while energized." },
-        { src: "/images/module-04/m04-406-02.jpg", alt: "TR receptacle", caption: "TR shutters: standard for dwellings." }
-      ]
-    },
-
-    /* 3) 410 — Luminaires (CODE) */
-    {
-      icon: "💡",
-      title: "410 — Luminaires: support, temperature, and spaces",
-      points: [
-        { ref: "410.36(B)", text: "Support luminaires by **independent means** unless specifically listed for raceway support." },
-        { ref: "410.116", text: "Thermally protect insulation/combustibles; observe **lamp/driver** temperature ratings." },
-        { ref: "410.10(D)", text: "Closets: follow **clearance** rules for surface/pendant fixtures; use enclosed/IC-rated where required." }
-      ],
-      block: {
-        type: "code",
-        title: "",
-        body:
-          "410.36(B) requires independent support. Don’t hang luminaires by EMT unless the product is listed for it."
-      },
-      images: [
-        { src: "/images/module-04/m04-410-01.jpg", alt: "Pendant luminaire support", caption: "Use listed hangers/boxes sized for the weight." },
-        { src: "/images/module-04/m04-410-02.jpg", alt: "Closet fixture clearance", caption: "Respect clearance to storage—common inspection item." }
-      ]
-    },
-
-    /* 4) 422 — Appliances (CHART) */
-    {
-      icon: "🧺",
-      title: "422 — Appliances: disconnects and nameplates",
-      points: [
-        { ref: "422.31(B)", text: "Appliances >300 VA require a **disconnecting means** within sight or lockable open." },
-        { ref: "422.60", text: "Follow **nameplate** ratings: voltage, current, phase, and specific installation notes." },
-        { ref: "422.5(A)", text: "GFCI protection for certain appliances (e.g., drinking fountains, vending machines) per listing/locations." }
-      ],
-      block: {
-
-      type: "rules",
-      title: "Common Appliance Disconnect Rules (Quick View)",
-      rules: [
-        ["≥300 VA", "Disconnect required"],
-        ["If not within sight", "Must be lockable"],
-        ["Cord-and-plug option", "May serve as the disconnect when in sight"]
-      ],
-      note: "Quick visual reminder only. Verify specifics in 422.31(B) and equipment listings."
-
-
-  body: "Quick visual reminder only. Verify specifics in 422.31(B) and equipment listings."
+  type: "rules",
+  title: "Common Appliance Disconnect Rules (Quick View)",
+  rules: [
+    ["≥300 VA", "Disconnect required"],
+    ["If not within sight", "Must be lockable"],
+    ["Cord-and-plug option", "May serve as the disconnect when in sight"]
+  ],
+  note: "Quick visual reminder only. Verify specifics in 422.31(B) and equipment listings."
 },
       images: [
         { src: "/images/module-04/m04-422-01.jpg", alt: "Washer disconnect", caption: "A cord‑and‑plug within sight can serve as the disconnect." },
