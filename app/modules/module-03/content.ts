@@ -95,8 +95,7 @@ const content = {
         { src: "/images/module-03/m03-352-01.jpg", alt: "PVC with expansion fitting on a wall", caption: "Expansion fitting bridging temperature swings." },
         { src: "/images/module-03/m03-352-02.jpg", alt: "PVC underground stub-ups", caption: "Protect emerging PVC where subject to damage." }
       ]
-   (),
-
+   },
     // 5) 330 — MC Cable
     {
       icon: "🧵",
