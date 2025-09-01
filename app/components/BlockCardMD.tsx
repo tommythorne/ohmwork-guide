@@ -1,143 +1,75 @@
-// @ts-nocheck
 "use client";
-
 import React from "react";
 
-type BlockType = "chart" | "grid" | "table" | "rules" | "code" | "exam" | "rule" | "horror";
-
-type ChartItem = { label: string; value: number };
-type Grid = string[][]; // e.g., 2D grid of label/value or title/desc
-type TableRow = (string | number)[];
-
-interface Block {
-  type?: BlockType;
+/** Permissive local shape */
+type BlockShape = {
+  type?: string; // sanitize at runtime
   title?: string;
-  body?: string;
+  body?: any;
+  table?: Array<Array<string | number>>;
+  chart?: Array<{ label: string; value: number }>;
+  rules?: Array<{ title?: string; text?: string } | string>;
+};
 
-  // optional content payloads (often omitted in content.ts)
-  chart?: ChartItem[];
-  grid?: Grid;
-  table?: TableRow[];
-
-  // optional styling knobs (often missing)
-  border?: boolean;
-  compact?: boolean;
-  columns?: number;
-
-  // optional “rules” style list
-  rules?: { title?: string; text?: string }[];
-
-  // legacy fallbacks
-  items?: any;
+function mdInline(input: string) {
+  let t = input ?? "";
+  t = t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  t = t.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  t = t.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+  t = t.replace(/`([^`]+)`/g, '<code class="px-1 py-0.5 rounded bg-white/10 border border-white/20 text-white">$1</code>');
+  return t;
 }
 
-interface Props {
-  title?: string;
-  block?: Block | null | undefined;
-}
-
-/** utility: safe coalescing */
-const arr = <T,>(v: unknown, fallback: T[]) => (Array.isArray(v) ? (v as T[]) : fallback);
-const num = (v: unknown, fallback: number) =>
-  typeof v === "number" && Number.isFinite(v) ? v : fallback;
-const bool = (v: unknown, fallback: boolean) => (typeof v === "boolean" ? v : fallback);
-const text = (v: unknown, fallback = "") => (typeof v === "string" ? v : fallback);
-
-/** basic shell */
-const Card: React.FC<{ title?: string; children?: React.ReactNode }> = ({ title, children }) => (
-  <div className="rounded-lg bg-white/60 dark:bg-zinc-900/50 backdrop-blur border border-zinc-200/60 dark:border-zinc-800/60 shadow-sm">
-    {title ? (
-      <div className="px-4 py-3 border-b border-zinc-200/60 dark:border-zinc-800/60">
-        <h3 className="text-sm font-semibold tracking-wide uppercase text-zinc-600 dark:text-zinc-300">
-          {title}
-        </h3>
+function ChartBox({ data }: { data?: Array<{ label: string; value: number }> }) {
+  const safe = Array.isArray(data) ? data.filter(d => d && typeof d.value === "number") : [];
+  if (safe.length === 0) return null;
+  const max = Math.max(...safe.map(d => d.value), 1);
+  return (
+    <div className="rounded-xl border border-white/15 bg-white/[0.03] p-4 mt-2">
+      <div className="grid grid-cols-3 gap-4 items-end min-h-[130px]">
+        {safe.map((d, i) => {
+          const pct = Math.max(0, Math.min(100, (d.value / max) * 100));
+          return (
+            <div key={i} className="flex flex-col items-center">
+              <div
+                className="w-full rounded-t-md bg-yellow-400"
+                style={{ height: `${pct}%`, minHeight: "14px" }}
+                aria-label={`${d.label}: ${d.value}`}
+                title={`${d.label}: ${d.value}`}
+              />
+              <div className="mt-2 text-center text-xs text-white/80">{d.label}</div>
+              <div className="text-[10px] text-white/70">{d.value}</div>
+            </div>
+          );
+        })}
       </div>
-    ) : null}
-    <div className="p-4">{children}</div>
-  </div>
-);
-
-/** polished bar chart (still lightweight) */
-const BarChart: React.FC<{ data: ChartItem[] }> = ({ data }) => {
-  const safe = arr<ChartItem>(data, []);
-  if (!safe.length) return null;
-  const max = Math.max(...safe.map((d) => num(d.value, 0)), 0) || 1;
-
-  return (
-    <div className="space-y-3">
-      {safe.map((d, i) => {
-        const pct = Math.min(100, Math.max(0, (num(d.value, 0) / max) * 100));
-        return (
-          <div key={i} className="grid grid-cols-12 items-start gap-3">
-            <div className="col-span-12 sm:col-span-4">
-              <div className="text-xs font-medium text-zinc-700 dark:text-zinc-200">{text(d.label)}</div>
-              <div className="text-[11px] text-zinc-500">{num(d.value, 0)}</div>
-            </div>
-            <div className="col-span-12 sm:col-span-8">
-              <div className="w-full h-2.5 rounded bg-zinc-200 dark:bg-zinc-800 relative overflow-hidden">
-                <div
-                  className="h-full rounded bg-zinc-900/80 dark:bg-white/80"
-                  style={{ width: `${pct}%` }}
-                  aria-label={`${text(d.label)}: ${num(d.value, 0)}`}
-                />
-              </div>
-            </div>
-          </div>
-        );
-      })}
     </div>
   );
-};
+}
 
-/** 2x2 grid (or Nx2) of tidy cells */
-const InfoGrid: React.FC<{ grid: Grid; columns?: number }> = ({ grid, columns }) => {
-  const rows = arr<string[]>(grid, []);
-  if (!rows.length) return null;
-  const cols = Math.min(4, Math.max(1, num(columns, 2)));
+function TableBox({ rows }: { rows?: Array<Array<string | number>> }) {
+  const safe = Array.isArray(rows) ? rows : [];
+  if (safe.length === 0) return null;
+  const [header, ...body] = safe;
   return (
-    <div className={`grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-${cols}`}>
-      {rows.map((r, i) => {
-        const a = text(r[0]);
-        const b = text(r[1]);
-        return (
-          <div
-            key={i}
-            className="rounded-md border border-zinc-200/60 dark:border-zinc-800/60 bg-white/50 dark:bg-zinc-900/40 p-3"
-          >
-            <div className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">{a}</div>
-            {b ? <div className="mt-1 text-[13px] text-zinc-600 dark:text-zinc-300">{b}</div> : null}
-          </div>
-        );
-      })}
-    </div>
-  );
-};
-
-/** table renderer, resilient to ragged rows */
-const InfoTable: React.FC<{ rows: TableRow[] }> = ({ rows }) => {
-  const safe = arr<TableRow>(rows, []);
-  if (!safe.length) return null;
-  const head = safe[0] ?? [];
-  const body = safe.slice(1);
-  return (
-    <div className="overflow-x-auto">
-      <table className="w-full text-sm border-collapse">
-        <thead>
-          <tr className="bg-zinc-100/60 dark:bg-zinc-800/60">
-            {arr(head, []).map((h, i) => (
-              <th key={i} className="text-left px-3 py-2 font-semibold text-zinc-700 dark:text-zinc-100 border border-zinc-200/60 dark:border-zinc-800/60">
-                {String(h ?? "")}
-              </th>
-            ))}
-          </tr>
-        </thead>
+    <div className="rounded-xl border border-white/15 bg-white/[0.03] p-4 mt-2 overflow-x-auto">
+      <table className="min-w-full text-sm">
+        {Array.isArray(header) && header.length > 0 && (
+          <thead>
+            <tr>
+              {header.map((h, i) => (
+                <th key={i} className="text-left text-white/80 font-semibold pb-2 pr-4 whitespace-nowrap">
+                  {String(h)}
+                </th>
+              ))}
+            </tr>
+          </thead>
+        )}
         <tbody>
-          {body.map((row, r) => (
-            <tr key={r} className="odd:bg-white/60 even:bg-zinc-50/50 dark:odd:bg-zinc-900/40 dark:even:bg-zinc-900/20">
-              {arr(row, []).map((cell, c) => (
-                <td key={c} className="px-3 py-2 text-zinc-800 dark:text-zinc-100 border border-zinc-200/60 dark:border-zinc-800/60">
-                  {String(cell ?? "")}
-                </td>
+          {body.map((r, ri) => (
+            <tr key={ri} className="border-t border-white/10">
+              {r.map((c, ci) => (
+                <td key={ci} className="text-white/90 py-2 pr-4 whitespace-nowrap">{String(c)}</td>
               ))}
             </tr>
           ))}
@@ -145,82 +77,96 @@ const InfoTable: React.FC<{ rows: TableRow[] }> = ({ rows }) => {
       </table>
     </div>
   );
-};
+}
 
-/** rules list (bulleted, compact) */
-const RulesList: React.FC<{ items: { title?: string; text?: string }[] }> = ({ items }) => {
-  const safe = arr(items, []);
-  if (!safe.length) return null;
+const STYLE = {
+  exam:   { label: "EXAM TRAP",             icon: "🎯", border: "border-red-500/50",    bg: "bg-red-900/30",    title: "text-red-300" },
+  rule:   { label: "RULE OF THUMB",         icon: "📏", border: "border-green-500/50",  bg: "bg-green-900/30",  title: "text-green-300" },
+  code:   { label: "NEC REFERENCE",         icon: "📖", border: "border-blue-500/50",   bg: "bg-blue-900/30",   title: "text-blue-300" },
+  table:  { label: "TABLE",                 icon: "📊", border: "border-yellow-500/50", bg: "bg-yellow-900/30", title: "text-yellow-300" },
+  chart:  { label: "CHART",                 icon: "📈", border: "border-purple-500/50", bg: "bg-purple-900/30", title: "text-purple-300" },
+  horror: { label: "JOBSITE HORROR STORY",  icon: "💀", border: "border-pink-500/50",   bg: "bg-pink-900/30",   title: "text-pink-300" },
+  none:   { label: "NOTE",                  icon: "📝", border: "border-white/20",      bg: "bg-slate-800/50",  title: "text-white" }
+} as const;
+
+type StyleKey = keyof typeof STYLE;
+
+/** Coerce any incoming type to a safe StyleKey */
+function safeType(raw: unknown): StyleKey {
+  const t = typeof raw === "string" ? raw.toLowerCase().trim() : "none";
+  return (t in STYLE ? (t as StyleKey) : "none");
+}
+
+function stripLabelPrefix(rawTitle: string | undefined, t: unknown) {
+  if (!rawTitle) return "";
+  const key = safeType(t);
+  const label = STYLE[key].label;
+  const re = new RegExp(`^\\s*${label}\\s*[-—:]\\s*`, "i");
+  return rawTitle.replace(re, "");
+}
+
+export default function BlockCardMD({ block }: { block?: BlockShape }) {
+  if (!block) return null;
+
+  const key = safeType(block.type);
+  const s = STYLE[key];
+  const cleanTitle = stripLabelPrefix(block.title, block.type);
+
+  const hasChart = Array.isArray(block.chart) && block.chart.length > 0;
+  const hasTable = Array.isArray(block.table) && block.table.length > 0;
+  const rules = Array.isArray(block.rules) ? block.rules : [];
+
   return (
-    <ul className="space-y-2">
-      {safe.map((it, i) => (
-        <li key={i} className="flex gap-2">
-          <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-zinc-700 dark:bg-zinc-200 shrink-0" />
-          <div>
-            {it.title ? (
-              <div className="text-sm font-medium text-zinc-800 dark:text-zinc-100">{it.title}</div>
-            ) : null}
-            {it.text ? (
-              <div className="text-[13px] text-zinc-600 dark:text-zinc-300">{it.text}</div>
-            ) : null}
-          </div>
-        </li>
-      ))}
-    </ul>
-  );
-};
+    <div className={`rounded-xl border ${s.border} ${s.bg} p-4 my-4`}>
+      {/* Label strip */}
+      <div className="flex items-center gap-2 mb-2">
+        <span className="text-xl" aria-hidden="true">{s.icon}</span>
+        <span className={`${s.title} font-bold tracking-wide`}>{s.label}</span>
+      </div>
 
-const BlockCardMD: React.FC<Props> = ({ title, block }) => {
-  const b = block ?? {};
-  const type = (b.type ?? "code") as BlockType;
+      {/* Single title line (never duplicates label) */}
+      {cleanTitle ? <div className={`font-bold ${s.title} mb-2`}>{cleanTitle}</div> : null}
 
-  // coalesced fields (never crash on undefined)
-  const safeChart = arr<ChartItem>(b.chart, []);
-  const safeGrid = arr<string[]>(b.grid, []);
-  const safeTable = arr<TableRow>(b.table, []);
-  const safeRules = arr<{ title?: string; text?: string }>(b.rules, [] as { title?: string; text?: string }[]);
-  const showBorder = bool(b.border, true);
+      {/* Visuals */}
+      {hasChart ? <ChartBox data={block.chart} /> : null}
+      {hasTable ? <TableBox rows={block.table} /> : null}
 
-  const body = text(b.body);
-
-  return (
-    <Card title={title ?? text(b.title)}>
-      {/* map type to renderer; if payload missing, show body only */}
-      {type === "chart" && safeChart.length > 0 && <BarChart data={safeChart} />}
-
-      {type === "grid" && safeGrid.length > 0 && (
-        <InfoGrid grid={safeGrid} columns={num(b.columns, 2)} />
-      )}
-
-      {type === "table" && safeTable.length > 0 && <InfoTable rows={safeTable} />}
-
-      {type === "rules" && safeRules.length > 0 && <RulesList items={safeRules} />}
-
-      {(type === "code" || type === "exam" || type === "rule" || type === "horror") && body && (
-        <div
-          className={[
-            "rounded-md p-3 text-[14px] leading-relaxed",
-            showBorder
-              ? "border border-zinc-200/60 dark:border-zinc-800/60 bg-white/50 dark:bg-zinc-900/40"
-              : "bg-transparent",
-          ].join(" ")}
-        >
-          <p className="text-zinc-800 dark:text-zinc-100">{body}</p>
+      {/* Structured rules list (if provided) */}
+      {rules.length > 0 ? (
+        <div className="mt-3 space-y-3">
+          {rules.map((it: any, idx: number) => {
+            const title = typeof it === "object" && it ? it.title : undefined;
+            const text = typeof it === "object" && it ? it.text : String(it ?? "");
+            return (
+              <div key={idx} className="flex items-start gap-3">
+                <div className="mt-1.5 h-1.5 w-1.5 rounded-full bg-zinc-700 dark:bg-zinc-200 shrink-0" />
+                <div>
+                  {title ? <div className="text-sm font-medium text-zinc-100">{title}</div> : null}
+                  {text ? <div className="text-sm text-white/90">{text}</div> : null}
+                </div>
+              </div>
+            );
+          })}
         </div>
-      )}
+      ) : null}
 
-      {/* if nothing rendered above, still show body (non-crashing fallback) */}
-      {!safeChart.length &&
-        !safeGrid.length &&
-        !safeTable.length &&
-        !safeRules.length &&
-        !body && (
-          <div className="text-[13px] text-zinc-500">
-            {/* quiet fallback; keeps page stable even with empty block */}
-          </div>
-        )}
-    </Card>
+      {/* Body */}
+      {block.body && !hasChart && !hasTable ? (
+        <div
+          className="text-white/90"
+          dangerouslySetInnerHTML={{
+            __html: typeof block.body === "string" ? mdInline(block.body) : String(block.body)
+          }}
+        />
+      ) : null}
+      {(hasChart || hasTable) && block.body ? (
+        <div
+          className="text-white/80 text-sm mt-3"
+          dangerouslySetInnerHTML={{
+            __html: typeof block.body === "string" ? mdInline(block.body) : String(block.body)
+          }}
+        />
+      ) : null}
+    </div>
   );
-};
-
-export default BlockCardMD;
+}
