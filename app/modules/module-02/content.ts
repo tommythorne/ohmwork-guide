@@ -1,7 +1,7 @@
 /* Module 2 — Wiring & Protection (Chapter 2) */
 const content = {
   hero: {
-    imageSrc: "/images/module-02/m02-hero.jpg",
+    imageSrc: "/images/module-02/m02-01.jpg",
     imageAlt: "Conductors, overcurrent protection, and grounding/bonding",
     title: "Chapter 2 — Wiring and Protection",
     subtitle:
@@ -30,8 +30,8 @@ const content = {
         body: "240.4(B) doesn’t apply to every circuit. It’s limited to specific small conductor cases. If a question asks about rounding up on #2 AWG, the answer is **no**."
       },
       images: [
-        { src: "/images/module-02/m02-240-01.jpg", alt: "Assorted breakers", caption: "Memorize standard ratings and the exceptions for rounding up." },
-        { src: "/images/module-02/m02-240-02.jpg", alt: "Tap diagram", caption: "Tap rules = strict length and protection requirements." }
+        { src: "/images/module-02/m02-02.jpg", alt: "Assorted breakers", caption: "Memorize standard ratings and the exceptions for rounding up." },
+        { src: "/images/module-02/m02-03.jpg", alt: "Tap diagram", caption: "Tap rules = strict length and protection requirements." }
       ]
     },
 
@@ -61,8 +61,8 @@ const content = {
         body: "Examples before any derating. Always confirm in 310.16 and apply ambient/bundling factors."
       },
       images: [
-        { src: "/images/module-02/m02-310-01.jpg", alt: "Ampacity table highlight", caption: "310.16: memorize the key conductor sizes." },
-        { src: "/images/module-02/m02-310-02.jpg", alt: "Conductor bundle", caption: "Bundling causes derating—watch for >3 current-carrying conductors." }
+        { src: "/images/module-02/m02-04.jpg", alt: "Ampacity table highlight", caption: "310.16: memorize the key conductor sizes." },
+        { src: "/images/module-02/m02-05.jpg", alt: "Conductor bundle", caption: "Bundling causes derating—watch for >3 current-carrying conductors." }
       ]
     },
 
@@ -82,8 +82,8 @@ const content = {
         body: "Bonding provides the **effective fault-current path**. Grounding stabilizes voltage. Exams love to flip the terms."
       },
       images: [
-        { src: "/images/module-02/m02-250-01.jpg", alt: "Bonded equipment", caption: "All metal enclosures must be bonded together." },
-        { src: "/images/module-02/m02-250-02.jpg", alt: "Service bonding jumper", caption: "Know your MBJ vs SBJ requirements." }
+        { src: "/images/module-02/m02-06.jpg", alt: "Bonded equipment", caption: "All metal enclosures must be bonded together." },
+        { src: "/images/module-02/m02-07.jpg", alt: "Service bonding jumper", caption: "Know your MBJ vs SBJ requirements." }
       ]
     },
 
@@ -103,8 +103,8 @@ const content = {
         body: "If concrete-encased rebar (Ufer) exists, you must use it. Ground rods aren’t first choice—they’re backup electrodes."
       },
       images: [
-        { src: "/images/module-02/m02-ges-01.jpg", alt: "Ufer connection", caption: "Concrete-encased electrodes are stable and required if present." },
-        { src: "/images/module-02/m02-ges-02.jpg", alt: "Bonded rebar clamp", caption: "Only use listed clamps for connections." }
+        { src: "/images/module-02/m02-08.jpg", alt: "Ufer connection", caption: "Concrete-encased electrodes are stable and required if present." },
+        { src: "/images/module-02/m02-09.jpg", alt: "Bonded rebar clamp", caption: "Only use listed clamps for connections." }
       ]
     },
 
@@ -124,8 +124,8 @@ const content = {
         body: "A free splice hidden behind drywall caused intermittent faults for years before a fire exposed it. All splices must be inside approved boxes with covers."
       },
       images: [
-        { src: "/images/module-02/m02-300-01.jpg", alt: "Nail plate", caption: "Plates protect where raceways or cables are too close to edges." },
-        { src: "/images/module-02/m02-300-02.jpg", alt: "Box with cover", caption: "Covers are required for all junction and device boxes." }
+        { src: "/images/module-02/m02-10.jpg", alt: "Nail plate", caption: "Plates protect where raceways or cables are too close to edges." },
+        { src: "/images/module-02/m02-11.jpg", alt: "Box with cover", caption: "Covers are required for all junction and device boxes." }
       ]
     },
 
@@ -153,8 +153,8 @@ const content = {
         body: "Plan these on your one-line and layout before rough-in."
       },
       images: [
-        { src: "/images/module-02/m02-210-01.jpg", alt: "Kitchen outlets", caption: "Spacing rules and GFCI protection are strictly enforced." },
-        { src: "/images/module-02/m02-210-02.jpg", alt: "AFCI/GFCI breakers", caption: "Many panels now use dual-function breakers." }
+        { src: "/images/module-02/m02-12.jpg", alt: "Kitchen outlets", caption: "Spacing rules and GFCI protection are strictly enforced." },
+        { src: "/images/module-02/m02-13.jpg", alt: "AFCI/GFCI breakers", caption: "Many panels now use dual-function breakers." }
       ]
     },
 
@@ -179,8 +179,8 @@ const content = {
         body: "Heights vary with conditions and voltage—this hits the common exam set."
       },
       images: [
-        { src: "/images/module-02/m02-225-01.jpg", alt: "Outside disconnects", caption: "Grouped and labeled disconnects at building entry." },
-        { src: "/images/module-02/m02-225-02.jpg", alt: "Overhead spans", caption: "Different areas require different minimum heights." }
+        { src: "/images/module-02/m02-14.jpg", alt: "Outside disconnects", caption: "Grouped and labeled disconnects at building entry." },
+        { src: "/images/module-02/m02-15.jpg", alt: "Overhead spans", caption: "Different areas require different minimum heights." }
       ]
     },
 
@@ -199,8 +199,8 @@ const content = {
         body: "Don’t confuse conductor ampacity sizing with OCPD rating. Questions often twist the 125% rule to trip you up."
       },
       images: [
-        { src: "/images/module-02/m02-sizing-01.jpg", alt: "Load calc sheet", caption: "Perform load calculations step by step." },
-        { src: "/images/module-02/m02-sizing-02.jpg", alt: "Breaker with label", caption: "Follow listed limitations." }
+        { src: "/images/module-02/m02-16.jpg", alt: "Load calc sheet", caption: "Perform load calculations step by step." },
+        { src: "/images/module-02/m02-17.jpg", alt: "Breaker with label", caption: "Follow listed limitations." }
       ]
     },
 
@@ -219,8 +219,8 @@ const content = {
         body: "Box fill and bending space are not guesses. They’re measured and calculated. Errors = failed inspection."
       },
       images: [
-        { src: "/images/module-02/m02-312-01.jpg", alt: "Panel gutter", caption: "Maintain bending space at terminals." },
-        { src: "/images/module-02/m02-312-02.jpg", alt: "Box fill count", caption: "Count each item per 314.16 allowances." }
+        { src: "/images/module-02/m02-18.jpg", alt: "Panel gutter", caption: "Maintain bending space at terminals." },
+        { src: "/images/module-02/m02-19.jpg", alt: "Box fill count", caption: "Count each item per 314.16 allowances." }
       ]
     },
 
@@ -245,8 +245,8 @@ const content = {
         body: "Sketch these on your one-line so the differences stick."
       },
       images: [
-        { src: "/images/module-02/m02-disco-01.jpg", alt: "Grouped disconnects", caption: "Group disconnects together in one location." },
-        { src: "/images/module-02/m02-disco-02.jpg", alt: "Lockable handle", caption: "Use listed lock-open features where required." }
+        { src: "/images/module-02/m02-20.jpg", alt: "Grouped disconnects", caption: "Group disconnects together in one location." },
+        { src: "/images/module-02/m02-21.jpg", alt: "Lockable handle", caption: "Use listed lock-open features where required." }
       ]
     }
   ],
