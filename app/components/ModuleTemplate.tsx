@@ -195,7 +195,12 @@ export default function ModuleTemplate({ hero, articles = [], summary, quiz = []
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.3 }}
       >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-3 gap-4"
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
           <motion.div 
             className="rounded-xl border border-white/15 bg-white/[0.03] p-5 text-center"
             variants={itemVariants}
@@ -217,7 +222,7 @@ export default function ModuleTemplate({ hero, articles = [], summary, quiz = []
             <div className="text-3xl font-bold text-blue-400">{visualCount}</div>
             <div className="text-white/80 text-sm">Visual Examples</div>
           </motion.div>
-        </div>
+        </motion.div>
       </motion.section>
 
       {/* Articles */}
@@ -264,14 +269,17 @@ export default function ModuleTemplate({ hero, articles = [], summary, quiz = []
             <h3 className="text-3xl font-bold text-yellow-400 text-center mb-6">{summary.title}</h3>
           ) : null}
           {Array.isArray(summaryCards) && summaryCards.length ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <motion.div 
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
               {summaryCards.map((c, idx) => (
                 <motion.div 
                   key={idx} 
                   className="rounded-xl border border-white/15 bg-white/[0.03] p-6"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.5 + idx * 0.1 }}
+                  variants={itemVariants}
                 >
                   <div className="space-y-2 text-center">
                     <h4 className="text-lg font-bold text-white">{c.title}</h4>
@@ -279,7 +287,7 @@ export default function ModuleTemplate({ hero, articles = [], summary, quiz = []
                   </div>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           ) : null}
         </motion.section>
       ) : null}
