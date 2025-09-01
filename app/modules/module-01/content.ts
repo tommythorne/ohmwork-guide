@@ -1,6 +1,6 @@
 const content = {
   hero: {
-    imageSrc: "/images/module-01/m01-hero.jpg",
+    imageSrc: "/images/module-01/m01-01.jpg",
     imageAlt: "NEC Chapter 1 fundamentals — identification, listing/labeling, working space",
     title: "Chapter 1 — General",
     subtitle:
@@ -48,12 +48,12 @@ const content = {
       },
       images: [
         {
-          src: "/images/module-01/m01-90-01.jpg",
+          src: "/images/module-01/m01-02.jpg",
           alt: "NEC scope diagram showing chapter relationships",
           caption: "Scope of the NEC and which chapters modify others."
         },
         {
-          src: "/images/module-01/m01-90-02.jpg",
+          src: "/images/module-01/m01-03.jpg",
           alt: "Graphic showing the words SHALL and MAY on tags",
           caption: "‘Shall’ = mandatory. ‘May’ = permissive. Notes aren’t enforceable."
         }
@@ -98,12 +98,12 @@ const content = {
       },
       images: [
         {
-          src: "/images/module-01/m01-100-01.jpg",
+          src: "/images/module-01/m01-04.jpg",
           alt: "Terminal block mapping service, feeders, and branches",
           caption: "Service → feeders → branch circuits: know where you are."
         },
         {
-          src: "/images/module-01/m01-100-02.jpg",
+          src: "/images/module-01/m01-05.jpg",
           alt: "UL and CSA listing marks on an equipment label",
           caption: "‘Identified’ usually means listed and used per labeling and instructions."
         }
@@ -143,12 +143,12 @@ const content = {
       },
       images: [
         {
-          src: "/images/module-01/m01-110-03b-01.jpg",
+          src: "/images/module-01/m01-06.jpg",
           alt: "Product label with torque, ambient, and kit limitations",
           caption: "If the label lists a torque and kit pairing, follow both."
         },
         {
-          src: "/images/module-01/m01-110-03b-02.jpg",
+          src: "/images/module-01/m01-07.jpg",
           alt: "AHJ inspection sticker on an electrical panel",
           caption: "AHJ signs off when it’s installed per listing/labeling."
         }
@@ -193,12 +193,12 @@ const content = {
       },
       images: [
         {
-          src: "/images/module-01/m01-110-14-01.jpg",
+          src: "/images/module-01/m01-08.jpg",
           alt: "Electrician using a torque screwdriver on a breaker",
           caption: "Torque to the printed value; inspectors check this."
         },
         {
-          src: "/images/module-01/m01-110-14-02.jpg",
+          src: "/images/module-01/m01-09.jpg",
           alt: "Closeup of termination temperature stamps 60°C/75°C",
           caption: "Use the lowest temperature rating among connected terminations."
         }
@@ -242,12 +242,12 @@ const content = {
       },
       images: [
         {
-          src: "/images/module-01/m01-110-26-01.jpg",
+          src: "/images/module-01/m01-10.jpg",
           alt: "Tape measure showing 36 inches clearance in front of panel",
           caption: "Minimum 3 ft depth for many indoor panels (Condition 1)."
         },
         {
-          src: "/images/module-01/m01-110-26-02.jpg",
+          src: "/images/module-01/m01-11.jpg",
           alt: "Overhead view of dedicated space kept clear above gear",
           caption: "Dedicated space above gear stays free of unrelated systems."
         }
@@ -282,12 +282,12 @@ const content = {
       },
       images: [
         {
-          src: "/images/module-01/m01-guard-01.jpg",
+          src: "/images/module-01/m01-12.jpg",
           alt: "Barrier guarding around open conductors",
           caption: "Guarding prevents accidental contact with energized parts."
         },
         {
-          src: "/images/module-01/m01-guard-02.jpg",
+          src: "/images/module-01/m01-13.jpg",
           alt: "Electrical room door with panic bar",
           caption: "Large gear rooms require outward-swinging, panic-hardware doors."
         }
@@ -322,12 +322,12 @@ const content = {
       },
       images: [
         {
-          src: "/images/module-01/m01-mark-01.jpg",
+          src: "/images/module-01/m01-14.jpg",
           alt: "Arc-flash and shock warning labels on gear",
           caption: "Field-applied labels must be durable and legible."
         },
         {
-          src: "/images/module-01/m01-mark-02.jpg",
+          src: "/images/module-01/m01-15.jpg",
           alt: "Clearly marked disconnect switch",
           caption: "Disconnects must indicate their purpose."
         }
@@ -362,12 +362,12 @@ const content = {
       },
       images: [
         {
-          src: "/images/module-01/m01-light-01.jpg",
+          src: "/images/module-01/m01-16.jpg",
           alt: "Ceiling lights over electrical gear",
           caption: "Fixed lighting is required for safe work."
         },
         {
-          src: "/images/module-01/m01-egress-01.jpg",
+          src: "/images/module-01/m01-17.jpg",
           alt: "Two separate egress paths from an electrical room",
           caption: "Large installations often require two exits."
         }
@@ -410,12 +410,12 @@ const content = {
 ,
       images: [
         {
-          src: "/images/module-01/m01-sccr-01.jpg",
+          src: "/images/module-01/m01-18.jpg",
           alt: "Label showing available fault current",
           caption: "Fault current labels keep maintenance safe and compliant."
         },
         {
-          src: "/images/module-01/m01-sccr-02.jpg",
+          src: "/images/module-01/m01-19.jpg",
           alt: "MCC with SCCR nameplate",
           caption: "Verify SCCR ≥ available fault current at the equipment."
         }
@@ -450,12 +450,12 @@ const content = {
       },
       images: [
         {
-          src: "/images/module-01/m01-violation-01.jpg",
+          src: "/images/module-01/m01-20.jpg",
           alt: "Stored materials blocking the panel working space",
           caption: "Storage in the working space = violation and fail."
         },
         {
-          src: "/images/module-01/m01-violation-02.jpg",
+          src: "/images/module-01/m01-21.jpg",
           alt: "Piping directly over switchboard",
           caption: "Unrelated piping above gear violates dedicated space rules."
         }
