@@ -137,7 +137,7 @@ export default function ModuleTemplate({ hero, articles = [], summary, quiz = []
         delayChildren: 0.2
       }
     }
-  };
+  } as const;
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -146,11 +146,11 @@ export default function ModuleTemplate({ hero, articles = [], summary, quiz = []
       y: 0,
       transition: {
         duration: 0.6,
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100
       }
     }
-  };
+  } as const;
 
   return (
     <main className="min-h-screen bg-slate-900 text-white">
