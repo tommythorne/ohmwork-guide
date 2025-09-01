@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
 import FooterNav from "./FooterNav";
 import Quiz from "./Quiz";
 import pointToJSX from "./pointToJSX";
@@ -53,15 +54,26 @@ const ImagesStack: React.FC<{ images?: ImageItem[] }> = ({ images = [] }) => {
   const pair = (Array.isArray(images) ? images : []).slice(0, 2);
   if (pair.length === 0) return null;
   return (
-    <div className="space-y-4">
+    <motion.div 
+      className="space-y-4"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
       {pair.map((img, i) => (
-        <div key={i} className="rounded-xl border border-white/20 bg-white/[0.03] p-3">
+        <motion.div 
+          key={i} 
+          className="rounded-xl border border-white/20 bg-white/[0.03] p-3"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: i * 0.1 }}
+        >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={img.src} alt={img.alt || ""} className="w-full h-40 md:h-48 object-cover rounded-lg" />
           {img.caption ? <div className="text-white/70 text-[13px] md:text-sm mt-2">{img.caption}</div> : null}
-        </div>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 };
 
@@ -115,15 +127,45 @@ export default function ModuleTemplate({ hero, articles = [], summary, quiz = []
     return <ul className="list-disc list-outside pl-6 space-y-2">{list.map(pointToJSX)}</ul>;
   };
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        type: "spring",
+        stiffness: 100
+      }
+    }
+  };
+
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-800 text-white">
+    <main className="min-h-screen bg-slate-900 text-white">
       {/* Top nav — thin, static, borderless (matches bottom feel) */}
       <div className="max-w-5xl mx-auto px-5 pt-4">
         <FooterNav prev={prev || undefined} next={next || undefined} />
       </div>
 
       {/* Hero */}
-      <section className="relative h-[28rem] flex items-center justify-center overflow-hidden">
+      <motion.section 
+        className="relative h-[28rem] flex items-center justify-center overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
         {hero?.imageSrc ? (
           <>
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -144,30 +186,53 @@ export default function ModuleTemplate({ hero, articles = [], summary, quiz = []
             <p className="text-white/90 text-lg md:text-xl max-w-3xl mx-auto">{hero.subtitle}</p>
           ) : null}
         </div>
-      </section>
+      </motion.section>
 
       {/* Stats row */}
-      <section className="max-w-5xl mx-auto px-5 -mt-10 relative z-10">
+      <motion.section 
+        className="max-w-5xl mx-auto px-5 -mt-10 relative z-10"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+      >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="rounded-xl border border-white/15 bg-white/[0.03] p-5 text-center">
+          <motion.div 
+            className="rounded-xl border border-white/15 bg-white/[0.03] p-5 text-center"
+            variants={itemVariants}
+          >
             <div className="text-3xl font-bold text-yellow-400">{articleCount}</div>
             <div className="text-white/80 text-sm">Major Articles</div>
-          </div>
-          <div className="rounded-xl border border-white/15 bg-white/[0.03] p-5 text-center">
+          </motion.div>
+          <motion.div 
+            className="rounded-xl border border-white/15 bg-white/[0.03] p-5 text-center"
+            variants={itemVariants}
+          >
             <div className="text-3xl font-bold text-green-400">{quizCount}</div>
             <div className="text-white/80 text-sm">Quiz Questions</div>
-          </div>
-          <div className="rounded-xl border border-white/15 bg-white/[0.03] p-5 text-center">
+          </motion.div>
+          <motion.div 
+            className="rounded-xl border border-white/15 bg-white/[0.03] p-5 text-center"
+            variants={itemVariants}
+          >
             <div className="text-3xl font-bold text-blue-400">{visualCount}</div>
             <div className="text-white/80 text-sm">Visual Examples</div>
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Articles */}
-      <section className="max-w-5xl mx-auto px-5 mt-10">
+      <motion.section 
+        className="max-w-5xl mx-auto px-5 mt-10"
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+      >
         { normalizedArticles.map((a, i) => (
-          <article key={a.id || a.title || i} className="mb-12">
+          <motion.article 
+            key={a.id || a.title || i} 
+            className="mb-12"
+            variants={itemVariants}
+          >
             <header className="flex items-center gap-3 mb-5">
               <div className="text-2xl">{a.icon || a.iconName || "📘"}</div>
               <h2 className="text-2xl md:text-3xl font-bold text-white">{a.title}</h2>
@@ -183,46 +248,63 @@ export default function ModuleTemplate({ hero, articles = [], summary, quiz = []
               {/* Right: stacked images */}
               <ImagesStack images={a.images} />
             </div>
-          </article>
+          </motion.article>
         ))}
-      </section>
+      </motion.section>
 
       {/* Summary (optional) */}
       {summary?.title || (summary?.cards && summary.cards.length) ? (
-        <section className="max-w-5xl mx-auto px-5 mb-10">
+        <motion.section 
+          className="max-w-5xl mx-auto px-5 mb-10"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
           {summary.title ? (
             <h3 className="text-3xl font-bold text-yellow-400 text-center mb-6">{summary.title}</h3>
           ) : null}
           {Array.isArray(summaryCards) && summaryCards.length ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {summaryCards.map((c, idx) => (
-                <div key={idx} className="rounded-xl border border-white/15 bg-white/[0.03] p-6">
+                <motion.div 
+                  key={idx} 
+                  className="rounded-xl border border-white/15 bg-white/[0.03] p-6"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 + idx * 0.1 }}
+                >
                   <div className="space-y-2 text-center">
                     <h4 className="text-lg font-bold text-white">{c.title}</h4>
                     <p className="text-white/80 text-sm">{c.text}</p>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           ) : null}
-        </section>
+        </motion.section>
       ) : null}
 
-      {/* Knowledge Check (bottom only) */}
+      {/* Quiz section - NO duplicate header */}
       {Array.isArray(quizArr) && quizArr.length > 0 ? (
-        <section className="max-w-5xl mx-auto px-5 mb-12">
-          <div className="text-center mb-6">
-            <h3 className="text-3xl font-bold text-white mb-2">Knowledge Check</h3>
-            <p className="text-white/80">Answer the questions below. Target 80%+ to move on.</p>
-          </div>
+        <motion.section 
+          className="max-w-5xl mx-auto px-5 mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
           <Quiz questions={quizArr} />
-        </section>
+        </motion.section>
       ) : null}
 
       {/* Bottom nav */}
-      <div className="max-w-5xl mx-auto px-5 pb-10">
+      <motion.div 
+        className="max-w-5xl mx-auto px-5 pb-10"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.7 }}
+      >
         <FooterNav prev={prev} next={next} />
-      </div>
+      </motion.div>
     </main>
   );
 }
