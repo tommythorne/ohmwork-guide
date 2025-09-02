@@ -1,6 +1,6 @@
 const content = {
   hero: {
-    imageSrc: "/images/module-03/m03-hero.jpg",
+    imageSrc: "/images/module-03/m03-01.jpg",
     imageAlt: "Assorted wiring methods: EMT, PVC, MC, tray",
     title: "Chapter 3 — Wiring Methods & Materials",
     subtitle:
@@ -32,8 +32,8 @@ const content = {
           "Dry vs damp vs wet changes **everything**: allowed methods, fittings, and conductor ratings. Identify the space first; choose the method second."
       },
       images: [
-        { src: "/images/module-03/m03-300-01.jpg", alt: "Raceway run through mixed-use areas", caption: "Method changes when the environment changes." },
-        { src: "/images/module-03/m03-300-02.jpg", alt: "Bonding bushing on raceway", caption: "Maintain a continuous fault-return path." }
+        { src: "/images/module-03/m03-02.jpg", alt: "Raceway run through mixed-use areas", caption: "Method changes when the environment changes." },
+        { src: "/images/module-03/m03-03.jpg", alt: "Bonding bushing on raceway", caption: "Maintain a continuous fault-return path." }
       ]
     },
 
@@ -56,8 +56,8 @@ const content = {
           "Strap within the first few feet of boxes and keep runs straight—inspectors look for **support near terminations** every time."
       },
       images: [
-        { src: "/images/module-03/m03-358-01.jpg", alt: "EMT neatly strapped and aligned", caption: "Straight, supported, and bonded." },
-        { src: "/images/module-03/m03-358-02.jpg", alt: "Close-up EMT set-screw fitting", caption: "Use fittings listed for EMT—wet-location where required." }
+        { src: "/images/module-03/m03-04.jpg", alt: "EMT neatly strapped and aligned", caption: "Straight, supported, and bonded." },
+        { src: "/images/module-03/m03-05.jpg", alt: "Close-up EMT set-screw fitting", caption: "Use fittings listed for EMT—wet-location where required." }
       ]
     },
 
@@ -80,8 +80,8 @@ const content = {
           "Where concentric/eccentric knockouts or nonmetallic raceway interrupt continuity, use **bonding bushings/jumpers** to preserve the fault path."
       },
       images: [
-        { src: "/images/module-03/m03-344-01.jpg", alt: "RMC service with bonding bushings", caption: "Bonding jumpers across concentric KOs." },
-        { src: "/images/module-03/m03-344-02.jpg", alt: "IMC riser outdoors", caption: "Right method for exposed, tough locations." }
+        { src: "/images/module-03/m03-06.jpg", alt: "RMC service with bonding bushings", caption: "Bonding jumpers across concentric KOs." },
+        { src: "/images/module-03/m03-07.jpg", alt: "IMC riser outdoors", caption: "Right method for exposed, tough locations." }
       ]
     },
 
@@ -104,8 +104,8 @@ const content = {
           "Calculate thermal movement and add expansion fittings with proper **gaps and guides**. Use **wet-location fittings** where required."
       },
       images: [
-        { src: "/images/module-03/m03-352-01.jpg", alt: "PVC with expansion fitting on a wall", caption: "Expansion fitting bridging temperature swings." },
-        { src: "/images/module-03/m03-352-02.jpg", alt: "PVC underground stub-ups", caption: "Protect emerging PVC where subject to damage." }
+        { src: "/images/module-03/m03-08.jpg", alt: "PVC with expansion fitting on a wall", caption: "Expansion fitting bridging temperature swings." },
+        { src: "/images/module-03/m03-09.jpg", alt: "PVC underground stub-ups", caption: "Protect emerging PVC where subject to damage." }
       ]
    },
     // 5) 330 — MC Cable
@@ -132,8 +132,8 @@ const content = {
         body: "Always read the **product label** and local adoption. Don’t assume any MC works everywhere."
       },
       images: [
-        { src: "/images/module-03/m03-330-01.jpg", alt: "MC cable neatly strapped", caption: "Strap near terminations; no kinks." },
-        { src: "/images/module-03/m03-330-02.jpg", alt: "MC connector with anti-short", caption: "Use the connector the listing calls for." }
+        { src: "/images/module-03/m03-10.jpg", alt: "MC cable neatly strapped", caption: "Strap near terminations; no kinks." },
+        { src: "/images/module-03/m03-11.jpg", alt: "MC connector with anti-short", caption: "Use the connector the listing calls for." }
       ]
     },
 
@@ -156,8 +156,8 @@ const content = {
           "An LFMC whip kinked behind a curb overheated conductors and tripped a rooftop unit. Keep whips **short, supported, and with proper radius**."
       },
       images: [
-        { src: "/images/module-03/m03-350-01.jpg", alt: "LFMC whip to rooftop unit", caption: "Short, supported, wet-rated fittings." },
-        { src: "/images/module-03/m03-350-02.jpg", alt: "Crushed flexible conduit", caption: "Tight bends crush the spiral and damage insulation." }
+        { src: "/images/module-03/m03-12.jpg", alt: "LFMC whip to rooftop unit", caption: "Short, supported, wet-rated fittings." },
+        { src: "/images/module-03/m03-13.jpg", alt: "Crushed flexible conduit", caption: "Tight bends crush the spiral and damage insulation." }
       ]
     },
 
@@ -180,8 +180,8 @@ const content = {
           "Two big misses: devices counting as **two** conductors (largest on the yoke) and **pull-only** LBs (no splices)."
       },
       images: [
-        { src: "/images/module-03/m03-314-01.jpg", alt: "Device box crowded with conductors", caption: "Do the math—heat and nuisance trips come from overfill." },
-        { src: "/images/module-03/m03-314-02.jpg", alt: "Conduit body marking", caption: "Check ‘splicing permitted’ and volume." }
+        { src: "/images/module-03/m03-14.jpg", alt: "Device box crowded with conductors", caption: "Do the math—heat and nuisance trips come from overfill." },
+        { src: "/images/module-03/m03-15.jpg", alt: "Conduit body marking", caption: "Check 'splicing permitted' and volume." }
       ]
     },
 
@@ -204,8 +204,8 @@ const content = {
           "Direct-bury cable, PVC, RMC, and low-voltage lighting all have **different** cover depths. Confirm the method, then check the table."
       },
       images: [
-        { src: "/images/module-03/m03-3005-01.jpg", alt: "Trench with conduit at correct depth", caption: "Depth verified before backfill." },
-        { src: "/images/module-03/m03-3005-02.jpg", alt: "Warning tape in trench", caption: "Mark the run to avoid future surprises." }
+        { src: "/images/module-03/m03-16.jpg", alt: "Trench with conduit at correct depth", caption: "Depth verified before backfill." },
+        { src: "/images/module-03/m03-17.jpg", alt: "Warning tape in trench", caption: "Mark the run to avoid future surprises." }
       ]
     },
 
@@ -228,8 +228,8 @@ const content = {
           "If you’ll exceed **360°** or struggle to pull, add a box or body. It saves insulation and labor."
       },
       images: [
-        { src: "/images/module-03/m03-300-03.jpg", alt: "Conduit run with pull point", caption: "Pull points make long runs practical." },
-        { src: "/images/module-03/m03-300-04.jpg", alt: "Tight bend radius warning", caption: "Tight bends = damaged insulation." }
+        { src: "/images/module-03/m03-18.jpg", alt: "Conduit run with pull point", caption: "Pull points make long runs practical." },
+        { src: "/images/module-03/m03-19.jpg", alt: "Tight bend radius warning", caption: "Tight bends = damaged insulation." }
       ]
     },
 
@@ -258,8 +258,8 @@ const content = {
           "Values are illustrative—**always** follow the manufacturer’s charts for span spacing, loading, and fill."
       },
       images: [
-        { src: "/images/module-03/m03-392-01.jpg", alt: "Ladder tray run", caption: "Long spans with strong rungs." },
-        { src: "/images/module-03/m03-392-02.jpg", alt: "Ventilated tray with branch circuits", caption: "Mind fill and support spacing." }
+        { src: "/images/module-03/m03-20.jpg", alt: "Ladder tray run", caption: "Long spans with strong rungs." },
+        { src: "/images/module-03/m03-21.jpg", alt: "Ventilated tray with branch circuits", caption: "Mind fill and support spacing." }
       ]
     }
   ],
