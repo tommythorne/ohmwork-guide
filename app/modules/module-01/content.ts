@@ -231,14 +231,18 @@ const content = {
         }
       ],
       block: {
-        type: "chart",
-        title: "CHART — 110.26 WORKING-SPACE DEPTH (INCHES)",
-        chart: [
-          { label: "Condition 1 — Exposed live parts on one side", value: 36 },
-          { label: "Condition 2 — Exposed live parts / grounded surface opposite", value: 42 },
-          { label: "Condition 3 — Exposed live parts on both sides", value: 48 }
+        type: "table",
+        title: "TABLE — 110.26(A)(1) WORKING SPACE DEPTHS",
+        table: [
+          ["Voltage Range", "Condition 1", "Condition 2", "Condition 3"],
+          ["0-150V to ground", "36 in. (914 mm)", "36 in. (914 mm)", "36 in. (914 mm)"],
+          ["151-600V to ground", "36 in. (914 mm)", "42 in. (1067 mm)", "48 in. (1219 mm)"],
+          ["601-1000V to ground", "42 in. (1067 mm)", "48 in. (1219 mm)", "54 in. (1372 mm)"],
+          ["1001-2500V to ground", "48 in. (1219 mm)", "54 in. (1372 mm)", "60 in. (1524 mm)"],
+          ["2501-9000V to ground", "54 in. (1372 mm)", "60 in. (1524 mm)", "66 in. (1676 mm)"],
+          ["9001-25000V to ground", "60 in. (1524 mm)", "66 in. (1676 mm)", "72 in. (1829 mm)"]
         ],
-        body: "These are **minimum** clearances in front of electrical equipment (110.26). Know which condition applies."
+        body: "**Official NEC Table 110.26(A)(1)** — Working space depths vary by voltage and exposure conditions. Condition 1: exposed live parts on one side only. Condition 2: exposed live parts on one side, grounded surface on opposite side. Condition 3: exposed live parts on both sides."
       },
       images: [
         {
