@@ -1,7 +1,7 @@
 /* Module 9 — Chapter 9 Tables (Conduit Fill, Conductor Dimensions, Impedance) */
 const content = {
   hero: {
-    imageSrc: "/images/module-09/m09-hero.jpg",
+    imageSrc: "/images/module-09/m09-01.jpg",
     imageAlt: "Conduit, conductors, and calculation tables",
     title: "Chapter 9 — Tables & Raceway Sizing",
     subtitle:
@@ -30,8 +30,8 @@ const content = {
         body: "For insulated conductors in raceway: **Table 5/5A → Table 1 → Table 4**. That trio answers 80% of exam sizing prompts."
       },
       images: [
-        { src: "/images/module-09/m09-overview-01.jpg", alt: "NEC tables overview diagram", caption: "Know which table does what—then chain them." },
-        { src: "/images/module-09/m09-overview-02.jpg", alt: "Exam highlighters over tables", caption: "Mark Table 1, 4, 5/5A, 8, and 9." }
+        { src: "/images/module-09/m09-02.jpg", alt: "NEC tables overview diagram", caption: "Know which table does what—then chain them." },
+        { src: "/images/module-09/m09-03.jpg", alt: "Exam highlighters over tables", caption: "Mark Table 1, 4, 5/5A, 8, and 9." }
       ]
     },
 
@@ -56,8 +56,8 @@ const content = {
         body: "Start with the correct percent, or every downstream step is wrong."
       },
       images: [
-        { src: "/images/module-09/m09-table1-01.jpg", alt: "Conduit section with single conductor", caption: "53% applies to a single conductor." },
-        { src: "/images/module-09/m09-table1-02.jpg", alt: "Multiple conductors in conduit", caption: "More than two conductors → 40% fill." }
+        { src: "/images/module-09/m09-04.jpg", alt: "Conduit section with single conductor", caption: "53% applies to a single conductor." },
+        { src: "/images/module-09/m09-05.jpg", alt: "Multiple conductors in conduit", caption: "More than two conductors → 40% fill." }
       ]
     },
 
@@ -77,8 +77,8 @@ const content = {
         body: "Table 4 has separate columns by raceway type and size. Use the correct material (EMT vs PVC) and the right **allowable area** column."
       },
       images: [
-        { src: "/images/module-09/m09-workflow-01.jpg", alt: "Table 5 conductor area highlighted", caption: "Grab area per conductor from Table 5/5A." },
-        { src: "/images/module-09/m09-workflow-02.jpg", alt: "Table 4 allowable area highlighted", caption: "Pick the first trade size that meets/exceeds your needed area." }
+        { src: "/images/module-09/m09-06.jpg", alt: "Table 5 conductor area highlighted", caption: "Grab area per conductor from Table 5/5A." },
+        { src: "/images/module-09/m09-07.jpg", alt: "Table 4 allowable area highlighted", caption: "Pick the first trade size that meets/exceeds your needed area." }
       ]
     },
 
@@ -98,8 +98,8 @@ const content = {
         body: "If it’s truly a ≤24 in nipple, **60%** is allowed. If your decimal is **≥0.8**, round **up** the conductor count. Two classic exam traps."
       },
       images: [
-        { src: "/images/module-09/m09-nipple-01.jpg", alt: "Short conduit nipple", caption: "Verify length end-to-end, not including fittings." },
-        { src: "/images/module-09/m09-round-01.jpg", alt: "Calculator rounding example", caption: "0.80 goes up; 0.79 stays down." }
+        { src: "/images/module-09/m09-08.jpg", alt: "Short conduit nipple", caption: "Verify length end-to-end, not including fittings." },
+        { src: "/images/module-09/m09-09.jpg", alt: "Calculator rounding example", caption: "0.80 goes up; 0.79 stays down." }
       ]
     },
 
@@ -119,8 +119,8 @@ const content = {
         body: "Don’t ‘upgrade’ to compact values unless the question, drawings, or label clearly say **compact**."
       },
       images: [
-        { src: "/images/module-09/m09-compact-01.jpg", alt: "Compact conductor cross-section", caption: "Compact = smaller OD at same AWG." },
-        { src: "/images/module-09/m09-compact-02.jpg", alt: "Conductor catalog page", caption: "Confirm type and construction before using 5A." }
+        { src: "/images/module-09/m09-10.jpg", alt: "Compact conductor cross-section", caption: "Compact = smaller OD at same AWG." },
+        { src: "/images/module-09/m09-11.jpg", alt: "Conductor catalog page", caption: "Confirm type and construction before using 5A." }
       ]
     },
 
@@ -145,8 +145,8 @@ const content = {
         body: "Work from **overall cable area**, not sum of internal conductors."
       },
       images: [
-        { src: "/images/module-09/m09-cable-01.jpg", alt: "MC cable entering conduit", caption: "Use cable OD for the area calculation." },
-        { src: "/images/module-09/m09-cable-02.jpg", alt: "Multiple small LV cables in conduit", caption: "Percent rules follow count of **cables**." }
+        { src: "/images/module-09/m09-12.jpg", alt: "MC cable entering conduit", caption: "Use cable OD for the area calculation." },
+        { src: "/images/module-09/m09-13.jpg", alt: "Multiple small LV cables in conduit", caption: "Percent rules follow count of **cables**." }
       ]
     },
 
@@ -166,8 +166,8 @@ const content = {
         body: "Show table source, show math, show chosen trade size. That structure earns points even if you fat-finger a decimal."
       },
       images: [
-        { src: "/images/module-09/m09-example-01.jpg", alt: "Calculation sheet steps", caption: "Call out the table numbers in your work." },
-        { src: "/images/module-09/m09-example-02.jpg", alt: "EMT sizes chart", caption: "Pick the first EMT size where allowable area ≥ required." }
+        { src: "/images/module-09/m09-14.jpg", alt: "Calculation sheet steps", caption: "Call out the table numbers in your work." },
+        { src: "/images/module-09/m09-15.jpg", alt: "EMT sizes chart", caption: "Pick the first EMT size where allowable area ≥ required." }
       ]
     },
 
@@ -191,8 +191,8 @@ const content = {
         body: "Pick the proper electrical model or you’ll miss by several percent."
       },
       images: [
-        { src: "/images/module-09/m09-vd-01.jpg", alt: "Voltage drop diagram", caption: "Impedance vs resistance changes the math." },
-        { src: "/images/module-09/m09-vd-02.jpg", alt: "Three-phase feeder sketch", caption: "3-phase + PF → Table 9." }
+        { src: "/images/module-09/m09-16.jpg", alt: "Voltage drop diagram", caption: "Impedance vs resistance changes the math." },
+        { src: "/images/module-09/m09-17.jpg", alt: "Three-phase feeder sketch", caption: "3-phase + PF → Table 9." }
       ]
     },
 
@@ -213,8 +213,8 @@ const content = {
         body: "Percent? Notes? Raceway type? Compact? Cable vs singles? — Clear these five and most Chapter 9 problems fall in line."
       },
       images: [
-        { src: "/images/module-09/m09-traps-01.jpg", alt: "Warning symbols", caption: "A quick pre-flight catches most misses." },
-        { src: "/images/module-09/m09-traps-02.jpg", alt: "Checklist clipboard", caption: "Run the trap checklist before answering." }
+        { src: "/images/module-09/m09-18.jpg", alt: "Warning symbols", caption: "A quick pre-flight catches most misses." },
+        { src: "/images/module-09/m09-19.jpg", alt: "Checklist clipboard", caption: "Run the trap checklist before answering." }
       ]
     },
 
@@ -233,8 +233,8 @@ const content = {
         body: "Do the Chapter 9 math **before** bending pipe. It’s faster to size right than to explain why the wire won’t pull."
       },
       images: [
-        { src: "/images/module-09/m09-horror-01.jpg", alt: "Kinked conductor at conduit entry", caption: "Overfill kills insulation and schedule." },
-        { src: "/images/module-09/m09-horror-02.jpg", alt: "Crew re-pulling conductors", caption: "Right math once > wrong pull twice." }
+        { src: "/images/module-09/m09-20.jpg", alt: "Kinked conductor at conduit entry", caption: "Overfill kills insulation and schedule." },
+        { src: "/images/module-09/m09-21.jpg", alt: "Crew re-pulling conductors", caption: "Right math once > wrong pull twice." }
       ]
     }
   ],

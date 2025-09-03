@@ -1,7 +1,7 @@
 /* Module 10 — Math & Formulas You Actually Use */
 const content = {
   hero: {
-    imageSrc: "/images/module-10/m10-hero.jpg",
+    imageSrc: "/images/module-10/m10-01.jpg",
     imageAlt: "Ohm’s law, power triangle, and common electrical formulas on a notepad",
     title: "Math & Formulas You Actually Use",
     subtitle:
@@ -26,8 +26,8 @@ const content = {
       ],
       block: { type: "rule", title: "One Triangle, Many Answers", body: "For exam speed: remember the V–I–R and P–V–I triangles. Derive the rest." },
       images: [
-        { src: "/images/module-10/m10-ohm-01.jpg", alt: "Ohm’s law triangle on paper", caption: "Cover one variable to get the formula." },
-        { src: "/images/module-10/m10-power-01.jpg", alt: "Power equations on whiteboard", caption: "kW, kVA, PF—know how they relate." }
+        { src: "/images/module-10/m10-02.jpg", alt: "Ohm’s law triangle on paper", caption: "Cover one variable to get the formula." },
+        { src: "/images/module-10/m10-03.jpg", alt: "Power equations on whiteboard", caption: "kW, kVA, PF—know how they relate." }
       ]
     },
 
@@ -42,8 +42,8 @@ const content = {
       ],
       block: { type: "exam", title: "Watch the √3", body: "Most misses come from forgetting √3 on 3ϕ or using LN values in LL formulas." },
       images: [
-        { src: "/images/module-10/m10-3ph-01.jpg", alt: "Three-phase phasor diagram", caption: "√3 shows up in 3ϕ line values." },
-        { src: "/images/module-10/m10-1ph-01.jpg", alt: "Single-phase panel", caption: "1ϕ math is simpler—no √3 factor." }
+        { src: "/images/module-10/m10-04.jpg", alt: "Three-phase phasor diagram", caption: "√3 shows up in 3ϕ line values." },
+        { src: "/images/module-10/m10-05.jpg", alt: "Single-phase panel", caption: "1ϕ math is simpler—no √3 factor." }
       ]
     },
 
@@ -70,8 +70,8 @@ const content = {
         body: "Formulas: 1ϕ I ≈ (kVA×1000)/V; 3ϕ I ≈ (kVA×1000)/(√3×V). Round sensibly."
       },
       images: [
-        { src: "/images/module-10/m10-table-01.jpg", alt: "Printed quick table", caption: "Keep a tiny kVA→A card for interviews/exams." },
-        { src: "/images/module-10/m10-mcc-01.jpg", alt: "MCC buckets", caption: "Tables help estimate feeder sizes quickly." }
+        { src: "/images/module-10/m10-06.jpg", alt: "Printed quick table", caption: "Keep a tiny kVA→A card for interviews/exams." },
+        { src: "/images/module-10/m10-07.jpg", alt: "MCC buckets", caption: "Tables help estimate feeder sizes quickly." }
       ]
     },
 
@@ -86,8 +86,8 @@ const content = {
       ],
       block: { type: "code", title: "Pick Table 8 or 9 First", body: "DC/Unity PF → Table 8. 3ϕ with PF → Table 9 (R & X). Then compute VD or allowable length." },
       images: [
-        { src: "/images/module-10/m10-vd-01.jpg", alt: "Hand calc showing VD steps", caption: "Write your chosen table at the top." },
-        { src: "/images/module-10/m10-vd-02.jpg", alt: "Fluke meter VD reading", caption: "Field VD corroborates your calc." }
+        { src: "/images/module-10/m10-08.jpg", alt: "Hand calc showing VD steps", caption: "Write your chosen table at the top." },
+        { src: "/images/module-10/m10-09.jpg", alt: "Fluke meter VD reading", caption: "Field VD corroborates your calc." }
       ]
     },
 
@@ -102,8 +102,8 @@ const content = {
       ],
       block: { type: "exam", title: "Use 430 Tables for Current", body: "When sizing, default to 430 tables, not nameplate, unless specifically directed." },
       images: [
-        { src: "/images/module-10/m10-motor-01.jpg", alt: "Motor nameplate", caption: "Nameplate matters, but sizing often uses Code tables." },
-        { src: "/images/module-10/m10-motor-02.jpg", alt: "Motor starter", caption: "Article 430 is a top exam area." }
+        { src: "/images/module-10/m10-10.jpg", alt: "Motor nameplate", caption: "Nameplate matters, but sizing often uses Code tables." },
+        { src: "/images/module-10/m10-11.jpg", alt: "Motor starter", caption: "Article 430 is a top exam area." }
       ]
     },
 
@@ -118,8 +118,8 @@ const content = {
       ],
       block: { type: "rule", title: "Work Both Sides", body: "Always compute primary and secondary currents; annotate which side each value belongs to." },
       images: [
-        { src: "/images/module-10/m10-xfmr-01.jpg", alt: "Dry-type transformer", caption: "Label: kVA, V, %Z—use them all." },
-        { src: "/images/module-10/m10-xfmr-02.jpg", alt: "Transformer diagram", caption: "Map primary/secondary clearly in your work." }
+        { src: "/images/module-10/m10-12.jpg", alt: "Dry-type transformer", caption: "Label: kVA, V, %Z—use them all." },
+        { src: "/images/module-10/m10-13.jpg", alt: "Transformer diagram", caption: "Map primary/secondary clearly in your work." }
       ]
     },
 
@@ -143,8 +143,8 @@ const content = {
         body: "Two equal resistors in parallel halve the resistance and double current for a given voltage."
       },
       images: [
-        { src: "/images/module-10/m10-parallel-01.jpg", alt: "Parallel resistor diagram", caption: "Equal values make mental math easy." },
-        { src: "/images/module-10/m10-series-01.jpg", alt: "Series resistor ladder", caption: "Series adds—simple check." }
+        { src: "/images/module-10/m10-14.jpg", alt: "Parallel resistor diagram", caption: "Equal values make mental math easy." },
+        { src: "/images/module-10/m10-15.jpg", alt: "Series resistor ladder", caption: "Series adds—simple check." }
       ]
     },
 
@@ -159,8 +159,8 @@ const content = {
       ],
       block: { type: "exam", title: "Units & %Z", body: "Convert %Z to a decimal in the denominator. Keep track of 3ϕ factor (√3)." },
       images: [
-        { src: "/images/module-10/m10-fault-01.jpg", alt: "Service gear with labels", caption: "Your calc informs labeling." },
-        { src: "/images/module-10/m10-fault-02.jpg", alt: "Transformer data plate", caption: "%Z drives the math." }
+        { src: "/images/module-10/m10-16.jpg", alt: "Service gear with labels", caption: "Your calc informs labeling." },
+        { src: "/images/module-10/m10-17.jpg", alt: "Transformer data plate", caption: "%Z drives the math." }
       ]
     },
 
@@ -175,8 +175,8 @@ const content = {
       ],
       block: { type: "code", title: "Write the Triangle First", body: "Sketch kW (adjacent), kVAR (opposite), kVA (hypotenuse). Then plug numbers." },
       images: [
-        { src: "/images/module-10/m10-pf-01.jpg", alt: "Power triangle sketch", caption: "Visual solves half the problem." },
-        { src: "/images/module-10/m10-cap-01.jpg", alt: "Capacitor bank", caption: "Cap banks supply kVAR to improve PF." }
+        { src: "/images/module-10/m10-18.jpg", alt: "Power triangle sketch", caption: "Visual solves half the problem." },
+        { src: "/images/module-10/m10-19.jpg", alt: "Capacitor bank", caption: "Cap banks supply kVAR to improve PF." }
       ]
     },
 
@@ -204,8 +204,8 @@ const content = {
         body: "Write constants at the top of your scratch page so you don’t second-guess mid-problem."
       },
       images: [
-        { src: "/images/module-10/m10-constants-01.jpg", alt: "List of constants on a card", caption: "One card, all constants." },
-        { src: "/images/module-10/m10-scratch-01.jpg", alt: "Scratch sheet with constants", caption: "Prevent mental stalls with a pre-list." }
+        { src: "/images/module-10/m10-20.jpg", alt: "List of constants on a card", caption: "One card, all constants." },
+        { src: "/images/module-10/m10-21.jpg", alt: "Scratch sheet with constants", caption: "Prevent mental stalls with a pre-list." }
       ]
     }
   ],

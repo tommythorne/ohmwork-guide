@@ -1,7 +1,7 @@
 // app/modules/module-06/content.ts
 const content = {
   hero: {
-    imageSrc: "/images/module-06/m06-hero.jpg",
+    imageSrc: "/images/module-06/m06-01.jpg",
     imageAlt: "NEC Chapter 6 — Special Equipment overview",
     title: "Chapter 6 — Special Equipment",
     subtitle:
@@ -29,8 +29,8 @@ const content = {
           "If it’s a sign circuit, it’s **dedicated**. Don’t add receptacles/lighting. Disconnect must be within sight unless a permitted exception is met."
       },
       images: [
-        { src: "/images/module-06/m06-600-01.jpg", alt: "Sign disconnect within sight", caption: "Local disconnect: labeled and readily accessible." },
-        { src: "/images/module-06/m06-600-02.jpg", alt: "Listed sign power supply", caption: "Use listed components and follow markings." }
+        { src: "/images/module-06/m06-02.jpg", alt: "Sign disconnect within sight", caption: "Local disconnect: labeled and readily accessible." },
+        { src: "/images/module-06/m06-03.jpg", alt: "Listed sign power supply", caption: "Use listed components and follow markings." }
       ]
     },
 
@@ -51,8 +51,8 @@ const content = {
           "Keep elevator **car lights/recepts** separate from **drive power**. Disconnects must be lockable and located where required."
       },
       images: [
-        { src: "/images/module-06/m06-620-01.jpg", alt: "Elevator machine room disconnect", caption: "Lockable disconnect within the room." },
-        { src: "/images/module-06/m06-620-02.jpg", alt: "Controller cabinet with labeling", caption: "Follow controller labeling and 620 specifics." }
+        { src: "/images/module-06/m06-04.jpg", alt: "Elevator machine room disconnect", caption: "Lockable disconnect within the room." },
+        { src: "/images/module-06/m06-05.jpg", alt: "Controller cabinet with labeling", caption: "Follow controller labeling and 620 specifics." }
       ]
     },
 
@@ -73,8 +73,8 @@ const content = {
           "Treat EVSE as **continuous**. Example: 40A nameplate → 50A breaker (125%) with conductors to match."
       },
       images: [
-        { src: "/images/module-06/m06-625-01.jpg", alt: "Wall-mounted EVSE", caption: "Confirm continuous-load sizing and GFCI behavior." },
-        { src: "/images/module-06/m06-625-02.jpg", alt: "EVSE nameplate close-up", caption: "Size to nameplate × 125%." }
+        { src: "/images/module-06/m06-06.jpg", alt: "Wall-mounted EVSE", caption: "Confirm continuous-load sizing and GFCI behavior." },
+        { src: "/images/module-06/m06-07.jpg", alt: "EVSE nameplate close-up", caption: "Size to nameplate × 125%." }
       ]
     },
 
@@ -102,8 +102,8 @@ const content = {
         body: "Use **Article 630** nameplate + tables for the exact multiplier, then size OCPD and conductors per 630."
       },
 images: [
-        { src: "/images/module-06/m06-630-01.jpg", alt: "Shop welder circuit", caption: "Size branch/OCPD using 630 rules." },
-        { src: "/images/module-06/m06-630-02.jpg", alt: "Nameplate with duty cycle", caption: "Nameplate + 630 tables drive sizing." }
+        { src: "/images/module-06/m06-08.jpg", alt: "Shop welder circuit", caption: "Size branch/OCPD using 630 rules." },
+        { src: "/images/module-06/m06-09.jpg", alt: "Nameplate with duty cycle", caption: "Nameplate + 630 tables drive sizing." }
       ]
     },
 
@@ -130,8 +130,8 @@ images: [
         body: "Separate low-voltage signal from AC power where required; follow listings and **640** separation/support rules."
       },
 images: [
-        { src: "/images/module-06/m06-640-01.jpg", alt: "Audio rack power/ventilation", caption: "Ventilation and branch sizing matter." },
-        { src: "/images/module-06/m06-640-02.jpg", alt: "LV cable management", caption: "Keep LV and AC separated as specified." }
+        { src: "/images/module-06/m06-10.jpg", alt: "Audio rack power/ventilation", caption: "Ventilation and branch sizing matter." },
+        { src: "/images/module-06/m06-11.jpg", alt: "LV cable management", caption: "Keep LV and AC separated as specified." }
       ]
     },
 
@@ -152,8 +152,8 @@ images: [
           "A raised-floor job failed when non-plenum data cable went everywhere. Result: rip-out and replace under a production outage window."
       },
       images: [
-        { src: "/images/module-06/m06-645-01.jpg", alt: "IT room underfloor cabling", caption: "Use listed plenum/raised-floor cabling." },
-        { src: "/images/module-06/m06-645-02.jpg", alt: "EPO / disconnect station", caption: "Know the shutdown sequence and labeling." }
+        { src: "/images/module-06/m06-12.jpg", alt: "IT room underfloor cabling", caption: "Use listed plenum/raised-floor cabling." },
+        { src: "/images/module-06/m06-13.jpg", alt: "EPO / disconnect station", caption: "Know the shutdown sequence and labeling." }
       ]
     },
 
@@ -174,8 +174,8 @@ images: [
           "Equipotential bonding is a make-or-break inspection item. Bond the steel, rails, and deck surfaces properly."
       },
       images: [
-        { src: "/images/module-06/m06-680-01.jpg", alt: "Pool pump with GFCI", caption: "Expect GFCI on pump motors." },
-        { src: "/images/module-06/m06-680-02.jpg", alt: "Equipotential bonding grid", caption: "Bonding ties metallic parts together." }
+        { src: "/images/module-06/m06-14.jpg", alt: "Pool pump with GFCI", caption: "Expect GFCI on pump motors." },
+        { src: "/images/module-06/m06-15.jpg", alt: "Equipotential bonding grid", caption: "Bonding ties metallic parts together." }
       ]
     },
 
@@ -196,8 +196,8 @@ images: [
           "Use **125%** for PV max current, then apply conditions of use (temperature/derating). Don’t skip the label package."
       },
       images: [
-        { src: "/images/module-06/m06-690-01.jpg", alt: "PV inverter/disconnect labeling", caption: "Placards where first responders expect them." },
-        { src: "/images/module-06/m06-690-02.jpg", alt: "Rooftop PV with raceways", caption: "Mind temperature and grouping corrections." }
+        { src: "/images/module-06/m06-16.jpg", alt: "PV inverter/disconnect labeling", caption: "Placards where first responders expect them." },
+        { src: "/images/module-06/m06-17.jpg", alt: "Rooftop PV with raceways", caption: "Mind temperature and grouping corrections." }
       ]
     },
 
@@ -225,8 +225,8 @@ images: [
         body: "Use **691** when the project qualifies as utility-scale; otherwise apply **690**."
       },
 images: [
-        { src: "/images/module-06/m06-691-01.jpg", alt: "Utility-scale PV field", caption: "Different scale, different rule structure." },
-        { src: "/images/module-06/m06-691-02.jpg", alt: "Collector station gear", caption: "Coordination and documentation drive approvals." }
+        { src: "/images/module-06/m06-18.jpg", alt: "Utility-scale PV field", caption: "Different scale, different rule structure." },
+        { src: "/images/module-06/m06-19.jpg", alt: "Collector station gear", caption: "Coordination and documentation drive approvals." }
       ]
     },
 
@@ -253,8 +253,8 @@ images: [
         body: "Keep OCPD/feeder choices aligned with **reliability** over convenience."
       },
 images: [
-        { src: "/images/module-06/m06-695-01.jpg", alt: "Fire pump controller", caption: "Labeling and source arrangement matter." },
-        { src: "/images/module-06/m06-695-02.jpg", alt: "Service tap to fire pump", caption: "Follow 695 tap and OCPD specifics." }
+        { src: "/images/module-06/m06-20.jpg", alt: "Fire pump controller", caption: "Labeling and source arrangement matter." },
+        { src: "/images/module-06/m06-21.jpg", alt: "Service tap to fire pump", caption: "Follow 695 tap and OCPD specifics." }
       ]
     }
   ],

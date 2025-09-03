@@ -1,6 +1,6 @@
 const content = {
   hero: {
-    imageSrc: "/images/module-05/m05-hero.jpg",
+    imageSrc: "/images/module-05/m05-01.jpg",
     imageAlt: "NEC Chapter 5 — Special Occupancies",
     title: "Chapter 5 — Special Occupancies",
     subtitle: "Special locations need special methods—get the rules right the first time."
@@ -33,8 +33,8 @@ const content = {
         body: "Class = **material type** (gas/dust/fiber). Division = **likelihood** (1 = normal, 2 = abnormal). Don’t mix them."
       },
       images: [
-        { src: "/images/module-05/m05-500-01.jpg", alt: "Class/Division area diagram", caption: "Identify Class **and** Division before selecting gear." },
-        { src: "/images/module-05/m05-500-02.jpg", alt: "Explosionproof seals at boundary", caption: "Seal placement follows listing & code notes." }
+        { src: "/images/module-05/m05-02.jpg", alt: "Class/Division area diagram", caption: "Identify Class **and** Division before selecting gear." },
+        { src: "/images/module-05/m05-03.jpg", alt: "Explosionproof seals at boundary", caption: "Seal placement follows listing & code notes." }
       ]
     },
 
@@ -56,8 +56,8 @@ const content = {
         body: "If dust can settle, plan for it. Choose dust‑tight equipment and fittings; minimize penetrations."
       },
       images: [
-        { src: "/images/module-05/m05-502-01.jpg", alt: "Dust accumulation", caption: "Surface temperature limits are critical in dusty spaces." },
-        { src: "/images/module-05/m05-502-02.jpg", alt: "Dust‑tight enclosure", caption: "Use identified hubs/fittings; generic parts fail inspections." }
+        { src: "/images/module-05/m05-04.jpg", alt: "Dust accumulation", caption: "Surface temperature limits are critical in dusty spaces." },
+        { src: "/images/module-05/m05-05.jpg", alt: "Dust‑tight enclosure", caption: "Use identified hubs/fittings; generic parts fail inspections." }
       ]
     },
 
@@ -78,8 +78,8 @@ const content = {
         body: "Arts. 505/506 require gear **identified** for the Zone/Group. Match EPL and marks to each area, not the whole site."
       },
       images: [
-        { src: "/images/module-05/m05-505-01.jpg", alt: "Zone map", caption: "Zones allow finer granularity than Divisions in many facilities." },
-        { src: "/images/module-05/m05-505-02.jpg", alt: "Zone/EPL label", caption: "Verify labels before install; substitutions can fail inspection." }
+        { src: "/images/module-05/m05-06.jpg", alt: "Zone map", caption: "Zones allow finer granularity than Divisions in many facilities." },
+        { src: "/images/module-05/m05-07.jpg", alt: "Zone/EPL label", caption: "Verify labels before install; substitutions can fail inspection." }
       ]
     },
 
@@ -106,8 +106,8 @@ const content = {
   body: "Keep separation and wiring ID per 517; follow the ATS/transfer scheme for each branch."
 },
       images: [
-        { src: "/images/module-05/m05-517-01.jpg", alt: "Hospital headwall circuits", caption: "Life Safety and Critical circuits are managed separately." },
-        { src: "/images/module-05/m05-517-02.jpg", alt: "ATS lineups", caption: "Branch separation often reflected physically and by labeling." }
+        { src: "/images/module-05/m05-08.jpg", alt: "Hospital headwall circuits", caption: "Life Safety and Critical circuits are managed separately." },
+        { src: "/images/module-05/m05-09.jpg", alt: "ATS lineups", caption: "Branch separation often reflected physically and by labeling." }
       ]
     },
 
@@ -134,8 +134,8 @@ const content = {
         body: "Use **only** listed extra-hard usage portable cables in stage spaces. See NEC 520 tables & notes."
       },
       images: [
-        { src: "/images/module-05/m05-520-01.jpg", alt: "Theater rigging", caption: "Rigging & cabling must match 520 methods." },
-        { src: "/images/module-05/m05-520-02.jpg", alt: "Portable cable with strain reliefs", caption: "Plan strain reliefs & routing from day one." }
+        { src: "/images/module-05/m05-10.jpg", alt: "Theater rigging", caption: "Rigging & cabling must match 520 methods." },
+        { src: "/images/module-05/m05-11.jpg", alt: "Portable cable with strain reliefs", caption: "Plan strain reliefs & routing from day one." }
       ]
     },
 
@@ -155,8 +155,8 @@ const content = {
         body: "A fair lost power after rain pooled over unprotected cable runs. Trip hazards, ground faults, and damaged insulation ended the night early."
       },
       images: [
-        { src: "/images/module-05/m05-525-01.jpg", alt: "Temporary cabling through crowd area", caption: "Guard & elevate cables—foot traffic will find them." },
-        { src: "/images/module-05/m05-525-02.jpg", alt: "GFCI distro", caption: "Use listed GFCI devices and test them—don’t assume." }
+        { src: "/images/module-05/m05-12.jpg", alt: "Temporary cabling through crowd area", caption: "Guard & elevate cables—foot traffic will find them." },
+        { src: "/images/module-05/m05-13.jpg", alt: "GFCI distro", caption: "Use listed GFCI devices and test them—don’t assume." }
       ]
     },
 
@@ -177,8 +177,8 @@ const content = {
         body: "Don’t bond neutrals downstream if it’s a feeder. Bonding point is at service equipment."
       },
       images: [
-        { src: "/images/module-05/m05-550-01.jpg", alt: "Pedestal with disconnect", caption: "Neutral bonding at service; feeders keep neutral isolated." },
-        { src: "/images/module-05/m05-550-02.jpg", alt: "Factory label", caption: "Follow label details—outside the listing gets flagged." }
+        { src: "/images/module-05/m05-14.jpg", alt: "Pedestal with disconnect", caption: "Neutral bonding at service; feeders keep neutral isolated." },
+        { src: "/images/module-05/m05-15.jpg", alt: "Factory label", caption: "Follow label details—outside the listing gets flagged." }
       ]
     },
 
@@ -199,8 +199,8 @@ const content = {
         body: "If it can’t survive wash‑down & chemicals, it doesn’t belong. Specify like the environment demands."
       },
       images: [
-        { src: "/images/module-05/m05-547-01.jpg", alt: "Corrosion‑resistant enclosures", caption: "Select materials for chemical exposure & moisture." },
-        { src: "/images/module-05/m05-547-02.jpg", alt: "Equipotential bonding grid", caption: "Bonding reduces shock risk for animals & workers." }
+        { src: "/images/module-05/m05-16.jpg", alt: "Corrosion‑resistant enclosures", caption: "Select materials for chemical exposure & moisture." },
+        { src: "/images/module-05/m05-17.jpg", alt: "Equipotential bonding grid", caption: "Bonding reduces shock risk for animals & workers." }
       ]
     },
 
@@ -221,8 +221,8 @@ const content = {
         body: "Art. 555 targets **electric shock drowning**: GF/ELCI protection, bonding continuity, and marine‑rated gear."
       },
       images: [
-        { src: "/images/module-05/m05-555-01.jpg", alt: "Shore power pedestals", caption: "Use marine‑rated receptacles & enclosures." },
-        { src: "/images/module-05/m05-555-02.jpg", alt: "Bonded dock structures", caption: "Continuity and corrosion resistance matter." }
+        { src: "/images/module-05/m05-18.jpg", alt: "Shore power pedestals", caption: "Use marine‑rated receptacles & enclosures." },
+        { src: "/images/module-05/m05-19.jpg", alt: "Bonded dock structures", caption: "Continuity and corrosion resistance matter." }
       ]
     },
 
@@ -249,8 +249,8 @@ const content = {
   ]
 },
       images: [
-        { src: "/images/module-05/m05-590-01.jpg", alt: "Temp power distro", caption: "Use listed distribution gear with GFCI." },
-        { src: "/images/module-05/m05-590-02.jpg", alt: "Cable ramps", caption: "Protect cords from vehicles & foot traffic." }
+        { src: "/images/module-05/m05-20.jpg", alt: "Temp power distro", caption: "Use listed distribution gear with GFCI." },
+        { src: "/images/module-05/m05-21.jpg", alt: "Cable ramps", caption: "Protect cords from vehicles & foot traffic." }
       ]
     }
   ],

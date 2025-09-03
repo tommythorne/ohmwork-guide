@@ -1,7 +1,7 @@
 /* Module 7 — Special Conditions (Chapter 7) */
 const content = {
   hero: {
-    imageSrc: "/images/module-07/m07-hero.jpg",
+    imageSrc: "/images/module-07/m07-01.jpg",
     imageAlt: "Special occupancies and conditions — emergency, health care, classified locations",
     title: "Chapter 7 — Special Conditions",
     subtitle:
@@ -29,8 +29,8 @@ const content = {
         body: "Emergency power must come online in **10 seconds** or less. Longer restore times belong to legally required standby (701)."
       },
       images: [
-        { src: "/images/module-07/m07-700-01.jpg", alt: "Automatic transfer switch", caption: "Emergency ATS ensures independent supply." },
-        { src: "/images/module-07/m07-700-02.jpg", alt: "Generator with quick-start system", caption: "Emergency generators must start fast." }
+        { src: "/images/module-07/m07-02.jpg", alt: "Automatic transfer switch", caption: "Emergency ATS ensures independent supply." },
+        { src: "/images/module-07/m07-03.jpg", alt: "Generator with quick-start system", caption: "Emergency generators must start fast." }
       ]
     },
 
@@ -45,8 +45,8 @@ const content = {
       ],
       block: { type: "rule", title: "RULE — 60 SECONDS OR LESS", body: "Not life safety, but still mandated ➜ restore within **1 minute**." },
       images: [
-        { src: "/images/module-07/m07-701-01.jpg", alt: "Elevator on standby", caption: "Elevators commonly on 701." },
-        { src: "/images/module-07/m07-701-02.jpg", alt: "Standby panel", caption: "Labeling distinguishes 701 wiring." }
+        { src: "/images/module-07/m07-04.jpg", alt: "Elevator on standby", caption: "Elevators commonly on 701." },
+        { src: "/images/module-07/m07-05.jpg", alt: "Standby panel", caption: "Labeling distinguishes 701 wiring." }
       ]
     },
 
@@ -61,8 +61,8 @@ const content = {
       ],
       block: { type: "code", title: "NEC REFERENCE — OPTIONAL = CONVENIENCE", body: "Optional standby is elective but still requires listed transfer equipment and safe isolation." },
       images: [
-        { src: "/images/module-07/m07-702-01.jpg", alt: "Generator inlet and interlock", caption: "Use listed inlets and interlocks." },
-        { src: "/images/module-07/m07-702-02.jpg", alt: "Residential standby", caption: "Covers convenience or business continuity." }
+        { src: "/images/module-07/m07-06.jpg", alt: "Generator inlet and interlock", caption: "Use listed inlets and interlocks." },
+        { src: "/images/module-07/m07-07.jpg", alt: "Residential standby", caption: "Covers convenience or business continuity." }
       ]
     },
 
@@ -88,8 +88,8 @@ const content = {
         body: "COPS exceeds 700/701 in rigor because of national/public importance."
       },
       images: [
-        { src: "/images/module-07/m07-708-01.jpg", alt: "Hardened utility room", caption: "Hardened infrastructure is typical." },
-        { src: "/images/module-07/m07-708-02.jpg", alt: "Dual generators", caption: "Redundant supply for critical ops." }
+        { src: "/images/module-07/m07-08.jpg", alt: "Hardened utility room", caption: "Hardened infrastructure is typical." },
+        { src: "/images/module-07/m07-09.jpg", alt: "Dual generators", caption: "Redundant supply for critical ops." }
       ]
     },
 
@@ -113,8 +113,8 @@ const content = {
         body: "Three distinct branches — know what each serves."
       },
       images: [
-        { src: "/images/module-07/m07-517-01.jpg", alt: "Hospital panelboard", caption: "Clear separation for life safety branch." },
-        { src: "/images/module-07/m07-517-02.jpg", alt: "OR receptacles", caption: "Critical branch powers patient care." }
+        { src: "/images/module-07/m07-10.jpg", alt: "Hospital panelboard", caption: "Clear separation for life safety branch." },
+        { src: "/images/module-07/m07-11.jpg", alt: "OR receptacles", caption: "Critical branch powers patient care." }
       ]
     },
 
@@ -129,8 +129,8 @@ const content = {
       ],
       block: { type: "horror", title: "JOBSITE HORROR — “IT’S ONLY 24 VOLTS”", body: "A fire started from undersized thermostat wiring run through plenums without protection. Even ≤50V circuits must follow rules." },
       images: [
-        { src: "/images/module-07/m07-720-01.jpg", alt: "Low-voltage bundle", caption: "Class 2/3 and ≤50V still have rules." },
-        { src: "/images/module-07/m07-720-02.jpg", alt: "Burnt thermostat cable", caption: "Improper low-voltage installs can fail dangerously." }
+        { src: "/images/module-07/m07-12.jpg", alt: "Low-voltage bundle", caption: "Class 2/3 and ≤50V still have rules." },
+        { src: "/images/module-07/m07-13.jpg", alt: "Burnt thermostat cable", caption: "Improper low-voltage installs can fail dangerously." }
       ]
     },
 
@@ -145,8 +145,8 @@ const content = {
       ],
       block: { type: "exam", title: "EXAM TRAP — CLASS 2 ≠ NO RULES", body: "Limited power ≠ unlimited liberty. Use listed sources and maintain separation from power wiring." },
       images: [
-        { src: "/images/module-07/m07-725-01.jpg", alt: "Class 2 supply", caption: "Listed Class 2 sources are required." },
-        { src: "/images/module-07/m07-725-02.jpg", alt: "Separated conductors", caption: "Keep power and Class 2/3 separated." }
+        { src: "/images/module-07/m07-14.jpg", alt: "Class 2 supply", caption: "Listed Class 2 sources are required." },
+        { src: "/images/module-07/m07-15.jpg", alt: "Separated conductors", caption: "Keep power and Class 2/3 separated." }
       ]
     },
 
@@ -161,8 +161,8 @@ const content = {
       ],
       block: { type: "rule", title: "RULE — EMS CAN’T OVERRIDE SAFETY", body: "Shedding HVAC is fine; killing emergency lighting or fire alarm power is not." },
       images: [
-        { src: "/images/module-07/m07-750-01.jpg", alt: "EMS cabinet", caption: "EMS needs a disconnecting means." },
-        { src: "/images/module-07/m07-750-02.jpg", alt: "Building automation", caption: "Often integrated with BAS." }
+        { src: "/images/module-07/m07-16.jpg", alt: "EMS cabinet", caption: "EMS needs a disconnecting means." },
+        { src: "/images/module-07/m07-17.jpg", alt: "Building automation", caption: "Often integrated with BAS." }
       ]
     },
 
@@ -177,8 +177,8 @@ const content = {
       ],
       block: { type: "code", title: "NEC REFERENCE — FIBER STILL COUNTS", body: "Fiber isn’t conductive, but fire spread and separation rules still apply." },
       images: [
-        { src: "/images/module-07/m07-770-01.jpg", alt: "Fiber patch panel", caption: "Neat, secure installation is required." },
-        { src: "/images/module-07/m07-770-02.jpg", alt: "Plenum-rated fiber", caption: "Use the right jacket in plenums/risers." }
+        { src: "/images/module-07/m07-18.jpg", alt: "Fiber patch panel", caption: "Neat, secure installation is required." },
+        { src: "/images/module-07/m07-19.jpg", alt: "Plenum-rated fiber", caption: "Use the right jacket in plenums/risers." }
       ]
     },
 
@@ -203,8 +203,8 @@ const content = {
         body: "Pick the jacket rating to match the space. Keep FA circuits dedicated and identified."
       },
       images: [
-        { src: "/images/module-07/m07-760-01.jpg", alt: "Red fire alarm cable", caption: "Dedicated branch and listed PLFA cabling." },
-        { src: "/images/module-07/m07-760-02.jpg", alt: "Fire alarm control panel", caption: "Coordinate survivability with NFPA 72." }
+        { src: "/images/module-07/m07-20.jpg", alt: "Red fire alarm cable", caption: "Dedicated branch and listed PLFA cabling." },
+        { src: "/images/module-07/m07-21.jpg", alt: "Fire alarm control panel", caption: "Coordinate survivability with NFPA 72." }
       ]
     }
   ],

@@ -1,7 +1,7 @@
 /* Module 8 — Communications (NEC Chapter 8) */
 const content = {
   hero: {
-    imageSrc: "/images/module-08/m08-hero.jpg",
+    imageSrc: "/images/module-08/m08-01.jpg",
     imageAlt: "Structured cabling, telecom, CATV, and broadband systems",
     title: "Chapter 8 — Communications Systems",
     subtitle:
@@ -29,8 +29,8 @@ const content = {
         body: "Don’t assume Chapter 3 wiring methods always apply. Chapter 8 stands alone unless another rule explicitly modifies it."
       },
       images: [
-        { src: "/images/module-08/m08-800-01.jpg", alt: "Structured cabling room", caption: "Communications systems have their own article family." },
-        { src: "/images/module-08/m08-800-02.jpg", alt: "Cable listings close-up", caption: "Install per listing and space rating." }
+        { src: "/images/module-08/m08-02.jpg", alt: "Structured cabling room", caption: "Communications systems have their own article family." },
+        { src: "/images/module-08/m08-03.jpg", alt: "Cable listings close-up", caption: "Install per listing and space rating." }
       ]
     },
 
@@ -56,8 +56,8 @@ const content = {
         body: "Higher ratings are acceptable in lower-risk spaces; the reverse is not."
       },
       images: [
-        { src: "/images/module-08/m08-805-01.jpg", alt: "CMP jacket print", caption: "Verify jacket print before pulling." },
-        { src: "/images/module-08/m08-805-02.jpg", alt: "Riser shaft", caption: "Riser-rated cable for vertical shafts." }
+        { src: "/images/module-08/m08-04.jpg", alt: "CMP jacket print", caption: "Verify jacket print before pulling." },
+        { src: "/images/module-08/m08-05.jpg", alt: "Riser shaft", caption: "Riser-rated cable for vertical shafts." }
       ]
     },
 
@@ -81,8 +81,8 @@ const content = {
         body: "Use listed barriers/assemblies when separation cannot be maintained. Always check the specific article language."
       },
       images: [
-        { src: "/images/module-08/m08-sep-01.jpg", alt: "Separated cable paths", caption: "Parallel runs kept apart." },
-        { src: "/images/module-08/m08-sep-02.jpg", alt: "Barriered box", caption: "Partition kits allow shared device boxes." }
+        { src: "/images/module-08/m08-06.jpg", alt: "Separated cable paths", caption: "Parallel runs kept apart." },
+        { src: "/images/module-08/m08-07.jpg", alt: "Barriered box", caption: "Partition kits allow shared device boxes." }
       ]
     },
 
@@ -101,8 +101,8 @@ const content = {
         body: "Good workmanship = listed supports, proper radius, and protection at edges/penetrations."
       },
       images: [
-        { src: "/images/module-08/m08-sup-01.jpg", alt: "J-hooks in ceiling", caption: "Use listed supports, not tie wire to grid." },
-        { src: "/images/module-08/m08-sup-02.jpg", alt: "Grommeted penetration", caption: "Protect jackets at metal penetrations." }
+        { src: "/images/module-08/m08-08.jpg", alt: "J-hooks in ceiling", caption: "Use listed supports, not tie wire to grid." },
+        { src: "/images/module-08/m08-09.jpg", alt: "Grommeted penetration", caption: "Protect jackets at metal penetrations." }
       ]
     },
 
@@ -121,8 +121,8 @@ const content = {
         body: "Every penetration must restore the tested fire-resistance—no foam improvisations."
       },
       images: [
-        { src: "/images/module-08/m08-fire-01.jpg", alt: "Firestop around sleeve", caption: "Follow the tested system details." },
-        { src: "/images/module-08/m08-fire-02.jpg", alt: "Labelled firestop tag", caption: "Tagging helps maintenance and AHJ." }
+        { src: "/images/module-08/m08-10.jpg", alt: "Firestop around sleeve", caption: "Follow the tested system details." },
+        { src: "/images/module-08/m08-11.jpg", alt: "Labelled firestop tag", caption: "Tagging helps maintenance and AHJ." }
       ]
     },
 
@@ -148,8 +148,8 @@ const content = {
         body: "Reduce surge risk and noise by bonding correctly near the entrance facility."
       },
       images: [
-        { src: "/images/module-08/m08-bond-01.jpg", alt: "Telecom ground busbar", caption: "Busbar ties telecom bonds to GES." },
-        { src: "/images/module-08/m08-bond-02.jpg", alt: "Entrance protectors", caption: "Mount near point of entrance." }
+        { src: "/images/module-08/m08-12.jpg", alt: "Telecom ground busbar", caption: "Busbar ties telecom bonds to GES." },
+        { src: "/images/module-08/m08-13.jpg", alt: "Entrance protectors", caption: "Mount near point of entrance." }
       ]
     },
 
@@ -168,8 +168,8 @@ const content = {
         body: "Antenna bonding conductors should be as short, straight, and direct as possible to reduce surge impedance."
       },
       images: [
-        { src: "/images/module-08/m08-810-01.jpg", alt: "Mast bond clamp", caption: "Bond the mast and arrester to GES." },
-        { src: "/images/module-08/m08-810-02.jpg", alt: "Antenna entry", caption: "Protect lead-in at roof penetration." }
+        { src: "/images/module-08/m08-14.jpg", alt: "Mast bond clamp", caption: "Bond the mast and arrester to GES." },
+        { src: "/images/module-08/m08-15.jpg", alt: "Antenna entry", caption: "Protect lead-in at roof penetration." }
       ]
     },
 
@@ -188,8 +188,8 @@ const content = {
         body: "Unbonded shields invite surge and noise issues. Use listed grounding blocks at the entry."
       },
       images: [
-        { src: "/images/module-08/m08-820-01.jpg", alt: "Grounding block", caption: "Bond coax to the building GES." },
-        { src: "/images/module-08/m08-820-02.jpg", alt: "Coax routing", caption: "Maintain spacing from power." }
+        { src: "/images/module-08/m08-16.jpg", alt: "Grounding block", caption: "Bond coax to the building GES." },
+        { src: "/images/module-08/m08-17.jpg", alt: "Coax routing", caption: "Maintain spacing from power." }
       ]
     },
 
@@ -215,8 +215,8 @@ const content = {
         body: "When cables carry power, treat them with the same respect as power-limited circuits."
       },
       images: [
-        { src: "/images/module-08/m08-830-01.jpg", alt: "Powered node", caption: "Remote powering requires listed cabling." },
-        { src: "/images/module-08/m08-830-02.jpg", alt: "PoE switch", caption: "Follow equipment ratings and loading." }
+        { src: "/images/module-08/m08-18.jpg", alt: "Powered node", caption: "Remote powering requires listed cabling." },
+        { src: "/images/module-08/m08-19.jpg", alt: "PoE switch", caption: "Follow equipment ratings and loading." }
       ]
     },
 
@@ -235,8 +235,8 @@ const content = {
         body: "A renovation uncovered hundreds of feet of abandoned cable that blocked air movement and violated plenum rules—two nights of rework and tagging avoided a red tag."
       },
       images: [
-        { src: "/images/module-08/m08-aband-01.jpg", alt: "Abandoned cable pile", caption: "Remove unused cable—especially in plenums." },
-        { src: "/images/module-08/m08-aband-02.jpg", alt: "Labeled cabling", caption: "Label now, save hours later." }
+        { src: "/images/module-08/m08-20.jpg", alt: "Abandoned cable pile", caption: "Remove unused cable—especially in plenums." },
+        { src: "/images/module-08/m08-21.jpg", alt: "Labeled cabling", caption: "Label now, save hours later." }
       ]
     }
   ],
