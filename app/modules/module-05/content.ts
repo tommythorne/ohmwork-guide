@@ -123,14 +123,16 @@ const content = {
         { ref: "Portable Distro Bonding", text: "Bond and ground portable distribution per 520; keep neutrals isolated where required and verify GFCI where mandated." }
 ],
       block: {
-        type: "chart",
+        type: "table",
         title: "Stage Area Cables — Allowed vs Banned",
-        chart: [
-          { label: "SOOW / SEOOW — extra-hard usage", value: 100 },
-          { label: "SC — stage cable", value: 100 },
-          { label: "NM — nonmetallic-sheathed", value: 10 },
-          { label: "UF — underground feeder", value: 10 }
+        table: [
+          ["Cable Type", "Status"],
+          ["SOOW / SEOOW — extra-hard usage", "✅ Allowed"],
+          ["SC — stage cable", "✅ Allowed"],
+          ["NM — nonmetallic-sheathed", "❌ Prohibited"],
+          ["UF — underground feeder", "❌ Prohibited"]
         ],
+        asGrid: true,
         body: "Use **only** listed extra-hard usage portable cables in stage spaces. See NEC 520 tables & notes."
       },
       images: [
