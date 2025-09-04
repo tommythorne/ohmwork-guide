@@ -119,14 +119,16 @@ images: [
         { ref: "Connectorization", text: "Use proper terminations (barrier strips, speakON, locking inlets) where listed; strain reliefs matter." }
       ],
       block: {
-        type: "chart",
+        type: "table",
         title: "Audio Circuits — Common Topologies",
-        chart: [
-          { label: "Line-Level (balanced) — XLR/TRS", value: 1 },
-          { label: "Line-Level (unbalanced) — RCA",  value: 1 },
-          { label: "Speaker-Level — amp → speaker",  value: 1 },
-          { label: "Powered Speakers — AC + signal", value: 1 }
+        table: [
+          ["Topology", "Description"],
+          ["Line-Level (balanced)", "XLR/TRS connections"],
+          ["Line-Level (unbalanced)", "RCA connections"],
+          ["Speaker-Level", "Amp → speaker direct"],
+          ["Powered Speakers", "AC + signal combined"]
         ],
+        asGrid: true,
         body: "Separate low-voltage signal from AC power where required; follow listings and **640** separation/support rules."
       },
 images: [
@@ -242,14 +244,16 @@ images: [
         { ref: "Controller", text: "Listed controller, signage, and lock-open isolation where required; keep the path simple and serviceable." }
       ],
       block: {
-        type: "chart",
+        type: "table",
         title: "Fire Pump Power Path",
-        chart: [
-          { label: "Service/Source → Fire Pump Controller (listed)", value: 1 },
-          { label: "Controller → Fire Pump (motor)", value: 1 },
-          { label: "Normal + Alternate Source (as required)", value: 1 },
-          { label: "OCPD/Feeder arranged so pump keeps running", value: 1 }
+        table: [
+          ["Component", "Description"],
+          ["Service/Source", "→ Fire Pump Controller (listed)"],
+          ["Controller", "→ Fire Pump (motor)"],
+          ["Power Sources", "Normal + Alternate Source (as required)"],
+          ["Protection", "OCPD/Feeder arranged so pump keeps running"]
         ],
+        asGrid: true,
         body: "Keep OCPD/feeder choices aligned with **reliability** over convenience."
       },
 images: [
