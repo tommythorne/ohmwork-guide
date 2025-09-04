@@ -103,13 +103,15 @@ const content = {
         { ref: "517.18", text: "Patient care spaces: strict grounding/receptacle rules." }
       ],
       block: {
-        type: "chart",
+        type: "table",
         title: "HEALTHCARE BRANCHES",
-        chart: [
-          { label: "Life Safety", value: 1 },
-          { label: "Critical", value: 1 },
-          { label: "Equipment", value: 1 }
+        table: [
+          ["Branch Type", "Description"],
+          ["Life Safety", "Egress, alarms, fire protection"],
+          ["Critical", "Patient care & task loads"],
+          ["Equipment", "Building services & mechanical systems"]
         ],
+        asGrid: true,
         body: "Three distinct branches — know what each serves."
       },
       images: [
