@@ -24,21 +24,25 @@ function ChartBox({ data }: { data?: Array<{ label: string; value: number }> }) 
   const safe = Array.isArray(data) ? data.filter(d => d && typeof d.value === "number") : [];
   if (safe.length === 0) return null;
   const max = Math.max(...safe.map(d => d.value), 1);
+
+  // Choose responsive columns: up to 5 per row on large screens, fewer on small
+  const colClass = safe.length <= 3 ? "grid-cols-3" : safe.length === 4 ? "grid-cols-4" : "grid-cols-5";
+
   return (
     <div className="rounded-xl border border-white/15 bg-white/[0.03] p-4 mt-2">
-      <div className="grid grid-cols-3 gap-4 items-end min-h-[130px]">
+      <div className={`grid ${colClass} sm:grid-cols-4 md:grid-cols-5 gap-4 items-end min-h-[140px]`}>
         {safe.map((d, i) => {
           const pct = Math.max(0, Math.min(100, (d.value / max) * 100));
           return (
             <div key={i} className="flex flex-col items-center">
               <div
-                className="w-full rounded-t-md bg-yellow-400"
-                style={{ height: `${pct}%`, minHeight: "14px" }}
+                className="w-full rounded-t-md bg-gradient-to-t from-purple-500 to-purple-300 shadow-sm"
+                style={{ height: `${pct}%`, minHeight: "16px" }}
                 aria-label={`${d.label}: ${d.value}`}
                 title={`${d.label}: ${d.value}`}
               />
-              <div className="mt-2 text-center text-xs text-white/80">{d.label}</div>
-              <div className="text-[10px] text-white/70">{d.value}</div>
+              <div className="mt-2 text-center text-[11px] text-white/85 leading-tight">{d.label}</div>
+              <div className="mt-0.5 inline-flex items-center px-1.5 py-0.5 rounded bg-white/10 border border-white/15 text-[10px] text-white/80">{d.value}</div>
             </div>
           );
         })}
