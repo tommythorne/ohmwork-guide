@@ -72,13 +72,13 @@ const content = {
       ],
       block: {
         type: "chart",
-        title: "Typical Separation Spacing (Illustrative)",
+        title: "CHART — Separation Spacing (inches)",
         chart: [
           { label: "Open runs", value: 6 },
           { label: "Parallel in tray", value: 2 },
           { label: "Barriered", value: 1 }
         ],
-        body: "Use listed barriers/assemblies when separation cannot be maintained. Always check the specific article language."
+        body: "Examples only. Follow the specific article text and listings."
       },
       images: [
         { src: "/images/module-08/m08-06.jpg", alt: "Separated cable paths", caption: "Parallel runs kept apart." },
