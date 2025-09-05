@@ -32,46 +32,19 @@ function formatValue(v: number, title?: string) {
 function ChartBox({ data, title }: { data?: Array<{ label: string; value: number }>; title?: string }) {
   const safe = Array.isArray(data) ? data.filter(d => d && typeof d.value === "number") : [];
   if (safe.length === 0) return null;
-  const max = Math.max(...safe.map(d => d.value), 1);
 
   return (
     <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4 mt-3">
-      {/* Top labels row (values as badges) */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-2">
+      <div className="space-y-2">
         {safe.map((d, i) => (
-          <div key={i} className="flex items-center justify-between md:justify-start md:gap-3">
-            <span className="text-xs text-white/80 truncate">{d.label}</span>
+          <div key={i} className="flex items-center justify-between gap-3">
+            <span className="text-sm text-white/85 truncate">{d.label}</span>
             <span className="inline-flex items-center rounded-md border border-white/15 bg-white/10 px-2 py-0.5 text-xs font-semibold text-white/90">
               {formatValue(d.value, title)}
             </span>
           </div>
         ))}
       </div>
-
-      {/* Bars */}
-      <div className="space-y-3">
-        {safe.map((d, i) => {
-          const pct = Math.max(0, Math.min(100, (d.value / max) * 100));
-          return (
-            <div key={i} className="w-full">
-              <div className="relative h-3 rounded-full bg-white/10 overflow-hidden">
-                <div
-                  className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-yellow-300 to-yellow-400"
-                  style={{ width: `${pct}%` }}
-                  aria-label={`${d.label}: ${formatValue(d.value, title)}`}
-                  title={`${d.label}: ${formatValue(d.value, title)}`}
-                />
-                {/* faint grid rail */}
-                <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[length:20%_100%]" />
-              </div>
-              <div className="mt-1 text-[11px] text-white/60">{d.label}</div>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Max indicator */}
-      <div className="mt-3 text-right text-[11px] text-white/60">Max: {formatValue(max, title)}</div>
     </div>
   );
 }
