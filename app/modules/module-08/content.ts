@@ -76,7 +76,7 @@ const content = {
         chart: [
           { label: "Open runs", value: 6 },
           { label: "Parallel in tray", value: 2 },
-          { label: "Barriered", value: 0 }
+          { label: "Barriered", value: 1 }
         ],
         body: "Use listed barriers/assemblies when separation cannot be maintained. Always check the specific article language."
       },
