@@ -2,19 +2,31 @@
 const quiz = [
   {
     id: 1,
-    stem: "Emergency systems (700) must restore power within:",
+    stem: "A hospital's exit signs and fire alarm system lose power. What type of system must restore power within 10 seconds?",
     choices: [
-      { key: "A", text: "1 second" },
-      { key: "B", text: "10 seconds" },
-      { key: "C", text: "30 seconds" },
-      { key: "D", text: "60 seconds" }
+      { key: "A", text: "Legally required standby" },
+      { key: "B", text: "Emergency system" },
+      { key: "C", text: "Optional standby" },
+      { key: "D", text: "Critical operations" }
     ],
     answer: "B",
-    why: "NEC 700.12: emergency systems must restore power in 10 seconds or less."
+    why: "Emergency systems power life safety loads and must restore power within 10 seconds."
   },
   {
     id: 2,
-    stem: "Legally required standby systems (701) must restore power within:",
+    stem: "You're installing a generator for a data center that needs backup power for business continuity. What system type is this?",
+    choices: [
+      { key: "A", text: "Emergency system" },
+      { key: "B", text: "Legally required standby" },
+      { key: "C", text: "Optional standby" },
+      { key: "D", text: "Critical operations" }
+    ],
+    answer: "C",
+    why: "Optional standby systems serve convenience and business continuity loads, not life safety."
+  },
+  {
+    id: 3,
+    stem: "A fire station needs backup power for their communication equipment. What's the maximum transfer time allowed?",
     choices: [
       { key: "A", text: "10 seconds" },
       { key: "B", text: "30 seconds" },
@@ -22,163 +34,151 @@ const quiz = [
       { key: "D", text: "5 minutes" }
     ],
     answer: "C",
-    why: "701.11: legally required standby systems must operate within 60 seconds."
-  },
-  {
-    id: 3,
-    stem: "Optional standby systems (702) are intended for:",
-    choices: [
-      { key: "A", text: "Life safety loads" },
-      { key: "B", text: "Legally mandated equipment" },
-      { key: "C", text: "Convenience or business continuity" },
-      { key: "D", text: "Fire alarm systems only" }
-    ],
-    answer: "C",
-    why: "702.2: optional standby serves convenience/business loads not required by code."
+    why: "Legally required standby systems must operate within 60 seconds for loads required by law."
   },
   {
     id: 4,
-    stem: "Which article applies to Critical Operations Power Systems (COPS)?",
+    stem: "You're wiring a hospital operating room. Which branch supplies the patient monitoring equipment?",
     choices: [
-      { key: "A", text: "700" },
-      { key: "B", text: "701" },
-      { key: "C", text: "708" },
-      { key: "D", text: "750" }
+      { key: "A", text: "Life Safety branch" },
+      { key: "B", text: "Critical branch" },
+      { key: "C", text: "Equipment branch" },
+      { key: "D", text: "Emergency branch" }
     ],
-    answer: "C",
-    why: "708: governs COPS facilities with the highest reliability requirements."
+    answer: "B",
+    why: "The Critical branch supplies patient care equipment and task loads in healthcare facilities."
   },
   {
     id: 5,
-    stem: "Which branch in healthcare facilities supplies patient care equipment?",
+    stem: "Emergency lighting circuits must be wired:",
     choices: [
-      { key: "A", text: "Life Safety" },
-      { key: "B", text: "Critical" },
-      { key: "C", text: "Equipment" },
-      { key: "D", text: "Optional" }
+      { key: "A", text: "In the same raceway as normal power" },
+      { key: "B", text: "Independently from other systems" },
+      { key: "C", text: "Only in metal conduit" },
+      { key: "D", text: "With red wire only" }
     ],
     answer: "B",
-    why: "517.33: critical branch supplies patient care equipment."
+    why: "Emergency circuits must be independent to prevent failure of one system affecting the other."
   },
   {
     id: 6,
-    stem: "Emergency system wiring must be:",
+    stem: "A 24V thermostat cable runs through a ceiling plenum. What fire rating is required?",
     choices: [
-      { key: "A", text: "Intermixed with normal power wiring" },
-      { key: "B", text: "Independent from other systems" },
-      { key: "C", text: "Run in fiber conduit only" },
-      { key: "D", text: "Painted red only" }
+      { key: "A", text: "No rating needed - it's low voltage" },
+      { key: "B", text: "Plenum-rated jacket" },
+      { key: "C", text: "Same as 480V cable" },
+      { key: "D", text: "Only if over 50 feet" }
     ],
     answer: "B",
-    why: "700.10(D): emergency circuits must be independent from other wiring."
+    why: "Even low-voltage cables need plenum-rated jackets when installed in air-handling spaces."
   },
   {
     id: 7,
-    stem: "Healthcare essential electrical systems include how many branches?",
+    stem: "You're installing a Class 2 power supply for a security camera system. What's required?",
     choices: [
-      { key: "A", text: "Two" },
-      { key: "B", text: "Three" },
-      { key: "C", text: "Four" },
-      { key: "D", text: "One" }
+      { key: "A", text: "100A overcurrent protection" },
+      { key: "B", text: "Listed power source" },
+      { key: "C", text: "Metal conduit only" },
+      { key: "D", text: "No special requirements" }
     ],
     answer: "B",
-    why: "517.30: essential systems = life safety, critical, and equipment branches."
+    why: "Class 2 power sources must be listed and marked for the specific application."
   },
   {
     id: 8,
-    stem: "Class 2 and Class 3 circuits (725) must:",
+    stem: "A fiber optic cable runs from the basement to the 10th floor. What rating is required?",
     choices: [
-      { key: "A", text: "Always be in metal raceways" },
-      { key: "B", text: "Use listed power sources" },
-      { key: "C", text: "Be fused at 100A" },
-      { key: "D", text: "Ignore separation rules" }
+      { key: "A", text: "No special rating" },
+      { key: "B", text: "Riser-rated jacket" },
+      { key: "C", text: "Same as power cables" },
+      { key: "D", text: "Only if carrying data" }
     ],
     answer: "B",
-    why: "725.121: Class 2/3 sources must be listed."
+    why: "Fiber cables in vertical risers must have riser-rated jackets to prevent fire spread between floors."
   },
   {
     id: 9,
-    stem: "Which is a typical hazard with low-voltage circuits (720)?",
+    stem: "An energy management system can control:",
     choices: [
-      { key: "A", text: "Voltage shock" },
-      { key: "B", text: "Arc flash only" },
-      { key: "C", text: "Fire from undersized or unprotected wiring" },
-      { key: "D", text: "None — they are exempt" }
+      { key: "A", text: "Life safety systems" },
+      { key: "B", text: "Emergency lighting" },
+      { key: "C", text: "HVAC and non-essential loads" },
+      { key: "D", text: "Fire alarm systems" }
     ],
     answer: "C",
-    why: "720.5: even ≤50V wiring must be sized and protected from damage."
+    why: "Energy management systems can control HVAC and other non-essential loads but cannot override life safety systems."
   },
   {
     id: 10,
-    stem: "Energy management systems (750) may NOT:",
+    stem: "A hospital patient room needs receptacles. What's the minimum spacing requirement?",
     choices: [
-      { key: "A", text: "Control HVAC loads" },
-      { key: "B", text: "Override life safety systems" },
-      { key: "C", text: "Be documented for AHJ" },
-      { key: "D", text: "Use control wiring" }
+      { key: "A", text: "No special requirements" },
+      { key: "B", text: "6 feet maximum spacing" },
+      { key: "C", text: "Every 4 feet" },
+      { key: "D", text: "Only at the headwall" }
     ],
     answer: "B",
-    why: "750.10: EMS cannot override life safety systems."
+    why: "Patient care spaces require hospital-grade receptacles with maximum 6-foot spacing for patient safety."
   },
   {
     id: 11,
-    stem: "Fiber optic cables (770) require:",
+    stem: "A generator transfer switch must prevent:",
     choices: [
-      { key: "A", text: "No fire ratings since they are non-conductive" },
-      { key: "B", text: "Fire-rated jackets in risers and plenums" },
-      { key: "C", text: "Same protection as MV cables" },
-      { key: "D", text: "Only burial underground" }
+      { key: "A", text: "Manual operation" },
+      { key: "B", text: "Inadvertent interconnection with utility" },
+      { key: "C", text: "Automatic transfer" },
+      { key: "D", text: "Load shedding" }
     ],
     answer: "B",
-    why: "770.113: plenum/riser-rated jackets are required for fiber."
+    why: "Transfer switches must prevent inadvertent interconnection between utility and generator to avoid backfeed hazards."
   },
   {
     id: 12,
-    stem: "Which article requires documented maintenance and operational testing?",
+    stem: "A data center needs the highest reliability power system. What type should be installed?",
     choices: [
-      { key: "A", text: "700 Emergency" },
-      { key: "B", text: "701 Standby" },
-      { key: "C", text: "708 COPS" },
-      { key: "D", text: "702 Optional" }
+      { key: "A", text: "Emergency system" },
+      { key: "B", text: "Legally required standby" },
+      { key: "C", text: "Critical Operations Power System" },
+      { key: "D", text: "Optional standby" }
     ],
     answer: "C",
-    why: "708.54: COPS requires documented maintenance/testing."
+    why: "Critical Operations Power Systems (COPS) provide the highest reliability for facilities requiring continuous operation."
   },
   {
     id: 13,
-    stem: "Patient care spaces require:",
+    stem: "A 12V landscape lighting circuit is damaged and causing a fire. What went wrong?",
     choices: [
-      { key: "A", text: "No grounding requirements" },
-      { key: "B", text: "Strict grounding and receptacle rules" },
-      { key: "C", text: "Fiber optics only" },
-      { key: "D", text: "Class 3 only" }
+      { key: "A", text: "Voltage was too high" },
+      { key: "B", text: "Wire was undersized or unprotected" },
+      { key: "C", text: "Wrong color wire used" },
+      { key: "D", text: "No ground wire" }
     ],
     answer: "B",
-    why: "517.18: grounding and receptacle spacing are tightly regulated in patient care spaces."
+    why: "Even low-voltage circuits must be properly sized and protected from damage to prevent fire hazards."
   },
   {
     id: 14,
-    stem: "Optional standby systems must:",
+    stem: "A hospital's essential electrical system has how many branches?",
     choices: [
-      { key: "A", text: "Transfer safely without paralleling the utility" },
-      { key: "B", text: "Always be portable" },
-      { key: "C", text: "Provide power in 10 seconds" },
-      { key: "D", text: "Override emergency loads" }
+      { key: "A", text: "One" },
+      { key: "B", text: "Two" },
+      { key: "C", text: "Three" },
+      { key: "D", text: "Four" }
     ],
-    answer: "A",
-    why: "702.4: optional standby transfer must prevent inadvertent interconnection."
+    answer: "C",
+    why: "Healthcare essential electrical systems have three branches: Life Safety, Critical, and Equipment."
   },
   {
     id: 15,
-    stem: "Which article governs optical fiber installations?",
+    stem: "A COPS facility requires:",
     choices: [
-      { key: "A", text: "725" },
-      { key: "B", text: "750" },
-      { key: "C", text: "770" },
-      { key: "D", text: "517" }
+      { key: "A", text: "No special documentation" },
+      { key: "B", text: "Documented maintenance and testing" },
+      { key: "C", text: "Only emergency lighting" },
+      { key: "D", text: "Portable generators only" }
     ],
-    answer: "C",
-    why: "770: applies to optical fiber cables."
+    answer: "B",
+    why: "Critical Operations Power Systems require documented maintenance and operational testing to ensure reliability."
   }
 ];
 export default quiz;
