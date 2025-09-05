@@ -20,33 +20,58 @@ function mdInline(input: string) {
   return t;
 }
 
-function ChartBox({ data }: { data?: Array<{ label: string; value: number }> }) {
+function formatValue(v: number, title?: string) {
+  const t = (title || "").toLowerCase();
+  const isPercent = /percent|%/.test(t);
+  const isInches = /inch|inches|\"/.test(t);
+  if (isPercent) return `${v}%`;
+  if (isInches) return `${v}"`;
+  return `${v}`;
+}
+
+function ChartBox({ data, title }: { data?: Array<{ label: string; value: number }>; title?: string }) {
   const safe = Array.isArray(data) ? data.filter(d => d && typeof d.value === "number") : [];
   if (safe.length === 0) return null;
   const max = Math.max(...safe.map(d => d.value), 1);
 
-  // Choose responsive columns: up to 5 per row on large screens, fewer on small
-  const colClass = safe.length <= 3 ? "grid-cols-3" : safe.length === 4 ? "grid-cols-4" : "grid-cols-5";
-
   return (
-    <div className="rounded-xl border border-white/15 bg-white/[0.03] p-4 mt-2">
-      <div className={`grid ${colClass} sm:grid-cols-4 md:grid-cols-5 gap-4 items-end min-h-[140px]`}>
+    <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4 mt-3">
+      {/* Top labels row (values as badges) */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-2">
+        {safe.map((d, i) => (
+          <div key={i} className="flex items-center justify-between md:justify-start md:gap-3">
+            <span className="text-xs text-white/80 truncate">{d.label}</span>
+            <span className="inline-flex items-center rounded-md border border-white/15 bg-white/10 px-2 py-0.5 text-xs font-semibold text-white/90">
+              {formatValue(d.value, title)}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      {/* Bars */}
+      <div className="space-y-3">
         {safe.map((d, i) => {
           const pct = Math.max(0, Math.min(100, (d.value / max) * 100));
           return (
-            <div key={i} className="flex flex-col items-center">
-              <div
-                className="w-full rounded-t-md bg-gradient-to-t from-purple-500 to-purple-300 shadow-sm"
-                style={{ height: `${pct}%`, minHeight: "16px" }}
-                aria-label={`${d.label}: ${d.value}`}
-                title={`${d.label}: ${d.value}`}
-              />
-              <div className="mt-2 text-center text-[11px] text-white/85 leading-tight">{d.label}</div>
-              <div className="mt-0.5 inline-flex items-center px-1.5 py-0.5 rounded bg-white/10 border border-white/15 text-[10px] text-white/80">{d.value}</div>
+            <div key={i} className="w-full">
+              <div className="relative h-3 rounded-full bg-white/10 overflow-hidden">
+                <div
+                  className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-yellow-300 to-yellow-400"
+                  style={{ width: `${pct}%` }}
+                  aria-label={`${d.label}: ${formatValue(d.value, title)}`}
+                  title={`${d.label}: ${formatValue(d.value, title)}`}
+                />
+                {/* faint grid rail */}
+                <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_right,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[length:20%_100%]" />
+              </div>
+              <div className="mt-1 text-[11px] text-white/60">{d.label}</div>
             </div>
           );
         })}
       </div>
+
+      {/* Max indicator */}
+      <div className="mt-3 text-right text-[11px] text-white/60">Max: {formatValue(max, title)}</div>
     </div>
   );
 }
@@ -132,7 +157,7 @@ export default function BlockCardMD({ block }: { block?: BlockShape }) {
       {cleanTitle ? <div className={`font-bold ${s.title} mb-2`}>{cleanTitle}</div> : null}
 
       {/* Visuals */}
-      {hasChart ? <ChartBox data={block.chart} /> : null}
+      {hasChart ? <ChartBox data={block.chart} title={cleanTitle || block.title} /> : null}
       {hasTable ? <TableBox rows={block.table} /> : null}
 
       {/* Structured rules list (if provided) */}
