@@ -10,7 +10,7 @@ const content = {
 
   // NAV
   prev: { href: "/modules/module-09", label: "Chapter 9" },
-  next: { href: "/modules/module-11", label: "Next" },
+  
 
   // 10 ARTICLES (each with 2 images + a special block)
   articles: [
