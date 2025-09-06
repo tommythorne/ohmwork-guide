@@ -54,8 +54,8 @@ async function autoScroll(page) {
       }, 150);
     });
   });
-  // Give images a moment to settle after last scroll
-  await page.waitForTimeout(750);
+  // Give images a moment to settle after last scroll (Puppeteer v22+: no waitForTimeout)
+  await new Promise((resolve) => setTimeout(resolve, 750));
 }
 
 async function renderPageToPDFBytes(browser, url) {
